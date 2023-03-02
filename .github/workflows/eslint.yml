@@ -1,5 +1,5 @@
 name: checks linter
-run-name:linter Actions
+run-name: linter Actions
 on: [push]
 jobs:check-bats-version:
     runs-on: ubuntu-latest
