@@ -4,10 +4,13 @@ on: [push]
 jobs:
   check-bats-version:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./frontend
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
           node-version: "14"
-      - run: cd ..\..\frontend && npm i --save-dev @testing-library/react
-      - run: cd ..\..\frontend && npm test
+      - run: npm i --save-dev @testing-library/react
+      - run: npm test
