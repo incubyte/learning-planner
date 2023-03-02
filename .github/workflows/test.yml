@@ -9,6 +9,5 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: "14"
-      - run: cd ../../frontend
-      - run: npm i --save-dev @testing-library/react
-      - run: npm test
+      - run: cd ..\..\frontend && npm i --save-dev @testing-library/react
+      - run: cd ..\..\frontend && npm test

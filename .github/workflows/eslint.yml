@@ -9,6 +9,5 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: "14"
-      - run: cd ../../frontend
-      - run: npm i eslint
-      - run: npm run lint
+      - run: cd ..\..\frontend && npm i eslint
+      - run: cd ..\..\frontend && npm run lint
