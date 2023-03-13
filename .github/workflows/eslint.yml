@@ -2,13 +2,13 @@ name: checks linter
 run-name: Running linter
 on:
   workflow_run:
-    workflows: ["checks build"]
+    workflows: [checks build]
     types:
       - completed
 jobs:
   lint:
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     defaults:
       run:
         working-directory: ./frontend

@@ -1,5 +1,5 @@
 name: checks build
-run-name: Runs Build
+run-name: Running Build
 on: [push]
 jobs:
   build:
@@ -19,7 +19,3 @@ jobs:
       - name: Run Build
         id: build
         run: npm run build
-
-      - name: Build Status
-        if: steps.build.outcome == 'failure'
-        run: exit 1
