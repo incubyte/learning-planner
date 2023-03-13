@@ -1,4 +1,4 @@
-name: checks linter
+name: checks build
 run-name: Runs Build
 on: [push]
 jobs:

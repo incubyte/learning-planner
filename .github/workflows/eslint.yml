@@ -2,7 +2,7 @@ name: checks linter
 run-name: Running linter
 on:
   workflow_run:
-    workflows: ["build"]
+    workflows: ["checks build"]
     types:
       - completed
 jobs:
