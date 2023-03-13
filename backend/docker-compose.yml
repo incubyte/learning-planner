@@ -3,22 +3,22 @@ services:
   production-db:
     image: postgres:13
     ports:
-      - 5434:5432
+      - 5434:5432  #3306
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: 123
       POSTGRES_DB: production
     networks:
-      - freecodecamp
+      - learningplanner
   development-db:
     image: postgres:13
     ports:
-      - 5435:5432
+      - 5435:5432 #3308
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: 123
       POSTGRES_DB: development
     networks:
-      - freecodecamp
+      - learningplanner
 networks:
-  freecodecamp:
+  learningplanner:
