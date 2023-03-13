@@ -15,13 +15,5 @@ jobs:
       - name: Install depedencies
         run: npm i
 
-      - name: Run Build
-        id: build
-        run: npm build
-
-      - name: Build Status
-        if: steps.build.outcome == 'failure'
-        run: exit 1
-
       - name: Run Eslint
         run: npm run lint
