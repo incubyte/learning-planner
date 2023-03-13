@@ -2,7 +2,7 @@ name: checks linter
 run-name: Running linter
 on: [push]
 jobs:
-  check-bats-version:
+  lint:
     runs-on: ubuntu-latest
     defaults:
       run:

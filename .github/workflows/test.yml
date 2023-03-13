@@ -2,8 +2,9 @@ name: runs test
 run-name: Running Test
 on: [push]
 jobs:
-  check-bats-version:
+  test:
     runs-on: ubuntu-latest
+    needs: build
     defaults:
       run:
         working-directory: ./frontend
