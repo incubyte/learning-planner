@@ -90,3 +90,32 @@ resource "aws_security_group" "database_security_group_rds_production" {
     security_groups = [aws_security_group.instance_security_group.id]
   }
 }
+
+
+resource "aws_db_instance" "learningplanner_development_db" {
+  identifier             = "learningplanner-development-db"
+  db_name                = "learningplanner_development"
+  engine                 = "postgres"
+  engine_version         = "14"
+  instance_class         = "db.t3.micro"
+  allocated_storage      = 20
+  username               = "postgres"
+  password               = "var.db_password"
+  skip_final_snapshot    = true
+  port                   = 3308
+  publicly_accessible    = false
+  availability_zone      = "ap-south-1a"
+  vpc_security_group_ids = [aws_security_group.database_security_group_rds_development.id]
+}
+
+
+resource "aws_security_group" "database_security_group_rds_development" {
+  name = "rds-ec2-sg-development"
+
+  ingress {
+    from_port       = 3308
+    protocol        = "tcp"
+    to_port         = 3308
+    security_groups = [aws_security_group.instance_security_group.id]
+  }
+}
