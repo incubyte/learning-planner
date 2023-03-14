@@ -18,3 +18,12 @@ jobs:
         run: |
           aws configure set aws_default_region ap-south-1 --profile default
           aws configure set aws_default_output json --profile default
+
+      - name: Deploy DB to AWS RDS
+        uses: hashicorp/setup-terraform@v1
+
+      - name: Terraform Init
+        run: terraform init
+
+      - name: Terraform Validate
+        run: terraform validate
