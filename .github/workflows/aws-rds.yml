@@ -1,5 +1,5 @@
 name: deploy database
-run-name: deploy database
+run-name: deploying database
 on: [push]
 
 jobs:
