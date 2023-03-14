@@ -3,7 +3,7 @@ locals {
   port_http  = 80
   port_https = 443
   port_mysql = 3306
-  port_postgres = 3308
+  port_postgres = 5432
   port_ssh   = 22
 }
 
@@ -102,7 +102,7 @@ resource "aws_db_instance" "learningplanner_development_db" {
   username               = "postgres"
   password               = "var.db_password"
   skip_final_snapshot    = true
-  port                   = 3308
+  port                   = 5432
   publicly_accessible    = false
   availability_zone      = "ap-south-1a"
   vpc_security_group_ids = [aws_security_group.database_security_group_rds_development.id]
@@ -113,9 +113,9 @@ resource "aws_security_group" "database_security_group_rds_development" {
   name = "rds-ec2-sg-development"
 
   ingress {
-    from_port       = 3308
+    from_port       = 5432
     protocol        = "tcp"
-    to_port         = 3308
+    to_port         = 5432
     security_groups = [aws_security_group.instance_security_group.id]
   }
 }
