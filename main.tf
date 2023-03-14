@@ -12,3 +12,8 @@ provider "aws" {
   region  = "ap-south-1"
   profile = "default"
 } 
+
+module "rds" {
+  source      = "./rds"
+  db_password = "env.db_password"
+} 
