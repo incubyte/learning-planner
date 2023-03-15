@@ -1,0 +1,42 @@
+.SignUpContainer{
+    @apply grid grid-cols-3 h-screen object-fill
+}
+
+.Leftside{
+    @apply col-span-2 flex
+}
+
+.Image{
+    @apply w-screen 
+}
+
+.Rightside{
+    @apply grid grid-cols-1 justify-items-center content-center
+}
+
+.RightContent{
+}
+
+.FormItems{
+   @apply grid gap-2 grid-cols-1 justify-items-center
+}
+
+.FormInput{
+    @apply mt-5 block w-60 px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400
+    focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500
+    disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none
+    invalid:border-pink-500 invalid:text-pink-600
+    focus:invalid:border-pink-500 focus:invalid:ring-pink-500;
+}
+
+.Submit{
+    @apply bg-blue-800 mt-3 block w-40 hover:bg-blue-900 text-white font-bold py-2 px-4 rounded;
+}
+
+.AlreadyAccount{
+    @apply mt-5 block
+}
+
+.SignIn{
+    @apply text-blue-500
+}
