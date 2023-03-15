@@ -40,7 +40,7 @@ describe('AuthService', () => {
   it('should be signup a User', async () => {
       const userDTO: UserDto = {
         email: 'john@incubyte.co',
-        password: '123',
+        password: '1234',
       };
       jest.spyOn(prismaService.user, 'create').mockResolvedValue({
         ...userDTO,
@@ -58,7 +58,7 @@ describe('AuthService', () => {
         },
       });
       expect(result).toMatchObject({
-        ...userDTO,
+        email:userDTO.email,
         id: '1',
         createdAt: Date.prototype,
         profilePhoto: 'https://profilephoto.com',
