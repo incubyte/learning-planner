@@ -1,6 +1,18 @@
+import { useForm } from "react-hook-form";
 import "../../css/auth/SignIn.css";
 
 const SignIn = () => {
+  const {
+    register,
+    handleSubmit,
+    getValues,
+    formState: { errors },
+  } = useForm();
+
+  const handleFormSubmit = (data: any) => {
+    console.log(data);
+  };
+
   return (
     <>
       <div className="SignUpContainer">
@@ -15,15 +27,43 @@ const SignIn = () => {
           <div className="RightContent">
             <div className="text-3xl mb-5">Login</div>
 
-            <form>
+            <form onSubmit={handleSubmit(handleFormSubmit)}>
               <label className="FormItems">
-                <input type="text" placeholder="Email" className="FormInput" />
+                <input
+                  type="text"
+                  placeholder="Email"
+                  className="FormInput"
+                  {...register("email", {
+                    required: {
+                      value: true,
+                      message: "email is required",
+                    },
+                    pattern: {
+                      value: /^\S+@\incubyte.co$/i,
+                      message: "email is not valid",
+                    },
+                  })}
+                />
+                {errors.email ? <>{errors.email.message}</> : <></>}
 
                 <input
                   type="password"
                   placeholder="Password"
                   className="FormInput"
+                  {...register("password", {
+                    required: {
+                      value: true,
+                      message: "password is required",
+                    },
+                    pattern: {
+                      value:
+                        /((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W]).{6,20})/,
+                      message: "password is not valid",
+                    },
+                  })}
                 />
+
+                {errors.password ? <>{errors.password.message}</> : <></>}
 
                 <button className="Submit">Sign In</button>
 
