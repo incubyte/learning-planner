@@ -1,9 +1,9 @@
 .SignUpContainer{
-    @apply grid grid-cols-3 h-screen object-fill
+    @apply grid grid-cols-3 object-contain
 }
 
 .Leftside{
-    @apply col-span-2 flex
+    @apply col-span-2 flex h-screen
 }
 
 .Image{
