@@ -34,8 +34,7 @@ export class AuthService {
             });
           
             delete responseuser.password;
-            return responseuser;
-      
+            return responseuser;  
   }
 
 
