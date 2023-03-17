@@ -37,6 +37,6 @@
     @apply mt-5 block
 }
 
-.SignIn{
+.link{
     @apply text-blue-500
 }
