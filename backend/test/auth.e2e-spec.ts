@@ -18,14 +18,25 @@ describe('AppController (e2e)', () => {
 
   it('/signup (POST) - should return the created user', async () => {
         const user = {
-          email: 'john@example.com',
+          email: 'john@incubyte.co',
           password: '123',
         };
-
         const res = await request(app.getHttpServer())
           .post('/signup')
           .send(user)
           .expect(201);
 
-      });
+  });
+  
+  it('/signin (POST) - should return the token for loggedin user', async () => {
+          const user = {
+            email: 'john@incubyte.co',
+            password: '123',
+          };
+          
+          const res = await request(app.getHttpServer())
+            .post('/signin')
+            .send(user)
+            .expect(201)      
+  });
 });

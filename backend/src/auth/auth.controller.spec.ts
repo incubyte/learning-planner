@@ -16,6 +16,7 @@ describe('AuthController', () => {
           useFactory() {
             return {
               signup: jest.fn(),
+              signin: jest.fn(),
             };
           },
         },
@@ -30,7 +31,7 @@ describe('AuthController', () => {
     expect(controller).toBeDefined();
   });
 
-  it('should be createBookmark', async () => {
+  it('should be able to create user', async () => {
     const user: UserDto = {
       email: 'john@incubyte.co',
       password: '123',
@@ -54,6 +55,26 @@ describe('AuthController', () => {
       profilePhoto: 'https://profilephoto.com',
       updatedAt: Date.prototype,
     });
+  });
+
+
+  it('should be able to return the token for logged in user', async () => {
+    const user: UserDto = {
+      email: 'john@incubyte.co',
+      password: '123',
+    };
+    jest
+      .spyOn(service, 'signin')
+      .mockResolvedValueOnce(
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjgzYjdlNjQ5LTFlMzctNDNiZS04MjI5LTAyYWIwNmM5YmE5YSIsImVtYWlsIjoiam9obkBpbmN1Ynl0ZS5jbyJ9.6P194HePv2AaSgB1jvyb_lM5EOKyMMu0cWkx_p0O2cc'
+      );
+    const result = await controller.signin(user);
+
+    expect(service.signin).toBeCalledTimes(1);
+
+    expect(result).toBe(
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjgzYjdlNjQ5LTFlMzctNDNiZS04MjI5LTAyYWIwNmM5YmE5YSIsImVtYWlsIjoiam9obkBpbmN1Ynl0ZS5jbyJ9.6P194HePv2AaSgB1jvyb_lM5EOKyMMu0cWkx_p0O2cc'
+    );
   });
 
 });

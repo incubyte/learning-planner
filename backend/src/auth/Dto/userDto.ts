@@ -1,9 +1,9 @@
-import { IsEmail, IsNotEmpty, Matches } from 'class-validator';
+import { Contains, IsEmail, IsNotEmpty} from 'class-validator';
 
 export class UserDto {
   @IsEmail()
   @IsNotEmpty()
-  @Matches('^[a-zA-Z0-9+_.-]+@[incubyte.co]+$',"",{"message":"Email Id should be an Incubyte Email-Id. "})
+  @Contains('@incubyte.co')
   email: string;
 
   @IsNotEmpty()
