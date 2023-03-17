@@ -19,19 +19,19 @@ const SignIn = () => {
   return (
     <>
       <div className="SignInContainer">
-        <div className="Leftside">
+        <div className="SignInLeftside">
           <img
-            className="Image"
+            className="SignInImage"
             src="https://wallpapercave.com/wp/wp6480749.jpg"
           ></img>
         </div>
 
-        <div className="Rightside">
-          <div className="RightContent">
+        <div className="SignInRightside">
+          <div className="SignInRightContent">
             <div className="text-3xl mb-5">Login</div>
 
             <form onSubmit={handleSubmit(handleFormSubmit)}>
-              <label className="FormItems">
+              <label className="SignInFormItems">
                 <div className="space-y-2 text-gray-700">
                   <div className="relative  focus-within:text-gray-900 dark:focus-within:text-gray-800 ">
                     <div
@@ -54,7 +54,7 @@ const SignIn = () => {
                       type="text"
                       id="email"
                       placeholder="email"
-                      className="FormInput"
+                      className="SignInFormInput"
                       {...register("email", {
                         required: {
                           value: true,
@@ -94,7 +94,7 @@ const SignIn = () => {
                       </svg>
                     </div>
                     <input
-                      className="FormInput"
+                      className="SignInFormInput"
                       id="password"
                       type={passwordShow ? "text" : "password"}
                       placeholder="password"
@@ -165,14 +165,14 @@ const SignIn = () => {
 
                 {errors.password ? <>{errors.password.message}</> : <></>}
 
-                <a href="" className="SignIn">
+                <a href="" className="SignInlink">
                   forgot password?
                 </a>
-                <button className="Submit">Sign In</button>
+                <button className="SignInSubmit">Sign In</button>
 
-                <label className="AlreadyAccount">
+                <label className="SignInNewAccount">
                   Do not have an account?{" "}
-                  <a className="link" href="/auth/signup">
+                  <a className="SignInlink" href="/auth/signup">
                     Sign Up
                   </a>
                 </label>
