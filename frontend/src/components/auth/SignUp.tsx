@@ -19,11 +19,12 @@ const SignUp = () => {
     console.log(data);
   };
 
+  const accountText = "Already have an account? ";
   return (
     <>
       <div className="SignUpContainer">
         <div className="SignUpLeftside">
-          <img className="SignUpImage" src={signupImage}></img>
+          <img className="SignUpImage" src="https://wallpapercave.com/wp/wp6480749.jpg"></img>
         </div>
 
         <div className="SignUpRightside">
@@ -68,7 +69,10 @@ const SignUp = () => {
                   </div>
                 </div>
 
-                {errors.email ? <>{errors.email.message}</> : <></>}
+                
+
+                <div className="text-red-600 font-bold">{errors.email ? <>{errors.email.message}</> : <></>}</div>
+
 
                 <div className="space-y-2 text-gray-700">
                   <div className="relative  focus-within:text-gray-900 dark:focus-within:text-gray-800 ">
@@ -162,7 +166,8 @@ const SignUp = () => {
                   </div>
                 </div>
 
-                {errors.password ? <>{errors.password.message}</> : <></>}
+                <div className="text-red-600 font-bold">{errors.password ? <>{errors.password.message}</> : <></>}</div>
+                
 
                 <div className="space-y-2 text-gray-700">
                   <div className="relative focus-within:text-gray-900 dark:focus-within:text-gray-800 ">
@@ -255,17 +260,17 @@ const SignUp = () => {
                     </div>
                   </div>
                 </div>
-
+                <div className="text-red-600 font-bold">
                 {errors.confirmpassword ? (
                   <>{errors.confirmpassword.message}</>
                 ) : (
                   <></>
                 )}
-
+                </div>
                 <button className="SignUpSubmit">Sign Up</button>
 
                 <label className="SignUpAlreadyAccount">
-                  Already have an account?{" "}
+                  {accountText}
                   <a className="SignInLink" href="/auth/signin">
                     Sign In
                   </a>
