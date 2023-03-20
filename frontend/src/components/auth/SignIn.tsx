@@ -31,7 +31,7 @@ const SignIn = () => {
 
         <div className="SignInRightside">
           <div className="SignInRightContent">
-            <div className="text-5xl lg:text-4xl md:text-4xl  mb-5">Login</div>
+            <div className="text-5xl lg:text-4xl md:text-7xl xsm:text-4xl mb-5">Login</div>
 
             <form onSubmit={handleSubmit(handleFormSubmit)}>
               <label className="SignInFormItems">
@@ -42,7 +42,7 @@ const SignIn = () => {
                       className="absolute inset-y-0 flex items-center px-4 pointer-events-none"
                     >
                       <svg
-                        className="h-5 w-5"
+                        className="h-5 w-5 md:h-8 md:w-8 lg:h-5 lg:w-5 sm:h-5 sm:w-5 xsm:h-5 xsm:w-5"
                         fill="none"
                         strokeLinecap="round"
                         strokeLinejoin="round"
@@ -72,7 +72,7 @@ const SignIn = () => {
                   </div>
                 </div>
 
-                <div className="text-red-600 font-bold">{errors.email ? <>{errors.email.message}</> : <></>}</div>
+                <div className="text-red-600 font-bold md:text-2xl lg:text-base">{errors.email ? <>{errors.email.message}</> : <></>}</div>
 
                 <div className="space-y-2 text-gray-700">
                   <div className="relative  focus-within:text-gray-900 dark:focus-within:text-gray-800 ">
@@ -82,7 +82,7 @@ const SignIn = () => {
                     >
                       <svg
                         aria-hidden="true"
-                        className="w-5 h-5"
+                        className="w-5 h-5 md:h-8 md:w-8 lg:h-5 lg:w-5 sm:h-5 sm:w-5 xsm:h-5 xsm:w-5"
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
                         viewBox="0 0 24 24"
@@ -125,7 +125,7 @@ const SignIn = () => {
                         {passwordShow ? (
                           <svg
                             aria-hidden="true"
-                            className="w-5 h-5"
+                            className="w-5 h-5 md:h-8 md:w-8 lg:h-5 lg:w-5 sm:h-5 sm:w-5 xsm:h-5 xsm:w-5"
                             xmlns="http://www.w3.org/2000/svg"
                             fill="none"
                             viewBox="0 0 24 24"
@@ -141,7 +141,7 @@ const SignIn = () => {
                         ) : (
                           <svg
                             aria-hidden="true"
-                            className="w-5 h-5"
+                            className="w-5 h-5 md:h-8 md:w-8 lg:h-5 lg:w-5 sm:h-5 sm:w-5 xsm:h-5 xsm:w-5"
                             xmlns="http://www.w3.org/2000/svg"
                             fill="none"
                             viewBox="0 0 24 24"
@@ -166,7 +166,7 @@ const SignIn = () => {
                   </div>
                 </div>
 
-                <div className="text-red-600 font-bold">{errors.password ? <>{errors.password.message}</> : <></>}</div>
+                <div className="text-red-600 font-bold md:text-2xl lg:text-base">{errors.password ? <>{errors.password.message}</> : <></>}</div>
 
                 <a href="" className="ForgotPass">
                   forgot password?

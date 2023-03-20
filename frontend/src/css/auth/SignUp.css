@@ -15,7 +15,7 @@
 }
 
 .SignUpRightContent {
-    @apply bg-white bg-opacity-70 p-8 xsm:p-7 rounded-xl lg:bg-none lg:p-0 lg:rounded-none m-3;
+    @apply bg-white bg-opacity-70 p-8 md:p-20 xsm:p-7 rounded-xl lg:bg-none lg:p-0 lg:rounded-none m-3;
 }
 
 .SignUpFormItems {
@@ -23,25 +23,21 @@
 }
 
 .SignUpFormInput {
-    @apply mt-5 block w-60 xsm:w-52 lg:px-3 xsm:px-2 px-5 lg:py-2 xsm:py-2 py-3 
+    @apply mt-5 md:mt-10 lg:mt-5 block w-60 lg:w-72 md:w-auto xsm:w-52 sm:w-72 lg:px-3 xsm:px-2 px-5 lg:py-2 md:py-5 xsm:py-2 sm:py-4 py-3 
     bg-white border border-slate-300 rounded-md shadow-sm placeholder-slate-400 
     focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 
     disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 
     disabled:shadow-none invalid:border-pink-500 invalid:text-pink-600 
-    focus:invalid:border-pink-500 focus:invalid:ring-pink-500 lg:pl-11 lg:pr-11 
-    xsm:pl-11 xsm:pr-11 text-xl lg:text-base xsm:text-sm;
-}
-
-.ForgotPass {
-    @apply mt-5 block text-xl lg:text-base xsm:text-base;
+    focus:invalid:border-pink-500 focus:invalid:ring-pink-500 lg:pl-11 md:pl-14 lg:pr-11 md:pr-14 
+    xsm:pl-11 xsm:pr-11 text-xl lg:text-base sm:text-xl  xsm:text-sm  md:text-3xl;
 }
 
 .SignUpSubmit {
-    @apply bg-blue-800 mt-3 block w-40 hover:bg-blue-900 text-white font-bold py-2 px-4 rounded text-xl lg:text-base;
+    @apply bg-blue-800 mt-3 block w-40 hover:bg-blue-900 text-white font-bold py-2 px-4 rounded text-xl lg:text-base md:text-3xl md:py-5 lg:py-2 md:mt-8 lg:mt-3;
 }
 
 .SignUpAlreadyAccount {
-    @apply mt-5 block text-lg lg:text-base xsm:text-sm
+    @apply mt-5 block text-lg lg:text-base xsm:text-sm md:text-3xl mdl:text-4xl sm:text-lg
 }
 
 .SignInLink {
