@@ -6,7 +6,7 @@ import { BadRequestException } from '@nestjs/common';
 
 describe('AuthService', () => {
   let service: AuthService;
-  let prismaService: PrismaService;
+  let prismaService:PrismaService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -19,7 +19,7 @@ describe('AuthService', () => {
               user: {
                 create: jest.fn(),
                 delete: jest.fn(),
-                findFirst: jest.fn(),
+                findFirst:jest.fn()
               },
             };
           },
@@ -27,29 +27,33 @@ describe('AuthService', () => {
       ],
     }).compile();
 
+    
+
     service = module.get<AuthService>(AuthService);
-    prismaService = module.get<PrismaService>(PrismaService);
+    prismaService= module.get<PrismaService>(PrismaService);
   });
   it('should be defined', () => {
     expect(service).toBeDefined();
   });
+  
 
-  describe('Signup', () => {
-    afterAll(async () => {
-      prismaService.user.delete({
-        where: {
-          email: 'john@incubyte.co',
-        },
-      });
-    });
+  describe('Signup',()=>{
+
+     afterAll(async ()=>{
+        prismaService.user.delete({
+          where: {
+            email: 'john@incubyte.co',
+          },
+        });
+    })
     const userDTO: UserDto = {
-      email: 'john@incubyte.co',
-      password: '1234',
-    };
+       email: 'john@incubyte.co',
+       password: '1234',
+     };
     it('should be signup a User', async () => {
+     
       jest.spyOn(prismaService.user, 'create').mockResolvedValue({
-        email: userDTO.email,
-        password: userDTO.password,
+        ...userDTO,
         id: '1',
         createdAt: Date.prototype,
         profilePhoto: 'https://profilephoto.com',
@@ -59,8 +63,7 @@ describe('AuthService', () => {
       expect(prismaService.user.create).toBeCalledTimes(1);
       expect(prismaService.user.create).toHaveBeenCalledWith({
         data: {
-          email: userDTO.email,
-          password: userDTO.password,
+          ...userDTO,
           profilePhoto: 'https://profilephoto.com',
         },
       });
@@ -71,21 +74,21 @@ describe('AuthService', () => {
         profilePhoto: 'https://profilephoto.com',
         updatedAt: Date.prototype,
       });
+     
     });
 
-    it('should return error message if email already exists ', async () => {
-      jest.spyOn(prismaService.user, 'findFirst').mockResolvedValue({
-        email: 'john@incubyte.co',
-        password: '1234',
-        id: '1',
-        createdAt: Date.prototype,
-        profilePhoto: 'https://profilephoto.com',
-        updatedAt: Date.prototype,
-      });
+    it('should return error message if email already exists ', async ()=>{
+        jest.spyOn(prismaService.user, 'findFirst').mockResolvedValue({
+          ...userDTO,
+          id: '1',
+          createdAt: Date.prototype,
+          profilePhoto: 'https://profilephoto.com',
+          updatedAt: Date.prototype,
+        });
 
-      expect(async () => await service.signup(userDTO)).rejects.toThrow(
-        new BadRequestException('Email Already exists'),
-      );
-    });
-  });
+        expect(async () => await service.signup(userDTO)).rejects.toThrow(
+          new BadRequestException('Email Already exists'),
+        )      
+    })
+  })
 });
