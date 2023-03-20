@@ -12,6 +12,9 @@ const SignIn = () => {
 
   const [passwordShow, setPasswordShow] = useState<boolean>(false);
 
+  const accountText = "Don't have an account? ";
+
+
   const handleFormSubmit = (data: any) => {
     console.log(data);
   };
@@ -19,21 +22,21 @@ const SignIn = () => {
   return (
     <>
       <div className="SignInContainer">
-        <div className="Leftside">
+        <div className="SignInLeftside">
           <img
-            className="Image"
+            className="SignInImage"
             src="https://wallpapercave.com/wp/wp6480749.jpg"
           ></img>
         </div>
 
-        <div className="Rightside">
-          <div className="RightContent">
-            <div className="text-3xl mb-5">Login</div>
+        <div className="SignInRightside">
+          <div className="SignInRightContent">
+            <div className="text-5xl lg:text-4xl md:text-4xl  mb-5">Login</div>
 
             <form onSubmit={handleSubmit(handleFormSubmit)}>
-              <label className="FormItems">
+              <label className="SignInFormItems">
                 <div className="space-y-2 text-gray-700">
-                  <div className="relative  focus-within:text-gray-900 dark:focus-within:text-gray-800 ">
+                  <div className="relative focus-within:text-gray-900 dark:focus-within:text-gray-800 ">
                     <div
                       aria-hidden="true"
                       className="absolute inset-y-0 flex items-center px-4 pointer-events-none"
@@ -54,7 +57,7 @@ const SignIn = () => {
                       type="text"
                       id="email"
                       placeholder="email"
-                      className="FormInput"
+                      className="SignInFormInput"
                       {...register("email", {
                         required: {
                           value: true,
@@ -69,7 +72,7 @@ const SignIn = () => {
                   </div>
                 </div>
 
-                {errors.email ? <>{errors.email.message}</> : <></>}
+                <div className="text-red-600 font-bold">{errors.email ? <>{errors.email.message}</> : <></>}</div>
 
                 <div className="space-y-2 text-gray-700">
                   <div className="relative  focus-within:text-gray-900 dark:focus-within:text-gray-800 ">
@@ -94,7 +97,7 @@ const SignIn = () => {
                       </svg>
                     </div>
                     <input
-                      className="FormInput"
+                      className="SignInFormInput"
                       id="password"
                       type={passwordShow ? "text" : "password"}
                       placeholder="password"
@@ -163,16 +166,16 @@ const SignIn = () => {
                   </div>
                 </div>
 
-                {errors.password ? <>{errors.password.message}</> : <></>}
+                <div className="text-red-600 font-bold">{errors.password ? <>{errors.password.message}</> : <></>}</div>
 
-                <a href="" className="SignIn">
+                <a href="" className="ForgotPass">
                   forgot password?
                 </a>
-                <button className="Submit">Sign In</button>
+                <button className="SignInSubmit">Sign In</button>
 
-                <label className="AlreadyAccount">
-                  Do not have an account?{" "}
-                  <a className="link" href="/auth/signup">
+                <label className="SignInNewAcc">
+                  {accountText}
+                  <a className="SignUplink" href="/auth/signup">
                     Sign Up
                   </a>
                 </label>

@@ -22,17 +22,17 @@ const SignUp = () => {
   return (
     <>
       <div className="SignUpContainer">
-        <div className="Leftside">
-          <img className="Image" src={signupImage}></img>
+        <div className="SignUpLeftside">
+          <img className="SignUpImage" src={signupImage}></img>
         </div>
 
-        <div className="Rightside">
-          <div className="RightContent">
+        <div className="SignUpRightside">
+          <div className="SignUpRightContent">
             <div className="text-3xl mb-5">Sign Up</div>
             <form onSubmit={handleSubmit(handleFormSubmit)}>
-              <label className="FormItems">
+              <label className="SignUpFormItems">
                 <div className="space-y-2 text-gray-700">
-                  <div className="relative  focus-within:text-gray-900 dark:focus-within:text-gray-800 ">
+                  <div className="relative focus-within:text-gray-900 dark:focus-within:text-gray-800 ">
                     <div
                       aria-hidden="true"
                       className="absolute inset-y-0 flex items-center px-4 pointer-events-none"
@@ -53,7 +53,7 @@ const SignUp = () => {
                       type="text"
                       id="email"
                       placeholder="email"
-                      className="FormInput"
+                      className="SignUpFormInput"
                       {...register("email", {
                         required: {
                           value: true,
@@ -93,7 +93,7 @@ const SignUp = () => {
                       </svg>
                     </div>
                     <input
-                      className="FormInput"
+                      className="SignUpFormInput"
                       id="password"
                       type={passwordShow ? "text" : "password"}
                       placeholder="password"
@@ -165,7 +165,7 @@ const SignUp = () => {
                 {errors.password ? <>{errors.password.message}</> : <></>}
 
                 <div className="space-y-2 text-gray-700">
-                  <div className="relative  focus-within:text-gray-900 dark:focus-within:text-gray-800 ">
+                  <div className="relative focus-within:text-gray-900 dark:focus-within:text-gray-800 ">
                     <div
                       aria-hidden="true"
                       className="absolute inset-y-0 flex items-center px-4 pointer-events-none"
@@ -187,7 +187,7 @@ const SignUp = () => {
                       </svg>
                     </div>
                     <input
-                      className="FormInput"
+                      className="SignUpFormInput"
                       id="password"
                       type={confirmPasswordShow ? "text" : "password"}
                       placeholder="confirm password"
@@ -210,7 +210,7 @@ const SignUp = () => {
                         onClick={() => {
                           setConfirmPasswordShow(!confirmPasswordShow);
                         }}
-                        className="z-30 "
+                        className="z-30"
                       >
                         {confirmPasswordShow ? (
                           <svg
@@ -262,11 +262,11 @@ const SignUp = () => {
                   <></>
                 )}
 
-                <button className="Submit">Sign Up</button>
+                <button className="SignUpSubmit">Sign Up</button>
 
-                <label className="AlreadyAccount">
+                <label className="SignUpAlreadyAccount">
                   Already have an account?{" "}
-                  <a className="SignIn" href="/auth/signin">
+                  <a className="SignInLink" href="/auth/signin">
                     Sign In
                   </a>
                 </label>
