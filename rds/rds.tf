@@ -89,6 +89,13 @@ resource "aws_security_group" "database_security_group_rds_production" {
     to_port         = 3306
     security_groups = [aws_security_group.instance_security_group.id]
   }
+  egress {
+    from_port        = 0
+    to_port          = 0
+    protocol         = "-1"
+    cidr_blocks      = ["0.0.0.0/0"]
+    ipv6_cidr_blocks = ["::/0"]
+  }
 }
 
 
@@ -117,5 +124,12 @@ resource "aws_security_group" "database_security_group_rds_development" {
     protocol        = "tcp"
     to_port         = 5432
     security_groups = [aws_security_group.instance_security_group.id]
+  }
+  egress {
+    from_port        = 0
+    to_port          = 0
+    protocol         = "-1"
+    cidr_blocks      = ["0.0.0.0/0"]
+    ipv6_cidr_blocks = ["::/0"]
   }
 }
