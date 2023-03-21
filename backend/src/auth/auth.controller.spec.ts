@@ -1,11 +1,11 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
-import { UserDto } from './Dto/userDto';
-
+import { UserDto } from './dto/user.dto';
+import { mock } from 'jest-mock-extended';
 describe('AuthController', () => {
   let controller: AuthController;
-  let service  : AuthService
+  let service: AuthService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -13,12 +13,7 @@ describe('AuthController', () => {
       providers: [
         {
           provide: AuthService,
-          useFactory() {
-            return {
-              signup: jest.fn(),
-              signin: jest.fn(),
-            };
-          },
+          useValue: mock<AuthService>(),
         },
       ],
     }).compile();
@@ -31,24 +26,25 @@ describe('AuthController', () => {
     expect(controller).toBeDefined();
   });
 
-  it('should be able to create user', async () => {
+  it('should be create user', async () => {
     const user: UserDto = {
       email: 'john@incubyte.co',
       password: '123',
     };
-    jest
-      .spyOn(service, 'signup')
-      .mockResolvedValueOnce({
-        ...user,
-        id: '1',
-        profilePhoto: 'https://profilephoto.com',
-        createdAt: Date.prototype,
-        updatedAt: Date.prototype,
-      });
+    jest.spyOn(service, 'signup').mockResolvedValueOnce({
+      email: user.email,
+      password: user.password,
+      id: '1',
+      profilePhoto: 'https://profilephoto.com',
+      createdAt: Date.prototype,
+      updatedAt: Date.prototype,
+    });
     const result = await controller.signup(user);
-
     expect(service.signup).toBeCalledTimes(1);
-
+    expect(service.signup).toBeCalledWith({
+      email: 'john@incubyte.co',
+      password: '123',
+    });
     expect(result).toMatchObject({
       id: expect.any(String),
       createdAt: Date.prototype,

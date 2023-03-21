@@ -4,7 +4,7 @@ import { PrismaClient } from '@prisma/client';
 
 @Injectable()
 export class PrismaService extends PrismaClient implements OnModuleInit {
-  constructor(private readonly configService: ConfigService) {
+  constructor(configService: ConfigService) {
     super({
       datasources: {
         db: {
@@ -12,6 +12,7 @@ export class PrismaService extends PrismaClient implements OnModuleInit {
         },
       },
     });
+    // console.log(configService.get('DATABASE_URL'));
   }
   onModuleInit() {
     this.$connect();
