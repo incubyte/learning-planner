@@ -31,7 +31,10 @@ const SignUp = () => {
 
         <div className="SignUpRightside">
           <div className="SignUpRightContent">
-            <div className="text-5xl lg:text-4xl md:text-7xl xsm:text-4xl mb-5">
+            <div
+              className="text-5xl lg:text-4xl md:text-7xl xsm:text-4xl mb-5"
+              data-testid="signupHeader"
+            >
               Sign Up
             </div>
             <form onSubmit={handleSubmit(handleFormSubmit)}>
@@ -58,6 +61,7 @@ const SignUp = () => {
                       type="text"
                       id="email"
                       placeholder="email"
+                      data-testid="signupEmail"
                       className="SignUpFormInput"
                       {...register("email", {
                         required: {
@@ -271,7 +275,11 @@ const SignUp = () => {
                     <></>
                   )}
                 </div>
-                <button className="SignUpSubmit" data-testid="signupButton">
+                <button
+                  className="SignUpSubmit"
+                  data-testid="signupButton"
+                  onClick={handleFormSubmit}
+                >
                   Sign Up
                 </button>
 
