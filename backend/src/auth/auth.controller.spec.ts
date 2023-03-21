@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 import { UserDto } from './dto/user.dto';
-
+import { mock } from 'jest-mock-extended';
 describe('AuthController', () => {
   let controller: AuthController;
   let service: AuthService;
@@ -13,11 +13,7 @@ describe('AuthController', () => {
       providers: [
         {
           provide: AuthService,
-          useFactory() {
-            return {
-              signup: jest.fn(),
-            };
-          },
+          useValue: mock<AuthService>(),
         },
       ],
     }).compile();
@@ -30,7 +26,7 @@ describe('AuthController', () => {
     expect(controller).toBeDefined();
   });
 
-  it('should be createBookmark', async () => {
+  it('should be create user', async () => {
     const user: UserDto = {
       email: 'john@incubyte.co',
       password: '123',
@@ -44,9 +40,11 @@ describe('AuthController', () => {
       updatedAt: Date.prototype,
     });
     const result = await controller.signup(user);
-
     expect(service.signup).toBeCalledTimes(1);
-
+    expect(service.signup).toBeCalledWith({
+      email: 'john@incubyte.co',
+      password: '123',
+    });
     expect(result).toMatchObject({
       id: expect.any(String),
       createdAt: Date.prototype,
