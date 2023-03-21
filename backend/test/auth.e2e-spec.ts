@@ -15,14 +15,14 @@ describe('AppController (e2e)', () => {
     await app.init();
   });
 
-  it('/signup (POST) - should return the created user', async () => {
+  it('auth/signup (POST) - should return the created user', async () => {
     const user = {
       email: 'john@example.com',
       password: '123',
     };
 
     const response = await request(app.getHttpServer())
-      .post('/signup')
+      .post('/auth/signup')
       .send(user);
 
     expect(response.status).toBe(201);
