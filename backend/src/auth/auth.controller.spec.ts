@@ -1,11 +1,11 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
-import { UserDto } from './Dto/userDto';
+import { UserDto } from './dto/user.dto';
 
 describe('AuthController', () => {
   let controller: AuthController;
-  let service  : AuthService
+  let service: AuthService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -35,15 +35,14 @@ describe('AuthController', () => {
       email: 'john@incubyte.co',
       password: '123',
     };
-    jest
-      .spyOn(service, 'signup')
-      .mockResolvedValueOnce({
-        ...user,
-        id: '1',
-        profilePhoto: 'https://profilephoto.com',
-        createdAt: Date.prototype,
-        updatedAt: Date.prototype,
-      });
+    jest.spyOn(service, 'signup').mockResolvedValueOnce({
+      email: user.email,
+      password: user.password,
+      id: '1',
+      profilePhoto: 'https://profilephoto.com',
+      createdAt: Date.prototype,
+      updatedAt: Date.prototype,
+    });
     const result = await controller.signup(user);
 
     expect(service.signup).toBeCalledTimes(1);
@@ -55,5 +54,4 @@ describe('AuthController', () => {
       updatedAt: Date.prototype,
     });
   });
-
 });
