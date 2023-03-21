@@ -14,7 +14,6 @@ const SignIn = () => {
 
   const accountText = "Don't have an account? ";
 
-
   const handleFormSubmit = (data: any) => {
     console.log(data);
   };
@@ -31,7 +30,9 @@ const SignIn = () => {
 
         <div className="SignInRightside">
           <div className="SignInRightContent">
-            <div className="text-5xl lg:text-4xl md:text-7xl xsm:text-4xl mb-5">Login</div>
+            <div className="text-5xl lg:text-4xl md:text-7xl xsm:text-4xl mb-5">
+              Login
+            </div>
 
             <form onSubmit={handleSubmit(handleFormSubmit)}>
               <label className="SignInFormItems">
@@ -72,7 +73,9 @@ const SignIn = () => {
                   </div>
                 </div>
 
-                <div className="text-red-600 font-bold md:text-2xl lg:text-base">{errors.email ? <>{errors.email.message}</> : <></>}</div>
+                <div className="text-red-600 font-bold md:text-2xl lg:text-base">
+                  {errors.email ? <>{errors.email.message}</> : <></>}
+                </div>
 
                 <div className="space-y-2 text-gray-700">
                   <div className="relative  focus-within:text-gray-900 dark:focus-within:text-gray-800 ">
@@ -166,7 +169,9 @@ const SignIn = () => {
                   </div>
                 </div>
 
-                <div className="text-red-600 font-bold md:text-2xl lg:text-base">{errors.password ? <>{errors.password.message}</> : <></>}</div>
+                <div className="text-red-600 font-bold md:text-2xl lg:text-base">
+                  {errors.password ? <>{errors.password.message}</> : <></>}
+                </div>
 
                 <a href="" className="ForgotPass">
                   forgot password?

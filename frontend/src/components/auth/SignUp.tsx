@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import signupImage from "../../assets/signup-page.png";
 import "../../css/auth/SignUp.css";
 
 const SignUp = () => {
@@ -24,12 +23,17 @@ const SignUp = () => {
     <>
       <div className="SignUpContainer">
         <div className="SignUpLeftside">
-          <img className="SignUpImage" src="https://wallpapercave.com/wp/wp6480749.jpg"></img>
+          <img
+            className="SignUpImage"
+            src="https://wallpapercave.com/wp/wp6480749.jpg"
+          ></img>
         </div>
 
         <div className="SignUpRightside">
           <div className="SignUpRightContent">
-            <div className="text-5xl lg:text-4xl md:text-7xl xsm:text-4xl mb-5">Sign Up</div>
+            <div className="text-5xl lg:text-4xl md:text-7xl xsm:text-4xl mb-5">
+              Sign Up
+            </div>
             <form onSubmit={handleSubmit(handleFormSubmit)}>
               <label className="SignUpFormItems">
                 <div className="space-y-2 text-gray-700">
@@ -69,10 +73,9 @@ const SignUp = () => {
                   </div>
                 </div>
 
-                
-
-                <div className="text-red-600 font-bold  md:text-2xl lg:text-base">{errors.email ? <>{errors.email.message}</> : <></>}</div>
-
+                <div className="text-red-600 font-bold  md:text-2xl lg:text-base">
+                  {errors.email ? <>{errors.email.message}</> : <></>}
+                </div>
 
                 <div className="space-y-2 text-gray-700">
                   <div className="relative  focus-within:text-gray-900 dark:focus-within:text-gray-800 ">
@@ -166,8 +169,9 @@ const SignUp = () => {
                   </div>
                 </div>
 
-                <div className="text-red-600 font-bold md:text-2xl lg:text-base">{errors.password ? <>{errors.password.message}</> : <></>}</div>
-                
+                <div className="text-red-600 font-bold md:text-2xl lg:text-base">
+                  {errors.password ? <>{errors.password.message}</> : <></>}
+                </div>
 
                 <div className="space-y-2 text-gray-700">
                   <div className="relative focus-within:text-gray-900 dark:focus-within:text-gray-800 ">
@@ -261,13 +265,15 @@ const SignUp = () => {
                   </div>
                 </div>
                 <div className="text-red-600 font-bold md:text-2xl lg:text-base">
-                {errors.confirmpassword ? (
-                  <>{errors.confirmpassword.message}</>
-                ) : (
-                  <></>
-                )}
+                  {errors.confirmpassword ? (
+                    <>{errors.confirmpassword.message}</>
+                  ) : (
+                    <></>
+                  )}
                 </div>
-                <button className="SignUpSubmit">Sign Up</button>
+                <button className="SignUpSubmit" data-testid="signupButton">
+                  Sign Up
+                </button>
 
                 <label className="SignUpAlreadyAccount">
                   {accountText}
