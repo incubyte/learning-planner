@@ -1,5 +1,5 @@
 .SignUpContainer{
-    @apply grid grid-cols-3 object-contain
+    @apply lg:grid grid-cols-3 object-contain
 }
 
 .SignUpLeftside {
