@@ -47,6 +47,12 @@ describe('AuthService', () => {
       password: '1234',
     };
     it('should be signup a User', async () => {
+      const prismaUser = null;
+
+      jest
+        .spyOn(prismaService.user, 'findFirst')
+        .mockReturnValueOnce(prismaUser);
+
       jest.spyOn(prismaService.user, 'create').mockResolvedValue({
         email: userDTO.email,
         password: userDTO.password,
@@ -74,17 +80,26 @@ describe('AuthService', () => {
     });
 
     it('should return error message if email already exists ', async () => {
-      jest.spyOn(prismaService.user, 'findFirst').mockResolvedValue({
+      const userDTO: UserDto = {
+        email: 'john@incubyte.co',
+        password: '1234',
+      };
+
+      const prismaUser = {
         email: userDTO.email,
         password: userDTO.password,
         id: '1',
         createdAt: Date.prototype,
         profilePhoto: 'https://profilephoto.com',
         updatedAt: Date.prototype,
-      });
+      };
 
-      expect(async () => await service.signup(userDTO)).rejects.toThrow(
-        new BadRequestException('Email Already exists'),
+      jest
+        .spyOn(prismaService.user, 'findFirst')
+        .mockResolvedValueOnce(prismaUser);
+
+      await expect(service.signup(userDTO)).rejects.toThrow(
+        BadRequestException,
       );
     });
   });

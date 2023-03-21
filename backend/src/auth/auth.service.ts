@@ -1,23 +1,23 @@
-import {
-  BadRequestException,
-  ForbiddenException,
-  Injectable,
-  UnauthorizedException,
-} from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { UserDto } from './dto/user.dto';
 import { PrismaService } from './../prisma/prisma.service';
 import * as bcrypt from 'bcrypt';
+import { User } from '@prisma/client';
 
 @Injectable()
 export class AuthService {
   constructor(private readonly prismaService: PrismaService) {}
 
+  checkUserExist(prismaUser: User) {
+    return prismaUser !== null;
+  }
+
   async signup(user: UserDto) {
-    const userbyEmail = await this.prismaService.user.findFirst({
+    const prismaUser = await this.prismaService.user.findFirst({
       where: { email: user.email },
     });
 
-    if (userbyEmail) {
+    if (this.checkUserExist(prismaUser)) {
       throw new BadRequestException('Email Already exists');
     }
 
