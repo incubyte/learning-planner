@@ -127,4 +127,19 @@ describe("Sign In Component", () => {
       expect(signInPassword.type).toBe("password");
     });
   });
+
+  describe("Sign In Don't Have AccountLink", () => {
+    test("Signin Don't Have Account Link is present", () => {
+      render(
+        <BrowserRouter>
+          <SignIn />
+        </BrowserRouter>
+      );
+
+      const signInDontHaveAccountLink = screen.getByTestId(
+        "signinDontHaveAccountLink"
+      ) as HTMLInputElement;
+      expect(signInDontHaveAccountLink).toBeInTheDocument();
+    });
+  });
 });

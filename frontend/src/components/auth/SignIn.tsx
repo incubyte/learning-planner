@@ -186,7 +186,11 @@ const SignIn = () => {
 
                 <label className="SignInNewAcc">
                   {accountText}
-                  <a className="SignUplink" href="/auth/signup">
+                  <a
+                    className="SignUplink"
+                    data-testid="signinDontHaveAccountLink"
+                    href="/auth/signup"
+                  >
                     Sign Up
                   </a>
                 </label>

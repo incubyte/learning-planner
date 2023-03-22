@@ -263,7 +263,7 @@ describe("SignUp Component", () => {
   });
 
   describe("Sign Up Account Already exist", () => {
-    test("Sign Up Account Already Link is present", () => {
+    test("signin Account Already Link is present", () => {
       render(
         <BrowserRouter>
           <SignUp />
