@@ -5,5 +5,10 @@
   "testRegex": ".e2e-spec.ts$",
   "transform": {
     "^.+\\.(t|j)s$": "ts-jest"
+  },
+  "moduleNameMapper": {
+    "^@/(.*)$": "<rootDir>/../src/$1",
+    "^@Auth/(.*)$": "<rootDir>/../src/auth/$1",
+    "^@Prisma/(.*)$": "<rootDir>/../src/prisma/$1"
   }
 }

@@ -1,10 +1,10 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { PrismaService } from '../prisma/prisma.service';
-import { AuthService } from './auth.service';
-import { UserDto } from './dto/user.dto';
+import { PrismaService } from '@Prisma/prisma.service';
+import { AuthService } from '@Auth/auth.service';
+import { UserDto } from '@Auth/dto/user.dto';
 import { BadRequestException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { genSalt, genSaltSync, hash } from 'bcrypt';
+import { genSalt, hash } from 'bcrypt';
 
 describe('AuthService', () => {
   let service: AuthService;
@@ -140,7 +140,6 @@ describe('AuthService', () => {
         );
 
       const accessToken = await service.signin(userDTO);
-
       expect(jwtService.sign).toBeCalledTimes(1);
       expect(jwtService.sign).toHaveBeenCalledWith({
         email: userDTO.email,

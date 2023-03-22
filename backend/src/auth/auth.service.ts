@@ -1,9 +1,9 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
-import { UserDto } from './dto/user.dto';
-import { PrismaService } from './../prisma/prisma.service';
+import { UserDto } from '@Auth/Dto/user.dto';
+import { PrismaService } from '@Prisma/prisma.service';
 import * as bcrypt from 'bcrypt';
 import { User } from '@prisma/client';
-import { compare, compareSync } from 'bcrypt';
+import { compareSync } from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
@@ -21,7 +21,6 @@ export class AuthService {
     const prismaUser = await this.prismaService.user.findFirst({
       where: { email: user.email },
     });
-
     if (this.checkUserExist(prismaUser)) {
       throw new BadRequestException('Email Already exists');
     }
