@@ -229,6 +229,11 @@ const SignUp = () => {
                             /((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W]).{6,20})/,
                           message: "confirm password is not valid",
                         },
+                        validate: {
+                          confirmPasswordEqual: (value) =>
+                            value === getValues().password ||
+                            "Confirm Password must match with Password",
+                        },
                       })}
                     />
 
