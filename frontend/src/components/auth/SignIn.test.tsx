@@ -143,6 +143,21 @@ describe("Sign In Component", () => {
     });
   });
 
+  describe("Sign In  Forgot PassowrdLink", () => {
+    test("Signin Forgot Password Link is present", () => {
+      render(
+        <BrowserRouter>
+          <SignIn />
+        </BrowserRouter>
+      );
+
+      const signInForgotPasswordLink = screen.getByTestId(
+        "signinForgotPasswordLink"
+      ) as HTMLInputElement;
+      expect(signInForgotPasswordLink).toBeInTheDocument();
+    });
+  });
+
   describe("signIn Button", () => {
     test("signIn button is present", () => {
       render(

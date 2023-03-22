@@ -179,7 +179,11 @@ const SignIn = () => {
                   {errors.password ? <>{errors.password.message}</> : <></>}
                 </div>
 
-                <a href="" className="ForgotPass">
+                <a
+                  href=""
+                  data-testid="signinForgotPasswordLink"
+                  className="ForgotPass"
+                >
                   forgot password?
                 </a>
                 <button data-testid="signinButton" className="SignInSubmit">
