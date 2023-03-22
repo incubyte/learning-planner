@@ -106,6 +106,7 @@ const SignIn = () => {
                     <input
                       className="SignInFormInput"
                       id="password"
+                      data-testid="signinPassword"
                       type={passwordShow ? "text" : "password"}
                       placeholder="password"
                       {...register("password", {
@@ -124,6 +125,7 @@ const SignIn = () => {
                     <div className="absolute right-0 z-30 inset-y-1 flex items-center px-4 ">
                       <button
                         type="button"
+                        data-testid="signinPasswordButton"
                         onClick={() => {
                           setPasswordShow(!passwordShow);
                         }}
