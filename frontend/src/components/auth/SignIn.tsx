@@ -30,7 +30,10 @@ const SignIn = () => {
 
         <div className="SignInRightside">
           <div className="SignInRightContent">
-            <div className="text-5xl lg:text-4xl md:text-7xl xsm:text-4xl mb-5">
+            <div
+              data-testid="signinHeader"
+              className="text-5xl lg:text-4xl md:text-7xl xsm:text-4xl mb-5"
+            >
               Login
             </div>
 
