@@ -182,7 +182,9 @@ const SignIn = () => {
                 <a href="" className="ForgotPass">
                   forgot password?
                 </a>
-                <button className="SignInSubmit">Sign In</button>
+                <button data-testid="signinButton" className="SignInSubmit">
+                  Sign In
+                </button>
 
                 <label className="SignInNewAcc">
                   {accountText}

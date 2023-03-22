@@ -142,4 +142,30 @@ describe("Sign In Component", () => {
       expect(signInDontHaveAccountLink).toBeInTheDocument();
     });
   });
+
+  describe("signIn Button", () => {
+    test("signIn button is present", () => {
+      render(
+        <BrowserRouter>
+          <SignIn />
+        </BrowserRouter>
+      );
+
+      const signInButton = screen.getByTestId("signinButton");
+
+      expect(signInButton).toBeInTheDocument();
+    });
+
+    test("signIn button Text is 'Sign In'", () => {
+      render(
+        <BrowserRouter>
+          <SignIn />
+        </BrowserRouter>
+      );
+
+      const signInButton = screen.getByTestId("signinButton");
+
+      expect(signInButton).toHaveTextContent("Sign In");
+    });
+  });
 });
