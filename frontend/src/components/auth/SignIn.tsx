@@ -60,6 +60,7 @@ const SignIn = () => {
                     <input
                       type="text"
                       id="email"
+                      data-testid="signinEmail"
                       placeholder="email"
                       className="SignInFormInput"
                       {...register("email", {
