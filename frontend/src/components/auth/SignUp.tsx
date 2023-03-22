@@ -1,5 +1,8 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "../../css/auth/SignUp.css";
 
 const SignUp = () => {
@@ -11,11 +14,16 @@ const SignUp = () => {
   } = useForm();
 
   const [passwordShow, setPasswordShow] = useState<boolean>(false);
+  const navigator = useNavigate();
   const [confirmPasswordShow, setConfirmPasswordShow] =
     useState<boolean>(false);
 
   const handleFormSubmit = (data: any) => {
     console.log(data);
+    toast("Hurrey! Account created 🥳🥳");
+    setTimeout(() => {
+      navigator("/auth/signin");
+    }, 6000);
   };
 
   const accountText = "Already have an account? ";
@@ -77,7 +85,11 @@ const SignUp = () => {
                   </div>
                 </div>
 
-                <div className="text-red-600 font-bold  md:text-2xl lg:text-base">
+                <div
+                  data-testid="signupEmailError"
+                  id="signupEmailError"
+                  className="text-red-600 font-bold  md:text-2xl lg:text-base"
+                >
                   {errors.email ? <>{errors.email.message}</> : <></>}
                 </div>
 
@@ -106,6 +118,7 @@ const SignUp = () => {
                     <input
                       className="SignUpFormInput"
                       id="password"
+                      data-testid="signupPassword"
                       type={passwordShow ? "text" : "password"}
                       placeholder="password"
                       {...register("password", {
@@ -123,6 +136,7 @@ const SignUp = () => {
 
                     <div className="absolute right-0 z-30 inset-y-1 flex items-center px-4 ">
                       <button
+                        data-testid="signupPasswordButton"
                         type="button"
                         onClick={() => {
                           setPasswordShow(!passwordShow);
@@ -202,6 +216,7 @@ const SignUp = () => {
                     <input
                       className="SignUpFormInput"
                       id="password"
+                      data-testid="signupConfirmPassword"
                       type={confirmPasswordShow ? "text" : "password"}
                       placeholder="confirm password"
                       {...register("confirmpassword", {
@@ -220,6 +235,7 @@ const SignUp = () => {
                     <div className="absolute right-0 z-30 inset-y-1 flex items-center px-4 ">
                       <button
                         type="button"
+                        data-testid="signupConfirmPasswordButton"
                         onClick={() => {
                           setConfirmPasswordShow(!confirmPasswordShow);
                         }}
@@ -278,14 +294,19 @@ const SignUp = () => {
                 <button
                   className="SignUpSubmit"
                   data-testid="signupButton"
-                  onClick={handleFormSubmit}
+                  onClick={handleSubmit(handleFormSubmit)}
                 >
                   Sign Up
                 </button>
+                <ToastContainer />
 
                 <label className="SignUpAlreadyAccount">
                   {accountText}
-                  <a className="SignInLink" href="/auth/signin">
+                  <a
+                    className="SignInLink"
+                    data-testid="signupAccountAlreadyExistsLink"
+                    href="/auth/signin"
+                  >
                     Sign In
                   </a>
                 </label>
