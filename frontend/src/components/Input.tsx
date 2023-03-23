@@ -6,7 +6,7 @@ interface InputProp {
   Id: string;
   type: string;
   placeholder: string;
-  validation: any;
+  validation?: any;
   showPasswordButton?: boolean;
   passwordShow?: boolean;
   setPasswordShow?: Function;
@@ -27,6 +27,7 @@ const Input = (props: InputProp) => {
         />
         {props.showPasswordButton && (
           <ShowPasswordButton
+            dataTestId={props.dataTestId + "Button"}
             passwordShow={props.passwordShow}
             setPasswordShow={props.setPasswordShow}
           />

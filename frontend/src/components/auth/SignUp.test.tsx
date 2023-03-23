@@ -166,29 +166,29 @@ describe("SignUp Component", () => {
       expect(signUpPassword.type).toBe("password");
     });
 
-    // test("toggle Password type when show button clicked", () => {
-    //   render(
-    //     <BrowserRouter>
-    //       <SignUp />
-    //     </BrowserRouter>
-    //   );
+    test("toggle Password type when show button clicked", () => {
+      render(
+        <BrowserRouter>
+          <SignUp />
+        </BrowserRouter>
+      );
 
-    //   const signUpPassword = screen.getByTestId(
-    //     "signupPassword"
-    //   ) as HTMLInputElement;
+      const signUpPassword = screen.getByTestId(
+        "signupPassword"
+      ) as HTMLInputElement;
 
-    //   const signUpPasswordButton = screen.getByTestId("signupPasswordButton");
+      const signUpPasswordButton = screen.getByTestId("signupPasswordButton");
 
-    //   expect(signUpPassword.type).toBe("password");
+      expect(signUpPassword.type).toBe("password");
 
-    //   fireEvent.click(signUpPasswordButton);
+      fireEvent.click(signUpPasswordButton);
 
-    //   expect(signUpPassword.type).toBe("text");
+      expect(signUpPassword.type).toBe("text");
 
-    //   fireEvent.click(signUpPasswordButton);
+      fireEvent.click(signUpPasswordButton);
 
-    //   expect(signUpPassword.type).toBe("password");
-    // });
+      expect(signUpPassword.type).toBe("password");
+    });
   });
 
   describe("Sign Up ConfirmPassword", () => {
@@ -235,31 +235,31 @@ describe("SignUp Component", () => {
       expect(signUpConfirmPassword.type).toBe("password");
     });
 
-    // test("toggle ConfirmPassword type when show button clicked", () => {
-    //   render(
-    //     <BrowserRouter>
-    //       <SignUp />
-    //     </BrowserRouter>
-    //   );
+    test("toggle ConfirmPassword type when show button clicked", () => {
+      render(
+        <BrowserRouter>
+          <SignUp />
+        </BrowserRouter>
+      );
 
-    //   const signUpConfirmPassword = screen.getByTestId(
-    //     "signupConfirmPassword"
-    //   ) as HTMLInputElement;
+      const signUpConfirmPassword = screen.getByTestId(
+        "signupConfirmPassword"
+      ) as HTMLInputElement;
 
-    //   const signUpConfirmPasswordButton = screen.getByTestId(
-    //     "signupConfirmPasswordButton"
-    //   );
+      const signUpConfirmPasswordButton = screen.getByTestId(
+        "signupConfirmPasswordButton"
+      );
 
-    //   expect(signUpConfirmPassword.type).toBe("password");
+      expect(signUpConfirmPassword.type).toBe("password");
 
-    //   fireEvent.click(signUpConfirmPasswordButton);
+      fireEvent.click(signUpConfirmPasswordButton);
 
-    //   expect(signUpConfirmPassword.type).toBe("text");
+      expect(signUpConfirmPassword.type).toBe("text");
 
-    //   fireEvent.click(signUpConfirmPasswordButton);
+      fireEvent.click(signUpConfirmPasswordButton);
 
-    //   expect(signUpConfirmPassword.type).toBe("password");
-    // });
+      expect(signUpConfirmPassword.type).toBe("password");
+    });
   });
 
   describe("Sign Up Account Already exist", () => {
