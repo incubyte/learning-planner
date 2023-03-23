@@ -17,7 +17,7 @@ export class AuthService {
     return prismaUser !== null;
   }
 
-  async signup(user: UserDto) {
+  async signup(user: UserDto): Promise<User> {
     const prismaUser = await this.prismaService.user.findFirst({
       where: { email: user.email },
     });
