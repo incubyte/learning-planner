@@ -1,18 +1,19 @@
+import { useState } from "react";
 import ShowPasswordButton from "./ShowPasswordButton";
 
 interface InputProp {
   icon: any;
   dataTestId: string;
   Id: string;
-  type: string;
+  type?: string;
   placeholder: string;
   validation?: any;
-  showPasswordButton?: boolean;
-  passwordShow?: boolean;
-  setPasswordShow?: Function;
+  showPasswordButton: boolean;
 }
 
 const Input = (props: InputProp) => {
+  const [passwordShow, setPasswordShow] = useState<boolean>(false);
+
   return (
     <div className="space-y-2 text-gray-700">
       <div className="relative  focus-within:text-gray-900 dark:focus-within:text-gray-800 ">
@@ -21,15 +22,21 @@ const Input = (props: InputProp) => {
           className="SignUpFormInput"
           id={props.Id}
           data-testid={props.dataTestId}
-          type={props.type}
+          type={
+            props.showPasswordButton === true
+              ? passwordShow
+                ? "text"
+                : "password"
+              : props.type
+          }
           placeholder={props.placeholder}
           {...props.validation}
         />
         {props.showPasswordButton && (
           <ShowPasswordButton
             dataTestId={props.dataTestId + "Button"}
-            passwordShow={props.passwordShow}
-            setPasswordShow={props.setPasswordShow}
+            passwordShow={passwordShow}
+            setPasswordShow={setPasswordShow}
           />
         )}
       </div>

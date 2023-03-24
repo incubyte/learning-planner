@@ -2,8 +2,8 @@ import PasswordHideIcon from "./icons/PasswordHide";
 import PasswordShowIcon from "./icons/PasswordShow";
 
 interface ShowPasswordButtonProp {
-  passwordShow?: boolean;
-  setPasswordShow?: Function;
+  passwordShow: boolean;
+  setPasswordShow: Function;
   dataTestId?: string;
 }
 
@@ -14,7 +14,7 @@ const ShowPasswordButton = (props: ShowPasswordButtonProp) => {
         data-testid={props.dataTestId}
         type="button"
         onClick={() => {
-          props.setPasswordShow && props.setPasswordShow(!props.passwordShow);
+          props.setPasswordShow(!props.passwordShow);
         }}
         className="z-30 "
       >

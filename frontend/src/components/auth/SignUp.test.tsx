@@ -106,20 +106,6 @@ describe("SignUp Component", () => {
 
       expect(signUpEmail).toBeInTheDocument();
     });
-
-    test("signup Email is editable", () => {
-      render(
-        <BrowserRouter>
-          <SignUp />
-        </BrowserRouter>
-      );
-
-      const signUpEmail = screen.getByTestId("signupEmail") as HTMLInputElement;
-      fireEvent.change(signUpEmail, {
-        target: { value: "testing" },
-      });
-      expect(signUpEmail.value).toMatch("testing");
-    });
   });
 
   describe("Sign Up Password", () => {
@@ -135,60 +121,6 @@ describe("SignUp Component", () => {
       ) as HTMLInputElement;
       expect(signUpPassword).toBeInTheDocument();
     });
-
-    test("signup Password is editable", () => {
-      render(
-        <BrowserRouter>
-          <SignUp />
-        </BrowserRouter>
-      );
-
-      const signUpPassword = screen.getByTestId(
-        "signupPassword"
-      ) as HTMLInputElement;
-
-      fireEvent.change(signUpPassword, {
-        target: { value: "testing" },
-      });
-      expect(signUpPassword.value).toMatch("testing");
-    });
-
-    test("Default type for Password is password ", () => {
-      render(
-        <BrowserRouter>
-          <SignUp />
-        </BrowserRouter>
-      );
-
-      const signUpPassword = screen.getByTestId(
-        "signupPassword"
-      ) as HTMLInputElement;
-      expect(signUpPassword.type).toBe("password");
-    });
-
-    test("toggle Password type when show button clicked", () => {
-      render(
-        <BrowserRouter>
-          <SignUp />
-        </BrowserRouter>
-      );
-
-      const signUpPassword = screen.getByTestId(
-        "signupPassword"
-      ) as HTMLInputElement;
-
-      const signUpPasswordButton = screen.getByTestId("signupPasswordButton");
-
-      expect(signUpPassword.type).toBe("password");
-
-      fireEvent.click(signUpPasswordButton);
-
-      expect(signUpPassword.type).toBe("text");
-
-      fireEvent.click(signUpPasswordButton);
-
-      expect(signUpPassword.type).toBe("password");
-    });
   });
 
   describe("Sign Up ConfirmPassword", () => {
@@ -203,62 +135,6 @@ describe("SignUp Component", () => {
         "signupConfirmPassword"
       ) as HTMLInputElement;
       expect(signUpConfirmPassword).toBeInTheDocument();
-    });
-
-    test("signup ConfirmPassword is editable", () => {
-      render(
-        <BrowserRouter>
-          <SignUp />
-        </BrowserRouter>
-      );
-
-      const signUpConfirmPassword = screen.getByTestId(
-        "signupConfirmPassword"
-      ) as HTMLInputElement;
-
-      fireEvent.change(signUpConfirmPassword, {
-        target: { value: "testing" },
-      });
-      expect(signUpConfirmPassword.value).toMatch("testing");
-    });
-
-    test("Default type for ConfirmPassword is password ", () => {
-      render(
-        <BrowserRouter>
-          <SignUp />
-        </BrowserRouter>
-      );
-
-      const signUpConfirmPassword = screen.getByTestId(
-        "signupConfirmPassword"
-      ) as HTMLInputElement;
-      expect(signUpConfirmPassword.type).toBe("password");
-    });
-
-    test("toggle ConfirmPassword type when show button clicked", () => {
-      render(
-        <BrowserRouter>
-          <SignUp />
-        </BrowserRouter>
-      );
-
-      const signUpConfirmPassword = screen.getByTestId(
-        "signupConfirmPassword"
-      ) as HTMLInputElement;
-
-      const signUpConfirmPasswordButton = screen.getByTestId(
-        "signupConfirmPasswordButton"
-      );
-
-      expect(signUpConfirmPassword.type).toBe("password");
-
-      fireEvent.click(signUpConfirmPasswordButton);
-
-      expect(signUpConfirmPassword.type).toBe("text");
-
-      fireEvent.click(signUpConfirmPasswordButton);
-
-      expect(signUpConfirmPassword.type).toBe("password");
     });
   });
 

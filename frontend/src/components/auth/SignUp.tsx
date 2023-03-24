@@ -1,12 +1,11 @@
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../../css/auth/SignUp.css";
-import EmailIcon from "../icons/Email";
-import PasswordIcon from "../icons/Password";
-import Input from "../Input";
+import EmailIcon from "../utilities/icons/Email";
+import PasswordIcon from "../utilities/icons/Password";
+import Input from "../utilities/Input";
 
 const SignUp = () => {
   const {
@@ -16,10 +15,7 @@ const SignUp = () => {
     formState: { errors },
   } = useForm();
 
-  const [passwordShow, setPasswordShow] = useState<boolean>(false);
   const navigator = useNavigate();
-  const [confirmPasswordShow, setConfirmPasswordShow] =
-    useState<boolean>(false);
 
   const handleFormSubmit = (data: any) => {
     console.log(data);
@@ -116,9 +112,6 @@ const SignUp = () => {
                   dataTestId="signupPassword"
                   placeholder="password"
                   Id="password"
-                  type={passwordShow ? "text" : "password"}
-                  passwordShow={passwordShow}
-                  setPasswordShow={setPasswordShow}
                   showPasswordButton={true}
                   validation={passwordValidation}
                 />
@@ -132,9 +125,6 @@ const SignUp = () => {
                   dataTestId="signupConfirmPassword"
                   placeholder="confirm password"
                   Id="confirmpassword"
-                  type={confirmPasswordShow ? "text" : "password"}
-                  passwordShow={confirmPasswordShow}
-                  setPasswordShow={setConfirmPasswordShow}
                   showPasswordButton={true}
                   validation={confirmPasswordValidation}
                 />
