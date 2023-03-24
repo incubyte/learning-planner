@@ -23,11 +23,11 @@ const Input = (props: InputProp) => {
           id={props.Id}
           data-testid={props.dataTestId}
           type={
-            props.showPasswordButton === true
+            (props.showPasswordButton === true
               ? passwordShow
                 ? "text"
                 : "password"
-              : props.type
+              : props.type) || "text"
           }
           placeholder={props.placeholder}
           {...props.validation}

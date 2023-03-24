@@ -1,4 +1,5 @@
-import { cleanup, fireEvent, render, screen } from "@testing-library/react";
+import { cleanup, render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { act } from "react-dom/test-utils";
 import { BrowserRouter } from "react-router-dom";
 import SignUp from "./SignUp";
@@ -35,14 +36,16 @@ describe("SignUp Component", () => {
       expect(signUpButton).toHaveTextContent("Sign Up");
     });
 
-    test("calls handlesubmit when signup button clicked", async () => {
+    test("toast 'Account created' when signup success", async () => {
       render(
         <BrowserRouter>
           <SignUp />
         </BrowserRouter>
       );
 
-      const signUpButton = screen.getByTestId("signupButton");
+      const signUpButton = screen.getByTestId(
+        "signupButton"
+      ) as HTMLButtonElement;
       const signUpEmail = screen.getByTestId("signupEmail") as HTMLInputElement;
       const signUpPassword = screen.getByTestId(
         "signupPassword"
@@ -51,20 +54,30 @@ describe("SignUp Component", () => {
         "signupConfirmPassword"
       ) as HTMLInputElement;
 
-      act(() => {
-        fireEvent.change(signUpEmail, {
-          target: { value: "aman@gmail.co" },
-        });
-        fireEvent.change(signUpPassword, {
-          target: { value: "Aman@123" },
-        });
+      const signUpPasswordError = screen.getByTestId(
+        "signupPasswordError"
+      ) as HTMLDivElement;
 
-        fireEvent.change(signUpConfirmPassword, {
-          target: { value: "Aman@123" },
-        });
+      const signUpConfirmPasswordError = screen.getByTestId(
+        "signupConfirmPasswordError"
+      ) as HTMLDivElement;
+
+      await act(() => {
+        // userEvent.type(signUpEmail, "john@incubyte.co");
       });
-      // fireEvent.click(signUpButton);
-      expect(handleFormSubmit).toBeCalledTimes(0);
+
+      await act(() => {
+        userEvent.type(signUpPassword, "Aman@123");
+      });
+      await act(() => {
+        userEvent.type(signUpConfirmPassword, "Aman@123");
+      });
+      await act(() => {
+        userEvent.click(signUpButton);
+      });
+      const signUpToast = screen.getByTestId("signupToast");
+      console.log(signUpEmail.value);
+      expect(signUpToast).toBeInTheDocument();
     });
   });
 
@@ -101,10 +114,58 @@ describe("SignUp Component", () => {
           <SignUp />
         </BrowserRouter>
       );
-
       const signUpEmail = screen.getByTestId("signupEmail");
 
       expect(signUpEmail).toBeInTheDocument();
+    });
+
+    test("signup email is required", async () => {
+      render(
+        <BrowserRouter>
+          <SignUp />
+        </BrowserRouter>
+      );
+
+      const signUpButton = screen.getByTestId(
+        "signupButton"
+      ) as HTMLButtonElement;
+
+      const signUpEmailError = screen.getByTestId(
+        "signupEmailError"
+      ) as HTMLDivElement;
+
+      await act(() => {
+        userEvent.click(signUpButton);
+      });
+
+      expect(signUpEmailError).toBeInTheDocument();
+      expect(signUpEmailError.innerHTML).toEqual("email is required");
+    });
+
+    test("signup email is not valid", async () => {
+      render(
+        <BrowserRouter>
+          <SignUp />
+        </BrowserRouter>
+      );
+
+      const signUpButton = screen.getByTestId(
+        "signupButton"
+      ) as HTMLButtonElement;
+
+      const signUpEmail = screen.getByTestId("signupEmail") as HTMLInputElement;
+
+      const signUpEmailError = screen.getByTestId(
+        "signupEmailError"
+      ) as HTMLDivElement;
+
+      await act(() => {
+        userEvent.type(signUpEmail, "john@gmail.co");
+        userEvent.click(signUpButton);
+      });
+
+      expect(signUpEmailError).toBeInTheDocument();
+      expect(signUpEmailError.innerHTML).toEqual("email is not valid");
     });
   });
 
@@ -121,6 +182,29 @@ describe("SignUp Component", () => {
       ) as HTMLInputElement;
       expect(signUpPassword).toBeInTheDocument();
     });
+
+    test("signup password is required", async () => {
+      render(
+        <BrowserRouter>
+          <SignUp />
+        </BrowserRouter>
+      );
+
+      const signUpButton = screen.getByTestId(
+        "signupButton"
+      ) as HTMLButtonElement;
+
+      const signUpPasswordError = screen.getByTestId(
+        "signupPasswordError"
+      ) as HTMLDivElement;
+
+      await act(() => {
+        userEvent.click(signUpButton);
+      });
+
+      expect(signUpPasswordError).toBeInTheDocument();
+      expect(signUpPasswordError.innerHTML).toEqual("password is required");
+    });
   });
 
   describe("Sign Up ConfirmPassword", () => {
@@ -135,6 +219,31 @@ describe("SignUp Component", () => {
         "signupConfirmPassword"
       ) as HTMLInputElement;
       expect(signUpConfirmPassword).toBeInTheDocument();
+    });
+
+    test("signup confirmpassword is required", async () => {
+      render(
+        <BrowserRouter>
+          <SignUp />
+        </BrowserRouter>
+      );
+
+      const signUpButton = screen.getByTestId(
+        "signupButton"
+      ) as HTMLButtonElement;
+
+      const signUpConfirmPasswordError = screen.getByTestId(
+        "signupConfirmPasswordError"
+      ) as HTMLDivElement;
+
+      await act(() => {
+        userEvent.click(signUpButton);
+      });
+
+      expect(signUpConfirmPasswordError).toBeInTheDocument();
+      expect(signUpConfirmPasswordError.innerHTML).toEqual(
+        "confirm password is required"
+      );
     });
   });
 

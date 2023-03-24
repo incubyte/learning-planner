@@ -90,6 +90,7 @@ const SignUp = () => {
             <form onSubmit={handleSubmit(handleFormSubmit)}>
               <label className="SignUpFormItems">
                 <Input
+                  data-testid="signupEmail"
                   icon={EmailIcon}
                   dataTestId="signupEmail"
                   placeholder="email"
@@ -108,6 +109,7 @@ const SignUp = () => {
                 </div>
 
                 <Input
+                  data-testid="signupPassword"
                   icon={PasswordIcon}
                   dataTestId="signupPassword"
                   placeholder="password"
@@ -116,11 +118,15 @@ const SignUp = () => {
                   validation={passwordValidation}
                 />
 
-                <div className="text-red-600 font-bold md:text-2xl lg:text-base">
+                <div
+                  data-testid="signupPasswordError"
+                  className="text-red-600 font-bold md:text-2xl lg:text-base"
+                >
                   {errors.password ? <>{errors.password.message}</> : <></>}
                 </div>
 
                 <Input
+                  data-testid="signupConfirmPassword"
                   icon={PasswordIcon}
                   dataTestId="signupConfirmPassword"
                   placeholder="confirm password"
@@ -129,7 +135,10 @@ const SignUp = () => {
                   validation={confirmPasswordValidation}
                 />
 
-                <div className="text-red-600 font-bold md:text-2xl lg:text-base">
+                <div
+                  data-testid="signupConfirmPasswordError"
+                  className="text-red-600 font-bold md:text-2xl lg:text-base"
+                >
                   {errors.confirmpassword ? (
                     <>{errors.confirmpassword.message}</>
                   ) : (
@@ -144,7 +153,9 @@ const SignUp = () => {
                 >
                   Sign Up
                 </button>
-                <ToastContainer />
+                <div data-testid="signupToast">
+                  <ToastContainer />
+                </div>
 
                 <label className="SignUpAlreadyAccount">
                   {accountText}
