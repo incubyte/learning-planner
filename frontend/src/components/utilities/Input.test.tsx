@@ -1,4 +1,5 @@
-import { cleanup, fireEvent, render, screen } from "@testing-library/react";
+import { act, cleanup, render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { BrowserRouter } from "react-router-dom";
 import EmailIcon from "./icons/Email";
 import PasswordIcon from "./icons/Password";
@@ -39,9 +40,9 @@ describe("Input Component", () => {
       </BrowserRouter>
     );
     const inputEmail = screen.getByTestId("inputEmail") as HTMLInputElement;
-    fireEvent.change(inputEmail, {
-      target: { value: "testing" },
-    });
+
+    userEvent.type(inputEmail, "testing");
+
     expect(inputEmail.value).toMatch("testing");
   });
 
@@ -84,7 +85,7 @@ describe("Input Component", () => {
     expect(inputPassword.type).toBe("password");
   });
 
-  test("toggle Password type when show button clicked", () => {
+  test("toggle Password type when show button clicked", async () => {
     render(
       <BrowserRouter>
         <Input
@@ -102,15 +103,21 @@ describe("Input Component", () => {
       "inputPassword"
     ) as HTMLInputElement;
 
-    const inputPasswordButton = screen.getByTestId("inputPasswordButton");
+    const inputPasswordButton = screen.getByTestId(
+      "inputPasswordButton"
+    ) as HTMLButtonElement;
 
     expect(inputPassword.type).toBe("password");
 
-    fireEvent.click(inputPasswordButton);
+    await act(() => {
+      userEvent.click(inputPasswordButton);
+    });
 
     expect(inputPassword.type).toBe("text");
 
-    fireEvent.click(inputPasswordButton);
+    await act(() => {
+      userEvent.click(inputPasswordButton);
+    });
 
     expect(inputPassword.type).toBe("password");
   });
