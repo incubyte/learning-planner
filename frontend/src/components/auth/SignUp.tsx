@@ -87,10 +87,10 @@ const SignUp = () => {
             >
               Sign Up
             </div>
-            <form onSubmit={handleSubmit(handleFormSubmit)}>
+
+            <form onSubmit={handleSubmit(handleFormSubmit)} data-testid="form">
               <label className="SignUpFormItems">
                 <Input
-                  data-testid="signupEmail"
                   icon={EmailIcon}
                   dataTestId="signupEmail"
                   placeholder="email"
@@ -109,7 +109,6 @@ const SignUp = () => {
                 </div>
 
                 <Input
-                  data-testid="signupPassword"
                   icon={PasswordIcon}
                   dataTestId="signupPassword"
                   placeholder="password"
@@ -126,7 +125,6 @@ const SignUp = () => {
                 </div>
 
                 <Input
-                  data-testid="signupConfirmPassword"
                   icon={PasswordIcon}
                   dataTestId="signupConfirmPassword"
                   placeholder="confirm password"

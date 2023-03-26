@@ -1,4 +1,10 @@
-import { cleanup, render, screen } from "@testing-library/react";
+import {
+  act,
+  cleanup,
+  fireEvent,
+  render,
+  screen,
+} from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
 import SignIn from "./SignIn";
 
@@ -43,6 +49,58 @@ describe("Sign In Component", () => {
 
       expect(signInEmail).toBeInTheDocument();
     });
+
+    test("signin email is required", async () => {
+      render(
+        <BrowserRouter>
+          <SignIn />
+        </BrowserRouter>
+      );
+
+      const signInButton = screen.getByTestId(
+        "signinButton"
+      ) as HTMLButtonElement;
+
+      const signInEmailError = screen.getByTestId(
+        "signinEmailError"
+      ) as HTMLDivElement;
+
+      await act(() => {
+        fireEvent.click(signInButton);
+      });
+
+      expect(signInEmailError).toBeInTheDocument();
+      expect(signInEmailError.innerHTML).toEqual("email is required");
+    });
+
+    test("signin email is not valid", async () => {
+      render(
+        <BrowserRouter>
+          <SignIn />
+        </BrowserRouter>
+      );
+
+      const signInButton = screen.getByTestId(
+        "signinButton"
+      ) as HTMLButtonElement;
+
+      const signInEmail = screen.getByTestId("signinEmail") as HTMLInputElement;
+
+      const signInEmailError = screen.getByTestId(
+        "signinEmailError"
+      ) as HTMLDivElement;
+
+      await act(() => {
+        fireEvent.change(signInEmail, { target: { value: "john@gmail.co" } });
+      });
+
+      await act(() => {
+        fireEvent.click(signInButton);
+      });
+      console.log(signInEmail.value);
+      expect(signInEmailError).toBeInTheDocument();
+      expect(signInEmailError.innerHTML).toEqual("email is not valid");
+    });
   });
 
   describe("Sign In Password", () => {
@@ -57,6 +115,57 @@ describe("Sign In Component", () => {
         "signinPassword"
       ) as HTMLInputElement;
       expect(signInPassword).toBeInTheDocument();
+    });
+
+    test("signin password is required", async () => {
+      render(
+        <BrowserRouter>
+          <SignIn />
+        </BrowserRouter>
+      );
+
+      const signInButton = screen.getByTestId(
+        "signinButton"
+      ) as HTMLButtonElement;
+
+      const signInPasswordError = screen.getByTestId(
+        "signinPasswordError"
+      ) as HTMLDivElement;
+
+      await act(() => {
+        fireEvent.click(signInButton);
+      });
+
+      expect(signInPasswordError).toBeInTheDocument();
+      expect(signInPasswordError.innerHTML).toEqual("password is required");
+    });
+
+    test("signin password is not valid", async () => {
+      render(
+        <BrowserRouter>
+          <SignIn />
+        </BrowserRouter>
+      );
+
+      const signInButton = screen.getByTestId(
+        "signinButton"
+      ) as HTMLButtonElement;
+
+      const SignInPassword = screen.getByTestId(
+        "signinPassword"
+      ) as HTMLInputElement;
+
+      const signInPasswordError = screen.getByTestId(
+        "signinPasswordError"
+      ) as HTMLDivElement;
+
+      await act(() => {
+        fireEvent.change(SignInPassword, { target: { value: "john" } });
+        fireEvent.click(signInButton);
+      });
+
+      expect(signInPasswordError).toBeInTheDocument();
+      expect(signInPasswordError.innerHTML).toEqual("password is not valid");
     });
   });
 

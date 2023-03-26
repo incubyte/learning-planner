@@ -75,7 +75,10 @@ const SignIn = () => {
                   validation={emailValidation}
                 />
 
-                <div className="text-red-600 font-bold md:text-2xl lg:text-base">
+                <div
+                  data-testid="signinEmailError"
+                  className="text-red-600 font-bold md:text-2xl lg:text-base"
+                >
                   {errors.email ? <>{errors.email.message}</> : <></>}
                 </div>
 
@@ -87,7 +90,10 @@ const SignIn = () => {
                   showPasswordButton={true}
                   validation={passwordValidation}
                 />
-                <div className="text-red-600 font-bold md:text-2xl lg:text-base">
+                <div
+                  data-testid="signinPasswordError"
+                  className="text-red-600 font-bold md:text-2xl lg:text-base"
+                >
                   {errors.password ? <>{errors.password.message}</> : <></>}
                 </div>
 

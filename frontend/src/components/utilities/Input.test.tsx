@@ -1,5 +1,10 @@
-import { act, cleanup, render, screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
+import {
+  act,
+  cleanup,
+  fireEvent,
+  render,
+  screen,
+} from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
 import EmailIcon from "./icons/Email";
 import PasswordIcon from "./icons/Password";
@@ -41,7 +46,7 @@ describe("Input Component", () => {
     );
     const inputEmail = screen.getByTestId("inputEmail") as HTMLInputElement;
 
-    userEvent.type(inputEmail, "testing");
+    fireEvent.change(inputEmail, { target: { value: "testing" } });
 
     expect(inputEmail.value).toMatch("testing");
   });
@@ -110,13 +115,13 @@ describe("Input Component", () => {
     expect(inputPassword.type).toBe("password");
 
     await act(() => {
-      userEvent.click(inputPasswordButton);
+      fireEvent.click(inputPasswordButton);
     });
 
     expect(inputPassword.type).toBe("text");
 
     await act(() => {
-      userEvent.click(inputPasswordButton);
+      fireEvent.click(inputPasswordButton);
     });
 
     expect(inputPassword.type).toBe("password");
