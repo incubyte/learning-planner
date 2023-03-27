@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../../css/auth/SignUp.css";
 import EmailIcon from "../utilities/icons/Email";
@@ -18,8 +18,14 @@ const SignUp = () => {
   const navigator = useNavigate();
   const handleFormSubmit = (data: any) => {
     console.log(data);
-    window.alert("Hurrey! Account created 🥳🥳");
-    navigator("/auth/signin");
+    toast("Hurrey! Account created 🥳🥳", {
+      autoClose: 2500,
+      closeButton: false,
+    });
+
+    setTimeout(() => {
+      navigator("/auth/signin");
+    }, 3000);
   };
 
   const emailValidation = {
@@ -148,6 +154,7 @@ const SignUp = () => {
                 >
                   Sign Up
                 </button>
+
                 <div data-testid="signupToast">
                   <ToastContainer />
                 </div>

@@ -42,7 +42,6 @@ jobs:
 
   lint:
     runs-on: ubuntu-latest
-    if: ${{ always() }}
     needs: build
     defaults:
       run:

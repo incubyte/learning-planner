@@ -312,11 +312,12 @@ describe("SignUp Component", () => {
       await act(() => {
         fireEvent.click(signUpButton);
       });
-      const signUpToast = screen.getByTestId("signupToast") as HTMLElement;
+      // global.alert = jest.fn();
+      // jest.spyOn(window, "alert").mockImplementation(() => {});
+
       const toast = screen.getByRole("alert");
-      console.log(signUpToast.innerHTML);
-      expect(signUpToast).toBeInTheDocument();
       expect(toast).toBeInTheDocument();
+      // expect(window.alert).toBeCalled();
     });
   });
 });
