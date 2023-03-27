@@ -10,6 +10,10 @@
     @apply lg:w-screen lg:visible
 }
 
+.SignInHeader{
+    @apply text-5xl lg:text-4xl md:text-7xl xsm:text-4xl mb-5
+}
+
 .SignInRightside {
     @apply grid grid-cols-1 justify-items-center content-center object-contain
 }
@@ -20,6 +24,10 @@
 
 .SignInFormItems {
    @apply grid gap-2 grid-cols-1 justify-items-center
+}
+
+.SignInErors{
+    @apply text-red-600 font-bold  md:text-2xl lg:text-base
 }
 
 .ForgotPass{

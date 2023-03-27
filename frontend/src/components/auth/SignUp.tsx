@@ -84,10 +84,7 @@ const SignUp = () => {
 
         <div className="SignUpRightside">
           <div className="SignUpRightContent">
-            <div
-              className="text-5xl lg:text-4xl md:text-7xl xsm:text-4xl mb-5"
-              data-testid="signupHeader"
-            >
+            <div className="SignUpHeader" data-testid="signupHeader">
               Sign Up
             </div>
 
@@ -106,7 +103,7 @@ const SignUp = () => {
                 <div
                   data-testid="signupEmailError"
                   id="signupEmailError"
-                  className="text-red-600 font-bold  md:text-2xl lg:text-base"
+                  className="SignUpErrors"
                 >
                   {errors.email ? <>{errors.email.message}</> : <></>}
                 </div>
@@ -120,10 +117,7 @@ const SignUp = () => {
                   validation={passwordValidation}
                 />
 
-                <div
-                  data-testid="signupPasswordError"
-                  className="text-red-600 font-bold md:text-2xl lg:text-base"
-                >
+                <div data-testid="signupPasswordError" className="SignUpErrors">
                   {errors.password ? <>{errors.password.message}</> : <></>}
                 </div>
 
@@ -138,7 +132,7 @@ const SignUp = () => {
 
                 <div
                   data-testid="signupConfirmPasswordError"
-                  className="text-red-600 font-bold md:text-2xl lg:text-base"
+                  className="SignUpErrors"
                 >
                   {errors.confirmpassword ? (
                     <>{errors.confirmpassword.message}</>

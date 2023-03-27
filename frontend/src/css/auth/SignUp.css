@@ -10,6 +10,9 @@
     @apply lg:w-screen lg:visible
 }
 
+.SignUpHeader{
+    @apply text-5xl lg:text-4xl md:text-7xl xsm:text-4xl mb-5
+}
 .SignUpRightside {
     @apply grid grid-cols-1 justify-items-center content-center object-contain
 }
@@ -30,6 +33,10 @@
     disabled:shadow-none invalid:border-pink-500 invalid:text-pink-600 
     focus:invalid:border-pink-500 focus:invalid:ring-pink-500 lg:pl-11 md:pl-14 lg:pr-11 md:pr-14 
     xsm:pl-11 xsm:pr-11 text-xl lg:text-base sm:text-xl  xsm:text-sm  md:text-3xl;
+}
+
+.SignUpErrors{
+    @apply text-red-600 font-bold  md:text-2xl lg:text-base
 }
 
 .SignUpSubmit {
