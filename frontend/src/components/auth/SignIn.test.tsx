@@ -97,7 +97,6 @@ describe("Sign In Component", () => {
       await act(() => {
         fireEvent.click(signInButton);
       });
-      console.log(signInEmail.value);
       expect(signInEmailError).toBeInTheDocument();
       expect(signInEmailError.innerHTML).toEqual("email is not valid");
     });
