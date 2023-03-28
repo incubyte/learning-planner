@@ -37,8 +37,7 @@ const SignIn = () => {
       },
       pattern: {
         value: /((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W]).{6,20})/,
-        message:
-          "password must contain 1 uppercase, 1 lowercase, 1 special character and 1 number",
+        message: "password is not valid",
       },
     }),
   };

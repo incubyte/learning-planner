@@ -69,7 +69,7 @@ describe("SignUp Component", () => {
       expect(signUpEmailError.innerHTML).toEqual("email is required");
     });
 
-    test("signup email is not valid", async () => {
+    test("signup email must be an incubyte email", async () => {
       render(
         <BrowserRouter>
           <SignUp />
@@ -94,7 +94,9 @@ describe("SignUp Component", () => {
         fireEvent.click(signUpButton);
       });
       expect(signUpEmailError).toBeInTheDocument();
-      expect(signUpEmailError.innerHTML).toEqual("email is not valid");
+      expect(signUpEmailError.innerHTML).toEqual(
+        "email must be an incubyte email"
+      );
     });
   });
 
@@ -178,7 +180,7 @@ describe("SignUp Component", () => {
       expect(signUpConfirmPassword).toBeInTheDocument();
     });
 
-    test("signup confirmpassword is required", async () => {
+    test("signup confirmpassword must match with password", async () => {
       render(
         <BrowserRouter>
           <SignUp />
@@ -189,30 +191,9 @@ describe("SignUp Component", () => {
         "signupButton"
       ) as HTMLButtonElement;
 
-      const signUpConfirmPasswordError = screen.getByTestId(
-        "signupConfirmPasswordError"
-      ) as HTMLDivElement;
-
-      await act(() => {
-        fireEvent.click(signUpButton);
-      });
-
-      expect(signUpConfirmPasswordError).toBeInTheDocument();
-      expect(signUpConfirmPasswordError.innerHTML).toEqual(
-        "confirm password is required"
-      );
-    });
-
-    test("signup confirmpassword is not valid", async () => {
-      render(
-        <BrowserRouter>
-          <SignUp />
-        </BrowserRouter>
-      );
-
-      const signUpButton = screen.getByTestId(
-        "signupButton"
-      ) as HTMLButtonElement;
+      const SignUpPassword = screen.getByTestId(
+        "signupPassword"
+      ) as HTMLInputElement;
 
       const SignUpConfirmPassword = screen.getByTestId(
         "signupConfirmPassword"
@@ -223,13 +204,18 @@ describe("SignUp Component", () => {
       ) as HTMLDivElement;
 
       await act(() => {
-        fireEvent.change(SignUpConfirmPassword, { target: { value: "john" } });
+        fireEvent.change(SignUpPassword, {
+          target: { value: "John@123" },
+        });
+        fireEvent.change(SignUpConfirmPassword, {
+          target: { value: "John@122" },
+        });
         fireEvent.click(signUpButton);
       });
 
       expect(signUpConfirmPasswordError).toBeInTheDocument();
       expect(signUpConfirmPasswordError.innerHTML).toEqual(
-        "confirm password is not valid"
+        "Confirm Password must match with Password"
       );
     });
   });

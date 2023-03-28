@@ -73,7 +73,7 @@ describe("Sign In Component", () => {
       expect(signInEmailError.innerHTML).toEqual("email is required");
     });
 
-    test("signin email is not valid", async () => {
+    test("signin email must be an incubyte email", async () => {
       render(
         <BrowserRouter>
           <SignIn />
@@ -98,7 +98,9 @@ describe("Sign In Component", () => {
         fireEvent.click(signInButton);
       });
       expect(signInEmailError).toBeInTheDocument();
-      expect(signInEmailError.innerHTML).toEqual("email is not valid");
+      expect(signInEmailError.innerHTML).toEqual(
+        "email must be an incubyte email"
+      );
     });
   });
 

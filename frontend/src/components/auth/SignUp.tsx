@@ -58,14 +58,6 @@ const SignUp = () => {
 
   const confirmPasswordValidation = {
     ...register("confirmpassword", {
-      required: {
-        value: true,
-        message: "confirm password is required",
-      },
-      pattern: {
-        value: /((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W]).{6,20})/,
-        message: "confirm password is not valid",
-      },
       validate: {
         confirmPasswordEqual: (value) =>
           value === getValues().password ||
