@@ -1,7 +1,9 @@
+import Tippy from "@tippyjs/react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import "tippy.js/dist/tippy.css";
 import "../../css/auth/SignUp.css";
 import EmailIcon from "../utilities/icons/Email";
 import PasswordIcon from "../utilities/icons/Password";
@@ -36,7 +38,7 @@ const SignUp = () => {
       },
       pattern: {
         value: /^\S+@\incubyte.co$/i,
-        message: "email is not valid",
+        message: "email must be an incubyte email",
       },
     }),
   };
@@ -117,9 +119,14 @@ const SignUp = () => {
                   validation={passwordValidation}
                 />
 
-                <div data-testid="signupPasswordError" className="SignUpErrors">
-                  {errors.password ? <>{errors.password.message}</> : <></>}
-                </div>
+                <Tippy content="password must contain 1 uppercase, 1 lowercase, 1 special character and 1 number">
+                  <div
+                    data-testid="signupPasswordError"
+                    className="SignUpErrors"
+                  >
+                    {errors.password ? <>{errors.password.message}</> : <></>}
+                  </div>
+                </Tippy>
 
                 <Input
                   icon={PasswordIcon}
@@ -129,7 +136,6 @@ const SignUp = () => {
                   showPasswordButton={true}
                   validation={confirmPasswordValidation}
                 />
-
                 <div
                   data-testid="signupConfirmPasswordError"
                   className="SignUpErrors"

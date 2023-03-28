@@ -36,7 +36,7 @@
 }
 
 .SignUpErrors{
-    @apply text-red-600 font-bold  md:text-2xl lg:text-base
+    @apply text-red-600 font-bold  md:text-2xl lg:text-base whitespace-pre-wrap
 }
 
 .SignUpSubmit {

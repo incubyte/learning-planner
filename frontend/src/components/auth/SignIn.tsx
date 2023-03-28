@@ -1,4 +1,6 @@
+import Tippy from "@tippyjs/react";
 import { useForm } from "react-hook-form";
+import "tippy.js/dist/tippy.css";
 import "../../css/auth/SignIn.css";
 import EmailIcon from "../utilities/icons/Email";
 import PasswordIcon from "../utilities/icons/Password";
@@ -22,7 +24,7 @@ const SignIn = () => {
       },
       pattern: {
         value: /^\S+@\incubyte.co$/i,
-        message: "email is not valid",
+        message: "email must be an incubyte email",
       },
     }),
   };
@@ -35,7 +37,8 @@ const SignIn = () => {
       },
       pattern: {
         value: /((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W]).{6,20})/,
-        message: "password is not valid",
+        message:
+          "password must contain 1 uppercase, 1 lowercase, 1 special character and 1 number",
       },
     }),
   };
@@ -84,9 +87,14 @@ const SignIn = () => {
                   showPasswordButton={true}
                   validation={passwordValidation}
                 />
-                <div data-testid="signinPasswordError" className="SignInErors">
-                  {errors.password ? <>{errors.password.message}</> : <></>}
-                </div>
+                <Tippy content="password must contain 1 uppercase, 1 lowercase, 1 special character and 1 number">
+                  <div
+                    data-testid="signinPasswordError"
+                    className="SignInErors"
+                  >
+                    {errors.password ? <>{errors.password.message}</> : <></>}
+                  </div>
+                </Tippy>
 
                 <a
                   href=""
