@@ -1,14 +1,17 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { PrismaService } from '../prisma/prisma.service';
+import { PrismaService } from '@Prisma/prisma.service';
 import { AuthService } from './auth.service';
-import { UserDto } from './dto/user.dto';
+import { UserDto } from '@Auth/dto/user.dto';
 import { BadRequestException } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
+import { genSalt, hash } from 'bcrypt';
 
 describe('AuthService', () => {
   let service: AuthService;
   let prismaService: PrismaService;
+  let jwtService: JwtService;
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         AuthService,
@@ -24,24 +27,34 @@ describe('AuthService', () => {
             };
           },
         },
+        {
+          provide: JwtService,
+          useFactory() {
+            return {
+              sign: jest.fn(),
+            };
+          },
+        },
       ],
     }).compile();
-
     service = module.get<AuthService>(AuthService);
     prismaService = module.get<PrismaService>(PrismaService);
+    jwtService = module.get<JwtService>(JwtService);
   });
+
+  afterAll(async () => {
+    prismaService.user.delete({
+      where: {
+        email: 'john@incubyte.co',
+      },
+    });
+  });
+
   it('should be defined', () => {
     expect(service).toBeDefined();
   });
 
   describe('Signup', () => {
-    afterAll(async () => {
-      prismaService.user.delete({
-        where: {
-          email: 'john@incubyte.co',
-        },
-      });
-    });
     const userDTO: UserDto = {
       email: 'john@incubyte.co',
       password: '1234',
@@ -100,6 +113,68 @@ describe('AuthService', () => {
 
       await expect(service.signup(userDTO)).rejects.toThrow(
         BadRequestException,
+      );
+    });
+  });
+
+  describe('Signin', () => {
+    const userDTO: UserDto = {
+      email: 'john@incubyte.co',
+      password: '1234',
+    };
+
+    it('should be able to return sign token for logged in user', async () => {
+      jest.spyOn(prismaService.user, 'findFirst').mockResolvedValueOnce({
+        email: userDTO.email,
+        password: await hash(userDTO.password, await genSalt(10)),
+        id: '83b7e649-1e37-43be-8229-02ab06c9ba9a',
+        createdAt: Date.prototype,
+        profilePhoto: 'https://profilephoto.com',
+        updatedAt: Date.prototype,
+      });
+
+      jest
+        .spyOn(jwtService, 'sign')
+        .mockReturnValueOnce(
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjgzYjdlNjQ5LTFlMzctNDNiZS04MjI5LTAyYWIwNmM5YmE5YSIsImVtYWlsIjoiam9obkBpbmN1Ynl0ZS5jbyJ9.6P194HePv2AaSgB1jvyb_lM5EOKyMMu0cWkx_p0O2cc',
+        );
+
+      const accessToken = await service.signin(userDTO);
+
+      expect(jwtService.sign).toBeCalledTimes(1);
+      expect(jwtService.sign).toHaveBeenCalledWith({
+        email: userDTO.email,
+        id: '83b7e649-1e37-43be-8229-02ab06c9ba9a',
+      });
+      expect(accessToken).toBeDefined();
+      expect(accessToken).toBe(
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjgzYjdlNjQ5LTFlMzctNDNiZS04MjI5LTAyYWIwNmM5YmE5YSIsImVtYWlsIjoiam9obkBpbmN1Ynl0ZS5jbyJ9.6P194HePv2AaSgB1jvyb_lM5EOKyMMu0cWkx_p0O2cc',
+      );
+    });
+
+    it('should throw BadRequestException if user not found', async () => {
+      jest.spyOn(prismaService.user, 'findFirst').mockResolvedValueOnce(null);
+      await expect(service.signin(userDTO)).rejects.toThrow(
+        new BadRequestException('User not found'),
+      );
+    });
+
+    it('should throw BadRequestException if invalid password', async () => {
+      const invalidUserDto: UserDto = {
+        email: 'john@incubyte.co',
+        password: '123',
+      };
+
+      jest.spyOn(prismaService.user, 'findFirst').mockResolvedValueOnce({
+        email: userDTO.email,
+        password: '1234',
+        id: '83b7e649-1e37-43be-8229-02ab06c9ba9a',
+        createdAt: Date.prototype,
+        profilePhoto: 'https://profilephoto.com',
+        updatedAt: Date.prototype,
+      });
+      await expect(service.signin(invalidUserDto)).rejects.toThrow(
+        new BadRequestException('Invalid password'),
       );
     });
   });
