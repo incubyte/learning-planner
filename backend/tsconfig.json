@@ -20,7 +20,8 @@
     "paths": {
       "@/*": ["src/*"],
       "@Auth/*": ["src/auth/*"],
-      "@Prisma/*":["src/prisma/*"]
+      "@Prisma/*":["src/prisma/*"],
+      "@PrismaORM/*":["prisma/*"]
     }
   }
 }
