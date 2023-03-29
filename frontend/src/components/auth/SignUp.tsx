@@ -1,4 +1,5 @@
 import Tippy from "@tippyjs/react";
+import axios from "axios";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
@@ -18,16 +19,25 @@ const SignUp = () => {
   } = useForm();
 
   const navigator = useNavigate();
-  const handleFormSubmit = (data: any) => {
-    console.log(data);
-    toast("Hurrey! Account created 🥳🥳", {
-      autoClose: 2500,
-      closeButton: false,
-    });
 
-    setTimeout(() => {
-      navigator("/auth/signin");
-    }, 3000);
+  const handleFormSubmit = async (data: any) => {
+    await axios
+      .post("http://localhost:5000/auth/signup", {
+        email: data.email,
+        password: data.password,
+      })
+      .then(() => {
+        toast("Hurray! Account created 🥳🥳", {
+          autoClose: 2500,
+          closeButton: false,
+        });
+        setTimeout(() => {
+          navigator("/auth/signin");
+        }, 3000);
+      })
+      .catch((error) => {
+        toast.error(error.response.data.message, { autoClose: 2500 });
+      });
   };
 
   const emailValidation = {

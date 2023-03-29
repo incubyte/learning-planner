@@ -1,5 +1,8 @@
 import Tippy from "@tippyjs/react";
+import axios from "axios";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
 import "tippy.js/dist/tippy.css";
 import "../../css/auth/SignIn.css";
 import EmailIcon from "../utilities/icons/Email";
@@ -42,8 +45,21 @@ const SignIn = () => {
     }),
   };
 
-  const handleFormSubmit = (data: any) => {
-    console.log(data);
+  const navigator = useNavigate();
+
+  const handleFormSubmit = async (data: any) => {
+    await axios
+      .post("http://localhost:5000/auth/signin", {
+        email: data.email,
+        password: data.password,
+      })
+      .then((response) => {
+        localStorage.setItem("authToken", response.data);
+        navigator("/");
+      })
+      .catch((error) => {
+        toast.error(error.response.data.message, { autoClose: 2500 });
+      });
   };
 
   return (
@@ -105,6 +121,10 @@ const SignIn = () => {
                 <button data-testid="signinButton" className="SignInSubmit">
                   Sign In
                 </button>
+
+                <div data-testid="signinToast">
+                  <ToastContainer />
+                </div>
 
                 <label className="SignInNewAcc">
                   {accountText}
