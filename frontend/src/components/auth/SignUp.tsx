@@ -15,7 +15,8 @@ const SignUp = () => {
         email: data.email,
         password: data.password,
       })
-      .then(() => {
+      .then((response) => {
+        console.log(response);
         toast("Hurray! Account created 🥳🥳", {
           autoClose: 2500,
           closeButton: false,
@@ -25,6 +26,8 @@ const SignUp = () => {
         }, 3000);
       })
       .catch((error) => {
+        console.log(error);
+
         toast.error(error.response.data.message, { autoClose: 2500 });
       });
   };
