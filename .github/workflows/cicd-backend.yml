@@ -4,6 +4,9 @@ on: [push]
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      SECRET_KEY: ${{ secrets.SECRET_KEY }}
     defaults:
       run:
         working-directory: ./backend
@@ -32,12 +35,14 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
-        with:
-          node-version: "14"
       - name: Install depedencies
-        run: npm i 
-      - run: npm run test 
-  
+        run: npm i
+      - name: run tests
+        env: 
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          SECRET_KEY: ${{ secrets.SECRET_KEY }}
+        run: npm run test
+
   lint:
     runs-on: ubuntu-latest
     if: ${{ always() }}

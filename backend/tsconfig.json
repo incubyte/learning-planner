@@ -16,6 +16,12 @@
     "noImplicitAny": false,
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
-    "noFallthroughCasesInSwitch": false
+    "noFallthroughCasesInSwitch": false,
+    "paths": {
+      "@/*": ["src/*"],
+      "@Auth/*": ["src/auth/*"],
+      "@Prisma/*":["src/prisma/*"],
+      "@PrismaORM/*":["prisma/*"]
+    }
   }
 }
