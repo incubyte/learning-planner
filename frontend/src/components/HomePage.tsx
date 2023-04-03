@@ -7,7 +7,7 @@ const HomePage = () => {
   const navigator = useNavigate();
 
   const fetchCourses = async () => {
-    const response = await fetch("http://localhost:5000/", {
+    const response = await fetch("http://[::1]:5000/", {
       headers: { Authorization: `Bearer ${authToken}` },
     });
     if (response.ok) {

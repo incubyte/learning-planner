@@ -14,7 +14,7 @@ const SignUp = () => {
     //   closeButton: false,
     // });
 
-    const response = await fetch("http://localhost:5000/auth/signup", {
+    const response = await fetch("http://[::1]:5000/auth/signup", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email: data.email, password: data.password }),

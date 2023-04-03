@@ -25,7 +25,6 @@ jobs:
 
   setupBackend:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
     needs: build
     defaults:
       run:
@@ -42,6 +41,10 @@ jobs:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           SECRET_KEY: ${{ secrets.SECRET_KEY }}
         run: npm start
+      - name: wait for 8 mins
+        run: sleep 480s
+      - name: exit after 8 mins
+        run: exit 0
 
   test:
     runs-on: ubuntu-latest
