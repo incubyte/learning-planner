@@ -40,9 +40,7 @@ jobs:
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           SECRET_KEY: ${{ secrets.SECRET_KEY }}
-        run: |
-          echo $DATABASE_URL
-          npm start
+        run: echo $DATABASE_URL
 
   test:
     runs-on: ubuntu-latest
