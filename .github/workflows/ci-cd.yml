@@ -29,15 +29,15 @@ jobs:
     defaults:
       run:
         working-directory: ./backend
-      steps:
-        - uses: actions/checkout@v3
-        - uses: actions/setup-node@v3
-          with:
-            node-version: "14"
-        - name: Install depedencies
-          run: npm i
-        - name: start backend
-          run: npm run start:dev
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: "14"
+      - name: Install depedencies
+        run: npm i
+      - name: start backend
+        run: npm run start:dev
 
   test:
     runs-on: ubuntu-latest
