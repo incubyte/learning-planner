@@ -34,6 +34,7 @@
     "jest-mock-extended": "^3.0.3",
     "passport": "^0.6.0",
     "passport-jwt": "^4.0.1",
+    "passport-local": "^1.0.0",
     "prisma": "^4.11.0",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.2.0",
@@ -81,9 +82,9 @@
     "coverageDirectory": "../coverage",
     "testEnvironment": "node",
     "moduleNameMapper": {
-    "^@/(.*)$": "<rootDir>/../src/$1",
-    "^@Auth/(.*)$": "<rootDir>/../src/auth/$1",
-    "^@Prisma/(.*)$": "<rootDir>/../src/prisma/$1"
-  }
+      "^@/(.*)$": "<rootDir>/../src/$1",
+      "^@Auth/(.*)$": "<rootDir>/../src/auth/$1",
+      "^@Prisma/(.*)$": "<rootDir>/../src/prisma/$1"
+    }
   }
 }
