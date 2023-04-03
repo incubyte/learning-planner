@@ -1,4 +1,3 @@
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "tippy.js/dist/tippy.css";
@@ -9,18 +8,23 @@ const SignIn = () => {
   const navigator = useNavigate();
 
   const handleFormSubmit = async (data: any) => {
-    await axios
-      .post("http://localhost:5000/auth/signin", {
-        email: data.email,
-        password: data.password,
-      })
-      .then((response) => {
-        localStorage.setItem("authToken", response.data);
-        navigator("/");
-      })
-      .catch((error) => {
-        toast.error(error.response.data.message, { autoClose: 2500 });
+    const response = await fetch("http://localhost:5000/auth/signin", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email: data.email, password: data.password }),
+    });
+
+    if (response.ok) {
+      const authToken = await response.text();
+      localStorage.setItem("authToken", authToken);
+      navigator("/");
+    } else {
+      const jsonResponse = await response.json();
+      toast.error(jsonResponse.message, {
+        autoClose: 2500,
+        closeButton: false,
       });
+    }
   };
 
   return (

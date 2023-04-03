@@ -2,10 +2,6 @@ import { cleanup, render, screen } from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
 import SignIn from "./SignIn";
 
-beforeAll(() => {
-  jest.mock("axios");
-});
-
 afterEach(() => {
   cleanup();
 });
