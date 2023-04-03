@@ -38,14 +38,13 @@ jobs:
       - name: Install depedencies
         run: npm i
       - name: run tests
-        env: 
+        env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           SECRET_KEY: ${{ secrets.SECRET_KEY }}
         run: npm run test
 
   lint:
     runs-on: ubuntu-latest
-    if: ${{ always() }}
     needs: build
     defaults:
       run:
