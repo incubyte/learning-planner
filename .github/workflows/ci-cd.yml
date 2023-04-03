@@ -37,7 +37,10 @@ jobs:
       - name: Install depedencies
         run: npm i
       - name: start backend
-        run: npm run start:dev
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          SECRET_KEY: ${{ secrets.SECRET_KEY }}
+        run: npm start
 
   test:
     runs-on: ubuntu-latest
