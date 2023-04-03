@@ -25,6 +25,7 @@ jobs:
 
   setupBackend:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     needs: build
     defaults:
       run:
@@ -40,7 +41,7 @@ jobs:
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           SECRET_KEY: ${{ secrets.SECRET_KEY }}
-        run: echo $DATABASE_URL
+        run: npm start
 
   test:
     runs-on: ubuntu-latest
@@ -55,6 +56,9 @@ jobs:
           node-version: "14"
       - name: Install depedencies
         run: npm i
+
+      - name: sleep for 4 min
+        run: sleep 240s
 
       - name: Run Tests
         run: npm test
