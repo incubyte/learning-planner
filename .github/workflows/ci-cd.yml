@@ -46,7 +46,7 @@ jobs:
 
   test:
     runs-on: ubuntu-latest
-    needs: setupBackend
+    needs: build
     defaults:
       run:
         working-directory: ./frontend
