@@ -6,18 +6,12 @@ import {
   screen,
   waitFor,
 } from "@testing-library/react";
-import * as router from "react-router";
 import { BrowserRouter } from "react-router-dom";
 import SignIn from "../components/auth/SignIn";
 import SignUp from "../components/auth/SignUp";
 
 afterEach(() => {
   cleanup();
-});
-
-const navigate = jest.fn();
-beforeEach(() => {
-  jest.spyOn(router, "useNavigate").mockImplementation(() => navigate);
 });
 
 describe("test authentication", () => {
@@ -27,7 +21,6 @@ describe("test authentication", () => {
         <SignUp />
       </BrowserRouter>
     );
-
     const signUpButton = screen.getByTestId(
       "signupButton"
     ) as HTMLButtonElement;
@@ -64,7 +57,7 @@ describe("test authentication", () => {
     expect(signUpToast).toBeInTheDocument();
   });
 
-  test("redirect to homepage on signin success", async () => {
+  test("alert 'user not exists' for new user", async () => {
     render(
       <BrowserRouter>
         <SignIn />
@@ -82,17 +75,19 @@ describe("test authentication", () => {
 
     act(() => {
       fireEvent.change(signInEmail, {
-        target: { value: "aman.r@incubyte.co" },
+        target: { value: "john@incubyte.co" },
       });
     });
 
     await act(() => {
-      fireEvent.change(signInPassword, { target: { value: "Aman@111" } });
+      fireEvent.change(signInPassword, { target: { value: "John@123" } });
     });
 
     await act(() => {
       fireEvent.click(signInButton);
     });
-    expect(window.location.href).toEqual("http://localhost/");
+    await waitFor(() => screen.getByRole("alert"));
+    const signInToast = await screen.getByRole("alert");
+    expect(signInToast).toBeInTheDocument();
   });
 });
