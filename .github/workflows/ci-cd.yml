@@ -41,6 +41,8 @@ jobs:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           SECRET_KEY: ${{ secrets.SECRET_KEY }}
         run: npm start
+      - name: log variables
+        run: echo $DATABASE_URL
 
   test:
     runs-on: ubuntu-latest
