@@ -14,7 +14,43 @@ afterEach(() => {
   cleanup();
 });
 
-describe("test authentication", () => {
+describe("test signin", () => {
+  test("alert 'user not exists' for new user", async () => {
+    render(
+      <BrowserRouter>
+        <SignIn />
+      </BrowserRouter>
+    );
+
+    const signInButton = screen.getByTestId(
+      "signinButton"
+    ) as HTMLButtonElement;
+    const signInEmail = screen.getByTestId("signinEmail") as HTMLInputElement;
+
+    const signInPassword = screen.getByTestId(
+      "signinPassword"
+    ) as HTMLInputElement;
+
+    act(() => {
+      fireEvent.change(signInEmail, {
+        target: { value: "john@incubyte.co" },
+      });
+    });
+
+    await act(() => {
+      fireEvent.change(signInPassword, { target: { value: "John@123" } });
+    });
+
+    await act(() => {
+      fireEvent.click(signInButton);
+    });
+    await waitFor(() => screen.getByRole("alert"));
+    const signInToast = await screen.getByRole("alert");
+    expect(signInToast).toBeInTheDocument();
+  });
+});
+
+describe("Test sign up ", () => {
   test("toast 'account created' on signup success", async () => {
     render(
       <BrowserRouter>
@@ -49,45 +85,12 @@ describe("test authentication", () => {
         target: { value: "John@111" },
       });
     });
-    act(() => {
+    await act(() => {
       fireEvent.click(signUpButton);
+      console.log(signUpEmail.value, signUpPassword.value);
     });
     await waitFor(() => expect(screen.getByRole("alert")).toBeInTheDocument());
     // const signUpToast = await screen.getByRole("alert");
     // expect(signUpToast).toBeInTheDocument();
-  });
-
-  test("alert 'user not exists' for new user", async () => {
-    render(
-      <BrowserRouter>
-        <SignIn />
-      </BrowserRouter>
-    );
-
-    const signInButton = screen.getByTestId(
-      "signinButton"
-    ) as HTMLButtonElement;
-    const signInEmail = screen.getByTestId("signinEmail") as HTMLInputElement;
-
-    const signInPassword = screen.getByTestId(
-      "signinPassword"
-    ) as HTMLInputElement;
-
-    act(() => {
-      fireEvent.change(signInEmail, {
-        target: { value: "john@incubyte.co" },
-      });
-    });
-
-    await act(() => {
-      fireEvent.change(signInPassword, { target: { value: "John@123" } });
-    });
-
-    await act(() => {
-      fireEvent.click(signInButton);
-    });
-    await waitFor(() => screen.getByRole("alert"));
-    const signInToast = await screen.getByRole("alert");
-    expect(signInToast).toBeInTheDocument();
   });
 });
