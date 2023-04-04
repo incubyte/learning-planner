@@ -18,20 +18,28 @@ const SignIn = () => {
         },
         body: JSON.stringify({ email: data.email, password: data.password }),
       }
-    );
-    // console.log(response);
-    if (response.ok) {
-      const authToken = await response.text();
-      localStorage.setItem("authToken", authToken);
-      navigator("/");
-    } else {
-      console.log(response);
-      const jsonResponse = await response.json();
-      toast.error(jsonResponse.message, {
-        autoClose: 2500,
-        closeButton: false,
+    )
+      .then(async (response) => {
+        if (response.ok) {
+          const authToken = await response.text();
+          localStorage.setItem("authToken", authToken);
+          navigator("/");
+        } else {
+          console.log(response);
+          const jsonResponse = await response.json();
+          toast.error(jsonResponse.message, {
+            autoClose: 2500,
+            closeButton: false,
+          });
+        }
+      })
+      .catch((error) => {
+        toast.error(error.message, {
+          autoClose: 2500,
+          closeButton: false,
+        });
       });
-    }
+    // console.log(response);
   };
 
   return (

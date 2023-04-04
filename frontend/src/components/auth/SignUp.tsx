@@ -13,35 +13,73 @@ const SignUp = () => {
     //   autoClose: 2500,
     //   closeButton: false,
     // });
+    console.log("outside fetch");
 
     const response = await fetch(
       "https://backend-mu-plum.vercel.app/auth/signup",
       {
         method: "POST",
-        // mode: "no-cors",
         headers: {
           "Content-Type": "application/json",
-          // Accept: "application/json, text/plain, */*",
         },
         body: JSON.stringify({ email: data.email, password: data.password }),
       }
     );
 
     if (response.ok) {
+      console.log("success  !!");
       toast("Hurray! Account created 🥳🥳", {
         autoClose: 2500,
         closeButton: false,
       });
+      console.log("success!!");
       setTimeout(() => {
         navigator("/auth/signin");
       }, 3000);
     } else {
+      console.log("fail!!");
       const jsonResponse = await response.json();
       toast.error(jsonResponse.message, {
         autoClose: 2500,
         closeButton: false,
       });
     }
+
+    // await fetch("https://backend-mu-plum.vercel.app/auth/signup", {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify({ email: data.email, password: data.password }),
+    // })
+    //   .then(async (response) => {
+    //     if (response.ok) {
+    //       console.log("success  !!");
+    //       toast("Hurray! Account created 🥳🥳", {
+    //         autoClose: 2500,
+    //         closeButton: false,
+    //       });
+    //       console.log("success!!");
+    //       setTimeout(() => {
+    //         navigator("/auth/signin");
+    //       }, 3000);
+    //     } else {
+    //       console.log("fail!!");
+    //       const jsonResponse = await response.json();
+    //       toast.error(jsonResponse.message, {
+    //         autoClose: 2500,
+    //         closeButton: false,
+    //       });
+    //     }
+    //   })
+    //   .catch((error) => {
+    //     console.log("fail!!");
+    //     // const jsonResponse = await response.json();
+    //     toast.error(error.message, {
+    //       autoClose: 2500,
+    //       closeButton: false,
+    //     });
+    //   });
   };
 
   return (

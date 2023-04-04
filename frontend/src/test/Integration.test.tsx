@@ -35,25 +35,26 @@ describe("test authentication", () => {
     ) as HTMLInputElement;
 
     act(() => {
+      const randomNumber = Math.random() * 1000;
       fireEvent.change(signUpEmail, {
-        target: { value: "charvit@incubyte.co" },
+        target: { value: "john" + randomNumber + "@incubyte.co" },
       });
     });
 
-    await act(() => {
-      fireEvent.change(signUpPassword, { target: { value: "Charvit@111" } });
+    act(() => {
+      fireEvent.change(signUpPassword, { target: { value: "John@111" } });
     });
-    await act(() => {
+    act(() => {
       fireEvent.change(signUpConfirmPassword, {
-        target: { value: "Charvit@111" },
+        target: { value: "John@111" },
       });
     });
-    await act(() => {
+    act(() => {
       fireEvent.click(signUpButton);
     });
-    await waitFor(() => screen.getByRole("alert"));
-    const signUpToast = await screen.getByRole("alert");
-    expect(signUpToast).toBeInTheDocument();
+    await waitFor(() => expect(screen.getByRole("alert")).toBeInTheDocument());
+    // const signUpToast = await screen.getByRole("alert");
+    // expect(signUpToast).toBeInTheDocument();
   });
 
   test("alert 'user not exists' for new user", async () => {
