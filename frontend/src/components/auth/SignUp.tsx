@@ -14,11 +14,18 @@ const SignUp = () => {
     //   closeButton: false,
     // });
 
-    const response = await fetch("http://[::1]:5000/auth/signup", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email: data.email, password: data.password }),
-    });
+    const response = await fetch(
+      "https://backend-mu-plum.vercel.app/auth/signup",
+      {
+        method: "POST",
+        // mode: "no-cors",
+        headers: {
+          "Content-Type": "application/json",
+          // Accept: "application/json, text/plain, */*",
+        },
+        body: JSON.stringify({ email: data.email, password: data.password }),
+      }
+    );
 
     if (response.ok) {
       toast("Hurray! Account created 🥳🥳", {

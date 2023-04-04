@@ -35,18 +35,17 @@ describe("test authentication", () => {
     ) as HTMLInputElement;
 
     act(() => {
-      const randomNumber = Math.random() * 1000;
       fireEvent.change(signUpEmail, {
-        target: { value: "john" + randomNumber + "@incubyte.co" },
+        target: { value: "charvit@incubyte.co" },
       });
     });
 
     await act(() => {
-      fireEvent.change(signUpPassword, { target: { value: "John@123" } });
+      fireEvent.change(signUpPassword, { target: { value: "Charvit@111" } });
     });
     await act(() => {
       fireEvent.change(signUpConfirmPassword, {
-        target: { value: "John@123" },
+        target: { value: "Charvit@111" },
       });
     });
     await act(() => {

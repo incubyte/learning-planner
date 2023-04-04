@@ -7,10 +7,15 @@ const HomePage = () => {
   const navigator = useNavigate();
 
   const fetchCourses = async () => {
-    const response = await fetch("http://[::1]:5000/", {
-      headers: { Authorization: `Bearer ${authToken}` },
+    const response = await fetch("https://backend-mu-plum.vercel.app/", {
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+        // Accept: "application/json, text/plain, */*",
+      },
+      // mode: "no-cors",
     });
     if (response.ok) {
+      console.log(response);
     } else {
       navigator("/auth/signin");
     }

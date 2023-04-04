@@ -8,17 +8,24 @@ const SignIn = () => {
   const navigator = useNavigate();
 
   const handleFormSubmit = async (data: any) => {
-    const response = await fetch("http://[::1]:5000/auth/signin", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email: data.email, password: data.password }),
-    });
-
+    const response = await fetch(
+      "https://backend-mu-plum.vercel.app/auth/signin",
+      {
+        method: "POST",
+        // mode: "no-cors",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email: data.email, password: data.password }),
+      }
+    );
+    // console.log(response);
     if (response.ok) {
       const authToken = await response.text();
       localStorage.setItem("authToken", authToken);
       navigator("/");
     } else {
+      console.log(response);
       const jsonResponse = await response.json();
       toast.error(jsonResponse.message, {
         autoClose: 2500,
