@@ -7,14 +7,36 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = "postgresql://postgres:polyglots@learningplanner.cmggruptz0ob.ap-south-1.rds.amazonaws.com:5432/development"
+  url      = env("DATABASE_URL")
 }
 
 model User {
-  id           String   @id @default(uuid())
-  email        String   @unique
+  id           String       @id @default(uuid())
+  email        String       @unique
   password     String
   profilePhoto String
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+  UserCourse   UserCourse[]
+}
+
+model Course {
+  id           String       @id @default(uuid())
+  name         String
+  resourseUrls String[]
+  testUrls     String[]
+  imageUrl     String
+  credit       Float
+  description  String?
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+  UserCourse   UserCourse[]
+}
+
+model UserCourse {
+  id       Int    @id @default(autoincrement())
+  userId   String
+  user     User   @relation(fields: [userId], references: [id])
+  courseId String
+  course   Course @relation(fields: [courseId], references: [id])
 }

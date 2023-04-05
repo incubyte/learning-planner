@@ -12,34 +12,24 @@ const SignIn = () => {
       "https://backend-mu-plum.vercel.app/auth/signin",
       {
         method: "POST",
-        // mode: "no-cors",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ email: data.email, password: data.password }),
       }
-    )
-      .then(async (response) => {
-        if (response.ok) {
-          const authToken = await response.text();
-          localStorage.setItem("authToken", authToken);
-          navigator("/");
-        } else {
-          console.log(response);
-          const jsonResponse = await response.json();
-          toast.error(jsonResponse.message, {
-            autoClose: 2500,
-            closeButton: false,
-          });
-        }
-      })
-      .catch((error) => {
-        toast.error(error.message, {
-          autoClose: 2500,
-          closeButton: false,
-        });
+    );
+
+    if (response.ok) {
+      const authToken = await response.text();
+      localStorage.setItem("authToken", authToken);
+      navigator("/");
+    } else {
+      const jsonResponse = await response.json();
+      toast.error(jsonResponse.message, {
+        autoClose: 2500,
+        closeButton: false,
       });
-    // console.log(response);
+    }
   };
 
   return (
