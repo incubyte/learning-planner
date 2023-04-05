@@ -1,9 +1,9 @@
 import Tippy from "@tippyjs/react";
 import { useForm } from "react-hook-form";
 import { ToastContainer } from "react-toastify";
+import Input from "./Input";
 import EmailIcon from "./icons/Email";
 import PasswordIcon from "./icons/Password";
-import Input from "./Input";
 
 interface signUpFormProps {
   handleFormSubmit: any;
@@ -109,11 +109,7 @@ const SignUpForm = (props: signUpFormProps) => {
           )}
         </div>
 
-        <button
-          className="SignUpSubmit"
-          data-testid="signupButton"
-          onClick={handleSubmit(props.handleFormSubmit)}
-        >
+        <button className="SignUpSubmit" data-testid="signupButton">
           Sign Up
         </button>
 

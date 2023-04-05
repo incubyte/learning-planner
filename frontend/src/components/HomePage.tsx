@@ -1,22 +1,29 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { Outlet } from "react-router";
 import { useNavigate } from "react-router-dom";
 
 const HomePage = () => {
   const [courses, setCourses] = useState([]);
-
   const navigator = useNavigate();
+
+  const fetchCourses = async () => {
+    const response = await fetch("https://backend-mu-plum.vercel.app/", {
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+        // Accept: "application/json, text/plain, */*",
+      },
+      // mode: "no-cors",
+    });
+    if (response.ok) {
+      console.log(response);
+    } else {
+      navigator("/auth/signin");
+    }
+  };
+
   const authToken = localStorage.getItem("authToken");
   useEffect(() => {
-    axios
-      .get("http://localhost:5000/", {
-        headers: { Authorization: `Bearer ${authToken}` },
-      })
-      .then(() => {})
-      .catch((error) => {
-        navigator("/auth/signin");
-      });
+    fetchCourses();
   }, courses);
 
   return (

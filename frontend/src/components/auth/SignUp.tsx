@@ -1,4 +1,3 @@
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -10,23 +9,32 @@ const SignUp = () => {
   const navigator = useNavigate();
 
   const handleFormSubmit = async (data: any) => {
-    await axios
-      .post("http://localhost:5000/auth/signup", {
-        email: data.email,
-        password: data.password,
-      })
-      .then(() => {
-        toast("Hurray! Account created 🥳🥳", {
-          autoClose: 2500,
-          closeButton: false,
-        });
-        setTimeout(() => {
-          navigator("/auth/signin");
-        }, 3000);
-      })
-      .catch((error) => {
-        toast.error(error.response.data.message, { autoClose: 2500 });
+    const response = await fetch(
+      "https://backend-mu-plum.vercel.app/auth/signup",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email: data.email, password: data.password }),
+      }
+    );
+
+    if (response.ok) {
+      toast("Hurray! Account created 🥳🥳", {
+        autoClose: 2500,
+        closeButton: false,
       });
+      setTimeout(() => {
+        navigator("/auth/signin");
+      }, 3000);
+    } else {
+      const jsonResponse = await response.json();
+      toast.error(jsonResponse.message, {
+        autoClose: 2500,
+        closeButton: false,
+      });
+    }
   };
 
   return (
