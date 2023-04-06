@@ -27,6 +27,7 @@ model Course {
   testUrls     String[]
   imageUrl     String
   credit       Float
+  tags         String[]
   description  String?
   createdAt    DateTime     @default(now())
   updatedAt    DateTime     @updatedAt
