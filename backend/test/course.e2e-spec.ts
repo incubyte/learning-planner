@@ -38,4 +38,11 @@ describe('CourseController (e2e)', () => {
       .set('Authorization', `Bearer ${authToken}`);
     expect(response.status).toBe(200);
   });
+
+  it('course/filterByTags (GET) - should return courses which tags is provided', async () => {
+    const response = await request(app.getHttpServer())
+      .get('/course/filterByTags?tags=victor')
+      .set('Authorization', `Bearer ${authToken}`);
+    expect(response.status).toBe(200);
+  });
 });
