@@ -1,12 +1,5 @@
 import { JwtAuthGuard } from '@/auth/jwt-auth-guard/jwt-auth.guard';
-import {
-  Controller,
-  Get,
-  NotImplementedException,
-  Param,
-  Query,
-  UseGuards,
-} from '@nestjs/common';
+import { Controller, Get, Param, Query, UseGuards } from '@nestjs/common';
 import { CourseService } from './course.service';
 import { CourseDto } from './dto/course.dto';
 

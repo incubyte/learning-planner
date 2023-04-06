@@ -19,7 +19,7 @@ export class CourseService {
     return await this.prismaService.course.findMany({
       where: {
         tags: {
-          contains: tags[0],
+          hasEvery: tags,
         },
       },
     });
