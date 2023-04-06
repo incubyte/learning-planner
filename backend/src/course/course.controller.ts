@@ -1,5 +1,10 @@
 import { JwtAuthGuard } from '@/auth/jwt-auth-guard/jwt-auth.guard';
-import { Controller, Get, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  NotImplementedException,
+  UseGuards,
+} from '@nestjs/common';
 import { CourseService } from './course.service';
 import { CourseDto } from './dto/course.dto';
 
@@ -11,5 +16,9 @@ export class CourseController {
   @Get('/getAllCourse')
   async getAll(): Promise<CourseDto[]> {
     return this.courseService.getAll();
+  }
+
+  async getById(): Promise<CourseDto> {
+    throw new NotImplementedException();
   }
 }
