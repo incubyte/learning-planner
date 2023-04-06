@@ -83,7 +83,7 @@ describe('CourseController', () => {
     expect(result).toMatchObject(mockResponse);
   });
 
-  it('should return course', async () => {
+  it('should return course by id which is provided', async () => {
     const courses: CourseDto = {
       name: 'Day 1 clean code kata',
       resourseUrls: [
