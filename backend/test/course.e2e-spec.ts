@@ -31,4 +31,11 @@ describe('CourseController (e2e)', () => {
       .set('Authorization', `Bearer ${authToken}`);
     expect(response.status).toBe(200);
   });
+
+  it('course/getCourseById (GET) - should return course which id is provided', async () => {
+    const response = await request(app.getHttpServer())
+      .get('/course/getCourseById/1')
+      .set('Authorization', `Bearer ${authToken}`);
+    expect(response.status).toBe(200);
+  });
 });
