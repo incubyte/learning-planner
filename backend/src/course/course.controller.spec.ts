@@ -107,7 +107,7 @@ describe('CourseController', () => {
       updatedAt: Date.prototype,
     };
     jest.spyOn(service, 'getById').mockResolvedValueOnce(mockResponse);
-    const result = await controller.getById();
+    const result = await controller.getById('1');
     expect(service.getById).toBeCalledTimes(1);
     expect(result).toMatchObject(mockResponse);
   });

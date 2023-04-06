@@ -10,7 +10,7 @@ export class CourseService {
     return this.prismaService.course.findMany();
   }
 
-  async getById(): Promise<CourseDto> {
+  async getById(id: string): Promise<CourseDto> {
     throw new NotImplementedException();
   }
 }

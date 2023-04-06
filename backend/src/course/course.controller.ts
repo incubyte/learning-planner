@@ -3,6 +3,7 @@ import {
   Controller,
   Get,
   NotImplementedException,
+  Param,
   UseGuards,
 } from '@nestjs/common';
 import { CourseService } from './course.service';
@@ -17,8 +18,8 @@ export class CourseController {
   async getAll(): Promise<CourseDto[]> {
     return this.courseService.getAll();
   }
-
-  async getById(): Promise<CourseDto> {
-    throw new NotImplementedException();
+  @Get('/getCourseById/:id')
+  async getById(@Param('id') id: string): Promise<CourseDto> {
+    return this.courseService.getById(id);
   }
 }
