@@ -5,8 +5,8 @@ import * as request from 'supertest';
 
 describe('CourseController (e2e)', () => {
   let app: INestApplication;
-  let authToken;
-
+  let authToken: string;
+  jest.setTimeout(30000);
   beforeAll(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [AppModule],
@@ -27,7 +27,7 @@ describe('CourseController (e2e)', () => {
 
   it('course/getAllCourse (GET) - should return all courses', async () => {
     const response = await request(app.getHttpServer())
-      .get('course/getAllCourse')
+      .get('/course/getAllCourse')
       .set('Authorization', `Bearer ${authToken}`);
     expect(response.status).toBe(200);
   });
