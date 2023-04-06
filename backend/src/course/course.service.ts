@@ -1,5 +1,5 @@
 import { PrismaService } from '@/prisma/prisma.service';
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotImplementedException } from '@nestjs/common';
 import { CourseDto } from './dto/course.dto';
 
 @Injectable()
@@ -12,5 +12,9 @@ export class CourseService {
 
   async getById(id: string): Promise<CourseDto> {
     return await this.prismaService.course.findFirst({ where: { id } });
+  }
+
+  async filterByTags(tags: string[]): Promise<CourseDto[]> {
+    throw new NotImplementedException();
   }
 }
