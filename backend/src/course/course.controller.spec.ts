@@ -159,7 +159,7 @@ describe('CourseController', () => {
       updatedAt: Date.prototype,
     });
     const tags = [];
-    tags.push('refactoring');
+    tags.push('clean-code', 'refactoring');
     jest.spyOn(service, 'filterByTags').mockResolvedValueOnce(mockResponse);
     const result = await controller.filterByTags(tags);
     expect(service.filterByTags).toBeCalledTimes(1);

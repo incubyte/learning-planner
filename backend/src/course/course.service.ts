@@ -1,3 +1,4 @@
+import { Contains } from 'class-validator';
 import { PrismaService } from '@/prisma/prisma.service';
 import { Injectable, NotImplementedException } from '@nestjs/common';
 import { CourseDto } from './dto/course.dto';
@@ -15,6 +16,12 @@ export class CourseService {
   }
 
   async filterByTags(tags: string[]): Promise<CourseDto[]> {
-    throw new NotImplementedException();
+    return await this.prismaService.course.findMany({
+      where: {
+        tags: {
+          contains: tags[0],
+        },
+      },
+    });
   }
 }
