@@ -1,5 +1,9 @@
+import Navbar from "./Navbar";
+
 const CoursePage = () => {
-  return <></>;
+  return <>
+    <Navbar />
+  </>;
 };
 
 export default CoursePage;
