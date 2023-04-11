@@ -6,6 +6,7 @@ import SignIn from "./components/auth/SignIn";
 import SignUp from "./components/auth/SignUp";
 import HomePage from "./components/HomePage";
 import "./index.css";
+import Courses from "./components/courses/Courses";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -35,6 +36,15 @@ const router = createBrowserRouter([
       },
     ],
   },
+  {
+    path: "/courses",
+    children: [
+      {
+        path: "",
+        element: <Courses></Courses>,
+      },
+    ],
+  }
 ]);
 
 root.render(
