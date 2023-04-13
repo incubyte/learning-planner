@@ -1,6 +1,5 @@
-import { Contains } from 'class-validator';
 import { PrismaService } from '@/prisma/prisma.service';
-import { Injectable, NotImplementedException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { CourseDto } from './dto/course.dto';
 
 @Injectable()

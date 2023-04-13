@@ -8,11 +8,11 @@ import { CourseDto } from './dto/course.dto';
 export class CourseController {
   constructor(private readonly courseService: CourseService) {}
 
-  @Get('/getAllCourse')
+  @Get('/')
   async getAll(): Promise<CourseDto[]> {
     return this.courseService.getAll();
   }
-  @Get('/getCourseById/:id')
+  @Get('/:id')
   async getById(@Param('id') id: string): Promise<CourseDto> {
     return this.courseService.getById(id);
   }

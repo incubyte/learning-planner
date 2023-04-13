@@ -25,16 +25,16 @@ describe('CourseController (e2e)', () => {
     authToken = signInResponse.text;
   });
 
-  it('course/getAllCourse (GET) - should return all courses', async () => {
+  it('course/ (GET) - should return all courses', async () => {
     const response = await request(app.getHttpServer())
-      .get('/course/getAllCourse')
+      .get('/course/')
       .set('Authorization', `Bearer ${authToken}`);
     expect(response.status).toBe(200);
   });
 
-  it('course/getCourseById (GET) - should return course which id is provided', async () => {
+  it('course/:id (GET) - should return course which id is provided', async () => {
     const response = await request(app.getHttpServer())
-      .get('/course/getCourseById/1')
+      .get('/course/1')
       .set('Authorization', `Bearer ${authToken}`);
     expect(response.status).toBe(200);
   });
