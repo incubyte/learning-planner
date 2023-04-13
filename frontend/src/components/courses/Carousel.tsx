@@ -28,37 +28,43 @@ const Carousel = ({ titleName, courses, contentId }: carouselProps) => {
       <div className="carouselTitleName" data-testid="carouselTitleName">
         {titleName}
       </div>
-      <div className="buttons">
-        <button
-          onClick={scrollLeft}
-          className="button"
-          data-testid="scrollLeft"
-        >
-          <FiChevronLeft />
-        </button>
-        <button
-          onClick={scrollRight}
-          className="button"
-          data-testid="scrollRight"
-        >
-          <FiChevronRight />
-        </button>
-      </div>
-      <div
-        id={contentId}
-        className="carouselListContent"
-        data-testid="carouselContent"
-      >
-        {courses.map((course, index) => {
-          return (
-            <CourseCard
-              key={index}
-              courseImage={course.courseImage}
-              courseName={course.courseName}
-            />
-          );
-        })}
-      </div>
+      {courses.length > 0 ? (
+        <>
+          <div className="buttons">
+            <button
+              onClick={scrollLeft}
+              className="button"
+              data-testid="scrollLeft"
+            >
+              <FiChevronLeft />
+            </button>
+            <button
+              onClick={scrollRight}
+              className="button"
+              data-testid="scrollRight"
+            >
+              <FiChevronRight />
+            </button>
+          </div>
+          <div
+            id={contentId}
+            className="carouselListContent"
+            data-testid="carouselContent"
+          >
+            {courses.map((course, index) => {
+              return (
+                <CourseCard
+                  key={index}
+                  courseImage={course.courseImage}
+                  courseName={course.courseName}
+                />
+              );
+            })}
+          </div>
+        </>
+      ) : (
+        <div className="text-center text-2xl p-10">Nothing to Show</div>
+      )}
     </div>
   );
 };

@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Carousel from "./Carousel";
 import CoursePageIndex from "./CoursePageIndex";
 import Footer from "./Footer";
@@ -88,19 +89,40 @@ const availableCourseList = [
 ];
 
 const CoursePage = () => {
+  const [query, setQuery] = useState("");
+  const getQuery = (query: string) => {
+    setQuery(query);
+  };
+
+  const search = (data: { courseImage: string; courseName: string }[]) => {
+    const pattern = query.toLowerCase();
+    const filteredList = data.filter((item) => {
+      const text = item.courseName.toLowerCase();
+      let patternIndex = 0;
+      let textIndex = 0;
+      while (patternIndex < pattern.length && textIndex < text.length) {
+        if (pattern[patternIndex] === text[textIndex]) {
+          patternIndex++;
+        }
+        textIndex++;
+      }
+      return patternIndex === pattern.length;
+    });
+    return filteredList;
+  };
   return (
     <>
-      <Navbar />
+      <Navbar getQuery={getQuery} />
       <CoursePageIndex />
       <Carousel
         titleName="Popular courses"
-        courses={popularCourseList}
+        courses={search(popularCourseList)}
         contentId="popContent"
       />
       <hr className="mt-10" />
       <Carousel
         titleName="Available courses"
-        courses={availableCourseList}
+        courses={search(availableCourseList)}
         contentId="availContent"
       />
       <Footer />
