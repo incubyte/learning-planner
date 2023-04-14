@@ -3,6 +3,7 @@ import Carousel from "./Carousel";
 import CoursePageIndex from "./CoursePageIndex";
 import Footer from "./Footer";
 import Navbar from "./Navbar";
+import Filter from "./Filter";
 
 const popularCourseList = [
   {
@@ -88,6 +89,39 @@ const availableCourseList = [
   },
 ];
 
+const tags = [
+  "Java",
+  "Python",
+  "C++",
+  "TDD",
+  "Micronaut",
+  "JavaScript",
+  "CleanCode",
+  "Spring",
+  "Java",
+  "Python",
+  "C++",
+  "TDD",
+  "Micronaut",
+  "JavaScript",
+  "CleanCode",
+  "Spring",
+  "Java",
+  "Python",
+  "C++",
+  "TDD",
+  "Micronaut",
+  "JavaScript",
+  "CleanCode",
+  "Spring",
+  "Java",
+  "Python",
+  "C++",
+  "TDD",
+  "Micronaut",
+  "JavaScript",
+];
+
 const CoursePage = () => {
   const [query, setQuery] = useState("");
   const getQuery = (query: string) => {
@@ -114,6 +148,9 @@ const CoursePage = () => {
     <>
       <Navbar getQuery={getQuery} />
       <CoursePageIndex />
+      <hr className="mt-10" />
+      <Filter tags={tags} />
+      <hr className="mt-10" />
       <Carousel
         titleName="Popular courses"
         courses={search(popularCourseList)}
