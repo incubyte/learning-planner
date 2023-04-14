@@ -52,4 +52,24 @@ describe('TagController', () => {
     expect(service.getAll).toBeCalledTimes(1);
     expect(result).toMatchObject(mockResponse);
   });
+
+  it('should return tag by id which is provided', async () => {
+    const tags: TagDto[] = [
+      {
+        name: 'clean-code',
+      },
+      {
+        name: 'refactoring',
+      },
+    ];
+    const mockResponse: any = [];
+    mockResponse.push({
+      id: '1',
+      name: tags[0].name,
+    });
+    jest.spyOn(service, 'getById').mockResolvedValueOnce(mockResponse);
+    const result = await controller.getById('1');
+    expect(service.getById).toBeCalledTimes(1);
+    expect(result).toMatchObject(mockResponse);
+  });
 });

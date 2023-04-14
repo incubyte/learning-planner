@@ -9,4 +9,8 @@ export class TagService {
   async getAll(): Promise<Tag[]> {
     return await this.prismaService.tag.findMany();
   }
+  async getById(id: string): Promise<Tag> {
+    const intId = Number.parseInt(id);
+    return await this.prismaService.tag.findFirst({ where: { id: intId } });
+  }
 }

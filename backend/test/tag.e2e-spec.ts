@@ -32,4 +32,11 @@ describe('CourseController (e2e)', () => {
       .set('Authorization', `Bearer ${authToken}`);
     expect(response.status).toBe(200);
   });
+
+  it('tag/:id (GET) - should return tags which id is provided', async () => {
+    const response = await request(app.getHttpServer())
+      .get('/tag/1')
+      .set('Authorization', `Bearer ${authToken}`);
+    expect(response.status).toBe(200);
+  });
 });

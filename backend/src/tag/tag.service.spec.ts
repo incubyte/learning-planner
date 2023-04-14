@@ -59,4 +59,24 @@ describe('TagService', () => {
     expect(prismaService.tag.findMany).toBeCalledTimes(1);
     expect(result).toMatchObject(mockResponse);
   });
+
+  it('should return course by id which is provided', async () => {
+    const tags: TagDto[] = [
+      {
+        name: 'clean-code',
+      },
+      {
+        name: 'refactoring',
+      },
+    ];
+    const mockResponse: any = [];
+    mockResponse.push({
+      id: '1',
+      name: tags[0].name,
+    });
+    jest.spyOn(prismaService.tag, 'findFirst').mockResolvedValue(mockResponse);
+    const result = await service.getById('1');
+    expect(prismaService.tag.findFirst).toBeCalledTimes(1);
+    expect(result).toMatchObject(mockResponse);
+  });
 });
