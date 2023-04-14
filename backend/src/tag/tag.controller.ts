@@ -1,7 +1,9 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Controller, Get, Param, UseGuards } from '@nestjs/common';
 import { Tag } from '@prisma/client';
 import { TagService } from './tag.service';
+import { JwtAuthGuard } from '@/auth/jwt-auth-guard/jwt-auth.guard';
 
+@UseGuards(JwtAuthGuard)
 @Controller('tag')
 export class TagController {
   constructor(private readonly tagService: TagService) {}
@@ -11,7 +13,7 @@ export class TagController {
     return this.tagService.getAll();
   }
   @Get('/:id')
-  async getById(@Param('id') id: number): Promise<Tag[]> {
+  async getById(@Param('id') id: number): Promise<Tag> {
     return this.tagService.getById(id);
   }
 }

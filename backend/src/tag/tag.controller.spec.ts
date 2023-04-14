@@ -62,7 +62,7 @@ describe('TagController', () => {
         name: 'refactoring',
       },
     ];
-    const mockResponse = [];
+    const mockResponse: any = [];
     mockResponse.push({
       id: '1',
       name: tags[0].name,
