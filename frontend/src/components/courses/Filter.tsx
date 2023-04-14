@@ -14,7 +14,7 @@ const Filter = ({ tags }: FilterProps) => {
 
   const Tags = isExpanded ? tags : tags.slice(0, 8);
   return (
-    <div className="filterTagsContainer">
+    <div className="filterTagsContainer" role="filterByTags">
       <h4 className="filterTagsHeading">Explore By Tags</h4>
 
       <div className="filterTagsList">

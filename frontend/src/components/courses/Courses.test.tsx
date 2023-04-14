@@ -13,15 +13,10 @@ describe("Course Page ", () => {
         <Courses />
       </BrowserRouter>
     );
-    const navbar = getByRole("navigation");
-    expect(navbar).toBeInTheDocument();
-
-    const footer = getByRole("footer");
-    expect(footer).toBeInTheDocument();
-
-    const coursePageIndexImage = getByRole("coursePageIndexImage");
-    expect(coursePageIndexImage).toBeInTheDocument();
-
+    expect(getByRole("navigation")).toBeInTheDocument();
+    expect(getByRole("footer")).toBeInTheDocument();
+    expect(getByRole("coursePageIndexImage")).toBeInTheDocument();
+    expect(getByRole("filterByTags")).toBeInTheDocument();
     expect(getByRole("popContent")).toBeInTheDocument();
     expect(getByRole("availContent")).toBeInTheDocument();
   });
