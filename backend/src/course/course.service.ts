@@ -14,11 +14,15 @@ export class CourseService {
     return await this.prismaService.course.findFirst({ where: { id } });
   }
 
-  async filterByTags(tags: number[]): Promise<Course[]> {
+  async filterByTags(tags: string[]): Promise<Course[]> {
+    const intTags: number[] = [];
+    for (let i = 0; i < tags.length; i++) {
+      intTags.push(+tags[i]);
+    }
     return await this.prismaService.course.findMany({
       where: {
         tags: {
-          hasEvery: tags,
+          hasEvery: intTags,
         },
       },
     });

@@ -32,16 +32,16 @@ describe('CourseController (e2e)', () => {
     expect(response.status).toBe(200);
   });
 
-  it('course/:id (GET) - should return course which id is provided', async () => {
+  it('course/getCourseById/:id (GET) - should return course which id is provided', async () => {
     const response = await request(app.getHttpServer())
-      .get('/course/1')
+      .get('/course/getCourseById/1')
       .set('Authorization', `Bearer ${authToken}`);
     expect(response.status).toBe(200);
   });
 
   it('course/filterByTags (GET) - should return courses which tags is provided', async () => {
     const response = await request(app.getHttpServer())
-      .get('/course/filterByTags?tags=victor')
+      .get('/course/filterByTags?tags=1')
       .set('Authorization', `Bearer ${authToken}`);
     expect(response.status).toBe(200);
   });
