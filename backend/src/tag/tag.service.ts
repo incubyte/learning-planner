@@ -9,4 +9,7 @@ export class TagService {
   async getAll(): Promise<Tag[]> {
     return await this.prismaService.tag.findMany();
   }
+  getById(id: number): Tag[] | PromiseLike<Tag[]> {
+    throw new Error('Method not implemented.');
+  }
 }
