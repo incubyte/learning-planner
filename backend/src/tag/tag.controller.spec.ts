@@ -1,5 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { mock } from 'jest-mock-extended';
+import { TagDto } from './dto/tag.dto';
 import { TagController } from './tag.controller';
 import { TagService } from './tag.service';
 
@@ -24,5 +25,31 @@ describe('TagController', () => {
 
   it('should be defined', () => {
     expect(controller).toBeDefined();
+  });
+
+  it('should return tags', async () => {
+    const tags: TagDto[] = [
+      {
+        name: 'clean-code',
+      },
+      {
+        name: 'refactoring',
+      },
+    ];
+    const mockResponse = [];
+    mockResponse.push(
+      {
+        id: '1',
+        name: tags[0].name,
+      },
+      {
+        id: '2',
+        name: tags[1].name,
+      },
+    );
+    jest.spyOn(service, 'getAll').mockResolvedValueOnce(mockResponse);
+    const result = await controller.getAll();
+    expect(service.getAll).toBeCalledTimes(1);
+    expect(result).toMatchObject(mockResponse);
   });
 });
