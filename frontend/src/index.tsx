@@ -37,14 +37,14 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "/courses",
+    path: "/course",
     children: [
       {
         path: "",
         element: <Courses></Courses>,
       },
     ],
-  }
+  },
 ]);
 
 root.render(
