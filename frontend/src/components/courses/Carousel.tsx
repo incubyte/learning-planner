@@ -5,8 +5,9 @@ interface carouselProps {
   titleName?: string;
   contentId: string;
   courses: {
-    courseImage: string;
-    courseName: string;
+    id: string;
+    imageUrl: string;
+    name: string;
   }[];
 }
 
@@ -17,6 +18,7 @@ const Carousel = ({ titleName, courses, contentId }: carouselProps) => {
       content.scrollLeft -= 416;
     }
   };
+
   const scrollRight = () => {
     const content = document.getElementById(contentId);
     if (content !== null) {
@@ -55,8 +57,9 @@ const Carousel = ({ titleName, courses, contentId }: carouselProps) => {
               return (
                 <CourseCard
                   key={index}
-                  courseImage={course.courseImage}
-                  courseName={course.courseName}
+                  id={course.id}
+                  courseImage={course.imageUrl}
+                  courseName={course.name}
                 />
               );
             })}

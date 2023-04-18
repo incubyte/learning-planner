@@ -15,6 +15,7 @@ describe("Course Card", () => {
             "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRtbEno7OdEiusIYUNSglF3c2UxRluhs8ZpR951-9hs&s"
           }
           courseName={"Java"}
+          id={"1"}
         />
       </BrowserRouter>
     );
