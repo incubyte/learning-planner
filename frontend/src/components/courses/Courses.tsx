@@ -40,9 +40,9 @@ const CoursePage = () => {
   }, []);
 
   const search = (data: any) => {
-    const pattern = query.replaceAll(" ", "").toLowerCase();
+    const pattern = query.replace(/ /g, "").toLowerCase();
     const filteredList = data.filter((item: any) => {
-      const text = item.name.replaceAll(" ", "").toLowerCase();
+      const text = item.name.replace(/ /g, "").toLowerCase();
       let patternIndex = 0;
       let textIndex = 0;
       while (patternIndex < pattern.length && textIndex < text.length) {
