@@ -14,13 +14,13 @@ const Carousel = ({ titleName, courses, contentId }: carouselProps) => {
   const scrollLeft = () => {
     const content = document.getElementById(contentId);
     if (content !== null) {
-      content.scrollLeft -= 300;
+      content.scrollLeft -= 416;
     }
   };
   const scrollRight = () => {
     const content = document.getElementById(contentId);
     if (content !== null) {
-      content.scrollLeft += 300;
+      content.scrollLeft += 416;
     }
   };
   return (
