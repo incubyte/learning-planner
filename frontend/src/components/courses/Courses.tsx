@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Carousel from "./Carousel";
 import CoursePageIndex from "./CoursePageIndex";
-import Footer from "./Footer";
-import Navbar from "./Navbar";
 import Filter from "./Filter";
-import { useNavigate } from "react-router-dom";
+import Navbar from "./Navbar";
 
 const CoursePage = () => {
   const [query, setQuery] = useState("");
@@ -73,7 +72,6 @@ const CoursePage = () => {
         courses={search(availableCourses)}
         contentId="availContent"
       />
-      <Footer />
     </>
   );
 };
