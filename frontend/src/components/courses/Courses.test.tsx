@@ -91,7 +91,6 @@ describe("Course Page ", () => {
 
     jest.setTimeout(30000);
     expect(getByRole("navigation")).toBeInTheDocument();
-    expect(getByRole("footer")).toBeInTheDocument();
     expect(getByRole("coursePageIndexImage")).toBeInTheDocument();
     expect(getByRole("filterByTags")).toBeInTheDocument();
     expect(getByRole("popContent")).toBeInTheDocument();

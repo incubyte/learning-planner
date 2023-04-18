@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Carousel from "./Carousel";
+import Carousel from "../utilities/Carousel";
 import CoursePageIndex from "./CoursePageIndex";
 import Filter from "./Filter";
 import Navbar from "./Navbar";
