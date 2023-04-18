@@ -24,6 +24,18 @@ export async function insertTags(prisma: PrismaClient) {
       {
         name: 'code-design',
       },
+      {
+        name: 'TDD',
+      },
+      {
+        name: 'craftmanship',
+      },
+      {
+        name: 'Testing',
+      },
+      {
+        name: 'scrum-practices',
+      },
     ],
   });
 }
