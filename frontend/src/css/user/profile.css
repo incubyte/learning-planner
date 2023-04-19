@@ -1,0 +1,7 @@
+.ProfileInput {
+    @apply mb-6 text-center bg-gray-100 border border-gray-300 text-gray-900 text-base rounded-lg block max-w-fit p-2.5 cursor-not-allowed
+}
+
+.ProfileLabel{
+    @apply block text-gray-700 text-base font-bold mb-2
+}
