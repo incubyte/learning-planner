@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import "../../css/courses/Filter.css";
+import { courseType } from "./Courses";
 
 interface FilterProps {
-  getCourseByFilter: (courses: any[]) => void;
+  getCourseByFilter: (courses: courseType[]) => void;
 }
 
 const Filter = ({ getCourseByFilter }: FilterProps) => {

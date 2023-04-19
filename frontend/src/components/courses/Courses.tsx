@@ -5,17 +5,30 @@ import Footer from "./Footer";
 import Navbar from "./Navbar";
 import Filter from "./Filter";
 
+export interface courseType {
+  id: string;
+  name: string;
+  resourseUrls: string[];
+  testUrls: string[];
+  imageUrl: string;
+  credit: number;
+  tags: number[];
+  description: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
 const CoursePage = () => {
   const [query, setQuery] = useState("");
-  const [availableCourses, setAvailableCourses] = useState<any[]>([]);
+  const [availableCourses, setAvailableCourses] = useState<courseType[]>([]);
+  const [courseUrl, setCourseUrl] = useState<string>(
+    "https://backend-mu-plum.vercel.app/course"
+  );
   const getQuery = (query: string) => {
     setQuery(query);
   };
 
-  const [courseUrl, setCourseUrl] = useState<string>(
-    "https://backend-mu-plum.vercel.app/course"
-  );
-  const getCourseByFilter = (courses: any[]) => {
+  const getCourseByFilter = (courses: courseType[]) => {
     setAvailableCourses(courses);
   };
 
@@ -31,26 +44,30 @@ const CoursePage = () => {
       setAvailableCourses(courses);
     }
   };
+
   useEffect(() => {
     fetchCourses(courseUrl);
   }, []);
 
-  const search = (data: any) => {
+  const search = (data: courseType[]) => {
     const pattern = query.replace(/ /g, "").toLowerCase();
-    const filteredList = data && data.filter((item: any) => {
-      const text = item.name.replace(/ /g, "").toLowerCase();
-      let patternIndex = 0;
-      let textIndex = 0;
-      while (patternIndex < pattern.length && textIndex < text.length) {
-        if (pattern[patternIndex] === text[textIndex]) {
-          patternIndex++;
+    const filteredList =
+      data &&
+      data.filter((item: courseType) => {
+        const text = item.name.replace(/ /g, "").toLowerCase();
+        let patternIndex = 0;
+        let textIndex = 0;
+        while (patternIndex < pattern.length && textIndex < text.length) {
+          if (pattern[patternIndex] === text[textIndex]) {
+            patternIndex++;
+          }
+          textIndex++;
         }
-        textIndex++;
-      }
-      return patternIndex === pattern.length;
-    });
+        return patternIndex === pattern.length;
+      });
     return filteredList;
   };
+
   return (
     <>
       <Navbar getQuery={getQuery} />
