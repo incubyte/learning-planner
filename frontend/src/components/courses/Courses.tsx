@@ -4,12 +4,10 @@ import CoursePageIndex from "./CoursePageIndex";
 import Footer from "./Footer";
 import Navbar from "./Navbar";
 import Filter from "./Filter";
-import { useNavigate } from "react-router-dom";
 
 const CoursePage = () => {
   const [query, setQuery] = useState("");
   const [availableCourses, setAvailableCourses] = useState<any[]>([]);
-  const navigator = useNavigate();
   const getQuery = (query: string) => {
     setQuery(query);
   };
@@ -31,8 +29,6 @@ const CoursePage = () => {
     if (response.ok) {
       const courses = await response.json();
       setAvailableCourses(courses);
-    } else {
-      navigator("/auth/signin");
     }
   };
   useEffect(() => {
@@ -41,7 +37,7 @@ const CoursePage = () => {
 
   const search = (data: any) => {
     const pattern = query.replace(/ /g, "").toLowerCase();
-    const filteredList = data.filter((item: any) => {
+    const filteredList = data && data.filter((item: any) => {
       const text = item.name.replace(/ /g, "").toLowerCase();
       let patternIndex = 0;
       let textIndex = 0;

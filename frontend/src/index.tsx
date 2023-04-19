@@ -21,6 +21,10 @@ const router = createBrowserRouter([
         path: "",
         element: <App></App>,
       },
+      {
+        path: "course",
+        element: <Courses></Courses>,
+      },
     ],
   },
   {
@@ -35,16 +39,7 @@ const router = createBrowserRouter([
         element: <SignIn></SignIn>,
       },
     ],
-  },
-  {
-    path: "/course",
-    children: [
-      {
-        path: "",
-        element: <Courses></Courses>,
-      },
-    ],
-  },
+  }
 ]);
 
 root.render(

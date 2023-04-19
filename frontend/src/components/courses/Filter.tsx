@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import "../../css/courses/Filter.css";
-import { useNavigate } from "react-router-dom";
 
 interface FilterProps {
   getCourseByFilter: (courses: any[]) => void;
@@ -12,7 +11,6 @@ const Filter = ({ getCourseByFilter }: FilterProps) => {
   const [tags, setTags] = useState([{ id: "1", name: "Java" }]);
   const [selectTagId, setSelectTagId] = useState<string[]>([]);
   const authToken = localStorage.getItem("authToken");
-  const navigator = useNavigate();
 
   const fetchCourses = async (url: string) => {
     const response = await fetch(url, {
@@ -23,8 +21,6 @@ const Filter = ({ getCourseByFilter }: FilterProps) => {
     if (response && response.ok) {
       const coursesResponse = await response.json();
       setCourses(coursesResponse);
-    } else {
-      navigator("/auth/signin");
     }
   };
 
@@ -37,8 +33,6 @@ const Filter = ({ getCourseByFilter }: FilterProps) => {
     if (response && response.ok) {
       const tagsResponse = await response.json();
       setTags(tagsResponse);
-    } else {
-      navigator("/auth/signin");
     }
   };
 

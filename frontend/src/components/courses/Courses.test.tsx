@@ -143,18 +143,4 @@ describe("Course Page ", () => {
       expect(courses).not.toBeNull();
     });
   });
-
-  test("navigates to the signin page when there is no auth token", () => {
-    localStorage.removeItem("authToken");
-    const { getByText } = render(
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<CoursePage />} />
-          <Route path="/auth/signin" element={<div>Signin page</div>} />
-        </Routes>
-      </BrowserRouter>
-    );
-
-    expect(getByText("Signin page")).toBeInTheDocument();
-  });
 });
