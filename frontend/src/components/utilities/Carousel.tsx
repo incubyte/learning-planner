@@ -1,3 +1,4 @@
+import React, { useRef } from "react";
 import CourseCard from "./CourseCard";
 import { FiChevronRight, FiChevronLeft } from "react-icons/fi";
 import "../../css/courses/Carousel.css";
@@ -12,17 +13,16 @@ interface carouselProps {
 }
 
 const Carousel = ({ titleName, courses, contentId }: carouselProps) => {
+  const contentRef = useRef<HTMLDivElement>(null);
   const scrollLeft = () => {
-    const content = document.getElementById(contentId);
-    if (content !== null) {
-      content.scrollLeft -= 416;
+    if (contentRef.current !== null) {
+      contentRef.current.scrollLeft -= 416;
     }
   };
 
   const scrollRight = () => {
-    const content = document.getElementById(contentId);
-    if (content !== null) {
-      content.scrollLeft += 416;
+    if (contentRef.current !== null) {
+      contentRef.current.scrollLeft += 416;
     }
   };
   return (
@@ -49,6 +49,7 @@ const Carousel = ({ titleName, courses, contentId }: carouselProps) => {
             </button>
           </div>
           <div
+            ref={contentRef}
             id={contentId}
             className="carouselListContent"
             data-testid="carouselContent"

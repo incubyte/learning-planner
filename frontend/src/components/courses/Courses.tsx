@@ -1,20 +1,33 @@
 import { useEffect, useState } from "react";
 import Carousel from "../utilities/Carousel";
+import Navbar from "../utilities/Navbar";
 import CoursePageIndex from "./CoursePageIndex";
 import Filter from "./Filter";
-import Navbar from "./Navbar";
+
+export interface courseType {
+  id: string;
+  name: string;
+  resourseUrls: string[];
+  testUrls: string[];
+  imageUrl: string;
+  credit: number;
+  tags: number[];
+  description: string;
+  createdAt: string;
+  updatedAt: string;
+}
 
 const CoursePage = () => {
   const [query, setQuery] = useState("");
-  const [availableCourses, setAvailableCourses] = useState<any[]>([]);
+  const [availableCourses, setAvailableCourses] = useState<courseType[]>([]);
+  const [courseUrl, setCourseUrl] = useState<string>(
+    "https://backend-mu-plum.vercel.app/course"
+  );
   const getQuery = (query: string) => {
     setQuery(query);
   };
 
-  const [courseUrl, setCourseUrl] = useState<string>(
-    "https://backend-mu-plum.vercel.app/course"
-  );
-  const getCourseByFilter = (courses: any[]) => {
+  const getCourseByFilter = (courses: courseType[]) => {
     setAvailableCourses(courses);
   };
 
@@ -31,15 +44,16 @@ const CoursePage = () => {
       setAvailableCourses(courses);
     }
   };
+
   useEffect(() => {
     fetchCourses(courseUrl);
   }, []);
 
-  const search = (data: any) => {
+  const search = (data: courseType[]) => {
     const pattern = query.replace(/ /g, "").toLowerCase();
     const filteredList =
       data &&
-      data.filter((item: any) => {
+      data.filter((item: courseType) => {
         const text = item.name.replace(/ /g, "").toLowerCase();
         let patternIndex = 0;
         let textIndex = 0;
@@ -53,9 +67,16 @@ const CoursePage = () => {
       });
     return filteredList;
   };
+
   return (
     <>
-      <Navbar getQuery={getQuery} />
+      <Navbar
+        getQuery={getQuery}
+        isCourse={false}
+        isHome={true}
+        isProfile={true}
+        isSearch={true}
+      />
       <CoursePageIndex />
       <hr className="mt-10" />
       <Filter getCourseByFilter={getCourseByFilter} />
