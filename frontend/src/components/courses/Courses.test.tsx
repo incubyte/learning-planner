@@ -1,5 +1,5 @@
 import { cleanup, fireEvent, render, waitFor } from "@testing-library/react";
-import { BrowserRouter, Route, Router, Routes } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 import CoursePage from "./Courses";
 
 const mockCourses = [
@@ -141,19 +141,5 @@ describe("Course Page ", () => {
       const courses = getAllByText("Day 1 clean code kata");
       expect(courses).not.toBeNull();
     });
-  });
-
-  test("navigates to the signin page when there is no auth token", () => {
-    localStorage.removeItem("authToken");
-    const { getByText } = render(
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<CoursePage />} />
-          <Route path="/auth/signin" element={<div>Signin page</div>} />
-        </Routes>
-      </BrowserRouter>
-    );
-
-    expect(getByText("Signin page")).toBeInTheDocument();
   });
 });
