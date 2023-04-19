@@ -54,7 +54,7 @@ const Navbar = (props: NavbarProps) => {
                     <Link
                       to="/course"
                       className="navbarHeaderItems"
-                      data-testid="navbarHeaderProfileLink"
+                      data-testid="navbarHeaderCourseLink"
                     >
                       Courses
                     </Link>
