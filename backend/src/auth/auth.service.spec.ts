@@ -1,10 +1,10 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { PrismaService } from '@Prisma/prisma.service';
-import { AuthService } from './auth.service';
 import { UserDto } from '@Auth/dto/user.dto';
+import { PrismaService } from '@Prisma/prisma.service';
 import { BadRequestException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
+import { Test, TestingModule } from '@nestjs/testing';
 import { genSalt, hash } from 'bcrypt';
+import { AuthService } from './auth.service';
 
 describe('AuthService', () => {
   let service: AuthService;
@@ -73,6 +73,9 @@ describe('AuthService', () => {
         createdAt: Date.prototype,
         profilePhoto: 'https://profilephoto.com',
         updatedAt: Date.prototype,
+        eId: 'E0001',
+        role: 'BQA',
+        clientTeam: 'abc',
       });
       const result = await service.signup(userDTO);
       expect(prismaService.user.create).toBeCalledTimes(1);
@@ -105,6 +108,9 @@ describe('AuthService', () => {
         createdAt: Date.prototype,
         profilePhoto: 'https://profilephoto.com',
         updatedAt: Date.prototype,
+        eId: 'E0001',
+        role: 'BQA',
+        clientTeam: 'abc',
       };
 
       jest
@@ -131,6 +137,9 @@ describe('AuthService', () => {
         createdAt: Date.prototype,
         profilePhoto: 'https://profilephoto.com',
         updatedAt: Date.prototype,
+        eId: 'E0001',
+        role: 'BQA',
+        clientTeam: 'abc',
       });
 
       jest
@@ -172,6 +181,9 @@ describe('AuthService', () => {
         createdAt: Date.prototype,
         profilePhoto: 'https://profilephoto.com',
         updatedAt: Date.prototype,
+        eId: 'E0001',
+        role: 'BQA',
+        clientTeam: 'abc',
       });
       await expect(service.signin(invalidUserDto)).rejects.toThrow(
         new BadRequestException('Invalid password'),

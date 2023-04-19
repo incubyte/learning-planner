@@ -18,6 +18,9 @@ describe('AuthController (e2e)', () => {
   const user = {
     email: 'john' + Math.random() * 1000 + '@incubyte.co',
     password: '123',
+    eId: 'E00' + Math.random() * 1000,
+    role: 'SC',
+    clientTeam: 'Learning Planner',
   };
 
   it('auth/signup (POST) - should return the created user', async () => {

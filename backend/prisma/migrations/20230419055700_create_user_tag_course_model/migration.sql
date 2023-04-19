@@ -1,29 +1,9 @@
-/*
-  Warnings:
-
-  - You are about to drop the `course` table. If the table is not empty, all the data it contains will be lost.
-  - You are about to drop the `user` table. If the table is not empty, all the data it contains will be lost.
-  - You are about to drop the `user_course` table. If the table is not empty, all the data it contains will be lost.
-
-*/
--- DropForeignKey
-ALTER TABLE "user_course" DROP CONSTRAINT "user_course_courseId_fkey";
-
--- DropForeignKey
-ALTER TABLE "user_course" DROP CONSTRAINT "user_course_userId_fkey";
-
--- DropTable
-DROP TABLE "course";
-
--- DropTable
-DROP TABLE "user";
-
--- DropTable
-DROP TABLE "user_course";
-
 -- CreateTable
 CREATE TABLE "User" (
     "id" TEXT NOT NULL,
+    "eId" TEXT,
+    "role" TEXT,
+    "clientTeam" TEXT,
     "email" TEXT NOT NULL,
     "password" TEXT NOT NULL,
     "profilePhoto" TEXT NOT NULL,
@@ -41,11 +21,29 @@ CREATE TABLE "Course" (
     "testUrls" TEXT[],
     "imageUrl" TEXT NOT NULL,
     "credit" DOUBLE PRECISION NOT NULL,
+    "tags" INTEGER[],
     "description" TEXT,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
     CONSTRAINT "Course_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Tag" (
+    "id" SERIAL NOT NULL,
+    "name" TEXT NOT NULL,
+
+    CONSTRAINT "Tag_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "CourseTag" (
+    "id" SERIAL NOT NULL,
+    "courseId" TEXT NOT NULL,
+    "tagId" INTEGER NOT NULL,
+
+    CONSTRAINT "CourseTag_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -58,7 +56,16 @@ CREATE TABLE "UserCourse" (
 );
 
 -- CreateIndex
+CREATE UNIQUE INDEX "User_eId_key" ON "User"("eId");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
+
+-- AddForeignKey
+ALTER TABLE "CourseTag" ADD CONSTRAINT "CourseTag_courseId_fkey" FOREIGN KEY ("courseId") REFERENCES "Course"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "CourseTag" ADD CONSTRAINT "CourseTag_tagId_fkey" FOREIGN KEY ("tagId") REFERENCES "Tag"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "UserCourse" ADD CONSTRAINT "UserCourse_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

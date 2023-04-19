@@ -1,4 +1,4 @@
-import "../../css/courses/Footer.css";
+import "../../css/utilities/Footer.css";
 
 const Footer = () => {
   return (
@@ -10,7 +10,7 @@ const Footer = () => {
       >
         <div className="coursePageFooterContent">
           <span className="coursePageFooterContentText">
-            © 2021{" "}
+            © 2023{" "}
             <a
               href="https://www.incubyte.co/"
               className="coursePageFooterLink"

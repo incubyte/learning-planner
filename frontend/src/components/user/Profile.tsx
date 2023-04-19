@@ -15,8 +15,6 @@ const Profile = () => {
     });
     if (response.ok) {
       console.log(response);
-    } else {
-      navigator("/auth/signin");
     }
   };
 
@@ -27,7 +25,9 @@ const Profile = () => {
   return (
     <>
       {" "}
-      <div>Profile</div>
+      <div className="text-5xl lg:text-4xl md:text-7xl xsm:text-4xl mb-5 grid grid-cols-1 justify-items-center content-center object-contain">
+        My Profile
+      </div>
       <Carousel
         titleName="My Courses"
         courses={activeCourse}

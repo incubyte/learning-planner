@@ -1,8 +1,8 @@
-import { Test, TestingModule } from '@nestjs/testing';
 import { AuthController } from '@Auth/auth.controller';
 import { AuthService } from '@Auth/auth.service';
-import { mock } from 'jest-mock-extended';
 import { UserDto } from '@Auth/dto/user.dto';
+import { Test, TestingModule } from '@nestjs/testing';
+import { mock } from 'jest-mock-extended';
 describe('AuthController', () => {
   let controller: AuthController;
   let service: AuthService;
@@ -38,6 +38,9 @@ describe('AuthController', () => {
       profilePhoto: 'https://profilephoto.com',
       createdAt: Date.prototype,
       updatedAt: Date.prototype,
+      eId: 'E0001',
+      role: 'BQA',
+      clientTeam: 'abc',
     });
     const result = await controller.signup(user);
     expect(service.signup).toBeCalledTimes(1);

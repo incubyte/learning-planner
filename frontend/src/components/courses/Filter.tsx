@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import "../../css/courses/Filter.css";
 import { useNavigate } from "react-router-dom";
+import "../../css/courses/Filter.css";
 
 interface FilterProps {
   getCourseByFilter: (courses: any[]) => void;
@@ -23,8 +23,6 @@ const Filter = ({ getCourseByFilter }: FilterProps) => {
     if (response && response.ok) {
       const coursesResponse = await response.json();
       setCourses(coursesResponse);
-    } else {
-      navigator("/auth/signin");
     }
   };
 
@@ -37,8 +35,6 @@ const Filter = ({ getCourseByFilter }: FilterProps) => {
     if (response && response.ok) {
       const tagsResponse = await response.json();
       setTags(tagsResponse);
-    } else {
-      navigator("/auth/signin");
     }
   };
 
