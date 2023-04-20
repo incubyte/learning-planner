@@ -9,7 +9,19 @@ export class UserService {
     return await this.prismaService.user.findFirst({ where: { id } });
   }
 
-  getCourseByUserId(userid: string): Promise<Course[]> {
-    throw new Error('Method not implemented.');
+  async getCourseByUserId(userid: string) {
+    const prismaUserCourse = await this.prismaService.userCourse.findMany({
+      where: { userId: userid },
+    });
+    const courses = await Promise.all(
+      prismaUserCourse.map(async (currentUserCourse) => {
+        return await this.prismaService.course.findFirst({
+          where: {
+            id: currentUserCourse.courseId,
+          },
+        });
+      }),
+    );
+    return courses;
   }
 }
