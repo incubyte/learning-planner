@@ -38,4 +38,11 @@ describe('UserController (e2e)', () => {
       .set('Authorization', `Bearer ${authToken}`);
     expect(response.status).toBe(200);
   });
+
+  it('user/updateProfile/:userId (PATCH) - should update the user', async () => {
+    const response = await request(app.getHttpServer())
+      .patch('/user/updateProfile/0cecbf92-d381-40b7-b8f8-49ccae3f8263')
+      .set('Authorization', `Bearer ${authToken}`);
+    expect(response.status).toBe(200);
+  });
 });
