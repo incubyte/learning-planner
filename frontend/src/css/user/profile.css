@@ -1,5 +1,5 @@
 .ProfileInput {
-    @apply text-center max-w-sm bg-gray-100 border border-gray-300 text-gray-900 text-base rounded-lg block lg:max-w-fit p-2.5 cursor-not-allowed
+    @apply text-center w-40 bg-gray-100 border border-gray-300 text-gray-900 text-base rounded-lg block lg:max-w-fit p-2 cursor-not-allowed
 }
 
 .ProfileLabel{

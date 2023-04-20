@@ -67,6 +67,9 @@ describe("Profile Component", () => {
 
       const profileCreditLabel = screen.getByTestId("profileCreditLabel");
       expect(profileCreditLabel).toBeInTheDocument();
+
+      const profileTotalCourseLabel = screen.getByTestId("profileTotalCourseLabel");
+      expect(profileTotalCourseLabel).toBeInTheDocument();
     });
   });
 
@@ -93,6 +96,9 @@ describe("Profile Component", () => {
 
       const profileCreditInput = screen.getByTestId("profileCreditInput");
       expect(profileCreditInput).toBeInTheDocument();
+
+      const profileTotalCourseInput = screen.getByTestId("profileTotalCourseInput");
+      expect(profileTotalCourseInput).toBeInTheDocument();
     });
   });
 
