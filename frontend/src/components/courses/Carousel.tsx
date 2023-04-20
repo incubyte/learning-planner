@@ -1,3 +1,4 @@
+import React, { useRef } from "react";
 import CourseCard from "./CourseCard";
 import { FiChevronRight, FiChevronLeft } from "react-icons/fi";
 import "../../css/courses/Carousel.css";
@@ -5,22 +6,23 @@ interface carouselProps {
   titleName?: string;
   contentId: string;
   courses: {
-    courseImage: string;
-    courseName: string;
+    id: string;
+    imageUrl: string;
+    name: string;
   }[];
 }
 
 const Carousel = ({ titleName, courses, contentId }: carouselProps) => {
+  const contentRef = useRef<HTMLDivElement>(null);
   const scrollLeft = () => {
-    const content = document.getElementById(contentId);
-    if (content !== null) {
-      content.scrollLeft -= 300;
+    if (contentRef.current !== null) {
+      contentRef.current.scrollLeft -= 416;
     }
   };
+
   const scrollRight = () => {
-    const content = document.getElementById(contentId);
-    if (content !== null) {
-      content.scrollLeft += 300;
+    if (contentRef.current !== null) {
+      contentRef.current.scrollLeft += 416;
     }
   };
   return (
@@ -47,6 +49,7 @@ const Carousel = ({ titleName, courses, contentId }: carouselProps) => {
             </button>
           </div>
           <div
+            ref={contentRef}
             id={contentId}
             className="carouselListContent"
             data-testid="carouselContent"
@@ -55,8 +58,9 @@ const Carousel = ({ titleName, courses, contentId }: carouselProps) => {
               return (
                 <CourseCard
                   key={index}
-                  courseImage={course.courseImage}
-                  courseName={course.courseName}
+                  id={course.id}
+                  courseImage={course.imageUrl}
+                  courseName={course.name}
                 />
               );
             })}

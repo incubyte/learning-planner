@@ -41,5 +41,5 @@ describe("Navbar", () => {
     const searchInput = screen.getByPlaceholderText("Search...");
     fireEvent.change(searchInput, { target: { value: "Java" } });
     expect(mockGetQuery).toHaveBeenCalledWith("Java");
-  });  
+  });
 });
