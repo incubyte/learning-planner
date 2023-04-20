@@ -1,9 +1,10 @@
-import React, { useRef } from "react";
-import CourseCard from "./CourseCard";
-import { FiChevronRight, FiChevronLeft } from "react-icons/fi";
+import { useRef } from "react";
+import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import "../../css/courses/Carousel.css";
+import CourseCard from "./CourseCard";
 interface carouselProps {
   titleName?: string;
+  dataTestId?: string;
   contentId: string;
   courses: {
     id: string;
@@ -12,7 +13,12 @@ interface carouselProps {
   }[];
 }
 
-const Carousel = ({ titleName, courses, contentId }: carouselProps) => {
+const Carousel = ({
+  titleName,
+  dataTestId,
+  courses,
+  contentId,
+}: carouselProps) => {
   const contentRef = useRef<HTMLDivElement>(null);
   const scrollLeft = () => {
     if (contentRef.current !== null) {
@@ -26,7 +32,7 @@ const Carousel = ({ titleName, courses, contentId }: carouselProps) => {
     }
   };
   return (
-    <div className="relative" role={contentId}>
+    <div className="relative" data-testid={dataTestId} role={contentId}>
       <div className="carouselTitleName" data-testid="carouselTitleName">
         {titleName}
       </div>
