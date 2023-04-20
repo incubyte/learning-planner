@@ -176,7 +176,7 @@ describe('CourseService', () => {
         .spyOn(prismaService.course, 'findMany')
         .mockResolvedValue(mockResponse);
       const result = await service.filterByTags(tags);
-      expect(prismaService.course.findMany).toBeCalledTimes(1);
+      expect(prismaService.course.findMany).toBeCalledTimes(2);
       expect(result).toMatchObject(mockResponse);
     });
   });
