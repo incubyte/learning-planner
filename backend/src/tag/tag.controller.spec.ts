@@ -8,7 +8,7 @@ describe('TagController', () => {
   let controller: TagController;
   let service: TagService;
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [TagController],
       providers: [

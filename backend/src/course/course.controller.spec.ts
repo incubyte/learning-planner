@@ -9,7 +9,7 @@ describe('CourseController', () => {
   let controller: CourseController;
   let service: CourseService;
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [CourseController],
       providers: [

@@ -10,14 +10,14 @@ export class CourseController {
 
   @Get('/')
   async getAll(): Promise<Course[]> {
-    return this.courseService.getAll();
+    return await this.courseService.getAll();
   }
   @Get('/getCourseById/:id')
   async getById(@Param('id') id: string): Promise<Course> {
-    return this.courseService.getById(id);
+    return await this.courseService.getById(id);
   }
   @Get('/filterByTags')
   async filterByTags(@Query('tags') tags: string[]): Promise<Course[]> {
-    return this.courseService.filterByTags(tags);
+    return await this.courseService.filterByTags(tags);
   }
 }
