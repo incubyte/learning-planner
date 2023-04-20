@@ -10,6 +10,6 @@ export class UserController {
 
   @Get('/:id')
   async getUserById(@Param('id') id: string): Promise<User> {
-    return this.userService.getUserById(id);
+    return await this.userService.getUserById(id);
   }
 }
