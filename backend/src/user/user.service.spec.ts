@@ -6,7 +6,7 @@ import { UserDto } from '@/auth/dto/user.dto';
 describe('UserService', () => {
   let service: UserService;
   let prismaService: PrismaService;
-  beforeEach(async () => {
+  beforeAll(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         UserService,

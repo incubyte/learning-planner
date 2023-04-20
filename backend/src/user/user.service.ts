@@ -9,7 +9,7 @@ export class UserService {
     return await this.prismaService.user.findFirst({ where: { id } });
   }
 
-  async getCourseByUserId(userid: string) {
+  async getCourseByUserId(userid: string): Promise<Course[]> {
     const prismaUserCourse = await this.prismaService.userCourse.findMany({
       where: { userId: userid },
     });
