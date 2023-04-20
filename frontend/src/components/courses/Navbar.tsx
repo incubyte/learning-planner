@@ -6,7 +6,11 @@ import OpenMenu from "../utilities/icons/OpenMenu";
 import CloseMenu from "../utilities/icons/CloseMenu";
 import "../../css/courses/Navbar.css";
 
-const Navbar = () => {
+interface NavbarProps {
+  getQuery: (query: string) => void;
+}
+
+const Navbar = ({ getQuery }: NavbarProps) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <>
@@ -44,10 +48,10 @@ const Navbar = () => {
                         type="text"
                         className="navbarHeaderSearchInput"
                         placeholder="Search..."
+                        onChange={(e) =>
+                          getQuery((e.target as HTMLInputElement).value)
+                        }
                       />
-                      <button className="navbarHeaderSearchButton">
-                        Search
-                      </button>
                     </div>
                   </div>
                 </div>
@@ -96,8 +100,11 @@ const Navbar = () => {
                       type="text"
                       className="navbarHeaderSearchInput"
                       placeholder="Search..."
+                      data-testid="mobile-menu-search"
+                      onChange={(e) =>
+                        getQuery((e.target as HTMLInputElement).value)
+                      }
                     />
-                    <button className="navbarHeaderSearchButton">Search</button>
                   </div>
                 </div>
               </div>

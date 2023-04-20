@@ -28,7 +28,6 @@ const HomePage = () => {
 
   return (
     <>
-      <div>HomePage</div>
       <Outlet></Outlet>
     </>
   );

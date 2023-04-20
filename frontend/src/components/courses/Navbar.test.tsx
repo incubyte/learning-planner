@@ -1,4 +1,10 @@
-import { cleanup, render, screen } from "@testing-library/react";
+import {
+  act,
+  cleanup,
+  fireEvent,
+  render,
+  screen,
+} from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
 import Navbar from "./Navbar";
 
@@ -7,10 +13,11 @@ afterEach(() => {
 });
 
 describe("Navbar", () => {
+  const mockGetQuery = jest.fn();
   test("Navbar is present", () => {
     render(
       <BrowserRouter>
-        <Navbar />
+        <Navbar getQuery={mockGetQuery} />
       </BrowserRouter>
     );
 
@@ -22,5 +29,17 @@ describe("Navbar", () => {
 
     const profileLink = screen.getByTestId("navbarHeaderProfileLink");
     expect(profileLink).toBeInTheDocument();
+  });
+
+  test("updates search query when user types", () => {
+    render(
+      <BrowserRouter>
+        <Navbar getQuery={mockGetQuery} />
+      </BrowserRouter>
+    );
+
+    const searchInput = screen.getByPlaceholderText("Search...");
+    fireEvent.change(searchInput, { target: { value: "Java" } });
+    expect(mockGetQuery).toHaveBeenCalledWith("Java");
   });
 });

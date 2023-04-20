@@ -1,6 +1,7 @@
 import "../../css/courses/CourseCard.css";
 import Button from "../utilities/Button";
 interface courseCardProps {
+  id: string;
   courseImage: string;
   courseName: string;
 }
@@ -33,7 +34,5 @@ const CourseCard = ({ courseImage, courseName }: courseCardProps) => {
     </>
   );
 };
- 
+
 export default CourseCard;
- 
- 
