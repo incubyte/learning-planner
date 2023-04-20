@@ -41,7 +41,7 @@ const Profile = () => {
           src="https://wallpapercave.com/wp/wp6480749.jpg"
         ></img>
       </div>
-      <div className="grid lg:grid-cols-1 sm:hidden">
+      <div className="grid lg:grid-cols-1 lg:block sm:hidden">
         <div className="grid lg:grid-cols-2  gap-4 justify-items-center content-center">
           <label className="ProfileLabel">Email</label>
           <label className="ProfileLabel">Employee Id</label>

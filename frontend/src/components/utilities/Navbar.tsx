@@ -18,7 +18,7 @@ const Navbar = (props: NavbarProps) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <>
-      <div>
+      <div className="sticky top-0 z-50">
         <nav className="NavbarContainer" role="navigation">
           <div className="NavbarInnerContainer">
             <div className="NavbarHeaderFlexItems">
