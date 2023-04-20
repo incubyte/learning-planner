@@ -7,7 +7,7 @@ describe('CourseService', () => {
   let service: CourseService;
   let prismaService: PrismaService;
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         CourseService,
