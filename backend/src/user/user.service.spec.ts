@@ -2,6 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { UserService } from './user.service';
 import { PrismaService } from '@/prisma/prisma.service';
 import { UserDto } from '@/auth/dto/user.dto';
+import { UpdateUserDto } from './dto/updateUser.dto';
 
 describe('UserService', () => {
   let service: UserService;
@@ -16,6 +17,7 @@ describe('UserService', () => {
             return {
               user: {
                 findFirst: jest.fn(),
+                update: jest.fn(),
               },
               userCourse: {
                 findMany: jest.fn(),
@@ -153,6 +155,32 @@ describe('UserService', () => {
         where: { id: prismaCourse3Id },
       });
       expect(courses).toEqual(mockCourseResponse);
+    });
+
+    it('should return the updated user', async () => {
+      const updateProfileBody: UpdateUserDto = {
+        role: 'BQAE',
+        clientTeam: 'abcd',
+        profilePhoto: 'https://profilephoto.com',
+      };
+
+      const mockUpdatedUser = {
+        email: userDTO.email,
+        password: userDTO.password,
+        id: '1',
+        createdAt: Date.prototype,
+        profilePhoto: 'https://profilephoto.com',
+        updatedAt: Date.prototype,
+        eId: 'E0001',
+        role: 'BQAE',
+        clientTeam: 'abcd',
+      };
+      jest
+        .spyOn(prismaService.user, 'update')
+        .mockResolvedValue(mockUpdatedUser);
+      const result = await service.updateProfile(updateProfileBody, '1');
+      expect(prismaService.user.update).toBeCalledTimes(1);
+      expect(result).toMatchObject(mockUpdatedUser);
     });
   });
 });

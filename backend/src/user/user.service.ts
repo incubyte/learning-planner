@@ -5,12 +5,6 @@ import { UpdateUserDto } from './dto/updateUser.dto';
 
 @Injectable()
 export class UserService {
-  updateProfile(
-    updatedUser: UpdateUserDto,
-    userid: string,
-  ): User | PromiseLike<User> {
-    throw new Error('Method not implemented.');
-  }
   constructor(private readonly prismaService: PrismaService) {}
   async getUserById(id: string): Promise<User> {
     const user = await this.prismaService.user.findFirst({ where: { id } });
@@ -32,5 +26,17 @@ export class UserService {
       }),
     );
     return courses;
+  }
+
+  async updateProfile(
+    updatedUser: UpdateUserDto,
+    userid: string,
+  ): Promise<User> {
+    const updatedPrismaUser = await this.prismaService.user.update({
+      where: { id: userid },
+      data: { ...updatedUser },
+    });
+    delete updatedPrismaUser.password;
+    return updatedPrismaUser;
   }
 }
