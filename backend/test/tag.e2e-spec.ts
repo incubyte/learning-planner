@@ -18,6 +18,7 @@ describe('CourseController (e2e)', () => {
       email: 'john' + Math.random() * 1000 + '@incubyte.co',
       password: '123',
     };
+
     await request(app.getHttpServer()).post('/auth/signup').send(user);
     const signInResponse = await request(app.getHttpServer())
       .post('/auth/signin')
@@ -25,23 +26,16 @@ describe('CourseController (e2e)', () => {
     authToken = signInResponse.text;
   });
 
-  it('course/ (GET) - should return all courses', async () => {
+  it('tag/ (GET) - should return all tags', async () => {
     const response = await request(app.getHttpServer())
-      .get('/course/')
+      .get('/tag/')
       .set('Authorization', `Bearer ${authToken}`);
     expect(response.status).toBe(200);
   });
 
-  it('course/getCourseById/:id (GET) - should return course which id is provided', async () => {
+  it('tag/:id (GET) - should return tags which id is provided', async () => {
     const response = await request(app.getHttpServer())
-      .get('/course/getCourseById/1')
-      .set('Authorization', `Bearer ${authToken}`);
-    expect(response.status).toBe(200);
-  });
-
-  it('course/filterByTags (GET) - should return courses which tags is provided', async () => {
-    const response = await request(app.getHttpServer())
-      .get('/course/filterByTags?tags=1')
+      .get('/tag/1')
       .set('Authorization', `Bearer ${authToken}`);
     expect(response.status).toBe(200);
   });
