@@ -3,6 +3,7 @@ import { UserController } from './user.controller';
 import { mock } from 'jest-mock-extended';
 import { UserDto } from '@Auth/dto/user.dto';
 import { UserService } from './user.service';
+import { UpdateUserDto } from './dto/updateUser.dto';
 
 describe('UserController', () => {
   let controller: UserController;
@@ -71,6 +72,34 @@ describe('UserController', () => {
       jest.spyOn(service, 'getCourseByUserId').mockResolvedValue(mockResponse);
       const result = await controller.getCourseByUserId('1');
       expect(service.getCourseByUserId).toHaveBeenCalledWith('1');
+      expect(result).toEqual(mockResponse);
+    });
+
+    it('should update the user profile', async () => {
+      const updateProfileBody: UpdateUserDto = {
+        role: 'BQAE',
+        clientTeam: 'abcd',
+        profilePhoto: 'https://profilephoto.com',
+      };
+
+      const mockResponse = {
+        email: userDTO.email,
+        password: userDTO.password,
+        id: '1',
+        createdAt: Date.prototype,
+        profilePhoto: 'https://profilephoto.com',
+        updatedAt: Date.prototype,
+        eId: 'E0001',
+        role: 'BQAE',
+        clientTeam: 'abcd',
+      };
+
+      jest.spyOn(service, 'updateProfile').mockResolvedValue(mockResponse);
+      const result = await controller.updateProfile(updateProfileBody, '1');
+      expect(service.updateProfile).toHaveBeenCalledWith(
+        updateProfileBody,
+        '1',
+      );
       expect(result).toEqual(mockResponse);
     });
   });
