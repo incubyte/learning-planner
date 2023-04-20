@@ -46,7 +46,7 @@ describe('UserController', () => {
       };
 
       jest.spyOn(service, 'getUserById').mockResolvedValue(mockResponse);
-      const result = await service.getUserById('1');
+      const result = await controller.getUserById('1');
       expect(service.getUserById).toBeCalledTimes(1);
       expect(result).toMatchObject(mockResponse);
     });
