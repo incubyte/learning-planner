@@ -101,7 +101,10 @@ describe('UserController', () => {
       };
 
       jest.spyOn(service, 'updateProfile').mockResolvedValue(mockResponse);
-      const result = await controller.updateProfile(updateProfileBody, '1');
+      const result = await controller.updateProfile(
+        userDecorator,
+        updateProfileBody,
+      );
       expect(service.updateProfile).toHaveBeenCalledWith(
         updateProfileBody,
         '1',

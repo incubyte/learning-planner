@@ -23,11 +23,11 @@ export class UserController {
     return await this.userService.getCourseByUserId(user.id);
   }
 
-  @Patch('updateProfile/:userid')
+  @Patch('/updateProfile')
   async updateProfile(
+    @UserDecorator() user: jwtPayload,
     @Body() updatedUser: UpdateUserDto,
-    @Param('userid') userid: string,
   ): Promise<User> {
-    return await this.userService.updateProfile(updatedUser, userid);
+    return await this.userService.updateProfile(updatedUser, user.id);
   }
 }
