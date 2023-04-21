@@ -32,6 +32,12 @@ describe('UserController', () => {
       email: 'john@incubyte.co',
       password: '1234',
     };
+
+    const userDecorator = {
+      id: '1',
+      email: userDTO.email,
+    };
+
     it('should return the user by specified id', async () => {
       const mockResponse = {
         email: userDTO.email,
@@ -46,7 +52,7 @@ describe('UserController', () => {
       };
 
       jest.spyOn(service, 'getUserById').mockResolvedValue(mockResponse);
-      const result = await service.getUserById('1');
+      const result = await controller.getUserById(userDecorator);
       expect(service.getUserById).toBeCalledTimes(1);
       expect(result).toMatchObject(mockResponse);
     });

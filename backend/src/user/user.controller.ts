@@ -1,16 +1,18 @@
 import { Controller, Get, Param, UseGuards } from '@nestjs/common';
 import { UserService } from './user.service';
 import { Course, User } from '@prisma/client';
-import { JwtAuthGuard } from '@/auth/jwt-auth-guard/jwt-auth.guard';
+import { JwtAuthGuard } from '@Auth/jwt-auth-guard/jwt-auth.guard';
+import { jwtPayload } from '@Auth/jwtpayload/jwt.payload';
+import { UserDecorator } from '@/decorator/user.decorator';
 
 @UseGuards(JwtAuthGuard)
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
-  @Get('/:id')
-  async getUserById(@Param('id') id: string): Promise<User> {
-    return await this.userService.getUserById(id);
+  @Get('/')
+  async getUserById(@UserDecorator() user: jwtPayload): Promise<User> {
+    return await this.userService.getUserById(user.id);
   }
 
   @Get('course/:userid')
