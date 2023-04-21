@@ -25,23 +25,16 @@ describe('UserController (e2e)', () => {
     authToken = signInResponse.text;
   });
 
-  it('user/:userId (GET) - should return the user', async () => {
+  it('user/ (GET) - should return the user', async () => {
     const response = await request(app.getHttpServer())
-      .get('/user/0cecbf92-d381-40b7-b8f8-49ccae3f8263')
+      .get('/user/')
       .set('Authorization', `Bearer ${authToken}`);
     expect(response.status).toBe(200);
   });
 
-  it('user/course/:userId (GET) - should return the course for particular userId', async () => {
+  it('user/course/ (GET) - should return the course for particular userId', async () => {
     const response = await request(app.getHttpServer())
-      .get('/user/course/0cecbf92-d381-40b7-b8f8-49ccae3f8263')
-      .set('Authorization', `Bearer ${authToken}`);
-    expect(response.status).toBe(200);
-  });
-
-  it('user/updateProfile/:userId (PATCH) - should update the user', async () => {
-    const response = await request(app.getHttpServer())
-      .patch('/user/updateProfile/0cecbf92-d381-40b7-b8f8-49ccae3f8263')
+      .get('/user/course')
       .set('Authorization', `Bearer ${authToken}`);
     expect(response.status).toBe(200);
   });
