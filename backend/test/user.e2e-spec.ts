@@ -32,9 +32,9 @@ describe('UserController (e2e)', () => {
     expect(response.status).toBe(200);
   });
 
-  it('user/course/:userId (GET) - should return the course for particular userId', async () => {
+  it('user/course/ (GET) - should return the course for particular userId', async () => {
     const response = await request(app.getHttpServer())
-      .get('/user/course/59a641a1-08d1-4f74-8103-b44b1c14a390')
+      .get('/user/course')
       .set('Authorization', `Bearer ${authToken}`);
     expect(response.status).toBe(200);
   });

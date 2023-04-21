@@ -15,8 +15,10 @@ export class UserController {
     return await this.userService.getUserById(user.id);
   }
 
-  @Get('course/:userid')
-  async getCourseByUserId(@Param('userid') userid: string): Promise<Course[]> {
-    return await this.userService.getCourseByUserId(userid);
+  @Get('/course')
+  async getCourseByUserId(
+    @UserDecorator() user: jwtPayload,
+  ): Promise<Course[]> {
+    return await this.userService.getCourseByUserId(user.id);
   }
 }

@@ -75,7 +75,7 @@ describe('UserController', () => {
         },
       ];
       jest.spyOn(service, 'getCourseByUserId').mockResolvedValue(mockResponse);
-      const result = await controller.getCourseByUserId('1');
+      const result = await controller.getCourseByUserId(userDecorator);
       expect(service.getCourseByUserId).toHaveBeenCalledWith('1');
       expect(result).toEqual(mockResponse);
     });
