@@ -27,7 +27,7 @@ describe('UserController (e2e)', () => {
 
   it('user/ (GET) - should return the user', async () => {
     const response = await request(app.getHttpServer())
-      .get('/user/59a641a1-08d1-4f74-8103-b44b1c14a390')
+      .get('/user/')
       .set('Authorization', `Bearer ${authToken}`);
     expect(response.status).toBe(200);
   });
