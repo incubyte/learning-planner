@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Patch, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Patch, UseGuards } from '@nestjs/common';
 import { UserService } from './user.service';
 import { Course, User } from '@prisma/client';
 import { JwtAuthGuard } from '@Auth/jwt-auth-guard/jwt-auth.guard';
