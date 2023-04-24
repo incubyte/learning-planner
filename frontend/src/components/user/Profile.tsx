@@ -11,30 +11,32 @@ const Profile = () => {
   const [activeCourse, setActiveCourse] = useState<any[]>([]);
   const [user, setUser] = useState<any>("");
 
-  const handleSubmit = async (e:any) => {
-    e.preventDefault();
-    let media:any=[];
-    try{
-      if (avatar) media = await imageUpload([avatar]);
+  const handleSubmit = async () => {
+    let media: any = [];
+    if (avatar) {
+      media = await imageUpload([avatar]);
       console.log(media[0].url);
-      const response=await fetch("https://backend-mu-plum.vercel.app/user/updateProfile", {
-        headers: {
-        Authorization: `Bearer ${authToken}`,
-      },
-      method: "patch",                                                              
-      body: JSON.stringify({ profilePhoto: media[0].url })
-      
-      });
-    if (response.ok) {
-      const jsonResnponse = await response.json();
-      console.log(jsonResnponse);
-      setUser(jsonResnponse);
+      const response = await fetch(
+        "https://backend-mu-plum.vercel.app/user/updateProfile",
+        {
+          headers: {
+            Authorization: `Bearer ${authToken}`,
+            "Content-Type": "application/json",
+          },
+          method: "PATCH",
+          body: JSON.stringify({
+            profilePhoto: media[0].url,
+          }),
+        }
+      );
+      console.log(response);
+      if (response.ok) {
+        const jsonResnponse = await response.json();
+        console.log(jsonResnponse);
+        setUser(jsonResnponse);
+      }
     }
-  }
-  catch(err){
-    console.log(err);
-  }
-  setShowModal(false);
+    setShowModal(false);
   };
 
   const fetchUser = async () => {
@@ -69,11 +71,11 @@ const Profile = () => {
   const [showModal, setShowModal] = useState(false);
   const [avatar, setAvatar] = useState("");
   const blob = new Blob([avatar]);
-  const changeAvatar = (e:any) => {
+  const changeAvatar = (e: any) => {
     const file = e.target.files[0];
     setAvatar(file);
   };
-  
+
   const authToken = localStorage.getItem("authToken");
   useEffect(() => {
     fetchUser();
@@ -102,18 +104,17 @@ const Profile = () => {
                 </div>
                 {/*body*/}
                 <div className="relative p-6 flex-auto">
-<span >
-           
-            <h2 className="addNews__label">Change Image</h2>
-            <input  className=" editimg__input"
-              type="file"
-              name="file"
-              id="file_up"
-              accept="image/*"
-              onChange={changeAvatar}
-            />
-          </span>
-
+                  <span>
+                    <h2 className="addNews__label">Change Image</h2>
+                    <input
+                      className=" editimg__input"
+                      type="file"
+                      name="file"
+                      id="file_up"
+                      accept="image/*"
+                      onChange={changeAvatar}
+                    />
+                  </span>
                 </div>
                 {/*footer*/}
                 <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
