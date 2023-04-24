@@ -8,6 +8,7 @@ const Profile = () => {
   const navigator = useNavigate();
 
   const [activeCourse, setActiveCourse] = useState<any[]>([]);
+  const [user, setUser] = useState<any>("");
 
   const fetchUser = async () => {
     const response = await fetch("https://backend-mu-plum.vercel.app/user", {
@@ -16,14 +17,33 @@ const Profile = () => {
       },
     });
     if (response.ok) {
-      console.log(response);
+      const jsonResnponse = await response.json();
+      console.log(jsonResnponse);
+      setUser(jsonResnponse);
+    }
+  };
+
+  const fetchCourse = async () => {
+    const response = await fetch(
+      "https://backend-mu-plum.vercel.app/user/course",
+      {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+      }
+    );
+    if (response.ok) {
+      const jsonResnponse = await response.json();
+      console.log(jsonResnponse);
+      setActiveCourse(jsonResnponse);
     }
   };
 
   const authToken = localStorage.getItem("authToken");
   useEffect(() => {
-    // fetchUser();
-  });
+    fetchUser();
+    fetchCourse();
+  }, []);
   return (
     <>
       <Navbar
@@ -61,19 +81,19 @@ const Profile = () => {
           <input
             disabled
             data-testid="profileEmailInput"
-            value="Email"
+            value={user.email}
             className="ProfileInput"
           ></input>
           <input
             disabled
             data-testid="profileEidInput"
-            value="EID"
+            value={user.eId}
             className="ProfileInput"
           ></input>
           <input
             disabled
             data-testid="profileTotalCourseInput"
-            value="0"
+            value={activeCourse.length}
             className="ProfileInput"
           ></input>
         </div>
@@ -92,18 +112,18 @@ const Profile = () => {
           <input
             disabled
             data-testid="profileClientTeamInput"
-            value="Client Team"
+            value={user.clientTeam}
             className="ProfileInput"
           ></input>
           <input
             disabled
-            value="Role"
+            value={user.role}
             data-testid="profileRoleInput"
             className="ProfileInput"
           ></input>
           <input
             disabled
-            value="Credit"
+            value="0"
             data-testid="profileCreditInput"
             className="ProfileInput"
           ></input>
@@ -134,11 +154,15 @@ const Profile = () => {
           </div>
           <div className="grid grid-cols-2 justify-items-center content-center">
             <label className="ProfileLabel">Credit</label>
-            <input disabled value="credit" className="ProfileInput"></input>
+            <input disabled value="0" className="ProfileInput"></input>
           </div>
           <div className="grid grid-cols-2 justify-items-center content-center mb-5">
             <label className="ProfileLabel">Total Course</label>
-            <input disabled value="0" className="ProfileInput"></input>
+            <input
+              disabled
+              value={activeCourse.length}
+              className="ProfileInput"
+            ></input>
           </div>
         </div>
       </div>
