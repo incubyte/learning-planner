@@ -6,8 +6,6 @@ import Navbar from "../utilities/Navbar";
 import { imageUpload } from "./ImageUpload";
 
 const Profile = () => {
-  const navigator = useNavigate();
-
   const [activeCourse, setActiveCourse] = useState<any[]>([]);
   const [user, setUser] = useState<any>("");
 
@@ -35,8 +33,8 @@ const Profile = () => {
         console.log(jsonResnponse);
         setUser(jsonResnponse);
       }
+      setShowModal(false);
     }
-    setShowModal(false);
   };
 
   const fetchUser = async () => {
@@ -87,34 +85,38 @@ const Profile = () => {
       {showModal ? (
         <>
           <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
-            <div className="relative w-auto my-6 mx-auto max-w-3xl">
-              {/*content*/}
-              <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
-                {/*header*/}
-                <div className="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
+            <div className="relative w-auto my-6 mx-auto">
+              <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-80 bg-white outline-none focus:outline-none">
+                <div className="flex items-start justify-between p-5 xsm:p-3 border-b border-solid border-slate-200 rounded-t">
                   <h3 className="text-3xl font-semibold">Upload Image</h3>
                   <button
-                    className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
+                    className="p-1 ml-auto border-0 text-black float-right text-3xl font-semibold outline-none"
                     onClick={() => setShowModal(false)}
                   >
-                    <span className="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
-                      ×
+                    <span className="text-black h-6 w-6 text-2xl block outline-none">
+                      x
                     </span>
                   </button>
                 </div>
                 {/*body*/}
                 <div className="relative p-6 flex-auto">
-                  <span>
-                    <h2 className="addNews__label">Change Image</h2>
-                    <input
-                      className=" editimg__input"
-                      type="file"
-                      name="file"
-                      id="file_up"
-                      accept="image/*"
-                      onChange={changeAvatar}
-                    />
-                  </span>
+                  <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                    Upload file
+                  </label>
+                  <input
+                    accept="image/*"
+                    className="relative m-0 block w-auto xsm:w-72 min-w-0 flex-auto rounded border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] text-base font-normal text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-neutral-100 file:px-3 file:py-[0.32rem] file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] hover:file:bg-neutral-200 focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none"
+                    aria-describedby="file_input_help"
+                    id="file_input"
+                    type="file"
+                    onChange={changeAvatar}
+                  />
+                  <p
+                    className="mt-1 text-sm text-gray-500 dark:text-gray-300"
+                    id="file_input_help"
+                  >
+                    SVG, PNG, JPG or GIF (MAX. 350kb).
+                  </p>
                 </div>
                 {/*footer*/}
                 <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
@@ -160,7 +162,7 @@ const Profile = () => {
           ></img>
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="h-5 w-5 absolute bottom-6 bg-white rounded-md right-4"
+            className="h-6 w-6 absolute bottom-6 bg-white rounded-md right-3 hover:cursor-pointer hover:h-7 hover:w-7"
             onClick={() => setShowModal(true)}
             viewBox="0 0 24 24"
           >
@@ -237,23 +239,23 @@ const Profile = () => {
         <div className="grid grid-cols-1 sm:gap-8 xsm:gap-4 justify-items-center content-center">
           <div className="grid grid-cols-2 justify-items-center content-center">
             <label className="ProfileLabel">Email</label>
-            <input disabled value="Email" className="ProfileInput"></input>
+            <input disabled value={user.email} className="ProfileInput"></input>
           </div>
           <div className="grid grid-cols-2 justify-items-center content-center">
             <label className="ProfileLabel">Employee Id</label>
-            <input disabled value="eid" className="ProfileInput"></input>
+            <input disabled value={user.eId} className="ProfileInput"></input>
           </div>
           <div className="grid grid-cols-2 justify-items-center content-center">
             <label className="ProfileLabel">Client Team</label>
             <input
               disabled
-              value="client team"
+              value={user.clientTeam}
               className="ProfileInput"
             ></input>
           </div>
           <div className="grid grid-cols-2 justify-items-center content-center">
             <label className="ProfileLabel">Role</label>
-            <input disabled value="role" className="ProfileInput"></input>
+            <input disabled value={user.role} className="ProfileInput"></input>
           </div>
           <div className="grid grid-cols-2 justify-items-center content-center">
             <label className="ProfileLabel">Credit</label>
@@ -281,3 +283,4 @@ const Profile = () => {
 };
 
 export default Profile;
+  
