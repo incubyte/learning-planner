@@ -3,12 +3,39 @@ import { useNavigate } from "react-router-dom";
 import "../../css/user/profile.css";
 import Carousel from "../utilities/Carousel";
 import Navbar from "../utilities/Navbar";
+import { imageUpload } from "./ImageUpload";
 
 const Profile = () => {
   const navigator = useNavigate();
 
   const [activeCourse, setActiveCourse] = useState<any[]>([]);
   const [user, setUser] = useState<any>("");
+
+  const handleSubmit = async (e:any) => {
+    e.preventDefault();
+    let media:any=[];
+    try{
+      if (avatar) media = await imageUpload([avatar]);
+      console.log(media[0].url);
+      const response=await fetch("https://backend-mu-plum.vercel.app/user/updateProfile", {
+        headers: {
+        Authorization: `Bearer ${authToken}`,
+      },
+      method: "patch",                                                              
+      body: JSON.stringify({ profilePhoto: media[0].url })
+      
+      });
+    if (response.ok) {
+      const jsonResnponse = await response.json();
+      console.log(jsonResnponse);
+      setUser(jsonResnponse);
+    }
+  }
+  catch(err){
+    console.log(err);
+  }
+  setShowModal(false);
+  };
 
   const fetchUser = async () => {
     const response = await fetch("https://backend-mu-plum.vercel.app/user", {
@@ -40,11 +67,19 @@ const Profile = () => {
   };
 
   const [showModal, setShowModal] = useState(false);
+  const [avatar, setAvatar] = useState("");
+  const blob = new Blob([avatar]);
+  const changeAvatar = (e:any) => {
+    const file = e.target.files[0];
+    setAvatar(file);
+  };
+  
   const authToken = localStorage.getItem("authToken");
   useEffect(() => {
     fetchUser();
     fetchCourse();
   }, []);
+  console.log(user);
   return (
     <>
       {showModal ? (
@@ -55,7 +90,7 @@ const Profile = () => {
               <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                 {/*header*/}
                 <div className="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
-                  <h3 className="text-3xl font-semibold">Modal Title</h3>
+                  <h3 className="text-3xl font-semibold">Upload Image</h3>
                   <button
                     className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
                     onClick={() => setShowModal(false)}
@@ -67,11 +102,18 @@ const Profile = () => {
                 </div>
                 {/*body*/}
                 <div className="relative p-6 flex-auto">
-                  <p className="my-4 text-slate-500 text-lg leading-relaxed">
-                    I always felt like I could do anything. That’s the main
-                    thing people are controlled by! Thoughts- their perception
-                    won’t do anything. I was taught I could do everything.
-                  </p>
+<span >
+           
+            <h2 className="addNews__label">Change Image</h2>
+            <input  className=" editimg__input"
+              type="file"
+              name="file"
+              id="file_up"
+              accept="image/*"
+              onChange={changeAvatar}
+            />
+          </span>
+
                 </div>
                 {/*footer*/}
                 <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
@@ -85,7 +127,7 @@ const Profile = () => {
                   <button
                     className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                     type="button"
-                    onClick={() => setShowModal(false)}
+                    onClick={handleSubmit}
                   >
                     Save Changes
                   </button>
@@ -96,7 +138,6 @@ const Profile = () => {
           <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
         </>
       ) : null}
-
       <Navbar
         isCourse={true}
         isHome={true}
@@ -114,7 +155,7 @@ const Profile = () => {
           <img
             data-testid="profileImage"
             className="rounded-full h-40 w-40 block"
-            src="https://wallpapercave.com/wp/wp6480749.jpg"
+            src={avatar ? URL.createObjectURL(blob) : user.profilePhoto}
           ></img>
           <svg
             xmlns="http://www.w3.org/2000/svg"
