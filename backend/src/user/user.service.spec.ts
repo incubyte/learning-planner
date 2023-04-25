@@ -1,8 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { UserService } from './user.service';
-import { PrismaService } from '@/prisma/prisma.service';
-import { UserDto } from '@/auth/dto/user.dto';
-import { UpdateUserDto } from './dto/updateUser.dto';
+import { PrismaService } from '@Prisma/prisma.service';
+import { UserDto } from '@Auth/dto/user.dto';
+import { UpdateUserDto } from '@User/dto/updateUser.dto';
+import { UserService } from '@User/user.service';
 
 describe('UserService', () => {
   let service: UserService;

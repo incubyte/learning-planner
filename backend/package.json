@@ -87,7 +87,10 @@
     "moduleNameMapper": {
       "^@/(.*)$": "<rootDir>/../src/$1",
       "^@Auth/(.*)$": "<rootDir>/../src/auth/$1",
-      "^@Prisma/(.*)$": "<rootDir>/../src/prisma/$1"
+      "^@Prisma/(.*)$": "<rootDir>/../src/prisma/$1",
+      "^@User/(.*)$": "<rootDir>/../src/user/$1",
+      "^@Course/(.*)$": "<rootDir>/../src/course/$1",
+      "^@Tag/(.*)$": "<rootDir>/../src/tag/$1"
     }
   }
 }

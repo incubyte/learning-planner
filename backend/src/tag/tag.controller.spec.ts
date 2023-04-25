@@ -1,8 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { mock } from 'jest-mock-extended';
-import { TagDto } from './dto/tag.dto';
-import { TagController } from './tag.controller';
-import { TagService } from './tag.service';
+import { TagDto } from '@Tag/dto/tag.dto';
+import { TagController } from '@Tag/tag.controller';
+import { TagService } from '@Tag/tag.service';
 
 describe('TagController', () => {
   let controller: TagController;
