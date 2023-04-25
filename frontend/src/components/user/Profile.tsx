@@ -81,13 +81,12 @@ const Profile = () => {
   console.log(user);
   return (
     <>
-      {/* <Suspense fallback={<Loading />}> */}
       {showModal ? (
         <>
           <div data-testid="profileImageModel" className="ProfileModal">
             <div className="relative w-auto my-6 mx-auto">
-              <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-80 bg-white outline-none focus:outline-none">
-                <div className="flex items-start justify-between p-5 xsm:p-3 border-b border-solid border-slate-200 rounded-t">
+              <div className="ProfileModalContainer">
+                <div className="ProfileModelUploadContainer">
                   <h3 className="text-3xl font-semibold">Upload Image</h3>
                   <button
                     className="ProfileModalUploadButton"
@@ -98,7 +97,6 @@ const Profile = () => {
                     </span>
                   </button>
                 </div>
-                {/*body*/}
                 <div className="relative p-6 flex-auto">
                   <label className="ProfileModelUploadFileLabel">
                     Upload file
@@ -119,8 +117,7 @@ const Profile = () => {
                     SVG, PNG, JPG or GIF (MAX. 350kb).
                   </p>
                 </div>
-                {/*footer*/}
-                <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
+                <div className="ProfileModalFooter">
                   <button
                     data-testid="profileImageClose"
                     className="ProfileModalCloseButton"
@@ -144,16 +141,18 @@ const Profile = () => {
           <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
         </>
       ) : null}
+
       <Navbar
         isCourse={true}
         isHome={true}
         isProfile={false}
         isSearch={false}
       ></Navbar>
+      
       <div data-testid="profileHeader" className="ProfileHeader">
         My Profile
       </div>
-      <div className="grid grid-cols-1 justify-items-center content-center object-contain">
+      <div className="ProfilePhotoContainer">
         <div className="relative">
           <img
             data-testid="profileImage"
@@ -171,7 +170,7 @@ const Profile = () => {
           </svg>
         </div>
       </div>
-      <div className="grid grid-cols-1 lg:block md:block smd:block sm:hidden xsm:hidden">
+      <div className="ProfileContentContainerLargeScreen">
         <div className="ProfileLargeScreenGrid mt-5">
           <label data-testid="profileEmailLabel" className="ProfileLabel">
             Email
@@ -236,8 +235,8 @@ const Profile = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 p-6 sm:p-8 lg:hidden md:hidden smd:hidden">
-        <div className="grid grid-cols-1 justify-items-center content-center sm:gap-8 xsm:gap-4">
+      <div className="ProfileContainerSmallScreen">
+        <div className="ProfileContentContainerSmallScreen">
           <div className="ProfileSmallScreenGrid">
             <label className="ProfileLabel">Email</label>
             <input disabled value={user.email} className="ProfileInput"></input>
@@ -279,7 +278,6 @@ const Profile = () => {
         courses={activeCourse}
         contentId="popContent"
       />
-      {/* </Suspense> */}
     </>
   );
 };
