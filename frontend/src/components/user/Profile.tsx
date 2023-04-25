@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import "../../css/user/profile.css";
 import Carousel from "../utilities/Carousel";
 import Navbar from "../utilities/Navbar";
@@ -84,7 +83,10 @@ const Profile = () => {
     <>
       {showModal ? (
         <>
-          <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
+          <div
+            data-testid="profileImageModel"
+            className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
+          >
             <div className="relative w-auto my-6 mx-auto">
               <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-80 bg-white outline-none focus:outline-none">
                 <div className="flex items-start justify-between p-5 xsm:p-3 border-b border-solid border-slate-200 rounded-t">
@@ -104,6 +106,7 @@ const Profile = () => {
                     Upload file
                   </label>
                   <input
+                    data-testid="profileImageInput"
                     accept="image/*"
                     className="relative m-0 block w-auto xsm:w-72 min-w-0 flex-auto rounded border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] text-base font-normal text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-neutral-100 file:px-3 file:py-[0.32rem] file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] hover:file:bg-neutral-200 focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none"
                     aria-describedby="file_input_help"
@@ -121,6 +124,7 @@ const Profile = () => {
                 {/*footer*/}
                 <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
                   <button
+                    data-testid="profileImageClose"
                     className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                     type="button"
                     onClick={() => setShowModal(false)}
@@ -128,6 +132,7 @@ const Profile = () => {
                     Close
                   </button>
                   <button
+                    data-testid="profileImageSave"
                     className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                     type="button"
                     onClick={handleSubmit}
@@ -162,6 +167,7 @@ const Profile = () => {
           ></img>
           <svg
             xmlns="http://www.w3.org/2000/svg"
+            data-testid="profileImageButton"
             className="h-6 w-6 absolute bottom-6 bg-white rounded-md right-3 hover:cursor-pointer hover:h-7 hover:w-7"
             onClick={() => setShowModal(true)}
             viewBox="0 0 24 24"
@@ -283,4 +289,3 @@ const Profile = () => {
 };
 
 export default Profile;
-  

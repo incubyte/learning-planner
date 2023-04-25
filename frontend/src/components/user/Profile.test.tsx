@@ -1,4 +1,10 @@
-import { cleanup, render, screen } from "@testing-library/react";
+import {
+  act,
+  cleanup,
+  fireEvent,
+  render,
+  screen,
+} from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
 import Profile from "./Profile";
 
@@ -44,6 +50,76 @@ describe("Profile Component", () => {
     });
   });
 
+  describe("Profile Image button", () => {
+    test("Profile Image Button is present", () => {
+      render(
+        <BrowserRouter>
+          <Profile />
+        </BrowserRouter>
+      );
+      const profileImageButton = screen.getByTestId("profileImageButton");
+
+      expect(profileImageButton).toBeInTheDocument();
+    });
+  });
+
+  describe("Profile Image Model", () => {
+    test("Profile Image Model is present", async () => {
+      render(
+        <BrowserRouter>
+          <Profile />
+        </BrowserRouter>
+      );
+      const profileImageButton = screen.getByTestId("profileImageButton");
+      await act(() => {
+        fireEvent.click(profileImageButton);
+      });
+      const profileImageModel = screen.getByTestId("profileImageModel");
+      expect(profileImageModel).toBeInTheDocument();
+    });
+
+    test("Profile Image Model file input is present", async () => {
+      render(
+        <BrowserRouter>
+          <Profile />
+        </BrowserRouter>
+      );
+      const profileImageButton = screen.getByTestId("profileImageButton");
+      await act(() => {
+        fireEvent.click(profileImageButton);
+      });
+      const profileImageInput = screen.getByTestId("profileImageInput");
+      expect(profileImageInput).toBeInTheDocument();
+    });
+
+    test("Profile Image Model save button is present", async () => {
+      render(
+        <BrowserRouter>
+          <Profile />
+        </BrowserRouter>
+      );
+      const profileImageButton = screen.getByTestId("profileImageButton");
+      await act(() => {
+        fireEvent.click(profileImageButton);
+      });
+      const profileImageSave = screen.getByTestId("profileImageSave");
+      expect(profileImageSave).toBeInTheDocument();
+    });
+
+    test("Profile Image Model close button is present", async () => {
+      render(
+        <BrowserRouter>
+          <Profile />
+        </BrowserRouter>
+      );
+      const profileImageButton = screen.getByTestId("profileImageButton");
+      await act(() => {
+        fireEvent.click(profileImageButton);
+      });
+      const profileImageClose = screen.getByTestId("profileImageClose");
+      expect(profileImageClose).toBeInTheDocument();
+    });
+  });
   describe("Profile Labels", () => {
     test("Profile Labels is present", () => {
       render(
@@ -68,7 +144,9 @@ describe("Profile Component", () => {
       const profileCreditLabel = screen.getByTestId("profileCreditLabel");
       expect(profileCreditLabel).toBeInTheDocument();
 
-      const profileTotalCourseLabel = screen.getByTestId("profileTotalCourseLabel");
+      const profileTotalCourseLabel = screen.getByTestId(
+        "profileTotalCourseLabel"
+      );
       expect(profileTotalCourseLabel).toBeInTheDocument();
     });
   });
@@ -97,7 +175,9 @@ describe("Profile Component", () => {
       const profileCreditInput = screen.getByTestId("profileCreditInput");
       expect(profileCreditInput).toBeInTheDocument();
 
-      const profileTotalCourseInput = screen.getByTestId("profileTotalCourseInput");
+      const profileTotalCourseInput = screen.getByTestId(
+        "profileTotalCourseInput"
+      );
       expect(profileTotalCourseInput).toBeInTheDocument();
     });
   });
