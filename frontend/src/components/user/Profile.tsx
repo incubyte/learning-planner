@@ -81,18 +81,16 @@ const Profile = () => {
   console.log(user);
   return (
     <>
+      {/* <Suspense fallback={<Loading />}> */}
       {showModal ? (
         <>
-          <div
-            data-testid="profileImageModel"
-            className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
-          >
+          <div data-testid="profileImageModel" className="ProfileModal">
             <div className="relative w-auto my-6 mx-auto">
               <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-80 bg-white outline-none focus:outline-none">
                 <div className="flex items-start justify-between p-5 xsm:p-3 border-b border-solid border-slate-200 rounded-t">
                   <h3 className="text-3xl font-semibold">Upload Image</h3>
                   <button
-                    className="p-1 ml-auto border-0 text-black float-right text-3xl font-semibold outline-none"
+                    className="ProfileModalUploadButton"
                     onClick={() => setShowModal(false)}
                   >
                     <span className="text-black h-6 w-6 text-2xl block outline-none">
@@ -102,13 +100,13 @@ const Profile = () => {
                 </div>
                 {/*body*/}
                 <div className="relative p-6 flex-auto">
-                  <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                  <label className="ProfileModelUploadFileLabel">
                     Upload file
                   </label>
                   <input
                     data-testid="profileImageInput"
                     accept="image/*"
-                    className="relative m-0 block w-auto xsm:w-72 min-w-0 flex-auto rounded border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] text-base font-normal text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-neutral-100 file:px-3 file:py-[0.32rem] file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] hover:file:bg-neutral-200 focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none"
+                    className="ProfileModalUploadInput"
                     aria-describedby="file_input_help"
                     id="file_input"
                     type="file"
@@ -125,7 +123,7 @@ const Profile = () => {
                 <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
                   <button
                     data-testid="profileImageClose"
-                    className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                    className="ProfileModalCloseButton"
                     type="button"
                     onClick={() => setShowModal(false)}
                   >
@@ -133,7 +131,7 @@ const Profile = () => {
                   </button>
                   <button
                     data-testid="profileImageSave"
-                    className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                    className=""
                     type="button"
                     onClick={handleSubmit}
                   >
@@ -152,10 +150,7 @@ const Profile = () => {
         isProfile={false}
         isSearch={false}
       ></Navbar>
-      <div
-        data-testid="profileHeader"
-        className="text-5xl lg:text-4xl md:text-4xl xsm:text-4xl mt-8 mb-5 grid grid-cols-1 justify-items-center content-center object-contain"
-      >
+      <div data-testid="profileHeader" className="ProfileHeader">
         My Profile
       </div>
       <div className="grid grid-cols-1 justify-items-center content-center object-contain">
@@ -168,7 +163,7 @@ const Profile = () => {
           <svg
             xmlns="http://www.w3.org/2000/svg"
             data-testid="profileImageButton"
-            className="h-6 w-6 absolute bottom-6 bg-white rounded-md right-3 hover:cursor-pointer hover:h-7 hover:w-7"
+            className="ProfileImageUpdateIcon"
             onClick={() => setShowModal(true)}
             viewBox="0 0 24 24"
           >
@@ -177,7 +172,7 @@ const Profile = () => {
         </div>
       </div>
       <div className="grid grid-cols-1 lg:block md:block smd:block sm:hidden xsm:hidden">
-        <div className="grid grid-cols-3 gap-4 justify-items-center content-center mt-5">
+        <div className="ProfileLargeScreenGrid mt-5">
           <label data-testid="profileEmailLabel" className="ProfileLabel">
             Email
           </label>
@@ -188,7 +183,7 @@ const Profile = () => {
             Total Course
           </label>
         </div>
-        <div className="grid grid-cols-3 gap-4 justify-items-center content-center mb-8">
+        <div className="ProfileLargeScreenGrid mb-8">
           <input
             disabled
             data-testid="profileEmailInput"
@@ -208,7 +203,7 @@ const Profile = () => {
             className="ProfileInput"
           ></input>
         </div>
-        <div className="grid grid-cols-3 gap-4 justify-items-center content-center">
+        <div className="ProfileLargeScreenGrid">
           <label data-testid="profileClientTeamLabel" className="ProfileLabel">
             Client Team
           </label>
@@ -219,7 +214,7 @@ const Profile = () => {
             Total Credit
           </label>
         </div>
-        <div className="grid grid-cols-3 gap-4 justify-items-center content-center mb-10">
+        <div className="ProfileLargeScreenGrid mb-10">
           <input
             disabled
             data-testid="profileClientTeamInput"
@@ -242,16 +237,16 @@ const Profile = () => {
       </div>
 
       <div className="grid grid-cols-1 p-6 sm:p-8 lg:hidden md:hidden smd:hidden">
-        <div className="grid grid-cols-1 sm:gap-8 xsm:gap-4 justify-items-center content-center">
-          <div className="grid grid-cols-2 justify-items-center content-center">
+        <div className="grid grid-cols-1 justify-items-center content-center sm:gap-8 xsm:gap-4">
+          <div className="ProfileSmallScreenGrid">
             <label className="ProfileLabel">Email</label>
             <input disabled value={user.email} className="ProfileInput"></input>
           </div>
-          <div className="grid grid-cols-2 justify-items-center content-center">
+          <div className="ProfileSmallScreenGrid">
             <label className="ProfileLabel">Employee Id</label>
             <input disabled value={user.eId} className="ProfileInput"></input>
           </div>
-          <div className="grid grid-cols-2 justify-items-center content-center">
+          <div className="ProfileSmallScreenGrid">
             <label className="ProfileLabel">Client Team</label>
             <input
               disabled
@@ -259,15 +254,15 @@ const Profile = () => {
               className="ProfileInput"
             ></input>
           </div>
-          <div className="grid grid-cols-2 justify-items-center content-center">
+          <div className="ProfileSmallScreenGrid">
             <label className="ProfileLabel">Role</label>
             <input disabled value={user.role} className="ProfileInput"></input>
           </div>
-          <div className="grid grid-cols-2 justify-items-center content-center">
+          <div className="ProfileSmallScreenGrid">
             <label className="ProfileLabel">Credit</label>
             <input disabled value="0" className="ProfileInput"></input>
           </div>
-          <div className="grid grid-cols-2 justify-items-center content-center mb-5">
+          <div className="ProfileSmallScreenGrid mb-5">
             <label className="ProfileLabel">Total Course</label>
             <input
               disabled
@@ -284,6 +279,7 @@ const Profile = () => {
         courses={activeCourse}
         contentId="popContent"
       />
+      {/* </Suspense> */}
     </>
   );
 };

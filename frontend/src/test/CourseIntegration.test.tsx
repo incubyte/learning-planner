@@ -2,13 +2,12 @@ import {
   act,
   cleanup,
   fireEvent,
-  getByTestId,
   render,
   screen,
 } from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
-import CoursePage from "../components/courses/Courses";
 import SignIn from "../components/auth/SignIn";
+import CoursePage from "../components/courses/Courses";
 
 afterEach(() => {
   cleanup();
@@ -16,7 +15,7 @@ afterEach(() => {
 
 describe("test courses", () => {
   it("Accessing courses Page", async () => {
-    const { getByRole } = render(
+    const { getByRole, getAllByText } = render(
       <BrowserRouter>
         <SignIn />
         <CoursePage />
@@ -57,5 +56,9 @@ describe("test courses", () => {
 
     expect(getByRole("popContent")).toBeInTheDocument();
     expect(getByRole("availContent")).toBeInTheDocument();
+    // await waitFor(() => {
+    const courses = getAllByText("Day 1 clean code kata");
+    expect(courses).not.toBeNull();
+    // });
   });
 });
