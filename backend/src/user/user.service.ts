@@ -1,6 +1,7 @@
-import { PrismaService } from '@/prisma/prisma.service';
+import { PrismaService } from '@Prisma/prisma.service';
 import { Injectable } from '@nestjs/common';
-import { User } from '@prisma/client';
+import { Course, User } from '@prisma/client';
+import { UpdateUserDto } from '@User/dto/updateUser.dto';
 
 @Injectable()
 export class UserService {
@@ -9,5 +10,33 @@ export class UserService {
     const user = await this.prismaService.user.findFirst({ where: { id } });
     delete user.password;
     return user;
+  }
+
+  async getCourseByUserId(userid: string): Promise<Course[]> {
+    const prismaUserCourse = await this.prismaService.userCourse.findMany({
+      where: { userId: userid },
+    });
+    const courses = await Promise.all(
+      prismaUserCourse.map(async (currentUserCourse) => {
+        return await this.prismaService.course.findFirst({
+          where: {
+            id: currentUserCourse.courseId,
+          },
+        });
+      }),
+    );
+    return courses;
+  }
+
+  async updateProfile(
+    updatedUser: UpdateUserDto,
+    userid: string,
+  ): Promise<User> {
+    const updatedPrismaUser = await this.prismaService.user.update({
+      where: { id: userid },
+      data: { ...updatedUser },
+    });
+    delete updatedPrismaUser.password;
+    return updatedPrismaUser;
   }
 }

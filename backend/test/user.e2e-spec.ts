@@ -31,4 +31,18 @@ describe('UserController (e2e)', () => {
       .set('Authorization', `Bearer ${authToken}`);
     expect(response.status).toBe(200);
   });
+
+  it('user/course/ (GET) - should return the course for particular userId', async () => {
+    const response = await request(app.getHttpServer())
+      .get('/user/course')
+      .set('Authorization', `Bearer ${authToken}`);
+    expect(response.status).toBe(200);
+  });
+
+  it('user/updateProfile/ (PATCH) - should update the user', async () => {
+    const response = await request(app.getHttpServer())
+      .patch('/user/updateProfile')
+      .set('Authorization', `Bearer ${authToken}`);
+    expect(response.status).toBe(200);
+  });
 });

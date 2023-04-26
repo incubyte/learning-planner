@@ -1,7 +1,7 @@
-import { JwtAuthGuard } from '@/auth/jwt-auth-guard/jwt-auth.guard';
+import { JwtAuthGuard } from '@Auth/jwt-auth-guard/jwt-auth.guard';
 import { Controller, Get, Param, Query, UseGuards } from '@nestjs/common';
 import { Course } from '@prisma/client';
-import { CourseService } from './course.service';
+import { CourseService } from '@Course/course.service';
 
 @UseGuards(JwtAuthGuard)
 @Controller('course')
