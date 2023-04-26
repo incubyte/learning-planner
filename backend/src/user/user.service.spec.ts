@@ -1,8 +1,8 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { PrismaService } from '@Prisma/prisma.service';
 import { UserDto } from '@Auth/dto/user.dto';
+import { PrismaService } from '@Prisma/prisma.service';
 import { UpdateUserDto } from '@User/dto/updateUser.dto';
 import { UserService } from '@User/user.service';
+import { Test, TestingModule } from '@nestjs/testing';
 
 describe('UserService', () => {
   let service: UserService;
@@ -117,16 +117,19 @@ describe('UserService', () => {
           id: 1,
           userId: '0cecbf92-d381-40b7-b8f8-49ccae3f8263',
           courseId: '57baa1dd-5bed-4ef6-af67-e588962e3a55',
+          isCompleted: true,
         },
         {
           id: 2,
           userId: '0cecbf92-d381-40b7-b8f8-49ccae3f8263',
           courseId: '7be805c9-906e-485f-86a5-0fc11cfe0e2d',
+          isCompleted: true,
         },
         {
           id: 3,
           userId: '0cecbf92-d381-40b7-b8f8-49ccae3f8263',
           courseId: '1d47941f-d10f-411d-821c-32c3f27ec060',
+          isCompleted: true,
         },
       ];
       const mockCourseResponse = [prismaCourse1, prismaCourse2, prismaCourse3];
