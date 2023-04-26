@@ -1,6 +1,7 @@
-import { PrismaService } from '@/prisma/prisma.service';
+import { PrismaService } from '@Prisma/prisma.service';
 import { Injectable } from '@nestjs/common';
 import { Course, User } from '@prisma/client';
+import { UpdateUserDto } from '@User/dto/updateUser.dto';
 
 @Injectable()
 export class UserService {
@@ -25,5 +26,17 @@ export class UserService {
       }),
     );
     return courses;
+  }
+
+  async updateProfile(
+    updatedUser: UpdateUserDto,
+    userid: string,
+  ): Promise<User> {
+    const updatedPrismaUser = await this.prismaService.user.update({
+      where: { id: userid },
+      data: { ...updatedUser },
+    });
+    delete updatedPrismaUser.password;
+    return updatedPrismaUser;
   }
 }

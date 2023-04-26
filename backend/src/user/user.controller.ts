@@ -1,9 +1,10 @@
-import { Controller, Get, Param, UseGuards } from '@nestjs/common';
-import { UserService } from './user.service';
+import { Body, Controller, Get, Patch, UseGuards } from '@nestjs/common';
+import { UserService } from '@User/user.service';
 import { Course, User } from '@prisma/client';
 import { JwtAuthGuard } from '@Auth/jwt-auth-guard/jwt-auth.guard';
 import { jwtPayload } from '@Auth/jwtpayload/jwt.payload';
 import { UserDecorator } from '@/decorator/user.decorator';
+import { UpdateUserDto } from '@User/dto/updateUser.dto';
 
 @UseGuards(JwtAuthGuard)
 @Controller('user')
@@ -20,5 +21,13 @@ export class UserController {
     @UserDecorator() user: jwtPayload,
   ): Promise<Course[]> {
     return await this.userService.getCourseByUserId(user.id);
+  }
+
+  @Patch('/updateProfile')
+  async updateProfile(
+    @UserDecorator() user: jwtPayload,
+    @Body() updatedUser: UpdateUserDto,
+  ): Promise<User> {
+    return await this.userService.updateProfile(updatedUser, user.id);
   }
 }

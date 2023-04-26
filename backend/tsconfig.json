@@ -21,7 +21,10 @@
       "@/*": ["src/*"],
       "@Auth/*": ["src/auth/*"],
       "@Prisma/*":["src/prisma/*"],
-      "@PrismaORM/*":["prisma/*"]
+      "@PrismaORM/*":["prisma/*"],
+      "@User/*": ["src/user/*"],
+      "@Course/*": ["src/course/*"],
+      "@Tag/*": ["src/tag/*"],
     }
   }
 }
