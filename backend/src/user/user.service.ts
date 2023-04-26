@@ -6,6 +6,7 @@ import { Course, User } from '@prisma/client';
 @Injectable()
 export class UserService {
   constructor(private readonly prismaService: PrismaService) {}
+
   async getUserById(id: string): Promise<User> {
     const user = await this.prismaService.user.findFirst({ where: { id } });
     delete user.password;
@@ -42,7 +43,6 @@ export class UserService {
       );
       return courses;
     }
-
     const prismaUserCourse = await this.prismaService.userCourse.findMany({
       where: { userId: userid },
     });

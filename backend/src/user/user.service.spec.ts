@@ -164,7 +164,7 @@ describe('UserService', () => {
       const prismaUserId = '0cecbf92-d381-40b7-b8f8-49ccae3f8263';
       const prismaCourse1Id = '57baa1dd-5bed-4ef6-af67-e588962e3a55';
       const prismaCourse2Id = '7be805c9-906e-485f-86a5-0fc11cfe0e2d';
-      const prismaCourse3Id = '1d47941f-d10f-411d-821c-32c3f27ec060';
+
       const prismaCourse1 = {
         id: '57baa1dd-5bed-4ef6-af67-e588962e3a55',
         name: 'Victor - DDD@incubyte - Day1',
@@ -224,7 +224,7 @@ describe('UserService', () => {
         'completed',
       );
       expect(prismaService.userCourse.findMany).toHaveBeenCalledWith({
-        where: { userId: prismaUserId },
+        where: { userId: prismaUserId, isCompleted: true },
       });
       expect(prismaService.course.findFirst).toHaveBeenNthCalledWith(1, {
         where: { id: prismaCourse1Id },
