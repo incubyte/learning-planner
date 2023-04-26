@@ -1,18 +1,18 @@
 import { useEffect, useState } from "react";
 import "../../css/user/profile.css";
+import { courseType } from "../courses/Courses";
 import Carousel from "../utilities/Carousel";
 import Navbar from "../utilities/Navbar";
 import { imageUpload } from "./ImageUpload";
 
 const Profile = () => {
-  const [activeCourse, setActiveCourse] = useState<any[]>([]);
+  const [activeCourse, setActiveCourse] = useState<courseType[]>([]);
   const [user, setUser] = useState<any>("");
 
   const handleSubmit = async () => {
     let media: any = [];
     if (avatar) {
       media = await imageUpload([avatar]);
-      console.log(media[0].url);
       const response = await fetch(
         "https://backend-mu-plum.vercel.app/user/updateProfile",
         {
@@ -26,10 +26,8 @@ const Profile = () => {
           }),
         }
       );
-      console.log(response);
       if (response.ok) {
         const jsonResnponse = await response.json();
-        console.log(jsonResnponse);
         setUser(jsonResnponse);
       }
       setShowModal(false);
@@ -44,7 +42,6 @@ const Profile = () => {
     });
     if (response.ok) {
       const jsonResnponse = await response.json();
-      console.log(jsonResnponse);
       setUser(jsonResnponse);
     }
   };
@@ -60,7 +57,6 @@ const Profile = () => {
     );
     if (response.ok) {
       const jsonResnponse = await response.json();
-      console.log(jsonResnponse);
       setActiveCourse(jsonResnponse);
     }
   };
@@ -78,10 +74,8 @@ const Profile = () => {
     fetchUser();
     fetchCourse();
   }, []);
-  console.log(user);
   return (
     <>
-      {/* <Suspense fallback={<Loading />}> */}
       {showModal ? (
         <>
           <div data-testid="profileImageModel" className="ProfileModal">
@@ -98,7 +92,6 @@ const Profile = () => {
                     </span>
                   </button>
                 </div>
-                {/*body*/}
                 <div className="relative p-6 flex-auto">
                   <label className="ProfileModelUploadFileLabel">
                     Upload file
@@ -119,7 +112,6 @@ const Profile = () => {
                     SVG, PNG, JPG or GIF (MAX. 350kb).
                   </p>
                 </div>
-                {/*footer*/}
                 <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
                   <button
                     data-testid="profileImageClose"
@@ -279,7 +271,6 @@ const Profile = () => {
         courses={activeCourse}
         contentId="popContent"
       />
-      {/* </Suspense> */}
     </>
   );
 };

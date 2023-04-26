@@ -9,11 +9,6 @@ import HomePage from "./components/HomePage";
 import Profile from "./components/user/Profile";
 import "./index.css";
 
-// const Profile = React.lazy(async () => {
-//   await new Promise((resolve) => setTimeout(resolve, 3000));
-//   return await import("./components/user/Profile");
-// });
-
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
@@ -33,11 +28,7 @@ const router = createBrowserRouter([
       },
       {
         path: "user",
-        element: (
-          // <Suspense fallback={<Loading />}>
-          <Profile></Profile>
-          // </Suspense>
-        ),
+        element: <Profile></Profile>,
       },
     ],
   },
