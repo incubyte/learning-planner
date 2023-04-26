@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import "../../css/courses/Filter.css";
+import { courseType } from "./Courses";
 
 interface FilterProps {
-  getCourseByFilter: (courses: any[]) => void;
+  getCourseByFilter: (courses: courseType[]) => void;
 }
 
 const Filter = ({ getCourseByFilter }: FilterProps) => {
@@ -12,7 +12,6 @@ const Filter = ({ getCourseByFilter }: FilterProps) => {
   const [tags, setTags] = useState([{ id: "1", name: "Java" }]);
   const [selectTagId, setSelectTagId] = useState<string[]>([]);
   const authToken = localStorage.getItem("authToken");
-  const navigator = useNavigate();
 
   const fetchCourses = async (url: string) => {
     const response = await fetch(url, {

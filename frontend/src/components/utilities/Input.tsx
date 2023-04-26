@@ -2,7 +2,7 @@ import { useState } from "react";
 import ShowPasswordButton from "./ShowPasswordButton";
 
 interface InputProp {
-  icon: any;
+  icon?: any;
   dataTestId: string;
   Id: string;
   type?: string;
@@ -17,7 +17,7 @@ const Input = (props: InputProp) => {
   return (
     <div className="space-y-2 text-gray-700">
       <div className="relative  focus-within:text-gray-900 dark:focus-within:text-gray-800 ">
-        <props.icon />
+        {props.icon && <props.icon />}
         <input
           className="SignUpFormInput"
           id={props.Id}

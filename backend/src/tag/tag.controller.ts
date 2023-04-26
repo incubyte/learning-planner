@@ -10,10 +10,10 @@ export class TagController {
 
   @Get('/')
   async getAll(): Promise<Tag[]> {
-    return this.tagService.getAll();
+    return await this.tagService.getAll();
   }
   @Get('/:id')
   async getById(@Param('id') id: string): Promise<Tag> {
-    return this.tagService.getById(id);
+    return await this.tagService.getById(id);
   }
 }

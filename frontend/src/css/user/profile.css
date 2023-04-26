@@ -1,0 +1,72 @@
+.ProfilePhotoContainer{
+    @apply grid grid-cols-1 justify-items-center content-center object-contain
+}
+.ProfileContentContainerLargeScreen{
+    @apply grid grid-cols-1 lg:block md:block smd:block sm:hidden xsm:hidden
+}
+.ProfileContainerSmallScreen{
+    @apply grid grid-cols-1 p-6 sm:p-8 lg:hidden md:hidden smd:hidden
+}
+.ProfileContentContainerSmallScreen{
+    @apply grid grid-cols-1 justify-items-center content-center sm:gap-8 xsm:gap-4
+}
+.ProfileInput {
+    @apply text-center w-40 bg-gray-100 border border-gray-300 text-gray-900 text-base rounded-lg block lg:max-w-fit p-2 cursor-not-allowed
+}
+
+.ProfileLabel{
+    @apply flex items-center text-gray-700 text-base font-bold mb-2
+}
+
+.ProfileModal{
+    @apply justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none
+}
+.ProfileModalContainer{
+    @apply border-0 rounded-lg shadow-lg relative flex flex-col w-80 bg-white outline-none focus:outline-none
+}
+.ProfileModelUploadContainer{
+    @apply flex items-start justify-between p-5 xsm:p-3 border-b border-solid border-slate-200 rounded-t
+}
+.ProfileModalUploadButton{
+    @apply p-1 ml-auto border-0 text-black float-right text-3xl font-semibold outline-none
+}
+
+.ProfileModelUploadFileLabel{
+    @apply block mb-2 text-sm font-medium text-gray-900 dark:text-white
+}
+
+.ProfileModalUploadInput{
+    @apply relative m-0 block w-auto xsm:w-72 min-w-0 flex-auto rounded border 
+    border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] text-base font-normal 
+    text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] 
+    file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit 
+    file:bg-neutral-100 file:px-3 file:py-[0.32rem] file:text-neutral-700 file:transition 
+    file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] 
+    hover:file:bg-neutral-200
+}
+.ProfileModalFooter{
+    @apply flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b
+}
+.ProfileModalCloseButton{
+    @apply text-red-500 font-bold uppercase px-6 py-2 text-sm outline-none mr-1 mb-1 transition-all duration-150
+}
+
+.ProfileModalSaveButton{
+    @apply text-white font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg mr-1 mb-1 ease-linear transition-all duration-150
+}
+
+.ProfileHeader{
+    @apply text-5xl lg:text-4xl md:text-4xl xsm:text-4xl mt-8 mb-5 grid grid-cols-1 justify-items-center content-center object-contain
+}
+
+.ProfileImageUpdateIcon{
+    @apply h-6 w-6 absolute bottom-6 bg-white rounded-md right-3 hover:cursor-pointer hover:h-7 hover:w-7
+}
+
+.ProfileLargeScreenGrid{
+    @apply grid grid-cols-3 gap-4 justify-items-center content-center
+}
+
+.ProfileSmallScreenGrid{
+    @apply grid grid-cols-2 justify-items-center content-center
+}

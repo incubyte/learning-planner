@@ -1,10 +1,4 @@
-import {
-  act,
-  cleanup,
-  fireEvent,
-  render,
-  screen,
-} from "@testing-library/react";
+import { cleanup, fireEvent, render, screen } from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
 import Navbar from "./Navbar";
 
@@ -17,7 +11,13 @@ describe("Navbar", () => {
   test("Navbar is present", () => {
     render(
       <BrowserRouter>
-        <Navbar getQuery={mockGetQuery} />
+        <Navbar
+          getQuery={mockGetQuery}
+          isCourse={true}
+          isHome={true}
+          isProfile={true}
+          isSearch={true}
+        />
       </BrowserRouter>
     );
 
@@ -34,7 +34,13 @@ describe("Navbar", () => {
   test("updates search query when user types", () => {
     render(
       <BrowserRouter>
-        <Navbar getQuery={mockGetQuery} />
+        <Navbar
+          getQuery={mockGetQuery}
+          isCourse={true}
+          isHome={true}
+          isProfile={true}
+          isSearch={true}
+        />
       </BrowserRouter>
     );
 
