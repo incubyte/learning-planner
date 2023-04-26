@@ -4,10 +4,11 @@ import { courseType } from "../courses/Courses";
 import Carousel from "../utilities/Carousel";
 import Navbar from "../utilities/Navbar";
 import { imageUpload } from "./ImageUpload";
+import { userType } from "./user";
 
 const Profile = () => {
   const [activeCourse, setActiveCourse] = useState<courseType[]>([]);
-  const [user, setUser] = useState<any>("");
+  const [user, setUser] = useState<userType>();
 
   const handleSubmit = async () => {
     let media: any = [];
@@ -80,8 +81,8 @@ const Profile = () => {
         <>
           <div data-testid="profileImageModel" className="ProfileModal">
             <div className="relative w-auto my-6 mx-auto">
-              <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-80 bg-white outline-none focus:outline-none">
-                <div className="flex items-start justify-between p-5 xsm:p-3 border-b border-solid border-slate-200 rounded-t">
+              <div className="ProfileModalContainer">
+                <div className="ProfileModelUploadContainer">
                   <h3 className="text-3xl font-semibold">Upload Image</h3>
                   <button
                     className="ProfileModalUploadButton"
@@ -112,7 +113,7 @@ const Profile = () => {
                     SVG, PNG, JPG or GIF (MAX. 350kb).
                   </p>
                 </div>
-                <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
+                <div className="ProfileModalFooter">
                   <button
                     data-testid="profileImageClose"
                     className="ProfileModalCloseButton"
@@ -123,7 +124,7 @@ const Profile = () => {
                   </button>
                   <button
                     data-testid="profileImageSave"
-                    className=""
+                    className="ProfileModalSaveButton bg-emerald-500 active:bg-emerald-600"
                     type="button"
                     onClick={handleSubmit}
                   >
@@ -136,21 +137,23 @@ const Profile = () => {
           <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
         </>
       ) : null}
+
       <Navbar
         isCourse={true}
         isHome={true}
         isProfile={false}
         isSearch={false}
       ></Navbar>
+
       <div data-testid="profileHeader" className="ProfileHeader">
         My Profile
       </div>
-      <div className="grid grid-cols-1 justify-items-center content-center object-contain">
+      <div className="ProfilePhotoContainer">
         <div className="relative">
           <img
             data-testid="profileImage"
             className="rounded-full h-40 w-40 block"
-            src={avatar ? URL.createObjectURL(blob) : user.profilePhoto}
+            src={avatar ? URL.createObjectURL(blob) : user?.profilePhoto}
           ></img>
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -163,7 +166,7 @@ const Profile = () => {
           </svg>
         </div>
       </div>
-      <div className="grid grid-cols-1 lg:block md:block smd:block sm:hidden xsm:hidden">
+      <div className="ProfileContentContainerLargeScreen">
         <div className="ProfileLargeScreenGrid mt-5">
           <label data-testid="profileEmailLabel" className="ProfileLabel">
             Email
@@ -179,13 +182,13 @@ const Profile = () => {
           <input
             disabled
             data-testid="profileEmailInput"
-            value={user.email}
+            value={user?.email}
             className="ProfileInput"
           ></input>
           <input
             disabled
             data-testid="profileEidInput"
-            value={user.eId}
+            value={user?.eId}
             className="ProfileInput"
           ></input>
           <input
@@ -210,12 +213,12 @@ const Profile = () => {
           <input
             disabled
             data-testid="profileClientTeamInput"
-            value={user.clientTeam}
+            value={user?.clientTeam}
             className="ProfileInput"
           ></input>
           <input
             disabled
-            value={user.role}
+            value={user?.role}
             data-testid="profileRoleInput"
             className="ProfileInput"
           ></input>
@@ -228,27 +231,31 @@ const Profile = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 p-6 sm:p-8 lg:hidden md:hidden smd:hidden">
-        <div className="grid grid-cols-1 justify-items-center content-center sm:gap-8 xsm:gap-4">
+      <div className="ProfileContainerSmallScreen">
+        <div className="ProfileContentContainerSmallScreen">
           <div className="ProfileSmallScreenGrid">
             <label className="ProfileLabel">Email</label>
-            <input disabled value={user.email} className="ProfileInput"></input>
+            <input
+              disabled
+              value={user?.email}
+              className="ProfileInput"
+            ></input>
           </div>
           <div className="ProfileSmallScreenGrid">
             <label className="ProfileLabel">Employee Id</label>
-            <input disabled value={user.eId} className="ProfileInput"></input>
+            <input disabled value={user?.eId} className="ProfileInput"></input>
           </div>
           <div className="ProfileSmallScreenGrid">
             <label className="ProfileLabel">Client Team</label>
             <input
               disabled
-              value={user.clientTeam}
+              value={user?.clientTeam}
               className="ProfileInput"
             ></input>
           </div>
           <div className="ProfileSmallScreenGrid">
             <label className="ProfileLabel">Role</label>
-            <input disabled value={user.role} className="ProfileInput"></input>
+            <input disabled value={user?.role} className="ProfileInput"></input>
           </div>
           <div className="ProfileSmallScreenGrid">
             <label className="ProfileLabel">Credit</label>

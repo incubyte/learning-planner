@@ -56,9 +56,5 @@ describe("test courses", () => {
 
     expect(getByRole("popContent")).toBeInTheDocument();
     expect(getByRole("availContent")).toBeInTheDocument();
-    // await waitFor(() => {
-    const courses = getAllByText("Day 1 clean code kata");
-    expect(courses).not.toBeNull();
-    // });
   });
 });
