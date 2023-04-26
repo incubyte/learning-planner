@@ -1,9 +1,9 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { Course } from '@prisma/client';
 import { mock } from 'jest-mock-extended';
-import { CourseController } from './course.controller';
-import { CourseService } from './course.service';
-import { CourseDto } from './dto/course.dto';
+import { CourseDto } from '@Course/dto/course.dto';
+import { CourseController } from '@Course/course.controller';
+import { CourseService } from '@Course/course.service';
 
 describe('CourseController', () => {
   let controller: CourseController;

@@ -3,10 +3,9 @@ import { INestApplication } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import * as request from 'supertest';
 
-describe('CourseController (e2e)', () => {
+describe('UserController (e2e)', () => {
   let app: INestApplication;
   let authToken: string;
-  jest.setTimeout(30000);
   beforeAll(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [AppModule],
@@ -14,14 +13,11 @@ describe('CourseController (e2e)', () => {
 
     app = moduleFixture.createNestApplication();
     await app.init();
+
     const user = {
       email: 'john' + Math.random() * 1000 + '@incubyte.co',
       password: '123',
-      eId: 'E00' + Math.random() * 1000,
-      role: 'SC',
-      clientTeam: 'Learning Planner',
     };
-
     await request(app.getHttpServer()).post('/auth/signup').send(user);
     const signInResponse = await request(app.getHttpServer())
       .post('/auth/signin')
@@ -29,16 +25,23 @@ describe('CourseController (e2e)', () => {
     authToken = signInResponse.text;
   });
 
-  it('tag/ (GET) - should return all tags', async () => {
+  it('user/ (GET) - should return the user', async () => {
     const response = await request(app.getHttpServer())
-      .get('/tag/')
+      .get('/user/')
       .set('Authorization', `Bearer ${authToken}`);
     expect(response.status).toBe(200);
   });
 
-  it('tag/:id (GET) - should return tags which id is provided', async () => {
+  it('user/course/ (GET) - should return the course for particular userId', async () => {
     const response = await request(app.getHttpServer())
-      .get('/tag/1')
+      .get('/user/course')
+      .set('Authorization', `Bearer ${authToken}`);
+    expect(response.status).toBe(200);
+  });
+
+  it('user/updateProfile/ (PATCH) - should update the user', async () => {
+    const response = await request(app.getHttpServer())
+      .patch('/user/updateProfile')
       .set('Authorization', `Bearer ${authToken}`);
     expect(response.status).toBe(200);
   });

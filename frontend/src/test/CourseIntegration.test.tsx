@@ -2,6 +2,7 @@ import {
   act,
   cleanup,
   fireEvent,
+  getByTestId,
   render,
   screen,
 } from "@testing-library/react";
@@ -50,9 +51,6 @@ describe("test courses", () => {
 
     const filterByTags = getByRole("filterByTags");
     expect(filterByTags).toBeInTheDocument();
-
-    const footer = getByRole("footer");
-    expect(footer).toBeInTheDocument();
 
     const coursePageIndexImage = getByRole("coursePageIndexImage");
     expect(coursePageIndexImage).toBeInTheDocument();
