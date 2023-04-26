@@ -1,7 +1,7 @@
 import { PrismaService } from '@Prisma/prisma.service';
+import { UpdateUserDto } from '@User/dto/updateUser.dto';
 import { Injectable } from '@nestjs/common';
 import { Course, User } from '@prisma/client';
-import { UpdateUserDto } from '@User/dto/updateUser.dto';
 
 @Injectable()
 export class UserService {
@@ -12,7 +12,37 @@ export class UserService {
     return user;
   }
 
-  async getCourseByUserId(userid: string): Promise<Course[]> {
+  async getCourseByUserId(userid: string, status: string): Promise<Course[]> {
+    if (status === 'completed') {
+      const prismaUserCourse = await this.prismaService.userCourse.findMany({
+        where: { userId: userid, isCompleted: true },
+      });
+      const courses = await Promise.all(
+        prismaUserCourse.map(async (currentUserCourse) => {
+          return await this.prismaService.course.findFirst({
+            where: {
+              id: currentUserCourse.courseId,
+            },
+          });
+        }),
+      );
+      return courses;
+    } else if (status === 'active') {
+      const prismaUserCourse = await this.prismaService.userCourse.findMany({
+        where: { userId: userid, isCompleted: false },
+      });
+      const courses = await Promise.all(
+        prismaUserCourse.map(async (currentUserCourse) => {
+          return await this.prismaService.course.findFirst({
+            where: {
+              id: currentUserCourse.courseId,
+            },
+          });
+        }),
+      );
+      return courses;
+    }
+
     const prismaUserCourse = await this.prismaService.userCourse.findMany({
       where: { userId: userid },
     });

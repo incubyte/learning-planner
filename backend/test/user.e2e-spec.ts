@@ -34,7 +34,7 @@ describe('UserController (e2e)', () => {
 
   it('user/course/ (GET) - should return the course for particular userId', async () => {
     const response = await request(app.getHttpServer())
-      .get('/user/course')
+      .get('/user/course?status=active')
       .set('Authorization', `Bearer ${authToken}`);
     expect(response.status).toBe(200);
   });
