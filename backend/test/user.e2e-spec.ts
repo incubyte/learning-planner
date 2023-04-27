@@ -45,4 +45,11 @@ describe('UserController (e2e)', () => {
       .set('Authorization', `Bearer ${authToken}`);
     expect(response.status).toBe(200);
   });
+
+  it('user/leaderboard/ (GET) - should return the top 5 users list', async () => {
+    const response = await request(app.getHttpServer())
+      .patch('/user/leaderboard')
+      .set('Authorization', `Bearer ${authToken}`);
+    expect(response.status).toBe(200);
+  });
 });
