@@ -1,4 +1,5 @@
 import Carousel from "../utilities/Carousel";
+import "../../css/home/LeaderBoard.css";
 
 const LeaderBoard = () => {
   return (
@@ -15,81 +16,92 @@ const LeaderBoard = () => {
             The Leader Board
           </h2>
         </div>
-        <div className="w-full md:w-1/2 p-2" data-testid="container1">
-          <div className="bg-gray-100 h-[450px] flex flex-col items-center justify-center p-2 border border-black border-solid rounded-lg">
+        <div className="LeaderBoardContainers" data-testid="container1">
+          <div className="LeaderBoardInnerContainer">
             <div>
               <img
-                className="rounded-full border border-gray-100 shadow-sm ml-5 mt-5"
+                className="LeaderBoardInnerFirstImageContainer"
                 src="https://randomuser.me/api/portraits/women/81.jpg"
                 alt="user image"
                 data-testid="container1 Image"
               />
             </div>
-            <div className="mt-2" data-testid="container1 user Info">
-              <div className="text-xl font-semibold xsm:text-lg xsm:font-medium">
-                <p className="m-8 sm:m-2 md:m-3">Rank : 1</p>
-                <p className="m-8 sm:m-2 md:m-3">Email : charvit@incubyte.co</p>
-                <p className="m-8 sm:m-2 md:m-3">Credits : 20</p>
-                <p className="m-8 sm:m-2 md:m-3">Role : Software Craftperson</p>
+            <div
+              className="LeaderBoardUserInfoContainer"
+              data-testid="container1 user Info"
+            >
+              <div className="LeaderBoardUserInnerInfoContainer">
+                <p className="LeaderBoardUserInnerInfo">Rank : 1</p>
+                <p className="LeaderBoardUserInnerInfo">
+                  Email : charvit@incubyte.co
+                </p>
+                <p className="LeaderBoardUserInnerInfo">Credits : 20</p>
+                <p className="LeaderBoardUserInnerInfo">
+                  Role : Software Craftperson
+                </p>
               </div>
             </div>
           </div>
         </div>
-        <div className="w-full md:w-1/2 p-2" data-testid="container2">
-          <div className="bg-gray-100 h-[450px] flex items-center justify-center p-4 border border-black border-solid rounded-lg">
-            <div className="overflow-x-auto">
+        <div className="LeaderBoardContainers" data-testid="container2">
+          <div className="LeaderBoardContainerTwoTableContainer">
+            <div className="LeaderBoardInnerContainerScrollbar">
               <table
-                className="table w-auto justify-around text-center text-lg md:text-xl mt-5 border border-gray-400"
+                className="LeaderBoardContainerTwoTable"
                 data-testid="container2 table"
               >
                 <thead>
                   <tr role="row">
-                    <th className="border border-gray-100 p-3">Rank</th>
-                    <th className="border border-gray-100 p-3">Email</th>
-                    <th className="border border-gray-100 p-3">Role</th>
-                    <th className="border border-gray-100 p-3">Credits</th>
+                    <th className="LeaderBoardContainerTwoTableBorder">Rank</th>
+                    <th className="LeaderBoardContainerTwoTableBorder">
+                      Email
+                    </th>
+                    <th className="LeaderBoardContainerTwoTableBorder">Role</th>
+                    <th className="LeaderBoardContainerTwoTableBorder">
+                      Credits
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr role="row">
-                    <td className="border border-gray-100 p-3">2</td>
-                    <td className="border border-gray-100 p-3">
+                    <td className="LeaderBoardContainerTwoTableBorder">2</td>
+                    <td className="LeaderBoardContainerTwoTableBorder">
                       aayush@incubyte.co
                     </td>
-                    <td className="border border-gray-100 p-3">
+                    <td className="LeaderBoardContainerTwoTableBorder">
                       Software Craftperson
                     </td>
-                    <td className="border border-gray-100 p-3">10</td>
+                    <td className="LeaderBoardContainerTwoTableBorder">10</td>
                   </tr>
                   <tr role="row">
-                    <td className="border border-gray-100 p-3">3</td>
-                    <td className="border border-gray-100 p-3">
+                    <td className="LeaderBoardContainerTwoTableBorder">3</td>
+                    <td className="LeaderBoardContainerTwoTableBorder">
                       aman.r@incubyte.co
                     </td>
-                    <td className="border border-gray-100 p-3">
+                    <td className="LeaderBoardContainerTwoTableBorder">
                       Test Craftperson
                     </td>
-                    <td className="border border-gray-100 p-3">30</td>
+                    <td className="LeaderBoardContainerTwoTableBorder">30</td>
                   </tr>
                   <tr role="row">
-                    <td className="border border-gray-100 p-3">4</td>
-                    <td className="border border-gray-100 p-3">
+                    <td className="LeaderBoardContainerTwoTableBorder">4</td>
+                    <td className="LeaderBoardContainerTwoTableBorder">
                       shreyas@incubyte.co
                     </td>
-                    <td className="border border-gray-100 p-3">
+                    <td className="LeaderBoardContainerTwoTableBorder">
                       Test Craftperson intern
                     </td>
-                    <td className="border border-gray-100 p-3">50</td>
+                    <td className="LeaderBoardContainerTwoTableBorder">50</td>
                   </tr>
                   <tr role="row">
-                    <td className="border border-gray-100 p-3">5</td>
-                    <td className="border border-gray-100 p-3">
+                    <td className="LeaderBoardContainerTwoTableBorder">5</td>
+                    <td className="LeaderBoardContainerTwoTableBorder">
                       shreyas@incubyte.co
                     </td>
-                    <td className="border border-gray-100 p-3">
+                    <td className="LeaderBoardContainerTwoTableBorder">
                       Software Craftperson
                     </td>
-                    <td className="border border-gray-100 p-3">10</td>
+                    <td className="LeaderBoardContainerTwoTableBorder">10</td>
                   </tr>
                 </tbody>
               </table>
