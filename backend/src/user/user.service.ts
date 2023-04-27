@@ -72,6 +72,34 @@ export class UserService {
   }
 
   async getLeaderboard(): Promise<LeaderboardDto[]> {
-    throw new NotImplementedException();
+    const userCourse = await this.prismaService.userCourse.groupBy({
+      by: ['userId'],
+      where: {
+        isCompleted: true,
+      },
+      _count: {
+        courseId: true,
+      },
+      take: 5,
+      orderBy: {
+        _count: {
+          courseId: 'desc',
+        },
+      },
+    });
+
+    const users = await Promise.all(
+      userCourse.map(async (currentUserCourse) => {
+        return {
+          user: await this.prismaService.user.findFirst({
+            where: {
+              id: currentUserCourse.userId,
+            },
+          }),
+          count: currentUserCourse._count.courseId,
+        };
+      }),
+    );
+    return users;
   }
 }
