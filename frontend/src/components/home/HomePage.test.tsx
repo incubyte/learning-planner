@@ -9,5 +9,7 @@ test("renders HomePage", () => {
     </BrowserRouter>
   );
   const navbar = screen.getByRole("navigation");
+  const leaderBoard = screen.getByRole("leaderBoard");
   expect(navbar).toBeInTheDocument();
+  expect(leaderBoard).toBeInTheDocument();
 });
