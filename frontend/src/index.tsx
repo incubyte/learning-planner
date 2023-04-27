@@ -16,11 +16,11 @@ const root = ReactDOM.createRoot(
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <HomePage></HomePage>,
+    element: <App></App>,
     children: [
       {
         path: "",
-        element: <App></App>,
+        element: <HomePage></HomePage>,
       },
       {
         path: "course",
