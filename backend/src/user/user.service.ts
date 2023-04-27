@@ -1,7 +1,8 @@
 import { PrismaService } from '@Prisma/prisma.service';
 import { UpdateUserDto } from '@User/dto/updateUser.dto';
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotImplementedException } from '@nestjs/common';
 import { Course, User } from '@prisma/client';
+import { LeaderboardDto } from './dto/leaderboard.dto';
 
 @Injectable()
 export class UserService {
@@ -68,5 +69,9 @@ export class UserService {
     });
     delete updatedPrismaUser.password;
     return updatedPrismaUser;
+  }
+
+  async getLeaderboard(): Promise<LeaderboardDto[]> {
+    throw new NotImplementedException();
   }
 }
