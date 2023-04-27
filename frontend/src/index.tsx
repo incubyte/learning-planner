@@ -2,10 +2,10 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from "./App";
+import HomePage from "./components/home/HomePage";
 import SignIn from "./components/auth/SignIn";
 import SignUp from "./components/auth/SignUp";
 import Courses from "./components/courses/Courses";
-import HomePage from "./components/HomePage";
 import Profile from "./components/user/Profile";
 import "./index.css";
 
