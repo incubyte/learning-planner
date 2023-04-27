@@ -1,15 +1,12 @@
+import { Outlet } from "react-router-dom";
 import "./App.css";
-import Navbar from "./components/utilities/Navbar";
+import Footer from "./components/utilities/Footer";
 
 function App() {
   return (
-    <div className="App" data-testid="HomeNav">
-      <Navbar
-        isCourse={true}
-        isHome={false}
-        isProfile={true}
-        isSearch={false}
-      ></Navbar>
+    <div className="App" data-testid="App">
+      <Outlet></Outlet>
+      <Footer />
     </div>
   );
 }
