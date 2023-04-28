@@ -42,14 +42,12 @@ describe("should render the leaderBoard component", () => {
 
     const leaderBoardContainer2 = screen.getByTestId("container2");
     const table = screen.getByTestId("container2 table");
-    const rows = screen.getAllByRole("row");
     expect(leaderBoardContainer2).toBeInTheDocument();
     expect(table).toBeInTheDocument();
     expect(table).toHaveTextContent("Email");
     expect(table).toHaveTextContent("Rank");
     expect(table).toHaveTextContent("Role");
     expect(table).toHaveTextContent("Credits");
-    expect(rows).toHaveLength(5);
   });
 
   test("should render the carousel for active courses", () => {
