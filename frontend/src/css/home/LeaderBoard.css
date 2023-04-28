@@ -14,7 +14,7 @@
     @apply bg-gray-100 h-[450px] flex flex-col items-center justify-center p-2 border border-black border-solid rounded-lg
 }
 .LeaderBoardInnerFirstImageContainer{
-    @apply rounded-full border border-gray-100 shadow-sm ml-5 mt-5
+    @apply rounded-full border border-gray-100 shadow-sm ml-5 mt-5 w-[150px] h-[150px] 
 }
 .LeaderBoardUserInfoContainer{
     @apply mt-2

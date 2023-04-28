@@ -13,9 +13,7 @@ const HomePage = () => {
         Authorization: `Bearer ${authToken}`,
       },
     });
-    if (response.ok) {
-      console.log(response);
-    } else {
+    if (!response.ok) {
       navigator("/auth/signin");
     }
   };

@@ -2,9 +2,14 @@ import Carousel from "../utilities/Carousel";
 import "../../css/home/LeaderBoard.css";
 import { useEffect, useState } from "react";
 import { courseType } from "../courses/Courses";
+import { LeaderBoardType } from "./LeaderBoardType";
+import React from "react";
 
 const LeaderBoard = () => {
   const [activeCourses, setActiveCourses] = useState<courseType[]>([]);
+  const [leaderBoardUsers, setLeaderBoardUsers] = useState<LeaderBoardType[]>(
+    []
+  );
   const authToken = localStorage.getItem("authToken");
   const fetchActiveCourses = async () => {
     const response = await fetch(
@@ -21,8 +26,26 @@ const LeaderBoard = () => {
       setActiveCourses(courses);
     }
   };
+
+  const fetchLeaderBoardUsers = async () => {
+    const response = await fetch(
+      "https://backend-mu-plum.vercel.app/user/leaderboard",
+      {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+      }
+    );
+
+    if (response.ok) {
+      const leaderBoardUsersResponse = await response.json();
+      setLeaderBoardUsers(leaderBoardUsersResponse);
+    }
+  };
+
   useEffect(() => {
     fetchActiveCourses();
+    fetchLeaderBoardUsers();
   }, []);
 
   return (
@@ -44,7 +67,7 @@ const LeaderBoard = () => {
             <div>
               <img
                 className="LeaderBoardInnerFirstImageContainer"
-                src="https://randomuser.me/api/portraits/women/81.jpg"
+                src={leaderBoardUsers[0]?.user?.profilePhoto}
                 alt="user image"
                 data-testid="container1 Image"
               />
@@ -56,11 +79,13 @@ const LeaderBoard = () => {
               <div className="LeaderBoardUserInnerInfoContainer">
                 <p className="LeaderBoardUserInnerInfo">Rank : 1</p>
                 <p className="LeaderBoardUserInnerInfo">
-                  Email : charvit@incubyte.co
+                  Email : {leaderBoardUsers[0]?.user?.email}
                 </p>
-                <p className="LeaderBoardUserInnerInfo">Credits : 20</p>
                 <p className="LeaderBoardUserInnerInfo">
-                  Role : Software Craftperson
+                  Credits : {leaderBoardUsers[0]?.count * 10}
+                </p>
+                <p className="LeaderBoardUserInnerInfo">
+                  Role : {leaderBoardUsers[0]?.user?.role}
                 </p>
               </div>
             </div>
@@ -86,46 +111,28 @@ const LeaderBoard = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  <tr role="row">
-                    <td className="LeaderBoardContainerTwoTableBorder">2</td>
-                    <td className="LeaderBoardContainerTwoTableBorder">
-                      aayush@incubyte.co
-                    </td>
-                    <td className="LeaderBoardContainerTwoTableBorder">
-                      Software Craftperson
-                    </td>
-                    <td className="LeaderBoardContainerTwoTableBorder">10</td>
-                  </tr>
-                  <tr role="row">
-                    <td className="LeaderBoardContainerTwoTableBorder">3</td>
-                    <td className="LeaderBoardContainerTwoTableBorder">
-                      aman.r@incubyte.co
-                    </td>
-                    <td className="LeaderBoardContainerTwoTableBorder">
-                      Test Craftperson
-                    </td>
-                    <td className="LeaderBoardContainerTwoTableBorder">30</td>
-                  </tr>
-                  <tr role="row">
-                    <td className="LeaderBoardContainerTwoTableBorder">4</td>
-                    <td className="LeaderBoardContainerTwoTableBorder">
-                      shreyas@incubyte.co
-                    </td>
-                    <td className="LeaderBoardContainerTwoTableBorder">
-                      Test Craftperson intern
-                    </td>
-                    <td className="LeaderBoardContainerTwoTableBorder">50</td>
-                  </tr>
-                  <tr role="row">
-                    <td className="LeaderBoardContainerTwoTableBorder">5</td>
-                    <td className="LeaderBoardContainerTwoTableBorder">
-                      shreyas@incubyte.co
-                    </td>
-                    <td className="LeaderBoardContainerTwoTableBorder">
-                      Software Craftperson
-                    </td>
-                    <td className="LeaderBoardContainerTwoTableBorder">10</td>
-                  </tr>
+                  {leaderBoardUsers.map((leaderBoardUser, index) => {
+                    return (
+                      <React.Fragment key={index}>
+                        {index > 0 && (
+                          <tr role="row">
+                            <td className="LeaderBoardContainerTwoTableBorder">
+                              {index + 1}
+                            </td>
+                            <td className="LeaderBoardContainerTwoTableBorder">
+                              {leaderBoardUser?.user?.email}
+                            </td>
+                            <td className="LeaderBoardContainerTwoTableBorder">
+                              {leaderBoardUser?.user?.role}
+                            </td>
+                            <td className="LeaderBoardContainerTwoTableBorder">
+                              {leaderBoardUser?.count * 10}
+                            </td>
+                          </tr>
+                        )}
+                      </React.Fragment>
+                    );
+                  })}
                 </tbody>
               </table>
             </div>
