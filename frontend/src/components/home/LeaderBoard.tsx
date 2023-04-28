@@ -1,7 +1,30 @@
 import Carousel from "../utilities/Carousel";
 import "../../css/home/LeaderBoard.css";
+import { useEffect, useState } from "react";
+import { courseType } from "../courses/Courses";
 
 const LeaderBoard = () => {
+  const [activeCourses, setActiveCourses] = useState<courseType[]>([]);
+  const authToken = localStorage.getItem("authToken");
+  const fetchActiveCourses = async () => {
+    const response = await fetch(
+      "https://backend-mu-plum.vercel.app/user/course?status='active'",
+      {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+      }
+    );
+
+    if (response.ok) {
+      const courses = await response.json();
+      setActiveCourses(courses);
+    }
+  };
+  useEffect(() => {
+    fetchActiveCourses();
+  }, []);
+
   return (
     <>
       <div
@@ -113,38 +136,7 @@ const LeaderBoard = () => {
       <Carousel
         titleName="Active Courses"
         contentId={"activeContent"}
-        courses={[
-          {
-            id: "1",
-            imageUrl:
-              "https://upload.wikimedia.org/wikipedia/commons/a/a8/NestJS.svg",
-            name: "Nest js",
-          },
-          {
-            id: "1",
-            imageUrl:
-              "https://upload.wikimedia.org/wikipedia/commons/a/a8/NestJS.svg",
-            name: "Nest js1",
-          },
-          {
-            id: "1",
-            imageUrl:
-              "https://upload.wikimedia.org/wikipedia/commons/a/a8/NestJS.svg",
-            name: "Nest js2",
-          },
-          {
-            id: "1",
-            imageUrl:
-              "https://upload.wikimedia.org/wikipedia/commons/a/a8/NestJS.svg",
-            name: "Nest js3",
-          },
-          {
-            id: "1",
-            imageUrl:
-              "https://upload.wikimedia.org/wikipedia/commons/a/a8/NestJS.svg",
-            name: "Nest js4",
-          },
-        ]}
+        courses={activeCourses}
       />
     </>
   );
