@@ -1,34 +1,50 @@
-import React from "react";
+import React, { Suspense } from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import App from "./App";
-import HomePage from "./components/home/HomePage";
 import SignIn from "./components/auth/SignIn";
 import SignUp from "./components/auth/SignUp";
-import Courses from "./components/courses/Courses";
-import Profile from "./components/user/Profile";
 import "./index.css";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
+const App = React.lazy(() => import("./App"));
+const HomePage = React.lazy(() => import("./components/home/HomePage"));
+const Courses = React.lazy(() => import("./components/courses/Courses"));
+const Profile = React.lazy(() => import("./components/user/Profile"));
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App></App>,
+    element: (
+      <Suspense fallback={<div>Loading...</div>}>
+        <App />
+      </Suspense>
+    ),
     children: [
       {
         path: "",
-        element: <HomePage></HomePage>,
+        element: (
+          <Suspense fallback={<div>Loading...</div>}>
+            <HomePage />
+          </Suspense>
+        ),
       },
       {
         path: "course",
-        element: <Courses></Courses>,
+        element: (
+          <Suspense fallback={<div>Loading...</div>}>
+            <Courses />
+          </Suspense>
+        ),
       },
       {
         path: "user",
-        element: <Profile></Profile>,
+        element: (
+          <Suspense fallback={<div>Loading...</div>}>
+            <Profile />
+          </Suspense>
+        ),
       },
     ],
   },
