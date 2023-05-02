@@ -3,6 +3,7 @@ import { PrismaService } from '@Prisma/prisma.service';
 import { UpdateUserDto } from '@User/dto/updateUser.dto';
 import { UserService } from '@User/user.service';
 import { Test, TestingModule } from '@nestjs/testing';
+import { ProfileCourseDto } from './dto/profileCourse.dto';
 
 describe('UserService', () => {
   let service: UserService;
@@ -18,12 +19,14 @@ describe('UserService', () => {
               user: {
                 findFirst: jest.fn(),
                 update: jest.fn(),
+                findMany: jest.fn(),
               },
               userCourse: {
                 findMany: jest.fn(),
               },
               course: {
                 findFirst: jest.fn(),
+                findMany: jest.fn(),
               },
             };
           },
@@ -132,30 +135,31 @@ describe('UserService', () => {
           isCompleted: true,
         },
       ];
-      const mockCourseResponse = [prismaCourse1, prismaCourse2, prismaCourse3];
+      const mockCourse = [prismaCourse1, prismaCourse2, prismaCourse3];
+      const courseIds = [prismaCourse1Id, prismaCourse2Id, prismaCourse3Id];
+      const mockCourseResponse: ProfileCourseDto = {
+        courses: mockCourse,
+        count: 3,
+      };
 
       jest
         .spyOn(prismaService.userCourse, 'findMany')
         .mockResolvedValue(mockUserCourseResponse);
 
       jest
-        .spyOn(prismaService.course, 'findFirst')
-        .mockResolvedValueOnce(prismaCourse1)
-        .mockResolvedValueOnce(prismaCourse2)
-        .mockResolvedValueOnce(prismaCourse3);
+        .spyOn(prismaService.course, 'findMany')
+        .mockResolvedValueOnce(mockCourse);
 
       const courses = await service.getCourseByUserId(prismaUserId, '');
       expect(prismaService.userCourse.findMany).toHaveBeenCalledWith({
         where: { userId: prismaUserId },
       });
-      expect(prismaService.course.findFirst).toHaveBeenNthCalledWith(1, {
-        where: { id: prismaCourse1Id },
-      });
-      expect(prismaService.course.findFirst).toHaveBeenNthCalledWith(2, {
-        where: { id: prismaCourse2Id },
-      });
-      expect(prismaService.course.findFirst).toHaveBeenNthCalledWith(3, {
-        where: { id: prismaCourse3Id },
+      expect(prismaService.course.findMany).toHaveBeenNthCalledWith(1, {
+        where: {
+          id: {
+            in: courseIds,
+          },
+        },
       });
       expect(courses).toEqual(mockCourseResponse);
     });
@@ -208,16 +212,20 @@ describe('UserService', () => {
           isCompleted: true,
         },
       ];
-      const mockCourseResponse = [prismaCourse1, prismaCourse2];
+      const mockCourse = [prismaCourse1, prismaCourse2];
+      const courseIds = [prismaCourse1Id, prismaCourse2Id];
+      const mockCourseResponse: ProfileCourseDto = {
+        courses: mockCourse,
+        count: 2,
+      };
 
       jest
         .spyOn(prismaService.userCourse, 'findMany')
         .mockResolvedValue(mockUserCourseResponse);
 
       jest
-        .spyOn(prismaService.course, 'findFirst')
-        .mockResolvedValueOnce(prismaCourse1)
-        .mockResolvedValueOnce(prismaCourse2);
+        .spyOn(prismaService.course, 'findMany')
+        .mockResolvedValueOnce(mockCourse);
 
       const courses = await service.getCourseByUserId(
         prismaUserId,
@@ -226,11 +234,12 @@ describe('UserService', () => {
       expect(prismaService.userCourse.findMany).toHaveBeenCalledWith({
         where: { userId: prismaUserId, isCompleted: true },
       });
-      expect(prismaService.course.findFirst).toHaveBeenNthCalledWith(1, {
-        where: { id: prismaCourse1Id },
-      });
-      expect(prismaService.course.findFirst).toHaveBeenNthCalledWith(2, {
-        where: { id: prismaCourse2Id },
+      expect(prismaService.course.findMany).toHaveBeenNthCalledWith(2, {
+        where: {
+          id: {
+            in: courseIds,
+          },
+        },
       });
       expect(courses).toEqual(mockCourseResponse);
     });
