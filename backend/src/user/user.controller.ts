@@ -4,8 +4,9 @@ import { jwtPayload } from '@Auth/jwtpayload/jwt.payload';
 import { UpdateUserDto } from '@User/dto/updateUser.dto';
 import { UserService } from '@User/user.service';
 import { Body, Controller, Get, Patch, Query, UseGuards } from '@nestjs/common';
-import { Course, User } from '@prisma/client';
+import { User } from '@prisma/client';
 import { LeaderboardDto } from './dto/leaderboard.dto';
+import { ProfileCourseDto } from './dto/profileCourse.dto';
 
 @UseGuards(JwtAuthGuard)
 @Controller('user')
@@ -21,7 +22,7 @@ export class UserController {
   async getCourseByUserId(
     @UserDecorator() user: jwtPayload,
     @Query('status') status: string,
-  ): Promise<Course[]> {
+  ): Promise<ProfileCourseDto> {
     return await this.userService.getCourseByUserId(user.id, status);
   }
 

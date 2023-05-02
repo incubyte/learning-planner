@@ -1,8 +1,9 @@
 import { PrismaService } from '@Prisma/prisma.service';
 import { UpdateUserDto } from '@User/dto/updateUser.dto';
 import { Injectable } from '@nestjs/common';
-import { Course, User } from '@prisma/client';
+import { User } from '@prisma/client';
 import { LeaderboardDto } from './dto/leaderboard.dto';
+import { ProfileCourseDto } from './dto/profileCourse.dto';
 
 @Injectable()
 export class UserService {
@@ -14,7 +15,10 @@ export class UserService {
     return user;
   }
 
-  async getCourseByUserId(userid: string, status: string): Promise<Course[]> {
+  async getCourseByUserId(
+    userid: string,
+    status: string,
+  ): Promise<ProfileCourseDto> {
     const prismaUserCourse = await this.prismaService.userCourse.findMany({
       where: {
         userId: userid,
@@ -26,16 +30,25 @@ export class UserService {
             : undefined,
       },
     });
+    const completedCourseCount = prismaUserCourse.filter(
+      (x) => x.isCompleted === true,
+    ).length;
+    const courseIds = prismaUserCourse.map(
+      (currentUserCourse) => currentUserCourse.courseId,
+    );
     const courses = await Promise.all(
-      prismaUserCourse.map(async (currentUserCourse) => {
-        return await this.prismaService.course.findFirst({
-          where: {
-            id: currentUserCourse.courseId,
+      await this.prismaService.course.findMany({
+        where: {
+          id: {
+            in: courseIds,
           },
-        });
+        },
       }),
     );
-    return courses;
+    const courseDto = new ProfileCourseDto();
+    courseDto.courses = courses;
+    courseDto.count = completedCourseCount;
+    return courseDto;
   }
 
   async updateProfile(
@@ -67,18 +80,25 @@ export class UserService {
       },
     });
 
-    const users = await Promise.all(
-      userCourse.map(async (currentUserCourse) => {
-        return {
-          user: await this.prismaService.user.findFirst({
-            where: {
-              id: currentUserCourse.userId,
-            },
-          }),
-          count: currentUserCourse._count.courseId,
-        };
-      }),
+    const userIds = userCourse.map(
+      (currentUserCourse) => currentUserCourse.userId,
     );
-    return users;
+    const users = await this.prismaService.user.findMany({
+      where: {
+        id: {
+          in: userIds,
+        },
+      },
+    });
+
+    return users.map((user) => {
+      const userCourseCount = userCourse.find(
+        (currentUserCourse) => currentUserCourse.userId === user.id,
+      );
+      return {
+        user: user,
+        count: userCourseCount._count.courseId,
+      };
+    });
   }
 }
