@@ -264,34 +264,6 @@ describe('UserService', () => {
     it('should return the top 5 users', async () => {
       const prismaUser1Id = '57baa1dd-5bed-4ef6-af67-e588962e3a55';
       const prismaUser2Id = '7be805c9-906e-485f-86a5-0fc11cfe0e2d';
-      const prismaCourse1 = {
-        id: '57baa1dd-5bed-4ef6-af67-e588962e3a55',
-        name: 'Victor - DDD@incubyte - Day1',
-        resourseUrls: [
-          'https://web.microsoftstream.com/video/7818e2ba-4a60-4d01-9eac-a141bdcd55e8',
-        ],
-        testUrls: [''],
-        imageUrl: 'https://docs.nestjs.com/assets/logo-small.svg',
-        credit: 10,
-        tags: [3],
-        description: 'description',
-        createdAt: Date.prototype,
-        updatedAt: Date.prototype,
-      };
-      const prismaCourse2 = {
-        id: '7be805c9-906e-485f-86a5-0fc11cfe0e2d',
-        name: 'Day 1 clean code kata',
-        resourseUrls: [
-          'https://web.microsoftstream.com/video/21407c23-bd35-471f-ba4a-548ae215539d',
-        ],
-        testUrls: [''],
-        imageUrl: 'https://docs.nestjs.com/assets/logo-small.svg',
-        credit: 10,
-        tags: [1, 2],
-        description: 'description',
-        createdAt: Date.prototype,
-        updatedAt: Date.prototype,
-      };
       const mockResponse = [
         {
           user: {
@@ -353,34 +325,34 @@ describe('UserService', () => {
         updatedAt: Date.prototype,
       };
 
-      const mockUserCourseResponse = [
+      const mockUserCourseResponse: any = [
         {
-          id: 1,
-          userId: '2fbc0f79-a1ea-4d5e-9c02-9bfb4dac50c3',
-          courseId: '57baa1dd-5bed-4ef6-af67-e588962e3a55',
-          isCompleted: true,
+          _count: {
+            courseId: 4,
+          },
+          userId: '36ebe3de-10a6-4aa2-81b1-8f27468d0f10',
         },
         {
-          id: 2,
-          userId: '36ebe3de-10a6-4aa2-81b1-8f27468d0f10',
-          courseId: '7be805c9-906e-485f-86a5-0fc11cfe0e2d',
-          isCompleted: true,
+          _count: {
+            courseId: 2,
+          },
+          userId: '2fbc0f79-a1ea-4d5e-9c02-9bfb4dac50c3',
         },
       ];
-      const mockCourseResponse = [prismaCourse1, prismaCourse2];
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      //@ts-ignore
+      jest
+        .spyOn(prismaService.userCourse, 'groupBy')
+        .mockResolvedValueOnce(mockUserCourseResponse);
 
       jest
         .spyOn(prismaService.user, 'findFirst')
-        .mockResolvedValueOnce(mockUser1)
-        .mockResolvedValueOnce(mockUser2);
+        .mockResolvedValueOnce(mockUser2)
+        .mockResolvedValueOnce(mockUser1);
 
       const leaderboard = await service.getLeaderboard();
-      expect(prismaService.user.findFirst).toHaveBeenNthCalledWith(1, {
-        where: { id: prismaUser1Id },
-      });
-      expect(prismaService.user.findFirst).toHaveBeenNthCalledWith(2, {
-        where: { id: prismaUser2Id },
-      });
+
+      expect(prismaService.userCourse.groupBy).toBeCalledTimes(1);
       expect(leaderboard).toEqual(mockResponse);
     });
   });

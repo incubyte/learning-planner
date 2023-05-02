@@ -3,15 +3,7 @@ import { JwtAuthGuard } from '@Auth/jwt-auth-guard/jwt-auth.guard';
 import { jwtPayload } from '@Auth/jwtpayload/jwt.payload';
 import { UpdateUserDto } from '@User/dto/updateUser.dto';
 import { UserService } from '@User/user.service';
-import {
-  Body,
-  Controller,
-  Get,
-  NotImplementedException,
-  Patch,
-  Query,
-  UseGuards,
-} from '@nestjs/common';
+import { Body, Controller, Get, Patch, Query, UseGuards } from '@nestjs/common';
 import { Course, User } from '@prisma/client';
 import { LeaderboardDto } from './dto/leaderboard.dto';
 
