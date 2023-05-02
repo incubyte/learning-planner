@@ -14,47 +14,36 @@ export class UserService {
   }
 
   async getCourseByUserId(userid: string, status: string): Promise<Course[]> {
-    if (status === 'completed') {
-      const prismaUserCourse = await this.prismaService.userCourse.findMany({
-        where: { userId: userid, isCompleted: true },
-      });
-      const courses = await Promise.all(
-        prismaUserCourse.map(async (currentUserCourse) => {
-          return await this.prismaService.course.findFirst({
-            where: {
-              id: currentUserCourse.courseId,
-            },
-          });
-        }),
-      );
-      return courses;
-    } else if (status === 'active') {
-      const prismaUserCourse = await this.prismaService.userCourse.findMany({
-        where: { userId: userid, isCompleted: false },
-      });
-      const courses = await Promise.all(
-        prismaUserCourse.map(async (currentUserCourse) => {
-          return await this.prismaService.course.findFirst({
-            where: {
-              id: currentUserCourse.courseId,
-            },
-          });
-        }),
-      );
-      return courses;
-    }
     const prismaUserCourse = await this.prismaService.userCourse.findMany({
-      where: { userId: userid },
+      where: {
+        userId: userid,
+        isCompleted:
+          status === 'completed'
+            ? true
+            : status === 'active'
+            ? false
+            : undefined,
+      },
     });
-    const courses = await Promise.all(
-      prismaUserCourse.map(async (currentUserCourse) => {
-        return await this.prismaService.course.findFirst({
-          where: {
-            id: currentUserCourse.courseId,
-          },
-        });
-      }),
+    // const courses = await Promise.all(
+    //   prismaUserCourse.map(async (currentUserCourse) => {
+    //     return await this.prismaService.course.findFirst({
+    //       where: {
+    //         id: currentUserCourse.courseId,
+    //       },
+    //     });
+    //   }),
+    // );
+    const courseIds = prismaUserCourse.map(
+      (currentUserCourse) => currentUserCourse.courseId,
     );
+    const courses = await this.prismaService.course.findMany({
+      where: {
+        id: {
+          in: courseIds,
+        },
+      },
+    });
     return courses;
   }
 
