@@ -4,8 +4,10 @@ import { Test, TestingModule } from '@nestjs/testing';
 import * as request from 'supertest';
 
 describe('UserController (e2e)', () => {
+  jest.setTimeout(30000);
   let app: INestApplication;
   let authToken: string;
+  let user;
   beforeAll(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [AppModule],
@@ -14,7 +16,7 @@ describe('UserController (e2e)', () => {
     app = moduleFixture.createNestApplication();
     await app.init();
 
-    const user = {
+    user = {
       email: 'john' + Math.random() * 1000 + '@incubyte.co',
       password: '123',
     };
@@ -34,9 +36,10 @@ describe('UserController (e2e)', () => {
 
   it('user/course/ (GET) - should return the course for particular userId', async () => {
     const response = await request(app.getHttpServer())
-      .get('/user/course?status=active')
+      .get('/user/course')
       .set('Authorization', `Bearer ${authToken}`);
     expect(response.status).toBe(200);
+    expect(response.body).toEqual({ courses: [], count: 0 });
   });
 
   it('user/updateProfile/ (PATCH) - should update the user', async () => {
@@ -44,12 +47,16 @@ describe('UserController (e2e)', () => {
       .patch('/user/updateProfile')
       .set('Authorization', `Bearer ${authToken}`);
     expect(response.status).toBe(200);
+
+    expect(response.body.email).toEqual(user.email);
   });
 
   it('user/leaderboard/ (GET) - should return the top 5 users list', async () => {
     const response = await request(app.getHttpServer())
-      .patch('/user/leaderboard')
+      .get('/user/leaderboard')
       .set('Authorization', `Bearer ${authToken}`);
     expect(response.status).toBe(200);
+
+    expect(response.body.length).toBeGreaterThan(0);
   });
 });
