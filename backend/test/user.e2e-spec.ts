@@ -59,4 +59,16 @@ describe('UserController (e2e)', () => {
 
     expect(response.body.length).toBeGreaterThan(0);
   });
+
+  it('user/course/enroll/ (POST) - should enroll the course the user', async () => {
+    const course = {
+      id: '67778aa0-945d-4864-873d-f29906cb6c4e',
+    };
+
+    const response = await request(app.getHttpServer())
+      .post('/user/course/enroll')
+      .send(course)
+      .set('Authorization', `Bearer ${authToken}`);
+    expect(response.status).toBe(201);
+  });
 });
