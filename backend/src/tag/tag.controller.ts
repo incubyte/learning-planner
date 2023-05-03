@@ -1,7 +1,7 @@
-import { JwtAuthGuard } from '@/auth/jwt-auth-guard/jwt-auth.guard';
+import { JwtAuthGuard } from '@Auth/jwt-auth-guard/jwt-auth.guard';
 import { Controller, Get, Param, UseGuards } from '@nestjs/common';
 import { Tag } from '@prisma/client';
-import { TagService } from './tag.service';
+import { TagService } from '@Tag/tag.service';
 
 @UseGuards(JwtAuthGuard)
 @Controller('tag')

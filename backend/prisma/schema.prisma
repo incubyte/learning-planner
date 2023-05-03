@@ -12,6 +12,9 @@ datasource db {
 
 model User {
   id           String       @id @default(uuid())
+  eId          String?      @unique
+  role         String?
+  clientTeam   String?
   email        String       @unique
   password     String
   profilePhoto String

@@ -4,9 +4,10 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from "./App";
 import SignIn from "./components/auth/SignIn";
 import SignUp from "./components/auth/SignUp";
-import HomePage from "./components/HomePage";
-import "./index.css";
 import Courses from "./components/courses/Courses";
+import HomePage from "./components/HomePage";
+import Profile from "./components/user/Profile";
+import "./index.css";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
         path: "course",
         element: <Courses></Courses>,
       },
+      {
+        path: "user",
+        element: <Profile></Profile>,
+      },
     ],
   },
   {
@@ -39,7 +44,7 @@ const router = createBrowserRouter([
         element: <SignIn></SignIn>,
       },
     ],
-  }
+  },
 ]);
 
 root.render(

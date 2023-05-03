@@ -8,4 +8,6 @@ test("renders learn react link", () => {
       <HomePage />
     </BrowserRouter>
   );
+  const footer = screen.getByTestId("footer");
+  expect(footer).toBeInTheDocument();
 });

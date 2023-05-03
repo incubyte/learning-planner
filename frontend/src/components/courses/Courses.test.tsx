@@ -1,5 +1,5 @@
 import { cleanup, fireEvent, render, waitFor } from "@testing-library/react";
-import { BrowserRouter, Route, Router, Routes } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 import CoursePage from "./Courses";
 
 const mockCourses = [
@@ -91,7 +91,6 @@ describe("Course Page ", () => {
 
     jest.setTimeout(30000);
     expect(getByRole("navigation")).toBeInTheDocument();
-    expect(getByRole("footer")).toBeInTheDocument();
     expect(getByRole("coursePageIndexImage")).toBeInTheDocument();
     expect(getByRole("filterByTags")).toBeInTheDocument();
     expect(getByRole("popContent")).toBeInTheDocument();

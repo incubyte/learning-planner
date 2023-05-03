@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
-import Carousel from "./Carousel";
+import Carousel from "../utilities/Carousel";
+import Navbar from "../utilities/Navbar";
 import CoursePageIndex from "./CoursePageIndex";
-import Footer from "./Footer";
-import Navbar from "./Navbar";
 import Filter from "./Filter";
 
 export interface courseType {
@@ -39,6 +38,7 @@ const CoursePage = () => {
         Authorization: `Bearer ${authToken}`,
       },
     });
+
     if (response.ok) {
       const courses = await response.json();
       setAvailableCourses(courses);
@@ -69,7 +69,13 @@ const CoursePage = () => {
 
   return (
     <>
-      <Navbar getQuery={getQuery} />
+      <Navbar
+        getQuery={getQuery}
+        isCourse={false}
+        isHome={true}
+        isProfile={true}
+        isSearch={true}
+      />
       <CoursePageIndex />
       <hr className="mt-10" />
       <Filter getCourseByFilter={getCourseByFilter} />
@@ -85,7 +91,6 @@ const CoursePage = () => {
         courses={search(availableCourses)}
         contentId="availContent"
       />
-      <Footer />
     </>
   );
 };

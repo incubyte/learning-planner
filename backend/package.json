@@ -19,7 +19,8 @@
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "prisma:seed": "ts-node prisma/seeds/seed.ts",
-    "prisma:seedCourse": "ts-node prisma/seeds/seedCourse.ts"
+    "prisma:seedCourse": "ts-node prisma/seeds/seedCourse.ts",
+    "prisma:seedUserCourse": "ts-node prisma/seeds/seedUserCourse.ts"
   },
   "dependencies": {
     "@nestjs/common": "^9.0.0",
@@ -86,7 +87,10 @@
     "moduleNameMapper": {
       "^@/(.*)$": "<rootDir>/../src/$1",
       "^@Auth/(.*)$": "<rootDir>/../src/auth/$1",
-      "^@Prisma/(.*)$": "<rootDir>/../src/prisma/$1"
+      "^@Prisma/(.*)$": "<rootDir>/../src/prisma/$1",
+      "^@User/(.*)$": "<rootDir>/../src/user/$1",
+      "^@Course/(.*)$": "<rootDir>/../src/course/$1",
+      "^@Tag/(.*)$": "<rootDir>/../src/tag/$1"
     }
   }
 }

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Outlet } from "react-router";
 import { useNavigate } from "react-router-dom";
+import Footer from "./utilities/Footer";
 
 const HomePage = () => {
   const [courses, setCourses] = useState([]);
@@ -29,6 +30,7 @@ const HomePage = () => {
   return (
     <>
       <Outlet></Outlet>
+      <Footer />
     </>
   );
 };
