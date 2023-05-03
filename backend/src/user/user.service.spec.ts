@@ -3,6 +3,7 @@ import { PrismaService } from '@Prisma/prisma.service';
 import { UpdateUserDto } from '@User/dto/updateUser.dto';
 import { UserService } from '@User/user.service';
 import { Test, TestingModule } from '@nestjs/testing';
+import { ProfileCourseDto } from './dto/profileCourse.dto';
 
 describe('UserService', () => {
   let service: UserService;
@@ -18,12 +19,14 @@ describe('UserService', () => {
               user: {
                 findFirst: jest.fn(),
                 update: jest.fn(),
+                findMany: jest.fn(),
               },
               userCourse: {
                 findMany: jest.fn(),
               },
               course: {
                 findFirst: jest.fn(),
+                findMany: jest.fn(),
               },
             };
           },
@@ -132,34 +135,114 @@ describe('UserService', () => {
           isCompleted: true,
         },
       ];
-      const mockCourseResponse = [prismaCourse1, prismaCourse2, prismaCourse3];
+      const mockCourse = [prismaCourse1, prismaCourse2, prismaCourse3];
+      const courseIds = [prismaCourse1Id, prismaCourse2Id, prismaCourse3Id];
+      const mockCourseResponse: ProfileCourseDto = {
+        courses: mockCourse,
+        count: 3,
+      };
 
       jest
         .spyOn(prismaService.userCourse, 'findMany')
         .mockResolvedValue(mockUserCourseResponse);
 
       jest
-        .spyOn(prismaService.course, 'findFirst')
-        .mockResolvedValueOnce(prismaCourse1)
-        .mockResolvedValueOnce(prismaCourse2)
-        .mockResolvedValueOnce(prismaCourse3);
+        .spyOn(prismaService.course, 'findMany')
+        .mockResolvedValueOnce(mockCourse);
 
-      const courses = await service.getCourseByUserId(prismaUserId);
+      const courses = await service.getCourseByUserId(prismaUserId, '');
       expect(prismaService.userCourse.findMany).toHaveBeenCalledWith({
         where: { userId: prismaUserId },
       });
-      expect(prismaService.course.findFirst).toHaveBeenNthCalledWith(1, {
-        where: { id: prismaCourse1Id },
-      });
-      expect(prismaService.course.findFirst).toHaveBeenNthCalledWith(2, {
-        where: { id: prismaCourse2Id },
-      });
-      expect(prismaService.course.findFirst).toHaveBeenNthCalledWith(3, {
-        where: { id: prismaCourse3Id },
+      expect(prismaService.course.findMany).toHaveBeenNthCalledWith(1, {
+        where: {
+          id: {
+            in: courseIds,
+          },
+        },
       });
       expect(courses).toEqual(mockCourseResponse);
     });
 
+    it('should return the completed course of the specific user', async () => {
+      const prismaUserId = '0cecbf92-d381-40b7-b8f8-49ccae3f8263';
+      const prismaCourse1Id = '57baa1dd-5bed-4ef6-af67-e588962e3a55';
+      const prismaCourse2Id = '7be805c9-906e-485f-86a5-0fc11cfe0e2d';
+
+      const prismaCourse1 = {
+        id: '57baa1dd-5bed-4ef6-af67-e588962e3a55',
+        name: 'Victor - DDD@incubyte - Day1',
+        resourseUrls: [
+          'https://web.microsoftstream.com/video/7818e2ba-4a60-4d01-9eac-a141bdcd55e8',
+        ],
+        testUrls: [''],
+        imageUrl: 'https://docs.nestjs.com/assets/logo-small.svg',
+        credit: 10,
+        tags: [3],
+        description: 'description',
+        createdAt: Date.prototype,
+        updatedAt: Date.prototype,
+      };
+      const prismaCourse2 = {
+        id: '7be805c9-906e-485f-86a5-0fc11cfe0e2d',
+        name: 'Day 1 clean code kata',
+        resourseUrls: [
+          'https://web.microsoftstream.com/video/21407c23-bd35-471f-ba4a-548ae215539d',
+        ],
+        testUrls: [''],
+        imageUrl: 'https://docs.nestjs.com/assets/logo-small.svg',
+        credit: 10,
+        tags: [1, 2],
+        description: 'description',
+        createdAt: Date.prototype,
+        updatedAt: Date.prototype,
+      };
+
+      const mockUserCourseResponse = [
+        {
+          id: 1,
+          userId: '0cecbf92-d381-40b7-b8f8-49ccae3f8263',
+          courseId: '57baa1dd-5bed-4ef6-af67-e588962e3a55',
+          isCompleted: true,
+        },
+        {
+          id: 2,
+          userId: '0cecbf92-d381-40b7-b8f8-49ccae3f8263',
+          courseId: '7be805c9-906e-485f-86a5-0fc11cfe0e2d',
+          isCompleted: true,
+        },
+      ];
+      const mockCourse = [prismaCourse1, prismaCourse2];
+      const courseIds = [prismaCourse1Id, prismaCourse2Id];
+      const mockCourseResponse: ProfileCourseDto = {
+        courses: mockCourse,
+        count: 2,
+      };
+
+      jest
+        .spyOn(prismaService.userCourse, 'findMany')
+        .mockResolvedValue(mockUserCourseResponse);
+
+      jest
+        .spyOn(prismaService.course, 'findMany')
+        .mockResolvedValueOnce(mockCourse);
+
+      const courses = await service.getCourseByUserId(
+        prismaUserId,
+        'completed',
+      );
+      expect(prismaService.userCourse.findMany).toHaveBeenCalledWith({
+        where: { userId: prismaUserId, isCompleted: true },
+      });
+      expect(prismaService.course.findMany).toHaveBeenNthCalledWith(2, {
+        where: {
+          id: {
+            in: courseIds,
+          },
+        },
+      });
+      expect(courses).toEqual(mockCourseResponse);
+    });
     it('should return the updated user', async () => {
       const updateProfileBody: UpdateUserDto = {
         role: 'BQAE',
