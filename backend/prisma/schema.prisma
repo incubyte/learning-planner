@@ -11,10 +11,48 @@ datasource db {
 }
 
 model User {
-  id           String   @id @default(uuid())
-  email        String   @unique
+  id           String       @id @default(uuid())
+  email        String       @unique
   password     String
   profilePhoto String
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+  UserCourse   UserCourse[]
+}
+
+model Course {
+  id           String       @id @default(uuid())
+  name         String
+  resourseUrls String[]
+  testUrls     String[]
+  imageUrl     String
+  credit       Float
+  tags         Int[]
+  description  String?
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+  UserCourse   UserCourse[]
+  CourseTag    CourseTag[]
+}
+
+model Tag {
+  id        Int         @id @default(autoincrement())
+  name      String
+  CourseTag CourseTag[]
+}
+
+model CourseTag {
+  id       Int    @id @default(autoincrement())
+  courseId String
+  course   Course @relation(fields: [courseId], references: [id])
+  tagId    Int
+  tag      Tag    @relation(fields: [tagId], references: [id])
+}
+
+model UserCourse {
+  id       Int    @id @default(autoincrement())
+  userId   String
+  user     User   @relation(fields: [userId], references: [id])
+  courseId String
+  course   Course @relation(fields: [courseId], references: [id])
 }
