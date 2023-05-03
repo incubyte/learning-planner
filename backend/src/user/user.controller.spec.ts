@@ -183,5 +183,28 @@ describe('UserController', () => {
       expect(service.getLeaderboard).toHaveBeenCalledWith();
       expect(result).toEqual(mockResponse);
     });
+
+    it('should enroll course for the user', async () => {
+      const userDecorator = {
+        id: '1',
+        email: 'john@incubyte.co',
+      };
+
+      const courseBody = {
+        id: 'course1',
+      };
+
+      const mockResponse = {
+        id: '1234',
+        userId: '1',
+        courseId: 'course1',
+        isCompleted: false,
+      };
+
+      jest.spyOn(service, 'enrollCourse').mockResolvedValue(mockResponse);
+      const result = await controller.enrollCourse(userDecorator, courseBody);
+      expect(service.enrollCourse).toHaveBeenCalledWith('1', 'course1');
+      expect(result).toEqual(mockResponse);
+    });
   });
 });

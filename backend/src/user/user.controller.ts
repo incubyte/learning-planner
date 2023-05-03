@@ -3,7 +3,15 @@ import { JwtAuthGuard } from '@Auth/jwt-auth-guard/jwt-auth.guard';
 import { jwtPayload } from '@Auth/jwtpayload/jwt.payload';
 import { UpdateUserDto } from '@User/dto/updateUser.dto';
 import { UserService } from '@User/user.service';
-import { Body, Controller, Get, Patch, Query, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Patch,
+  Post,
+  Query,
+  UseGuards,
+} from '@nestjs/common';
 import { User } from '@prisma/client';
 import { LeaderboardDto } from './dto/leaderboard.dto';
 import { ProfileCourseDto } from './dto/profileCourse.dto';
@@ -37,5 +45,13 @@ export class UserController {
   @Get('/leaderboard')
   async getLeaderboard(): Promise<LeaderboardDto[]> {
     return await this.userService.getLeaderboard();
+  }
+
+  @Post('/course/enroll')
+  async enrollCourse(
+    @UserDecorator() user: jwtPayload,
+    @Body() courseBody: any,
+  ) {
+    return await this.userService.enrollCourse(user.id, courseBody.id);
   }
 }

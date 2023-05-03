@@ -101,4 +101,8 @@ export class UserService {
       };
     });
   }
+
+  enrollCourse(id: string, courseId: string) {
+    throw new Error('Method not implemented.');
+  }
 }
