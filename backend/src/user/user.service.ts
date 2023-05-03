@@ -31,7 +31,7 @@ export class UserService {
       },
     });
     const completedCourseCount = prismaUserCourse.filter(
-      (x) => x.isCompleted === true,
+      (userCourse) => userCourse.isCompleted === true,
     ).length;
     const courseIds = prismaUserCourse.map(
       (currentUserCourse) => currentUserCourse.courseId,
@@ -97,7 +97,7 @@ export class UserService {
       );
       return {
         user: user,
-        count: userCourseCount._count.courseId,
+        CompletedCourseCount: userCourseCount._count.courseId,
       };
     });
   }

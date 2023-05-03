@@ -266,7 +266,7 @@ describe('UserService', () => {
             createdAt: Date.prototype,
             updatedAt: Date.prototype,
           },
-          count: 4,
+          CompletedCourseCount: 4,
         },
         {
           user: {
@@ -282,7 +282,7 @@ describe('UserService', () => {
             createdAt: Date.prototype,
             updatedAt: Date.prototype,
           },
-          count: 2,
+          CompletedCourseCount: 2,
         },
       ];
 
