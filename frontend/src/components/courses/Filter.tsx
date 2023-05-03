@@ -68,7 +68,7 @@ const Filter = ({ getCourseByFilter }: FilterProps) => {
     getCourseByFilter(courses);
   }, [courses]);
 
-  const Tags = isExpanded ? tags : tags.slice(0, 8);
+  const Tags = isExpanded ? tags : tags.slice(0, 7);
   return (
     <div className="filterTagsContainer" role="filterByTags">
       <h4 className="filterTagsHeading">Explore By Tags</h4>
@@ -88,7 +88,7 @@ const Filter = ({ getCourseByFilter }: FilterProps) => {
         ))}
       </div>
 
-      {tags.length > 8 && (
+      {tags.length > 7 && (
         <>
           <button className="toggleButton" onClick={toggleExpand}>
             {isExpanded ? (

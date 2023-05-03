@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import "../../css/courses/CourseCard.css";
 import "../../css/utilities/Button.css";
 interface courseCardProps {
@@ -31,7 +32,7 @@ const CourseCard = ({ courseImage, courseName }: courseCardProps) => {
                 className="buttonContainer"
                 data-testid="courseCardButton"
               >
-                Explore
+                <Link to="/course/1">Explore</Link>
               </button>
             </div>
           </div>
