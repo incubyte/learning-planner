@@ -1,5 +1,5 @@
 import "../../css/courses/CourseCard.css";
-import Button from "../utilities/Button";
+import "../../css/utilities/Button.css";
 interface courseCardProps {
   id: string;
   courseImage: string;
@@ -26,7 +26,13 @@ const CourseCard = ({ courseImage, courseName }: courseCardProps) => {
               </div>
             </div>
             <div className="courseCardButtonContainer">
-              <Button title="Explore" />
+              {/* <Button title="Explore" /> */}
+              <button
+                className="buttonContainer"
+                data-testid="courseCardButton"
+              >
+                Explore
+              </button>
             </div>
           </div>
         </div>
