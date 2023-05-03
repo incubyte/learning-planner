@@ -70,5 +70,6 @@ describe('UserController (e2e)', () => {
       .send(courseBody)
       .set('Authorization', `Bearer ${authToken}`);
     expect(response.status).toBe(201);
+    expect(response.body.courseId).toEqual(courseBody.id);
   });
 });

@@ -195,7 +195,7 @@ describe('UserController', () => {
       };
 
       const mockResponse = {
-        id: '1234',
+        id: 1,
         userId: '1',
         courseId: 'course1',
         isCompleted: false,

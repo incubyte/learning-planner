@@ -1,13 +1,17 @@
 import { PrismaService } from '@Prisma/prisma.service';
 import { UpdateUserDto } from '@User/dto/updateUser.dto';
-import { Injectable } from '@nestjs/common';
-import { User } from '@prisma/client';
+import { BadRequestException, Injectable } from '@nestjs/common';
+import { User, UserCourse } from '@prisma/client';
 import { LeaderboardDto } from './dto/leaderboard.dto';
 import { ProfileCourseDto } from './dto/profileCourse.dto';
 
 @Injectable()
 export class UserService {
   constructor(private readonly prismaService: PrismaService) {}
+
+  isUserEnrolledInCourse(prismaUserCourse: UserCourse) {
+    return prismaUserCourse !== null;
+  }
 
   async getUserById(id: string): Promise<User> {
     const user = await this.prismaService.user.findFirst({ where: { id } });
@@ -102,7 +106,27 @@ export class UserService {
     });
   }
 
-  enrollCourse(id: string, courseId: string) {
-    throw new Error('Method not implemented.');
+  async enrollCourse(userId: string, courseId: string): Promise<UserCourse> {
+    const userCourse = await this.prismaService.userCourse.findFirst({
+      where: {
+        userId: userId,
+        courseId: courseId,
+      },
+    });
+
+    if (this.isUserEnrolledInCourse(userCourse)) {
+      throw new BadRequestException('User has already enrolled in this course');
+    }
+
+    const prismaEnrolledUserCourse = await this.prismaService.userCourse.create(
+      {
+        data: {
+          userId: userId,
+          courseId: courseId,
+          isCompleted: false,
+        },
+      },
+    );
+    return prismaEnrolledUserCourse;
   }
 }

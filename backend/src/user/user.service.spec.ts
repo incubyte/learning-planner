@@ -4,8 +4,9 @@ import { UpdateUserDto } from '@User/dto/updateUser.dto';
 import { UserService } from '@User/user.service';
 import { Test, TestingModule } from '@nestjs/testing';
 import { ProfileCourseDto } from './dto/profileCourse.dto';
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient, UserCourse } from '@prisma/client';
 import { DeepMockProxy, mockDeep } from 'jest-mock-extended';
+import { BadRequestException } from '@nestjs/common';
 
 describe('UserService', () => {
   let service: UserService;
@@ -20,6 +21,10 @@ describe('UserService', () => {
 
     service = module.get<UserService>(UserService);
     prismaService = module.get(PrismaService);
+  });
+
+  afterEach(() => {
+    jest.resetAllMocks();
   });
 
   it('should be defined', () => {
@@ -218,7 +223,7 @@ describe('UserService', () => {
       expect(prismaService.userCourse.findMany).toHaveBeenCalledWith({
         where: { userId: prismaUserId, isCompleted: true },
       });
-      expect(prismaService.course.findMany).toHaveBeenNthCalledWith(2, {
+      expect(prismaService.course.findMany).toHaveBeenNthCalledWith(1, {
         where: {
           id: {
             in: courseIds,
@@ -336,6 +341,63 @@ describe('UserService', () => {
 
       expect(prismaService.userCourse.groupBy).toBeCalledTimes(1);
       expect(leaderboard).toEqual(mockResponse);
+    });
+
+    it('should enroll the course for user', async () => {
+      const mockUserCourse: UserCourse = null;
+      prismaService.userCourse.findFirst.mockResolvedValue(mockUserCourse);
+      const mockCreateUserCourse: UserCourse = {
+        id: 1,
+        userId: '1',
+        courseId: 'course1',
+        isCompleted: false,
+      };
+      prismaService.userCourse.create.mockResolvedValue(mockCreateUserCourse);
+      const result = await service.enrollCourse('1', 'course1');
+      expect(result).toEqual(mockCreateUserCourse);
+      expect(prismaService.userCourse.findFirst).toHaveBeenCalledWith({
+        where: {
+          userId: '1',
+          courseId: 'course1',
+        },
+      });
+      expect(prismaService.userCourse.create).toHaveBeenCalledWith({
+        data: {
+          userId: '1',
+          courseId: 'course1',
+          isCompleted: false,
+        },
+      });
+    });
+
+    it('should throw BadRequestException when user is already enrolled in course', async () => {
+      const mockUserCourse: UserCourse = {
+        id: 1,
+        userId: '1',
+        courseId: 'course1',
+        isCompleted: false,
+      };
+      prismaService.userCourse.findFirst.mockResolvedValue(mockUserCourse);
+      jest.spyOn(service, 'isUserEnrolledInCourse').mockReturnValue(true);
+      await expect(service.enrollCourse('1', 'course1')).rejects.toThrow(
+        BadRequestException,
+      );
+      expect(prismaService.userCourse.create).not.toHaveBeenCalled();
+    });
+
+    it('should return true when user is enrolled in course', () => {
+      const userCourse: UserCourse = {
+        id: 1,
+        userId: '1',
+        courseId: 'course1',
+        isCompleted: false,
+      };
+      expect(service.isUserEnrolledInCourse(userCourse)).toBe(true);
+    });
+
+    it('should return false when user is not enrolled in course', () => {
+      const userCourse: UserCourse = null;
+      expect(service.isUserEnrolledInCourse(userCourse)).toBe(false);
     });
   });
 });
