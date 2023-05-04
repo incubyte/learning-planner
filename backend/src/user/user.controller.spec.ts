@@ -206,5 +206,28 @@ describe('UserController', () => {
       expect(service.enrollCourse).toHaveBeenCalledWith('1', 'course1');
       expect(result).toEqual(mockResponse);
     });
+
+    it('should make course completed for the user', async () => {
+      const userDecorator = {
+        id: '1',
+        email: 'john@incubyte.co',
+      };
+
+      const courseBody = {
+        id: 'course1',
+      };
+
+      const mockResponse = {
+        id: 1,
+        userId: '1',
+        courseId: 'course1',
+        isCompleted: true,
+      };
+
+      jest.spyOn(service, 'completeCourse').mockResolvedValue(mockResponse);
+      const result = await controller.completeCourse(userDecorator, courseBody);
+      expect(service.completeCourse).toHaveBeenCalledWith('1', 'course1');
+      expect(result).toEqual(mockResponse);
+    });
   });
 });

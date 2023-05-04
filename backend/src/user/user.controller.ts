@@ -55,4 +55,12 @@ export class UserController {
   ): Promise<UserCourse> {
     return await this.userService.enrollCourse(user.id, courseIdBody.id);
   }
+
+  @Patch('course/completeCourse')
+  async completeCourse(
+    @UserDecorator() user: jwtPayload,
+    @Body() courseIdBody: courseIdBodyDto,
+  ): Promise<UserCourse> {
+    return await this.userService.completeCourse(user.id, courseIdBody.id);
+  }
 }

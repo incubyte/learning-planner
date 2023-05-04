@@ -129,4 +129,8 @@ export class UserService {
     );
     return prismaEnrolledUserCourse;
   }
+
+  completeCourse(id: string, id1: string): Promise<UserCourse> {
+    throw new Error('Method not implemented.');
+  }
 }
