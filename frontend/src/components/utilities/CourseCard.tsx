@@ -6,7 +6,7 @@ interface courseCardProps {
   courseImage: string;
   courseName: string;
 }
-const CourseCard = ({ courseImage, courseName }: courseCardProps) => {
+const CourseCard = ({ id, courseImage, courseName }: courseCardProps) => {
   return (
     <>
       <div className="carouselCardContainer">
@@ -32,7 +32,7 @@ const CourseCard = ({ courseImage, courseName }: courseCardProps) => {
                 className="buttonContainer"
                 data-testid="courseCardButton"
               >
-                <Link to="/course/1">Explore</Link>
+                <Link to={"/course/" + id}>Explore</Link>
               </button>
             </div>
           </div>
