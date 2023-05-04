@@ -72,4 +72,18 @@ describe('UserController (e2e)', () => {
     expect(response.status).toBe(201);
     expect(response.body.courseId).toEqual(courseBody.id);
   });
+
+  it('user/course/completeCourse/ (POST) - should make the course completed for the user', async () => {
+    const courseBody = {
+      id: '67778aa0-945d-4864-873d-f29906cb6c4e',
+    };
+
+    const response = await request(app.getHttpServer())
+      .patch('/user/course/completeCourse')
+      .send(courseBody)
+      .set('Authorization', `Bearer ${authToken}`);
+    expect(response.status).toBe(200);
+    expect(response.body.courseId).toEqual(courseBody.id);
+    expect(response.body.isCompleted).toEqual(true);
+  });
 });
