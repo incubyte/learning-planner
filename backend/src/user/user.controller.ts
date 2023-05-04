@@ -5,6 +5,7 @@ import { UpdateUserDto } from '@User/dto/updateUser.dto';
 import { UserService } from '@User/user.service';
 import { Body, Controller, Get, Patch, Query, UseGuards } from '@nestjs/common';
 import { User } from '@prisma/client';
+import { LeaderboardDto } from './dto/leaderboard.dto';
 import { ProfileCourseDto } from './dto/profileCourse.dto';
 
 @UseGuards(JwtAuthGuard)
@@ -31,5 +32,10 @@ export class UserController {
     @Body() updatedUser: UpdateUserDto,
   ): Promise<User> {
     return await this.userService.updateProfile(updatedUser, user.id);
+  }
+
+  @Get('/leaderboard')
+  async getLeaderboard(): Promise<LeaderboardDto[]> {
+    return await this.userService.getLeaderboard();
   }
 }
