@@ -1,8 +1,9 @@
-import { ProfileCourseDto } from './dto/profileCourse.dto';
 import { PrismaService } from '@Prisma/prisma.service';
 import { UpdateUserDto } from '@User/dto/updateUser.dto';
 import { Injectable } from '@nestjs/common';
 import { User } from '@prisma/client';
+import { LeaderboardDto } from './dto/leaderboard.dto';
+import { ProfileCourseDto } from './dto/profileCourse.dto';
 
 @Injectable()
 export class UserService {
@@ -30,7 +31,7 @@ export class UserService {
       },
     });
     const completedCourseCount = prismaUserCourse.filter(
-      (x) => x.isCompleted === true,
+      (userCourse) => userCourse.isCompleted === true,
     ).length;
     const courseIds = prismaUserCourse.map(
       (currentUserCourse) => currentUserCourse.courseId,
@@ -60,5 +61,44 @@ export class UserService {
     });
     delete updatedPrismaUser.password;
     return updatedPrismaUser;
+  }
+
+  async getLeaderboard(): Promise<LeaderboardDto[]> {
+    const userCourse = await this.prismaService.userCourse.groupBy({
+      by: ['userId'],
+      where: {
+        isCompleted: true,
+      },
+      _count: {
+        courseId: true,
+      },
+      take: 5,
+      orderBy: {
+        _count: {
+          courseId: 'desc',
+        },
+      },
+    });
+
+    const userIds = userCourse.map(
+      (currentUserCourse) => currentUserCourse.userId,
+    );
+    const users = await this.prismaService.user.findMany({
+      where: {
+        id: {
+          in: userIds,
+        },
+      },
+    });
+
+    return users.map((user) => {
+      const userCourseCount = userCourse.find(
+        (currentUserCourse) => currentUserCourse.userId === user.id,
+      );
+      return {
+        user: user,
+        CompletedCourseCount: userCourseCount._count.courseId,
+      };
+    });
   }
 }

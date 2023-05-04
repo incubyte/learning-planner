@@ -143,5 +143,45 @@ describe('UserController', () => {
       );
       expect(result).toEqual(mockResponse);
     });
+
+    it('should return the top 5 users', async () => {
+      const mockResponse = [
+        {
+          user: {
+            id: '36ebe3de-10a6-4aa2-81b1-8f27468d0f10',
+            eId: 'E0088',
+            role: 'SC',
+            clientTeam: 'Learning Planner',
+            email: 'charvit@incubyte.co',
+            password:
+              '$2b$10$I0vM.YKpDT87ekNAmw8KSe3zdVkQlkpzUZo44.rZ1Od0SeWiqlCJ.',
+            profilePhoto: 'https://profilephoto.com',
+            createdAt: Date.prototype,
+            updatedAt: Date.prototype,
+          },
+          CompletedCourseCount: 4,
+        },
+        {
+          user: {
+            id: '2fbc0f79-a1ea-4d5e-9c02-9bfb4dac50c3',
+            eId: 'E0097',
+            role: 'SC',
+            clientTeam: 'Learning Planner',
+            email: 'shreyas@incubyte.co',
+            password:
+              '$2b$10$K.3VzQM7VVGY6pywSVKywOozqlMfwmMADiF5dXBWWj8Fn.qxG9qQW',
+            profilePhoto:
+              'https://res.cloudinary.com/dxepcudkt/image/upload/v1682573373/cojqoxpcgax1tkq0zi6a.jpg',
+            createdAt: Date.prototype,
+            updatedAt: Date.prototype,
+          },
+          CompletedCourseCount: 2,
+        },
+      ];
+      jest.spyOn(service, 'getLeaderboard').mockResolvedValue(mockResponse);
+      const result = await controller.getLeaderboard();
+      expect(service.getLeaderboard).toHaveBeenCalledWith();
+      expect(result).toEqual(mockResponse);
+    });
   });
 });

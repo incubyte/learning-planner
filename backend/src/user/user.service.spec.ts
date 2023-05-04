@@ -23,6 +23,7 @@ describe('UserService', () => {
               },
               userCourse: {
                 findMany: jest.fn(),
+                groupBy: jest.fn(),
               },
               course: {
                 findFirst: jest.fn(),
@@ -267,6 +268,97 @@ describe('UserService', () => {
       const result = await service.updateProfile(updateProfileBody, '1');
       expect(prismaService.user.update).toBeCalledTimes(1);
       expect(result).toMatchObject(mockUpdatedUser);
+    });
+
+    it('should return the top 5 users', async () => {
+      const mockResponse = [
+        {
+          user: {
+            id: '36ebe3de-10a6-4aa2-81b1-8f27468d0f10',
+            eId: 'E0088',
+            role: 'SC',
+            clientTeam: 'Learning Planner',
+            email: 'charvit@incubyte.co',
+            password:
+              '$2b$10$I0vM.YKpDT87ekNAmw8KSe3zdVkQlkpzUZo44.rZ1Od0SeWiqlCJ.',
+            profilePhoto: 'https://profilephoto.com',
+            createdAt: Date.prototype,
+            updatedAt: Date.prototype,
+          },
+          CompletedCourseCount: 4,
+        },
+        {
+          user: {
+            id: '2fbc0f79-a1ea-4d5e-9c02-9bfb4dac50c3',
+            eId: 'E0097',
+            role: 'SC',
+            clientTeam: 'Learning Planner',
+            email: 'shreyas@incubyte.co',
+            password:
+              '$2b$10$K.3VzQM7VVGY6pywSVKywOozqlMfwmMADiF5dXBWWj8Fn.qxG9qQW',
+            profilePhoto:
+              'https://res.cloudinary.com/dxepcudkt/image/upload/v1682573373/cojqoxpcgax1tkq0zi6a.jpg',
+            createdAt: Date.prototype,
+            updatedAt: Date.prototype,
+          },
+          CompletedCourseCount: 2,
+        },
+      ];
+
+      const mockUser1 = {
+        id: '2fbc0f79-a1ea-4d5e-9c02-9bfb4dac50c3',
+        eId: 'E0097',
+        role: 'SC',
+        clientTeam: 'Learning Planner',
+        email: 'shreyas@incubyte.co',
+        password:
+          '$2b$10$K.3VzQM7VVGY6pywSVKywOozqlMfwmMADiF5dXBWWj8Fn.qxG9qQW',
+        profilePhoto:
+          'https://res.cloudinary.com/dxepcudkt/image/upload/v1682573373/cojqoxpcgax1tkq0zi6a.jpg',
+        createdAt: Date.prototype,
+        updatedAt: Date.prototype,
+      };
+
+      const mockUser2 = {
+        id: '36ebe3de-10a6-4aa2-81b1-8f27468d0f10',
+        eId: 'E0088',
+        role: 'SC',
+        clientTeam: 'Learning Planner',
+        email: 'charvit@incubyte.co',
+        password:
+          '$2b$10$I0vM.YKpDT87ekNAmw8KSe3zdVkQlkpzUZo44.rZ1Od0SeWiqlCJ.',
+        profilePhoto: 'https://profilephoto.com',
+        createdAt: Date.prototype,
+        updatedAt: Date.prototype,
+      };
+      const mockUsers = [mockUser2, mockUser1];
+      const mockUserCourse1 = {
+        _count: {
+          courseId: 4,
+        },
+        userId: '36ebe3de-10a6-4aa2-81b1-8f27468d0f10',
+      };
+      const mockUserCourse2 = {
+        _count: {
+          courseId: 2,
+        },
+        userId: '2fbc0f79-a1ea-4d5e-9c02-9bfb4dac50c3',
+      };
+      const mockUserCourseResponse: any = [mockUserCourse1, mockUserCourse2];
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      //@ts-ignore
+      jest
+        .spyOn(prismaService.userCourse, 'groupBy')
+        .mockResolvedValueOnce(mockUserCourseResponse);
+
+      jest
+        .spyOn(prismaService.user, 'findMany')
+        .mockResolvedValueOnce(mockUsers);
+
+      const leaderboard = await service.getLeaderboard();
+
+      expect(prismaService.userCourse.groupBy).toBeCalledTimes(1);
+      expect(leaderboard).toEqual(mockResponse);
     });
   });
 });
