@@ -4,23 +4,44 @@ import { UpdateUserDto } from '@User/dto/updateUser.dto';
 import { UserService } from '@User/user.service';
 import { Test, TestingModule } from '@nestjs/testing';
 import { ProfileCourseDto } from './dto/profileCourse.dto';
-import { PrismaClient, UserCourse } from '@prisma/client';
-import { DeepMockProxy, mockDeep } from 'jest-mock-extended';
 import { BadRequestException, NotFoundException } from '@nestjs/common';
+import { UserCourse } from '@prisma/client';
 
 describe('UserService', () => {
   let service: UserService;
-  let prismaService: DeepMockProxy<PrismaClient>;
+  let prismaService: PrismaService;
   beforeAll(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [UserService, PrismaService],
-    })
-      .overrideProvider(PrismaService)
-      .useValue(mockDeep<PrismaClient>())
-      .compile();
+      providers: [
+        UserService,
+        {
+          provide: PrismaService,
+          useFactory() {
+            return {
+              user: {
+                findFirst: jest.fn(),
+                update: jest.fn(),
+                findMany: jest.fn(),
+              },
+              userCourse: {
+                findMany: jest.fn(),
+                groupBy: jest.fn(),
+                findFirst: jest.fn(),
+                update: jest.fn(),
+                create: jest.fn(),
+              },
+              course: {
+                findFirst: jest.fn(),
+                findMany: jest.fn(),
+              },
+            };
+          },
+        },
+      ],
+    }).compile();
 
     service = module.get<UserService>(UserService);
-    prismaService = module.get(PrismaService);
+    prismaService = module.get<PrismaService>(PrismaService);
   });
 
   afterEach(() => {
@@ -49,9 +70,9 @@ describe('UserService', () => {
         clientTeam: 'abc',
       };
 
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      //@ts-ignore
-      prismaService.user.findFirst.mockResolvedValue(mockResponse);
+      jest
+        .spyOn(prismaService.user, 'findFirst')
+        .mockResolvedValue(mockResponse);
       const result = await service.getUserById('1');
       expect(prismaService.user.findFirst).toBeCalledTimes(1);
       expect(result).toMatchObject(mockResponse);
@@ -131,15 +152,13 @@ describe('UserService', () => {
         count: 3,
       };
 
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      //@ts-ignore
-      prismaService.userCourse.findMany.mockResolvedValue(
-        mockUserCourseResponse,
-      );
+      jest
+        .spyOn(prismaService.userCourse, 'findMany')
+        .mockResolvedValue(mockUserCourseResponse);
 
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      //@ts-ignore
-      prismaService.course.findMany.mockResolvedValueOnce(mockCourse);
+      jest
+        .spyOn(prismaService.course, 'findMany')
+        .mockResolvedValueOnce(mockCourse);
 
       const courses = await service.getCourseByUserId(prismaUserId, '');
       expect(prismaService.userCourse.findMany).toHaveBeenCalledWith({
@@ -210,11 +229,13 @@ describe('UserService', () => {
         count: 2,
       };
 
-      prismaService.userCourse.findMany.mockResolvedValue(
-        mockUserCourseResponse,
-      );
+      jest
+        .spyOn(prismaService.userCourse, 'findMany')
+        .mockResolvedValue(mockUserCourseResponse);
 
-      prismaService.course.findMany.mockResolvedValueOnce(mockCourse);
+      jest
+        .spyOn(prismaService.course, 'findMany')
+        .mockResolvedValueOnce(mockCourse);
 
       const courses = await service.getCourseByUserId(
         prismaUserId,
@@ -250,7 +271,9 @@ describe('UserService', () => {
         role: 'BQAE',
         clientTeam: 'abcd',
       };
-      prismaService.user.update.mockResolvedValue(mockUpdatedUser);
+      jest
+        .spyOn(prismaService.user, 'update')
+        .mockResolvedValue(mockUpdatedUser);
       const result = await service.updateProfile(updateProfileBody, '1');
       expect(prismaService.user.update).toBeCalledTimes(1);
       expect(result).toMatchObject(mockUpdatedUser);
@@ -331,11 +354,15 @@ describe('UserService', () => {
         userId: '2fbc0f79-a1ea-4d5e-9c02-9bfb4dac50c3',
       };
       const mockUserCourseResponse: any = [mockUserCourse1, mockUserCourse2];
-      prismaService.userCourse.groupBy.mockResolvedValueOnce(
-        mockUserCourseResponse,
-      );
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      //@ts-ignore
+      jest
+        .spyOn(prismaService.userCourse, 'groupBy')
+        .mockResolvedValueOnce(mockUserCourseResponse);
 
-      prismaService.user.findMany.mockResolvedValueOnce(mockUsers);
+      jest
+        .spyOn(prismaService.user, 'findMany')
+        .mockResolvedValueOnce(mockUsers);
 
       const leaderboard = await service.getLeaderboard();
 
@@ -345,14 +372,20 @@ describe('UserService', () => {
 
     it('should enroll the course for user', async () => {
       const mockUserCourse: UserCourse = null;
-      prismaService.userCourse.findFirst.mockResolvedValue(mockUserCourse);
+      jest
+        .spyOn(prismaService.userCourse, 'findFirst')
+        .mockResolvedValueOnce(mockUserCourse);
+
       const mockCreateUserCourse: UserCourse = {
         id: 1,
         userId: '1',
         courseId: 'course1',
         isCompleted: false,
       };
-      prismaService.userCourse.create.mockResolvedValue(mockCreateUserCourse);
+
+      jest
+        .spyOn(prismaService.userCourse, 'create')
+        .mockResolvedValueOnce(mockCreateUserCourse);
       const result = await service.enrollCourse('1', 'course1');
       expect(result).toEqual(mockCreateUserCourse);
       expect(prismaService.userCourse.findFirst).toHaveBeenCalledWith({
@@ -377,7 +410,9 @@ describe('UserService', () => {
         courseId: 'course1',
         isCompleted: false,
       };
-      prismaService.userCourse.findFirst.mockResolvedValue(mockUserCourse);
+      jest
+        .spyOn(prismaService.userCourse, 'findFirst')
+        .mockResolvedValueOnce(mockUserCourse);
       jest.spyOn(service, 'isUserEnrolledInCourse').mockReturnValue(true);
       await expect(service.enrollCourse('1', 'course1')).rejects.toThrow(
         BadRequestException,
@@ -413,9 +448,12 @@ describe('UserService', () => {
         courseId: 'course1',
         isCompleted: true,
       };
-      prismaService.userCourse.findFirst.mockResolvedValue(mockUserCourse);
-      // ts-ignore
-      prismaService.userCourse.update.mockResolvedValue(updatedMockUser);
+      jest
+        .spyOn(prismaService.userCourse, 'findFirst')
+        .mockResolvedValueOnce(mockUserCourse);
+      jest
+        .spyOn(prismaService.userCourse, 'update')
+        .mockResolvedValueOnce(updatedMockUser);
       const result = await service.completeCourse('1', 'course1');
       expect(result).toEqual(updatedMockUser);
       expect(prismaService.userCourse.findFirst).toHaveBeenCalledWith({
@@ -436,7 +474,9 @@ describe('UserService', () => {
 
     it('should throw NotFoundExecption if user is not enrolled for course', async () => {
       const mockUserCourse: UserCourse = null;
-      prismaService.userCourse.findFirst.mockResolvedValue(mockUserCourse);
+      jest
+        .spyOn(prismaService.userCourse, 'findFirst')
+        .mockResolvedValueOnce(mockUserCourse);
       await expect(service.completeCourse('1', 'course1')).rejects.toThrow(
         NotFoundException,
       );
@@ -456,7 +496,9 @@ describe('UserService', () => {
         courseId: 'course1',
         isCompleted: true,
       };
-      prismaService.userCourse.findFirst.mockResolvedValue(mockUserCourse);
+      jest
+        .spyOn(prismaService.userCourse, 'findFirst')
+        .mockResolvedValueOnce(mockUserCourse);
       await expect(service.completeCourse('1', 'course1')).rejects.toThrow(
         BadRequestException,
       );
