@@ -19,6 +19,7 @@
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "prisma:seed": "ts-node prisma/seeds/seed.ts",
+    "prisma:seedUser": "ts-node prisma/seeds/seedUser.ts",
     "prisma:seedCourse": "ts-node prisma/seeds/seedCourse.ts",
     "prisma:seedUserCourse": "ts-node prisma/seeds/seedUserCourse.ts"
   },
@@ -34,7 +35,7 @@
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.0",
     "dotenv": "^16.0.3",
-    "jest-mock-extended": "^3.0.3",
+    "jest-mock-extended": "^3.0.4",
     "passport": "^0.6.0",
     "passport-jwt": "^4.0.1",
     "passport-local": "^1.0.0",

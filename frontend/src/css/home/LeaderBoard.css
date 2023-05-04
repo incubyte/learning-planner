@@ -1,0 +1,39 @@
+.LeaderBoardContainer{
+    @apply flex flex-wrap justify-between items-center border p-5 border-gray-200 rounded-lg
+}
+.LeaderBoardTitleContainer{
+    @apply w-full text-center mb-8
+}
+.LeaderBoardTitle{
+    @apply text-3xl font-semibold text-center
+}
+.LeaderBoardContainers{
+    @apply w-full md:w-1/2 p-2
+}
+.LeaderBoardInnerContainer{
+    @apply bg-gray-100 h-[450px] flex flex-col items-center justify-center p-2 border border-black border-solid rounded-lg
+}
+.LeaderBoardInnerFirstImageContainer{
+    @apply rounded-full border border-gray-100 shadow-sm ml-5 mt-5 w-[150px] h-[150px] 
+}
+.LeaderBoardUserInfoContainer{
+    @apply mt-2
+}
+.LeaderBoardUserInnerInfoContainer{
+    @apply text-xl font-semibold xsm:text-lg xsm:font-medium
+}
+.LeaderBoardUserInnerInfo{
+    @apply m-8 sm:m-2 md:m-3
+}
+.LeaderBoardInnerContainerScrollbar{
+    @apply overflow-x-auto
+}
+.LeaderBoardContainerTwoTableContainer{
+    @apply bg-gray-100 h-[450px] flex items-center justify-center p-4 border border-black border-solid rounded-lg
+}
+.LeaderBoardContainerTwoTable{
+    @apply table w-auto justify-around text-center text-lg md:text-xl mt-5 border border-gray-400
+}
+.LeaderBoardContainerTwoTableBorder{
+    @apply border border-gray-100 p-3
+}

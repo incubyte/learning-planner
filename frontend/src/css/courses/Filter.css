@@ -1,13 +1,13 @@
 .filterTagsContainer {
-    @apply mx-5 md:mx-10 p-5 md:p-10 text-center flex flex-col w-auto
+  @apply mx-5 md:mx-10 p-5 md:p-10 text-center flex flex-col w-auto;
 }
 
 .filterTagsHeading {
-    @apply text-center py-4 text-xl font-bold
+  @apply text-center py-4 text-xl font-bold;
 }
 
 .filterTagsList {
-    @apply grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 mt-5 place-items-center w-full
+  @apply grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 mt-5 place-items-center w-full;
 }
 
 .filterTags {
@@ -15,9 +15,9 @@
 }
 
 .toggleButton {
-    @apply text-black font-bold text-sm mt-10
+  @apply text-black font-bold text-sm mt-10;
 }
 
 .toggleText {
-    @apply text-center justify-center
+  @apply text-center justify-center;
 }
