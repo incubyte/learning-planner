@@ -212,18 +212,15 @@ describe('UserController', () => {
         id: '1',
         email: 'john@incubyte.co',
       };
-
       const courseBody = {
         id: 'course1',
       };
-
       const mockResponse = {
         id: 1,
         userId: '1',
         courseId: 'course1',
         isCompleted: true,
       };
-
       jest.spyOn(service, 'completeCourse').mockResolvedValue(mockResponse);
       const result = await controller.completeCourse(userDecorator, courseBody);
       expect(service.completeCourse).toHaveBeenCalledWith('1', 'course1');

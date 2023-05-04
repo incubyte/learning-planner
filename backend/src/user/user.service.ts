@@ -1,6 +1,10 @@
 import { PrismaService } from '@Prisma/prisma.service';
 import { UpdateUserDto } from '@User/dto/updateUser.dto';
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { User, UserCourse } from '@prisma/client';
 import { LeaderboardDto } from './dto/leaderboard.dto';
 import { ProfileCourseDto } from './dto/profileCourse.dto';
@@ -113,11 +117,9 @@ export class UserService {
         courseId: courseId,
       },
     });
-
     if (this.isUserEnrolledInCourse(userCourse)) {
       throw new BadRequestException('User has already enrolled in this course');
     }
-
     const prismaEnrolledUserCourse = await this.prismaService.userCourse.create(
       {
         data: {
@@ -130,7 +132,27 @@ export class UserService {
     return prismaEnrolledUserCourse;
   }
 
-  completeCourse(id: string, id1: string): Promise<UserCourse> {
-    throw new Error('Method not implemented.');
+  async completeCourse(userId: string, courseId: string): Promise<UserCourse> {
+    const userCourse = await this.prismaService.userCourse.findFirst({
+      where: {
+        userId: userId,
+        courseId: courseId,
+      },
+    });
+    if (!userCourse) {
+      throw new NotFoundException('user or course not found');
+    }
+    if (userCourse.isCompleted) {
+      throw new BadRequestException('Course already completed');
+    }
+    const updatedUserCourse = await this.prismaService.userCourse.update({
+      where: {
+        id: userCourse.id,
+      },
+      data: {
+        isCompleted: true,
+      },
+    });
+    return updatedUserCourse;
   }
 }
