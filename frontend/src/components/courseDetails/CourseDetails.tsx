@@ -55,14 +55,21 @@ const CourseDetails = () => {
         <div className="container grid justify-items-center content-center object-contain bg-slate-100 rounded-lg">
           <div className="relative mt-5">
             <img
+              data-testid="courseImage"
               className="rounded-full h-40 w-40 block"
               src={course?.imageUrl}
             ></img>
           </div>
-          <div className="text-5xl lg:text-4xl md:text-4xl xsm:text-4xl mt-4">
+          <div
+            data-testid="courseName"
+            className="text-5xl lg:text-4xl md:text-4xl xsm:text-4xl mt-4"
+          >
             {course?.name}
           </div>
-          <div className="my-5 place-items-center w-full">
+          <div
+            data-testid="courseTags"
+            className="my-5 place-items-center w-full"
+          >
             {course?.tags.map((tag, index) => (
               <button
                 key={index}
@@ -73,11 +80,11 @@ const CourseDetails = () => {
             ))}
           </div>
           <div className="container w-10/12 bg-slate-300 rounded-lg">
-            <div className="m-12">
+            <div data-testid="courseDescription" className="m-12">
               <p>{course?.description}</p>
             </div>
           </div>
-          <div className="my-8">
+          <div data-testid="courseButton" className="my-8">
             {isEnrolled && (
               <button
                 className="text-white font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg mr-1 mb-1 ease-linear transition-all duration-150 bg-emerald-500 active:bg-emerald-600"
