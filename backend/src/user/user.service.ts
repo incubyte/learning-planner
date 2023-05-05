@@ -156,7 +156,17 @@ export class UserService {
     return updatedUserCourse;
   }
 
-  getStatusOfCourse(id: string, id1: string): PromiseLike<number> {
-    throw new Error('Method not implemented.');
+  async getStatusOfCourse(userId: string, courseId: string): Promise<number> {
+    const userCourse = await this.prismaService.userCourse.findFirst({
+      where: {
+        userId: userId,
+        courseId: courseId,
+      },
+    });
+
+    if (!userCourse) {
+      return 0;
+    }
+    return userCourse.isCompleted ? 2 : 1;
   }
 }
