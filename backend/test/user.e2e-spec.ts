@@ -86,4 +86,11 @@ describe('UserController (e2e)', () => {
     expect(response.body.courseId).toEqual(courseBody.id);
     expect(response.body.isCompleted).toEqual(true);
   });
+
+  it('user/status (GET) - should return the status of course for that users', async () => {
+    const response = await request(app.getHttpServer())
+      .get('/user/course/status')
+      .set('Authorization', `Bearer ${authToken}`);
+    expect(response.status).toBe(200);
+  });
 });
