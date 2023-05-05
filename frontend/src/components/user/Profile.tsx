@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "../../css/user/profile.css";
 import { courseType } from "../courses/Courses";
 import Carousel from "../utilities/Carousel";
@@ -8,7 +9,9 @@ import { userType } from "./user";
 
 const Profile = () => {
   const [activeCourse, setActiveCourse] = useState<courseType[]>([]);
+  const [completedCourseCount, setCompletedCourseCount] = useState<number>(0);
   const [user, setUser] = useState<userType>();
+  const navigator = useNavigate();
 
   const handleSubmit = async () => {
     let media: any = [];
@@ -42,8 +45,10 @@ const Profile = () => {
       },
     });
     if (response.ok) {
-      const jsonResnponse = await response.json();
-      setUser(jsonResnponse);
+      const responseUser = await response.json();
+      setUser(responseUser);
+    } else {
+      navigator("/auth/signin");
     }
   };
 
@@ -57,8 +62,11 @@ const Profile = () => {
       }
     );
     if (response.ok) {
-      const jsonResnponse = await response.json();
-      setActiveCourse(jsonResnponse);
+      const responseCourse = await response.json();
+      setActiveCourse(responseCourse.courses);
+      setCompletedCourseCount(responseCourse.count);
+    } else {
+      navigator("/auth/signin");
     }
   };
 
@@ -224,7 +232,7 @@ const Profile = () => {
           ></input>
           <input
             disabled
-            value="0"
+            value={completedCourseCount * 10}
             data-testid="profileCreditInput"
             className="ProfileInput"
           ></input>
@@ -259,7 +267,11 @@ const Profile = () => {
           </div>
           <div className="ProfileSmallScreenGrid">
             <label className="ProfileLabel">Credit</label>
-            <input disabled value="0" className="ProfileInput"></input>
+            <input
+              disabled
+              value={completedCourseCount * 10}
+              className="ProfileInput"
+            ></input>
           </div>
           <div className="ProfileSmallScreenGrid mb-5">
             <label className="ProfileLabel">Total Course</label>

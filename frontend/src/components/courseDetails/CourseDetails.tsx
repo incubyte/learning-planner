@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
 import { courseType } from "../courses/Courses";
 import Navbar from "../utilities/Navbar";
 
@@ -7,6 +8,8 @@ const CourseDetails = () => {
   const { id } = useParams();
   const [course, setCourse] = useState<courseType>();
   const [tags, setTags] = useState([{ id: "1", name: "Java" }]);
+  const [isEnrolled, setIsEnrolled] = useState(false);
+  const [isCompleted, setIsCompleted] = useState(false);
   const fetchCourse = async () => {
     const response = await fetch(
       "https://backend-mu-plum.vercel.app/course/getCourseById/" + id,
@@ -23,6 +26,60 @@ const CourseDetails = () => {
     }
   };
 
+  const enrollCourse = async () => {
+    const response = await fetch(
+      "https://backend-mu-plum.vercel.app/user/course/enroll",
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ id: id }),
+      }
+    );
+
+    if (response.ok) {
+      toast.success("Course Enrolled!!", {
+        autoClose: 2500,
+        closeButton: false,
+      });
+      setIsEnrolled(true);
+    } else {
+      const jsonResponse = await response.json();
+      toast.error(jsonResponse.message, {
+        autoClose: 2500,
+        closeButton: false,
+      });
+    }
+  };
+  const completeCourse = async () => {
+    const response = await fetch(
+      "https://backend-mu-plum.vercel.app/user/course/completeCourse",
+      {
+        method: "PATCH",
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ id: id }),
+      }
+    );
+
+    if (response.ok) {
+      toast.success("Course Completed!!", {
+        autoClose: 2500,
+        closeButton: false,
+      });
+      setIsCompleted(true);
+    } else {
+      const jsonResponse = await response.json();
+      toast.error(jsonResponse.message, {
+        autoClose: 2500,
+        closeButton: false,
+      });
+    }
+  };
   const fetchTags = async () => {
     const response = await fetch("https://backend-mu-plum.vercel.app/tag/", {
       headers: {
@@ -41,7 +98,6 @@ const CourseDetails = () => {
     fetchTags();
   }, []);
 
-  const [isEnrolled, setIsEnrolled] = useState(true);
   return (
     <>
       <Navbar
@@ -81,28 +137,27 @@ const CourseDetails = () => {
               <p>{course?.description}</p>
             </div>
           </div>
-          <div data-testid="courseButton" className="my-8">
-            {isEnrolled && (
-              <button
-                className="text-white font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg mr-1 mb-1 ease-linear transition-all duration-150 bg-emerald-500 active:bg-emerald-600"
-                onClick={() => {
-                  setIsEnrolled(!isEnrolled);
-                }}
-              >
-                Enroll
-              </button>
-            )}
-            {!isEnrolled && (
-              <button
-                className="text-white font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg mr-1 mb-1 ease-linear transition-all duration-150 bg-emerald-500 active:bg-emerald-600"
-                onClick={() => {
-                  setIsEnrolled(!isEnrolled);
-                }}
-              >
-                Complete Course
-              </button>
-            )}
-          </div>
+          {!isCompleted && (
+            <div data-testid="courseButton" className="my-8">
+              {!isEnrolled && (
+                <button
+                  className="text-white font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg mr-1 mb-1 ease-linear transition-all duration-150 bg-emerald-500 active:bg-emerald-600"
+                  onClick={enrollCourse}
+                >
+                  Enroll
+                </button>
+              )}
+              {isEnrolled && (
+                <button
+                  className="text-white font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg mr-1 mb-1 ease-linear transition-all duration-150 bg-emerald-500 active:bg-emerald-600"
+                  onClick={completeCourse}
+                >
+                  Complete Course
+                </button>
+              )}
+            </div>
+          )}
+          <ToastContainer />
         </div>
       </div>
     </>
