@@ -63,4 +63,12 @@ export class UserController {
   ): Promise<UserCourse> {
     return await this.userService.completeCourse(user.id, courseIdBody.id);
   }
+
+  @Get('course/status')
+  async getStatusOfCourse(
+    @UserDecorator() user: jwtPayload,
+    @Body() courseIdBody: courseIdBodyDto,
+  ): Promise<number> {
+    return await this.userService.getStatusOfCourse(user.id, courseIdBody.id);
+  }
 }

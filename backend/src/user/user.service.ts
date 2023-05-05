@@ -155,4 +155,8 @@ export class UserService {
     });
     return updatedUserCourse;
   }
+
+  getStatusOfCourse(id: string, id1: string): PromiseLike<number> {
+    throw new Error('Method not implemented.');
+  }
 }

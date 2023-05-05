@@ -226,5 +226,27 @@ describe('UserController', () => {
       expect(service.completeCourse).toHaveBeenCalledWith('1', 'course1');
       expect(result).toEqual(mockResponse);
     });
+
+    it('should return the status of course for that users', async () => {
+      const userDecorator = {
+        id: '1',
+        email: 'john@incubyte.co',
+      };
+
+      const courseBody = {
+        id: 'course1',
+      };
+
+      const mockResponse = 1;
+
+      jest.spyOn(service, 'getStatusOfCourse').mockResolvedValue(mockResponse);
+      const result = await controller.getStatusOfCourse(
+        userDecorator,
+        courseBody,
+      );
+      expect(service.getStatusOfCourse).toHaveBeenCalledWith('1', 'course1');
+      expect(service.getStatusOfCourse).toHaveBeenCalledTimes(1);
+      expect(result).toEqual(mockResponse);
+    });
   });
 });
