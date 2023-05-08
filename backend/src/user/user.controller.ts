@@ -7,6 +7,7 @@ import {
   Body,
   Controller,
   Get,
+  Param,
   Patch,
   Post,
   Query,
@@ -64,11 +65,11 @@ export class UserController {
     return await this.userService.completeCourse(user.id, courseIdBody.id);
   }
 
-  @Get('course/status')
+  @Get('course/status/:courseId')
   async getStatusOfCourse(
     @UserDecorator() user: jwtPayload,
-    @Body() courseIdBody: courseIdBodyDto,
+    @Param('courseId') courseId: string,
   ): Promise<number> {
-    return await this.userService.getStatusOfCourse(user.id, courseIdBody.id);
+    return await this.userService.getStatusOfCourse(user.id, courseId);
   }
 }

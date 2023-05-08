@@ -233,16 +233,14 @@ describe('UserController', () => {
         email: 'john@incubyte.co',
       };
 
-      const courseBody = {
-        id: 'course1',
-      };
+      const courseId = 'course1';
 
       const mockResponse = 1;
 
       jest.spyOn(service, 'getStatusOfCourse').mockResolvedValue(mockResponse);
       const result = await controller.getStatusOfCourse(
         userDecorator,
-        courseBody,
+        courseId,
       );
       expect(service.getStatusOfCourse).toHaveBeenCalledWith('1', 'course1');
       expect(service.getStatusOfCourse).toHaveBeenCalledTimes(1);
