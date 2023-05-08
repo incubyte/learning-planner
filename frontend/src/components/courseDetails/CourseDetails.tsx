@@ -53,6 +53,7 @@ const CourseDetails = () => {
       });
     }
   };
+
   const completeCourse = async () => {
     const response = await fetch(
       "https://backend-mu-plum.vercel.app/user/course/completeCourse",
@@ -80,13 +81,40 @@ const CourseDetails = () => {
       });
     }
   };
+
+  const fetchCourseStatus = async () => {
+    const response = await fetch(
+      "https://backend-mu-plum.vercel.app/user/course/status",
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ id: id }),
+      }
+    );
+    if (response.ok) {
+      const courseStatusResponse = await response.json();
+      if (courseStatusResponse == 0) {
+        setIsEnrolled(false);
+        setIsCompleted(false);
+      } else if (courseStatusResponse == 1) {
+        setIsEnrolled(true);
+        setIsCompleted(false);
+      } else {
+        setIsCompleted(true);
+      }
+    }
+  };
+
   const fetchTags = async () => {
     const response = await fetch("https://backend-mu-plum.vercel.app/tag/", {
       headers: {
         Authorization: `Bearer ${authToken}`,
       },
     });
-    if (response && response.ok) {
+    if (response.ok) {
       const tagsResponse = await response.json();
       setTags(tagsResponse);
     }
@@ -96,6 +124,7 @@ const CourseDetails = () => {
   useEffect(() => {
     fetchCourse();
     fetchTags();
+    fetchCourseStatus();
   }, []);
 
   return (
@@ -141,6 +170,7 @@ const CourseDetails = () => {
             <div data-testid="courseButton" className="my-8">
               {!isEnrolled && (
                 <button
+                  data-testid="courseEnroll"
                   className="text-white font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg mr-1 mb-1 ease-linear transition-all duration-150 bg-emerald-500 active:bg-emerald-600"
                   onClick={enrollCourse}
                 >
