@@ -84,14 +84,11 @@ const CourseDetails = () => {
 
   const fetchCourseStatus = async () => {
     const response = await fetch(
-      "https://backend-mu-plum.vercel.app/user/course/status",
+      "https://backend-mu-plum.vercel.app/user/course/status/" + id,
       {
-        method: "GET",
         headers: {
           Authorization: `Bearer ${authToken}`,
-          "Content-Type": "application/json",
         },
-        body: JSON.stringify({ id: id }),
       }
     );
     if (response.ok) {
@@ -161,7 +158,7 @@ const CourseDetails = () => {
               </button>
             ))}
           </div>
-          <div className="container w-10/12 xsm:max-w-full bg-slate-300 rounded-lg">
+          <div className="container w-10/12 xsm:max-w-full bg-slate-300 rounded-lg mb-4">
             <div data-testid="courseDescription" className="m-12">
               <p>{course?.description}</p>
             </div>

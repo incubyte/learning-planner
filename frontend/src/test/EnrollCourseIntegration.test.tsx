@@ -49,7 +49,7 @@ beforeAll(async () => {
 describe("test course detail", () => {
   jest.setTimeout(30000);
   it("Accessing courses detail Page", async () => {
-    const mockId = "123";
+    const mockId = "14463832-3393-4515-ab56-0343efdbbf97";
     render(
       <MemoryRouter initialEntries={[`/course/${mockId}`]}>
         <Routes>

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Carousel from "../utilities/Carousel";
 import Navbar from "../utilities/Navbar";
 import CoursePageIndex from "./CoursePageIndex";
@@ -19,6 +20,7 @@ export interface courseType {
 
 const CoursePage = () => {
   const [query, setQuery] = useState("");
+  const navigator = useNavigate();
   const [availableCourses, setAvailableCourses] = useState<courseType[]>([]);
   const [courseUrl, setCourseUrl] = useState<string>(
     "https://backend-mu-plum.vercel.app/course"
@@ -51,19 +53,18 @@ const CoursePage = () => {
 
   const search = (data: courseType[]) => {
     const pattern = query.replace(/ /g, "").toLowerCase();
-    const filteredList =
-      data?.filter((item: courseType) => {
-        const text = item.name.replace(/ /g, "").toLowerCase();
-        let patternIndex = 0;
-        let textIndex = 0;
-        while (patternIndex < pattern.length && textIndex < text.length) {
-          if (pattern[patternIndex] === text[textIndex]) {
-            patternIndex++;
-          }
-          textIndex++;
+    const filteredList = data?.filter((item: courseType) => {
+      const text = item.name.replace(/ /g, "").toLowerCase();
+      let patternIndex = 0;
+      let textIndex = 0;
+      while (patternIndex < pattern.length && textIndex < text.length) {
+        if (pattern[patternIndex] === text[textIndex]) {
+          patternIndex++;
         }
-        return patternIndex === pattern.length;
-      });
+        textIndex++;
+      }
+      return patternIndex === pattern.length;
+    });
     return filteredList;
   };
 
