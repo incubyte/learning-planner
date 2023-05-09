@@ -27,4 +27,33 @@ export class CourseService {
       },
     });
   }
+
+  async getPopularCourse(): Promise<Course[]> {
+    const userCourse = await this.prismaService.userCourse.groupBy({
+      by: ['courseId'],
+      _count: {
+        courseId: true,
+      },
+      take: 5,
+      orderBy: {
+        _count: {
+          courseId: 'desc',
+        },
+      },
+    });
+
+    const courseIds = userCourse.map(
+      (currentUserCourse) => currentUserCourse.courseId,
+    );
+
+    const courses = await this.prismaService.course.findMany({
+      where: {
+        id: {
+          in: courseIds,
+        },
+      },
+    });
+
+    return courses;
+  }
 }
