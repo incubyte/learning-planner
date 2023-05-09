@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
-import { courseType } from "../courses/Courses";
 import "../../css/courseDetails/courseDetails.css";
+import { courseType } from "../courses/Courses";
 import Navbar from "../utilities/Navbar";
 
 const CourseDetails = () => {
