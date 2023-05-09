@@ -19,6 +19,9 @@ describe('CourseService', () => {
                 findMany: jest.fn(),
                 findFirst: jest.fn(),
               },
+              userCourse: {
+                groupBy: jest.fn(),
+              },
             };
           },
         },
