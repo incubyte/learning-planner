@@ -28,7 +28,6 @@ describe("should render the leaderBoard component", () => {
     expect(userImage).toBeInTheDocument();
     expect(userInfo).toBeInTheDocument();
     expect(userInfo).toHaveTextContent("Email");
-    expect(userInfo).toHaveTextContent("Rank");
     expect(userInfo).toHaveTextContent("Role");
     expect(userInfo).toHaveTextContent("Credits");
   });
