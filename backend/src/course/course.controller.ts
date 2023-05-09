@@ -1,7 +1,7 @@
 import { JwtAuthGuard } from '@Auth/jwt-auth-guard/jwt-auth.guard';
+import { CourseService } from '@Course/course.service';
 import { Controller, Get, Param, Query, UseGuards } from '@nestjs/common';
 import { Course } from '@prisma/client';
-import { CourseService } from '@Course/course.service';
 
 @UseGuards(JwtAuthGuard)
 @Controller('course')
@@ -11,6 +11,11 @@ export class CourseController {
   @Get('/')
   async getAll(): Promise<Course[]> {
     return await this.courseService.getAll();
+  }
+
+  @Get('/populer')
+  async getPopularCourse(): Promise<Course[]> {
+    return this.courseService.getPopularCourse();
   }
   @Get('/getCourseById/:id')
   async getById(@Param('id') id: string): Promise<Course> {
