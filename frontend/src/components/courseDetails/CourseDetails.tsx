@@ -183,6 +183,19 @@ const CourseDetails = () => {
           <ToastContainer />
         </div>
       </div>
+      {isEnrolled && (
+        <div className="resourceContainer">
+          <div className="courseResources">
+            <iframe
+              width="640"
+              height="360"
+              src={course?.resourseUrls[0]}
+              allowFullScreen
+              className="resourceFrame"
+            ></iframe>
+          </div>
+        </div>
+      )}
     </>
   );
 };
