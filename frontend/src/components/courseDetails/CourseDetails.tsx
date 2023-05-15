@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
-import { courseType } from "../courses/Courses";
 import "../../css/courseDetails/courseDetails.css";
+import { courseType } from "../courses/Courses";
 import Navbar from "../utilities/Navbar";
 
 const CourseDetails = () => {
@@ -23,7 +23,6 @@ const CourseDetails = () => {
     if (response.ok) {
       const jsonResnponse = await response.json();
       await setCourse(jsonResnponse);
-      console.log(jsonResnponse);
     }
   };
 
@@ -183,6 +182,19 @@ const CourseDetails = () => {
           <ToastContainer />
         </div>
       </div>
+      {isEnrolled && (
+        <div className="resourceContainer">
+          <div className="courseResources">
+            <iframe
+              width="640"
+              height="360"
+              src={course?.resourseUrls[0]}
+              allowFullScreen
+              className="resourceFrame"
+            ></iframe>
+          </div>
+        </div>
+      )}
     </>
   );
 };

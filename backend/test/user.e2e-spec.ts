@@ -90,7 +90,14 @@ describe('UserController (e2e)', () => {
   it('user/status (GET) - should return the status of course for that users', async () => {
     const courseId = '67778aa0-945d-4864-873d-f29906cb6c4e';
     const response = await request(app.getHttpServer())
-      .get('/user/course/status/:courseId')
+      .get('/user/course/status/:' + courseId)
+      .set('Authorization', `Bearer ${authToken}`);
+    expect(response.status).toBe(200);
+  });
+
+  it('course/populer (GET) - should return populer courses', async () => {
+    const response = await request(app.getHttpServer())
+      .get('/course/populer')
       .set('Authorization', `Bearer ${authToken}`);
     expect(response.status).toBe(200);
   });

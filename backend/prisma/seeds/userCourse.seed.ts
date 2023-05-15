@@ -5,149 +5,149 @@ export async function insertUserCourses(prisma: PrismaClient) {
     data: [
       {
         userId: '2fbc0f79-a1ea-4d5e-9c02-9bfb4dac50c3',
-        courseId: '57baa1dd-5bed-4ef6-af67-e588962e3a55',
+        courseId: '293b19f2-535e-46f7-8862-166cfe2422a1',
         isCompleted: true,
       },
       {
         userId: '2fbc0f79-a1ea-4d5e-9c02-9bfb4dac50c3',
-        courseId: '7be805c9-906e-485f-86a5-0fc11cfe0e2d',
+        courseId: '4a3074d8-549f-48b1-9b7b-64a0db619eec',
         isCompleted: false,
       },
       {
         userId: '2fbc0f79-a1ea-4d5e-9c02-9bfb4dac50c3',
-        courseId: '1d47941f-d10f-411d-821c-32c3f27ec060',
+        courseId: '7cdbab7f-17ce-43f9-ad4b-3984dff7993d',
         isCompleted: false,
       },
       {
         userId: '2fbc0f79-a1ea-4d5e-9c02-9bfb4dac50c3',
-        courseId: '812dbfd0-2aeb-4b87-9b89-d2c86d70c224',
+        courseId: '8dcc541a-ef60-489c-b832-8b286d9e7410',
         isCompleted: true,
       },
 
       {
         userId: '36ebe3de-10a6-4aa2-81b1-8f27468d0f10',
-        courseId: '4c071856-b2a3-4879-bbc1-5e15212ac10b',
+        courseId: '7cdbab7f-17ce-43f9-ad4b-3984dff7993d',
         isCompleted: true,
       },
       {
         userId: '36ebe3de-10a6-4aa2-81b1-8f27468d0f10',
-        courseId: '14463832-3393-4515-ab56-0343efdbbf97',
+        courseId: '8dcc541a-ef60-489c-b832-8b286d9e7410',
         isCompleted: true,
       },
       {
         userId: '36ebe3de-10a6-4aa2-81b1-8f27468d0f10',
-        courseId: '1d47941f-d10f-411d-821c-32c3f27ec060',
+        courseId: '9c1d4c5e-6e6d-4cf3-a828-fc238baf1cf0',
         isCompleted: true,
       },
       {
         userId: '36ebe3de-10a6-4aa2-81b1-8f27468d0f10',
-        courseId: '57baa1dd-5bed-4ef6-af67-e588962e3a55',
+        courseId: 'ae2e06ab-46e3-4ba5-ab64-124151e833d7',
         isCompleted: true,
       },
 
       {
         userId: 'b3a6a0ae-9d12-48e3-b3bc-c371c5823da6',
-        courseId: '57baa1dd-5bed-4ef6-af67-e588962e3a55',
+        courseId: '9c1d4c5e-6e6d-4cf3-a828-fc238baf1cf0',
         isCompleted: false,
       },
       {
         userId: 'b3a6a0ae-9d12-48e3-b3bc-c371c5823da6',
-        courseId: '67778aa0-945d-4864-873d-f29906cb6c4e',
+        courseId: 'ae2e06ab-46e3-4ba5-ab64-124151e833d7',
         isCompleted: false,
       },
       {
         userId: 'b3a6a0ae-9d12-48e3-b3bc-c371c5823da6',
-        courseId: '7b9b4e49-f56d-4572-aa12-ef998ed228d9',
+        courseId: 'bdbdf8d4-2928-44ab-a5a3-9fbd5a873212',
         isCompleted: false,
       },
       {
         userId: 'b3a6a0ae-9d12-48e3-b3bc-c371c5823da6',
-        courseId: '1d47941f-d10f-411d-821c-32c3f27ec060',
+        courseId: 'c96df454-0625-4abb-a85e-eeb05fc5213e',
         isCompleted: true,
       },
 
       {
         userId: 'ba50fb85-639c-4ab3-ad28-af0aa1c39d4d',
-        courseId: '7b9b4e49-f56d-4572-aa12-ef998ed228d9',
+        courseId: 'c96df454-0625-4abb-a85e-eeb05fc5213e',
         isCompleted: false,
       },
       {
         userId: 'ba50fb85-639c-4ab3-ad28-af0aa1c39d4d',
-        courseId: '812dbfd0-2aeb-4b87-9b89-d2c86d70c224',
+        courseId: 'e876fe8a-ad7f-4e33-ba2e-f9ebe008e4ea',
         isCompleted: true,
       },
       {
         userId: 'ba50fb85-639c-4ab3-ad28-af0aa1c39d4d',
-        courseId: '67778aa0-945d-4864-873d-f29906cb6c4e',
+        courseId: '293b19f2-535e-46f7-8862-166cfe2422a1',
         isCompleted: false,
       },
       {
         userId: 'ba50fb85-639c-4ab3-ad28-af0aa1c39d4d',
-        courseId: '1d47941f-d10f-411d-821c-32c3f27ec060',
+        courseId: '4a3074d8-549f-48b1-9b7b-64a0db619eec',
         isCompleted: true,
       },
 
       {
         userId: 'ecb768e8-6a76-4daa-bce5-6abb123eccbf',
-        courseId: '57baa1dd-5bed-4ef6-af67-e588962e3a55',
+        courseId: '4a3074d8-549f-48b1-9b7b-64a0db619eec',
         isCompleted: true,
       },
       {
         userId: 'ecb768e8-6a76-4daa-bce5-6abb123eccbf',
-        courseId: '7be805c9-906e-485f-86a5-0fc11cfe0e2d',
+        courseId: '8dcc541a-ef60-489c-b832-8b286d9e7410',
         isCompleted: false,
       },
       {
         userId: 'ecb768e8-6a76-4daa-bce5-6abb123eccbf',
-        courseId: '1d47941f-d10f-411d-821c-32c3f27ec060',
+        courseId: '7cdbab7f-17ce-43f9-ad4b-3984dff7993d',
         isCompleted: false,
       },
 
       {
         userId: 'ee718e97-27b2-479e-8255-47f53f9330eb',
-        courseId: '4c071856-b2a3-4879-bbc1-5e15212ac10b',
+        courseId: '8dcc541a-ef60-489c-b832-8b286d9e7410',
         isCompleted: false,
       },
       {
         userId: 'ee718e97-27b2-479e-8255-47f53f9330eb',
-        courseId: '14463832-3393-4515-ab56-0343efdbbf97',
+        courseId: '9c1d4c5e-6e6d-4cf3-a828-fc238baf1cf0',
         isCompleted: true,
       },
       {
         userId: 'ee718e97-27b2-479e-8255-47f53f9330eb',
-        courseId: '1d47941f-d10f-411d-821c-32c3f27ec060',
+        courseId: 'ae2e06ab-46e3-4ba5-ab64-124151e833d7',
         isCompleted: true,
       },
 
       {
         userId: 'fae6f3cc-f2d2-4abc-a5d4-18db41aed554',
-        courseId: '57baa1dd-5bed-4ef6-af67-e588962e3a55',
+        courseId: 'ae2e06ab-46e3-4ba5-ab64-124151e833d7',
         isCompleted: false,
       },
       {
         userId: 'fae6f3cc-f2d2-4abc-a5d4-18db41aed554',
-        courseId: '67778aa0-945d-4864-873d-f29906cb6c4e',
+        courseId: 'bdbdf8d4-2928-44ab-a5a3-9fbd5a873212',
         isCompleted: false,
       },
       {
         userId: 'fae6f3cc-f2d2-4abc-a5d4-18db41aed554',
-        courseId: '7b9b4e49-f56d-4572-aa12-ef998ed228d9',
+        courseId: 'c96df454-0625-4abb-a85e-eeb05fc5213e',
         isCompleted: false,
       },
 
       {
         userId: 'fd9f12a7-e364-4372-b357-5bacb2d980cd',
-        courseId: '7b9b4e49-f56d-4572-aa12-ef998ed228d9',
+        courseId: 'c96df454-0625-4abb-a85e-eeb05fc5213e',
         isCompleted: false,
       },
       {
         userId: 'fd9f12a7-e364-4372-b357-5bacb2d980cd',
-        courseId: '812dbfd0-2aeb-4b87-9b89-d2c86d70c224',
+        courseId: 'e876fe8a-ad7f-4e33-ba2e-f9ebe008e4ea',
         isCompleted: true,
       },
       {
         userId: 'fd9f12a7-e364-4372-b357-5bacb2d980cd',
-        courseId: '67778aa0-945d-4864-873d-f29906cb6c4e',
+        courseId: '8dcc541a-ef60-489c-b832-8b286d9e7410',
         isCompleted: false,
       },
     ],
