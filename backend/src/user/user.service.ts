@@ -99,13 +99,13 @@ export class UserService {
       },
     });
 
-    return users.map((user) => {
-      const userCourseCount = userCourse.find(
-        (currentUserCourse) => currentUserCourse.userId === user.id,
+    return userCourse.map((Course) => {
+      const user = users.find(
+        (currentUserCourse) => currentUserCourse.id === Course.userId,
       );
       return {
         user: user,
-        CompletedCourseCount: userCourseCount._count.courseId,
+        CompletedCourseCount: Course._count.courseId,
       };
     });
   }

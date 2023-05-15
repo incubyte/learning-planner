@@ -1,15 +1,37 @@
-import React, { useEffect, useState } from "react";
-import "../../css/home/LeaderBoard.css";
-import { courseType } from "../courses/Courses";
 import Carousel from "../utilities/Carousel";
+import "../../css/home/LeaderBoard.css";
+import { useEffect, useState } from "react";
+import { courseType } from "../courses/Courses";
 import { LeaderBoardType } from "./LeaderBoardType";
+import React from "react";
+import { userType } from "../user/user";
 
 const LeaderBoard = () => {
   const [activeCourses, setActiveCourses] = useState<courseType[]>([]);
   const [leaderBoardUsers, setLeaderBoardUsers] = useState<LeaderBoardType[]>(
     []
   );
+  const [currentUserCredit, setCurrentUserCredit] = useState<number>(0);
+  const [currentUser, setCurrentUser] = useState<userType>();
+
   const authToken = localStorage.getItem("authToken");
+
+  const fetchCurrentUserCredit = async () => {
+    const response = await fetch(
+      "https://backend-mu-plum.vercel.app/user/course?status=completed",
+      {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+      }
+    );
+
+    if (response.ok) {
+      const fetchCourses = await response.json();
+      setCurrentUserCredit(fetchCourses.courses.length * 10);
+    }
+  };
+
   const fetchActiveCourses = async () => {
     const response = await fetch(
       "https://backend-mu-plum.vercel.app/user/course?status=active",
@@ -21,8 +43,8 @@ const LeaderBoard = () => {
     );
 
     if (response.ok) {
-      const courses = await response.json();
-      setActiveCourses(courses.courses);
+      const fetchCourses = await response.json();
+      setActiveCourses(fetchCourses.courses);
     }
   };
 
@@ -38,25 +60,36 @@ const LeaderBoard = () => {
 
     if (response.ok) {
       const leaderBoardUsersResponse = await response.json();
-      console.log(leaderBoardUsersResponse);
       setLeaderBoardUsers(leaderBoardUsersResponse);
     }
   };
 
+  const fetchCurrentUser = async () => {
+    const response = await fetch("https://backend-mu-plum.vercel.app/user", {
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+      },
+    });
+
+    if (response.ok) {
+      const currentUserResponse = await response.json();
+      setCurrentUser(currentUserResponse);
+    }
+  };
+
   useEffect(() => {
+    fetchCurrentUserCredit();
     fetchActiveCourses();
     fetchLeaderBoardUsers();
+    fetchCurrentUser();
   }, []);
 
   return (
     <>
-      <div
-        className="flex flex-wrap justify-between items-center border p-5 border-gray-200 rounded-lg "
-        role="leaderBoard"
-      >
+      <div className="LeaderBoardContainer " role="leaderBoard">
         <div className="w-full text-center mb-8">
           <h2
-            className="text-3xl font-semibold text-center"
+            className="LeaderBoardTitleContainer"
             data-testid="leaderBoardTitle"
           >
             The Leader Board
@@ -67,7 +100,7 @@ const LeaderBoard = () => {
             <div>
               <img
                 className="LeaderBoardInnerFirstImageContainer"
-                src={leaderBoardUsers[0]?.user?.profilePhoto}
+                src={currentUser?.profilePhoto}
                 alt="user image"
                 data-testid="container1 Image"
               />
@@ -77,25 +110,24 @@ const LeaderBoard = () => {
               data-testid="container1 user Info"
             >
               <div className="LeaderBoardUserInnerInfoContainer">
-                <p className="LeaderBoardUserInnerInfo">Rank : 1</p>
                 <p className="LeaderBoardUserInnerInfo">
-                  Email : {leaderBoardUsers[0]?.user?.email}
+                  Email : {currentUser?.email}
                 </p>
                 <p className="LeaderBoardUserInnerInfo">
-                  Credits : {leaderBoardUsers[0]?.CompletedCourseCount * 10}
+                  Credits :{currentUserCredit}
                 </p>
                 <p className="LeaderBoardUserInnerInfo">
-                  Role : {leaderBoardUsers[0]?.user?.role}
+                  Role : {currentUser?.role}
                 </p>
               </div>
             </div>
           </div>
         </div>
-        <div className="LeaderBoardContainers" data-testid="container2">
+        <div className="LeaderBoardContainers p-4" data-testid="container2">
           <div className="LeaderBoardContainerTwoTableContainer">
             <div className="LeaderBoardInnerContainerScrollbar">
               <table
-                className="LeaderBoardContainerTwoTable"
+                className="LeaderBoardContainerTwoTable "
                 data-testid="container2 table"
               >
                 <thead>
@@ -114,8 +146,13 @@ const LeaderBoard = () => {
                   {leaderBoardUsers.map((leaderBoardUser, index) => {
                     return (
                       <React.Fragment key={index}>
-                        {index > 0 && (
-                          <tr role="row">
+                        {
+                          <tr
+                            className={`${
+                              index % 2 === 0 ? "bg-gray-200" : "bg-white"
+                            }`}
+                            role="row"
+                          >
                             <td className="LeaderBoardContainerTwoTableBorder">
                               {index + 1}
                             </td>
@@ -129,7 +166,7 @@ const LeaderBoard = () => {
                               {leaderBoardUser?.CompletedCourseCount * 10}
                             </td>
                           </tr>
-                        )}
+                        }
                       </React.Fragment>
                     );
                   })}
