@@ -22,6 +22,7 @@ const CoursePage = () => {
   const [query, setQuery] = useState("");
   const navigator = useNavigate();
   const [availableCourses, setAvailableCourses] = useState<courseType[]>([]);
+  const [popularCourses, setPopularCourses] = useState<courseType[]>([]);
   const [courseUrl, setCourseUrl] = useState<string>(
     "https://backend-mu-plum.vercel.app/course"
   );
@@ -46,9 +47,24 @@ const CoursePage = () => {
       setAvailableCourses(courses);
     }
   };
+  const fetchPopularCourses = async () => {
+    const response = await fetch(
+      "https://backend-mu-plum.vercel.app/course/popular",
+      {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+      }
+    );
+    if (response && response.ok) {
+      const courses = await response.json();
+      setPopularCourses(courses);
+    }
+  };
 
   useEffect(() => {
     fetchCourses(courseUrl);
+    fetchPopularCourses();
   }, []);
 
   const search = (data: courseType[]) => {
@@ -83,7 +99,7 @@ const CoursePage = () => {
       <hr className="mt-10" />
       <Carousel
         titleName="Popular courses"
-        courses={search(availableCourses)}
+        courses={search(popularCourses)}
         contentId="popContent"
       />
       <hr className="mt-10" />
