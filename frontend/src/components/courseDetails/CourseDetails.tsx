@@ -23,7 +23,6 @@ const CourseDetails = () => {
     if (response.ok) {
       const jsonResnponse = await response.json();
       await setCourse(jsonResnponse);
-      console.log(jsonResnponse);
     }
   };
 
