@@ -183,5 +183,68 @@ describe('UserController', () => {
       expect(service.getLeaderboard).toHaveBeenCalledWith();
       expect(result).toEqual(mockResponse);
     });
+
+    it('should enroll course for the user', async () => {
+      const userDecorator = {
+        id: '1',
+        email: 'john@incubyte.co',
+      };
+
+      const courseBody = {
+        id: 'course1',
+      };
+
+      const mockResponse = {
+        id: 1,
+        userId: '1',
+        courseId: 'course1',
+        isCompleted: false,
+      };
+
+      jest.spyOn(service, 'enrollCourse').mockResolvedValue(mockResponse);
+      const result = await controller.enrollCourse(userDecorator, courseBody);
+      expect(service.enrollCourse).toHaveBeenCalledWith('1', 'course1');
+      expect(result).toEqual(mockResponse);
+    });
+
+    it('should make course completed for the user', async () => {
+      const userDecorator = {
+        id: '1',
+        email: 'john@incubyte.co',
+      };
+      const courseBody = {
+        id: 'course1',
+      };
+      const mockResponse = {
+        id: 1,
+        userId: '1',
+        courseId: 'course1',
+        isCompleted: true,
+      };
+      jest.spyOn(service, 'completeCourse').mockResolvedValue(mockResponse);
+      const result = await controller.completeCourse(userDecorator, courseBody);
+      expect(service.completeCourse).toHaveBeenCalledWith('1', 'course1');
+      expect(result).toEqual(mockResponse);
+    });
+
+    it('should return the status of course for that users', async () => {
+      const userDecorator = {
+        id: '1',
+        email: 'john@incubyte.co',
+      };
+
+      const courseId = 'course1';
+
+      const mockResponse = 1;
+
+      jest.spyOn(service, 'getStatusOfCourse').mockResolvedValue(mockResponse);
+      const result = await controller.getStatusOfCourse(
+        userDecorator,
+        courseId,
+      );
+      expect(service.getStatusOfCourse).toHaveBeenCalledWith('1', 'course1');
+      expect(service.getStatusOfCourse).toHaveBeenCalledTimes(1);
+      expect(result).toEqual(mockResponse);
+    });
   });
 });

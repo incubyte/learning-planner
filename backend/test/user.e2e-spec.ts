@@ -59,4 +59,39 @@ describe('UserController (e2e)', () => {
 
     expect(response.body.length).toBeGreaterThan(0);
   });
+
+  it('user/course/enroll/ (POST) - should enroll the course the user', async () => {
+    const courseBody = {
+      id: '67778aa0-945d-4864-873d-f29906cb6c4e',
+    };
+
+    const response = await request(app.getHttpServer())
+      .post('/user/course/enroll')
+      .send(courseBody)
+      .set('Authorization', `Bearer ${authToken}`);
+    expect(response.status).toBe(201);
+    expect(response.body.courseId).toEqual(courseBody.id);
+  });
+
+  it('user/course/completeCourse/ (POST) - should make the course completed for the user', async () => {
+    const courseBody = {
+      id: '67778aa0-945d-4864-873d-f29906cb6c4e',
+    };
+
+    const response = await request(app.getHttpServer())
+      .patch('/user/course/completeCourse')
+      .send(courseBody)
+      .set('Authorization', `Bearer ${authToken}`);
+    expect(response.status).toBe(200);
+    expect(response.body.courseId).toEqual(courseBody.id);
+    expect(response.body.isCompleted).toEqual(true);
+  });
+
+  it('user/status (GET) - should return the status of course for that users', async () => {
+    const courseId = '67778aa0-945d-4864-873d-f29906cb6c4e';
+    const response = await request(app.getHttpServer())
+      .get('/user/course/status/:courseId')
+      .set('Authorization', `Bearer ${authToken}`);
+    expect(response.status).toBe(200);
+  });
 });

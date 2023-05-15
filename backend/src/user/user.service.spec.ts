@@ -4,6 +4,8 @@ import { UpdateUserDto } from '@User/dto/updateUser.dto';
 import { UserService } from '@User/user.service';
 import { Test, TestingModule } from '@nestjs/testing';
 import { ProfileCourseDto } from './dto/profileCourse.dto';
+import { BadRequestException, NotFoundException } from '@nestjs/common';
+import { UserCourse } from '@prisma/client';
 
 describe('UserService', () => {
   let service: UserService;
@@ -24,6 +26,9 @@ describe('UserService', () => {
               userCourse: {
                 findMany: jest.fn(),
                 groupBy: jest.fn(),
+                findFirst: jest.fn(),
+                update: jest.fn(),
+                create: jest.fn(),
               },
               course: {
                 findFirst: jest.fn(),
@@ -37,6 +42,10 @@ describe('UserService', () => {
 
     service = module.get<UserService>(UserService);
     prismaService = module.get<PrismaService>(PrismaService);
+  });
+
+  afterEach(() => {
+    jest.resetAllMocks();
   });
 
   it('should be defined', () => {
@@ -235,7 +244,7 @@ describe('UserService', () => {
       expect(prismaService.userCourse.findMany).toHaveBeenCalledWith({
         where: { userId: prismaUserId, isCompleted: true },
       });
-      expect(prismaService.course.findMany).toHaveBeenNthCalledWith(2, {
+      expect(prismaService.course.findMany).toHaveBeenNthCalledWith(1, {
         where: {
           id: {
             in: courseIds,
@@ -359,6 +368,200 @@ describe('UserService', () => {
 
       expect(prismaService.userCourse.groupBy).toBeCalledTimes(1);
       expect(leaderboard).toEqual(mockResponse);
+    });
+
+    it('should enroll the course for user', async () => {
+      const mockUserCourse: UserCourse = null;
+      jest
+        .spyOn(prismaService.userCourse, 'findFirst')
+        .mockResolvedValueOnce(mockUserCourse);
+
+      const mockCreateUserCourse: UserCourse = {
+        id: 1,
+        userId: '1',
+        courseId: 'course1',
+        isCompleted: false,
+      };
+
+      jest
+        .spyOn(prismaService.userCourse, 'create')
+        .mockResolvedValueOnce(mockCreateUserCourse);
+      const result = await service.enrollCourse('1', 'course1');
+      expect(result).toEqual(mockCreateUserCourse);
+      expect(prismaService.userCourse.findFirst).toHaveBeenCalledWith({
+        where: {
+          userId: '1',
+          courseId: 'course1',
+        },
+      });
+      expect(prismaService.userCourse.create).toHaveBeenCalledWith({
+        data: {
+          userId: '1',
+          courseId: 'course1',
+          isCompleted: false,
+        },
+      });
+    });
+
+    it('should throw BadRequestException when user is already enrolled in course', async () => {
+      const mockUserCourse: UserCourse = {
+        id: 1,
+        userId: '1',
+        courseId: 'course1',
+        isCompleted: false,
+      };
+      jest
+        .spyOn(prismaService.userCourse, 'findFirst')
+        .mockResolvedValueOnce(mockUserCourse);
+      jest.spyOn(service, 'isUserEnrolledInCourse').mockReturnValue(true);
+      await expect(service.enrollCourse('1', 'course1')).rejects.toThrow(
+        BadRequestException,
+      );
+      expect(prismaService.userCourse.create).not.toHaveBeenCalled();
+    });
+
+    it('should return true when user is enrolled in course', () => {
+      const userCourse: UserCourse = {
+        id: 1,
+        userId: '1',
+        courseId: 'course1',
+        isCompleted: false,
+      };
+      expect(service.isUserEnrolledInCourse(userCourse)).toBe(true);
+    });
+
+    it('should return false when user is not enrolled in course', () => {
+      const userCourse: UserCourse = null;
+      expect(service.isUserEnrolledInCourse(userCourse)).toBe(false);
+    });
+
+    it('should complete the course for the user', async () => {
+      const mockUserCourse: UserCourse = {
+        id: 1,
+        userId: '1',
+        courseId: 'course1',
+        isCompleted: false,
+      };
+      const updatedMockUser: UserCourse = {
+        id: 1,
+        userId: '1',
+        courseId: 'course1',
+        isCompleted: true,
+      };
+      jest
+        .spyOn(prismaService.userCourse, 'findFirst')
+        .mockResolvedValueOnce(mockUserCourse);
+      jest
+        .spyOn(prismaService.userCourse, 'update')
+        .mockResolvedValueOnce(updatedMockUser);
+      const result = await service.completeCourse('1', 'course1');
+      expect(result).toEqual(updatedMockUser);
+      expect(prismaService.userCourse.findFirst).toHaveBeenCalledWith({
+        where: {
+          userId: '1',
+          courseId: 'course1',
+        },
+      });
+      expect(prismaService.userCourse.update).toHaveBeenCalledWith({
+        where: {
+          id: 1,
+        },
+        data: {
+          isCompleted: true,
+        },
+      });
+    });
+
+    it('should throw NotFoundExecption if user is not enrolled for course', async () => {
+      const mockUserCourse: UserCourse = null;
+      jest
+        .spyOn(prismaService.userCourse, 'findFirst')
+        .mockResolvedValueOnce(mockUserCourse);
+      await expect(service.completeCourse('1', 'course1')).rejects.toThrow(
+        NotFoundException,
+      );
+      expect(prismaService.userCourse.update).not.toHaveBeenCalled();
+      expect(prismaService.userCourse.findFirst).toHaveBeenCalledWith({
+        where: {
+          userId: '1',
+          courseId: 'course1',
+        },
+      });
+    });
+
+    it('should throw BadRequestExecption if course is already completed', async () => {
+      const mockUserCourse: UserCourse = {
+        id: 1,
+        userId: '1',
+        courseId: 'course1',
+        isCompleted: true,
+      };
+      jest
+        .spyOn(prismaService.userCourse, 'findFirst')
+        .mockResolvedValueOnce(mockUserCourse);
+      await expect(service.completeCourse('1', 'course1')).rejects.toThrow(
+        BadRequestException,
+      );
+      expect(prismaService.userCourse.update).not.toHaveBeenCalled();
+      expect(prismaService.userCourse.findFirst).toHaveBeenCalledWith({
+        where: {
+          userId: '1',
+          courseId: 'course1',
+        },
+      });
+    });
+
+    it('should return 0 if the user is not enrolled for course', async () => {
+      jest.spyOn(prismaService.userCourse, 'findFirst').mockResolvedValue(null);
+      const result = await service.getStatusOfCourse('1', 'course1');
+      expect(prismaService.userCourse.findFirst).toBeCalledTimes(1);
+      expect(prismaService.userCourse.findFirst).toHaveBeenCalledWith({
+        where: {
+          userId: '1',
+          courseId: 'course1',
+        },
+      });
+      expect(result).toEqual(0);
+    });
+    it('should return 1 if the user is enrolled for course but not completed the course', async () => {
+      const mockUserCourse: UserCourse = {
+        id: 1,
+        userId: '1',
+        courseId: 'course1',
+        isCompleted: false,
+      };
+      jest
+        .spyOn(prismaService.userCourse, 'findFirst')
+        .mockResolvedValue(mockUserCourse);
+      const result = await service.getStatusOfCourse('1', 'course1');
+      expect(prismaService.userCourse.findFirst).toBeCalledTimes(1);
+      expect(prismaService.userCourse.findFirst).toHaveBeenCalledWith({
+        where: {
+          userId: '1',
+          courseId: 'course1',
+        },
+      });
+      expect(result).toEqual(1);
+    });
+    it('should return 2 if the user has completed the course', async () => {
+      const mockUserCourse: UserCourse = {
+        id: 1,
+        userId: '1',
+        courseId: 'course1',
+        isCompleted: true,
+      };
+      jest
+        .spyOn(prismaService.userCourse, 'findFirst')
+        .mockResolvedValue(mockUserCourse);
+      const result = await service.getStatusOfCourse('1', 'course1');
+      expect(prismaService.userCourse.findFirst).toBeCalledTimes(1);
+      expect(prismaService.userCourse.findFirst).toHaveBeenCalledWith({
+        where: {
+          userId: '1',
+          courseId: 'course1',
+        },
+      });
+      expect(result).toEqual(2);
     });
   });
 });

@@ -3,10 +3,20 @@ import { JwtAuthGuard } from '@Auth/jwt-auth-guard/jwt-auth.guard';
 import { jwtPayload } from '@Auth/jwtpayload/jwt.payload';
 import { UpdateUserDto } from '@User/dto/updateUser.dto';
 import { UserService } from '@User/user.service';
-import { Body, Controller, Get, Patch, Query, UseGuards } from '@nestjs/common';
-import { User } from '@prisma/client';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Patch,
+  Post,
+  Query,
+  UseGuards,
+} from '@nestjs/common';
+import { User, UserCourse } from '@prisma/client';
 import { LeaderboardDto } from './dto/leaderboard.dto';
 import { ProfileCourseDto } from './dto/profileCourse.dto';
+import { courseIdBodyDto } from './dto/courseIdBody.dto';
 
 @UseGuards(JwtAuthGuard)
 @Controller('user')
@@ -37,5 +47,29 @@ export class UserController {
   @Get('/leaderboard')
   async getLeaderboard(): Promise<LeaderboardDto[]> {
     return await this.userService.getLeaderboard();
+  }
+
+  @Post('/course/enroll')
+  async enrollCourse(
+    @UserDecorator() user: jwtPayload,
+    @Body() courseIdBody: courseIdBodyDto,
+  ): Promise<UserCourse> {
+    return await this.userService.enrollCourse(user.id, courseIdBody.id);
+  }
+
+  @Patch('course/completeCourse')
+  async completeCourse(
+    @UserDecorator() user: jwtPayload,
+    @Body() courseIdBody: courseIdBodyDto,
+  ): Promise<UserCourse> {
+    return await this.userService.completeCourse(user.id, courseIdBody.id);
+  }
+
+  @Get('course/status/:courseId')
+  async getStatusOfCourse(
+    @UserDecorator() user: jwtPayload,
+    @Param('courseId') courseId: string,
+  ): Promise<number> {
+    return await this.userService.getStatusOfCourse(user.id, courseId);
   }
 }
