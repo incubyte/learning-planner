@@ -1,9 +1,8 @@
-import Carousel from "../utilities/Carousel";
+import React, { useEffect, useState } from "react";
 import "../../css/home/LeaderBoard.css";
-import { useEffect, useState } from "react";
 import { courseType } from "../courses/Courses";
+import Carousel from "../utilities/Carousel";
 import { LeaderBoardType } from "./LeaderBoardType";
-import React from "react";
 
 const LeaderBoard = () => {
   const [activeCourses, setActiveCourses] = useState<courseType[]>([]);
@@ -13,7 +12,7 @@ const LeaderBoard = () => {
   const authToken = localStorage.getItem("authToken");
   const fetchActiveCourses = async () => {
     const response = await fetch(
-      "https://backend-mu-plum.vercel.app/user/course?status='active'",
+      "https://backend-mu-plum.vercel.app/user/course?status=active",
       {
         headers: {
           Authorization: `Bearer ${authToken}`,
@@ -23,7 +22,7 @@ const LeaderBoard = () => {
 
     if (response.ok) {
       const courses = await response.json();
-      setActiveCourses(courses);
+      setActiveCourses(courses.courses);
     }
   };
 
@@ -39,6 +38,7 @@ const LeaderBoard = () => {
 
     if (response.ok) {
       const leaderBoardUsersResponse = await response.json();
+      console.log(leaderBoardUsersResponse);
       setLeaderBoardUsers(leaderBoardUsersResponse);
     }
   };
@@ -82,7 +82,7 @@ const LeaderBoard = () => {
                   Email : {leaderBoardUsers[0]?.user?.email}
                 </p>
                 <p className="LeaderBoardUserInnerInfo">
-                  Credits : {leaderBoardUsers[0]?.count * 10}
+                  Credits : {leaderBoardUsers[0]?.CompletedCourseCount * 10}
                 </p>
                 <p className="LeaderBoardUserInnerInfo">
                   Role : {leaderBoardUsers[0]?.user?.role}
@@ -126,7 +126,7 @@ const LeaderBoard = () => {
                               {leaderBoardUser?.user?.role}
                             </td>
                             <td className="LeaderBoardContainerTwoTableBorder">
-                              {leaderBoardUser?.count * 10}
+                              {leaderBoardUser?.CompletedCourseCount * 10}
                             </td>
                           </tr>
                         )}

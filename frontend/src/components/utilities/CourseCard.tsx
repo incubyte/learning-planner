@@ -1,11 +1,12 @@
+import { Link } from "react-router-dom";
 import "../../css/courses/CourseCard.css";
-import Button from "../utilities/Button";
+import "../../css/utilities/Button.css";
 interface courseCardProps {
   id: string;
   courseImage: string;
   courseName: string;
 }
-const CourseCard = ({ courseImage, courseName }: courseCardProps) => {
+const CourseCard = ({ id, courseImage, courseName }: courseCardProps) => {
   return (
     <>
       <div className="carouselCardContainer">
@@ -26,7 +27,13 @@ const CourseCard = ({ courseImage, courseName }: courseCardProps) => {
               </div>
             </div>
             <div className="courseCardButtonContainer">
-              <Button title="Explore" />
+              {/* <Button title="Explore" /> */}
+              <button
+                className="buttonContainer"
+                data-testid="courseCardButton"
+              >
+                <Link to={"/course/" + id}>Explore</Link>
+              </button>
             </div>
           </div>
         </div>

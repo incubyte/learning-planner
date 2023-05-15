@@ -1,9 +1,10 @@
 import React, { Suspense } from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import LoadingScreen from "./components/utilities/LoadingScreen";
 import SignIn from "./components/auth/SignIn";
 import SignUp from "./components/auth/SignUp";
+
+import LoadingScreen from "./components/utilities/LoadingScreen";
 import "./index.css";
 
 const root = ReactDOM.createRoot(
@@ -13,7 +14,9 @@ const App = React.lazy(() => import("./App"));
 const HomePage = React.lazy(() => import("./components/home/HomePage"));
 const Courses = React.lazy(() => import("./components/courses/Courses"));
 const Profile = React.lazy(() => import("./components/user/Profile"));
-
+const CourseDetails = React.lazy(
+  () => import("./components/courseDetails/CourseDetails")
+);
 const router = createBrowserRouter([
   {
     path: "/",
@@ -36,6 +39,14 @@ const router = createBrowserRouter([
         element: (
           <Suspense fallback={<LoadingScreen />}>
             <Courses />
+          </Suspense>
+        ),
+      },
+      {
+        path: "course/:id",
+        element: (
+          <Suspense fallback={<LoadingScreen />}>
+            <CourseDetails />
           </Suspense>
         ),
       },
