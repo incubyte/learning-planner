@@ -1,6 +1,6 @@
 import { Transition } from "@headlessui/react";
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import IncubyteLogo from "../../assets/IncubyteLogo.png";
 import "../../css/courses/Navbar.css";
 import CloseMenu from "./icons/CloseMenu";
@@ -15,7 +15,22 @@ interface NavbarProps {
 }
 
 const Navbar = (props: NavbarProps) => {
+  const navigator = useNavigate();
+
   const [isOpen, setIsOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
+
+  const logout = async () => {
+    localStorage.removeItem("authToken");
+    setIsLoggedIn(false);
+  };
+
+  useEffect(() => {
+    if (!localStorage.getItem("authToken")) {
+      navigator("/auth/signin");
+    }
+  }, [isLoggedIn]);
+
   return (
     <>
       <div className="sticky top-0 z-50">
@@ -74,6 +89,14 @@ const Navbar = (props: NavbarProps) => {
                       </div>
                     </div>
                   )}
+                  <Link
+                    to="/"
+                    className="navbarHeaderItems"
+                    data-testid="navbarHeaderLogoutLink"
+                    onClick={logout}
+                  >
+                    Logout
+                  </Link>
                 </div>
               </div>
 
