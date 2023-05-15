@@ -182,7 +182,7 @@ const CourseDetails = () => {
           <ToastContainer />
         </div>
       </div>
-      {isEnrolled && (
+      {(isEnrolled || isCompleted) && (
         <div className="resourceContainer">
           <div className="courseResources">
             <iframe
