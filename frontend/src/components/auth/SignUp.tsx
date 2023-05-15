@@ -4,6 +4,7 @@ import "react-toastify/dist/ReactToastify.css";
 import "tippy.js/dist/tippy.css";
 import "../../css/auth/SignUp.css";
 import SignUpForm from "../utilities/SignUpForm";
+import loginImage from "../../assets/login-image.jpg";
 
 const SignUp = () => {
   const navigator = useNavigate();
@@ -41,10 +42,7 @@ const SignUp = () => {
     <>
       <div className="SignUpContainer">
         <div className="SignUpLeftside">
-          <img
-            className="SignUpImage"
-            src="https://wallpapercave.com/wp/wp6480749.jpg"
-          ></img>
+          <img className="SignUpImage" src={loginImage}></img>
         </div>
 
         <div className="SignUpRightside">

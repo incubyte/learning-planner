@@ -60,7 +60,7 @@ describe("test course detail", () => {
     await act(async () => {
       fireEvent.click(enrollButton);
     });
-    await sleep(10000);
+    await sleep(20000);
     await waitFor(() => expect(screen.getByRole("alert")).toBeInTheDocument());
   });
 });

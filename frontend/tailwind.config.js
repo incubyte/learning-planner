@@ -3,7 +3,7 @@ module.exports = {
   theme: {
     extend: {
       backgroundImage: {
-        "sign-in":"url('https://wallpapercave.com/wp/wp6480749.jpg')",
+        "sign-in":"url('https://res.cloudinary.com/dxepcudkt/image/upload/v1684145595/login-image-sm_aqotkp.jpg')",
       },
       screens:{
       "xsm": "200px",

@@ -3,6 +3,7 @@ import { toast } from "react-toastify";
 import "tippy.js/dist/tippy.css";
 import "../../css/auth/SignIn.css";
 import SignInForm from "../utilities/SignInForm";
+import loginImage from "../../assets/login-image.jpg";
 
 const SignIn = () => {
   const navigator = useNavigate();
@@ -36,10 +37,7 @@ const SignIn = () => {
     <>
       <div className="SignInContainer">
         <div className="SignInLeftside">
-          <img
-            className="SignInImage"
-            src="https://wallpapercave.com/wp/wp6480749.jpg"
-          ></img>
+          <img className="SignInImage" src={loginImage}></img>
         </div>
 
         <div className="SignInRightside">
