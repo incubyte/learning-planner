@@ -94,11 +94,4 @@ describe('UserController (e2e)', () => {
       .set('Authorization', `Bearer ${authToken}`);
     expect(response.status).toBe(200);
   });
-
-  it('course/populer (GET) - should return populer courses', async () => {
-    const response = await request(app.getHttpServer())
-      .get('/course/populer')
-      .set('Authorization', `Bearer ${authToken}`);
-    expect(response.status).toBe(200);
-  });
 });

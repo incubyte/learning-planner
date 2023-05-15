@@ -13,7 +13,7 @@ export class CourseController {
     return await this.courseService.getAll();
   }
 
-  @Get('/populer')
+  @Get('/popular')
   async getPopularCourse(): Promise<Course[]> {
     return this.courseService.getPopularCourse();
   }
