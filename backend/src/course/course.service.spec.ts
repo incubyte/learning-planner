@@ -183,7 +183,7 @@ describe('CourseService', () => {
       expect(result).toMatchObject(mockResponse);
     });
 
-    it('should return populer course', async () => {
+    it('should return popular course', async () => {
       const courses: CourseDto[] = [
         {
           name: 'Day 1 clean code kata',
