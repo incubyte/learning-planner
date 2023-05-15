@@ -1,5 +1,5 @@
 .SignUpContainer{
-    @apply grid grid-cols-1 lg:grid-cols-3 bg-sign-in lg:bg-none justify-items-center h-screen object-cover
+    @apply grid grid-cols-1 lg:grid-cols-3 md:bg-sign-in bg-sign-in-sm lg:bg-none justify-items-center h-screen object-cover
 }
 
 .SignUpLeftside {

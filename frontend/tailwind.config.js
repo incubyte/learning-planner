@@ -3,7 +3,8 @@ module.exports = {
   theme: {
     extend: {
       backgroundImage: {
-        "sign-in":"url('https://res.cloudinary.com/dxepcudkt/image/upload/v1684145595/login-image-sm_aqotkp.jpg')",
+        "sign-in":"url('https://res.cloudinary.com/dxepcudkt/image/upload/v1684157784/login-image-md_ijdzl7.jpg')",
+        "sign-in-sm":"url('https://res.cloudinary.com/dxepcudkt/image/upload/v1684156403/login-image-sm_ctkol5.jpg')",
       },
       screens:{
       "xsm": "200px",
