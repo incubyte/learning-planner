@@ -48,4 +48,21 @@ describe("Navbar", () => {
     fireEvent.change(searchInput, { target: { value: "Java" } });
     expect(mockGetQuery).toHaveBeenCalledWith("Java");
   });
+
+  test("Logout is present in navbar", () => {
+    render(
+      <BrowserRouter>
+        <Navbar
+          getQuery={mockGetQuery}
+          isCourse={true}
+          isHome={true}
+          isProfile={true}
+          isSearch={true}
+        />
+      </BrowserRouter>
+    );
+
+    const navbarLogout = screen.getByTestId("navbarHeaderLogoutLink");
+    expect(navbarLogout).toBeInTheDocument();
+  });
 });

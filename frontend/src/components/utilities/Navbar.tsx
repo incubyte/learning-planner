@@ -1,8 +1,8 @@
 import { Transition } from "@headlessui/react";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import IncubyteLogo from "../../assets/IncubyteLogo.png";
-import "../../css/courses/Navbar.css";
+import "../../css/utilities/Navbar.css";
 import CloseMenu from "./icons/CloseMenu";
 import OpenMenu from "./icons/OpenMenu";
 
@@ -15,7 +15,15 @@ interface NavbarProps {
 }
 
 const Navbar = (props: NavbarProps) => {
+  const navigator = useNavigate();
+
   const [isOpen, setIsOpen] = useState(false);
+
+  const logout = async () => {
+    await localStorage.removeItem("authToken");
+    await navigator("/auth/signin");
+  };
+
   return (
     <>
       <div className="sticky top-0 z-50">
@@ -59,6 +67,13 @@ const Navbar = (props: NavbarProps) => {
                       Courses
                     </Link>
                   )}
+                  <button
+                    className="navbarHeaderItems"
+                    data-testid="navbarHeaderLogoutLink"
+                    onClick={logout}
+                  >
+                    Logout
+                  </button>
                   {props.isSearch && (
                     <div className="navbarHeaderSearchContainer">
                       <div className="navbarHeaderSearchFlexBorder">
@@ -123,6 +138,13 @@ const Navbar = (props: NavbarProps) => {
                     Courses
                   </Link>
                 )}
+                <button
+                  className="flex items-center justify-center navbarHeaderItems"
+                  data-testid="navbarHeaderLogoutLink"
+                  onClick={logout}
+                >
+                  Logout
+                </button>
                 {props.isSearch && (
                   <div className="navbarHeaderSearchContainer">
                     <div className="navbarHeaderTransitionSearch">
