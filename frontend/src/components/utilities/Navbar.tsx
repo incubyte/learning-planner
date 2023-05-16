@@ -1,8 +1,8 @@
 import { Transition } from "@headlessui/react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import IncubyteLogo from "../../assets/IncubyteLogo.png";
-import "../../css/courses/Navbar.css";
+import "../../css/utilities/Navbar.css";
 import CloseMenu from "./icons/CloseMenu";
 import OpenMenu from "./icons/OpenMenu";
 
@@ -18,18 +18,11 @@ const Navbar = (props: NavbarProps) => {
   const navigator = useNavigate();
 
   const [isOpen, setIsOpen] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
 
   const logout = async () => {
-    localStorage.removeItem("authToken");
-    setIsLoggedIn(false);
+    await localStorage.removeItem("authToken");
+    await navigator("/auth/signin");
   };
-
-  useEffect(() => {
-    if (!localStorage.getItem("authToken")) {
-      navigator("/auth/signin");
-    }
-  }, [isLoggedIn]);
 
   return (
     <>
@@ -74,6 +67,13 @@ const Navbar = (props: NavbarProps) => {
                       Courses
                     </Link>
                   )}
+                  <button
+                    className="navbarHeaderItems"
+                    data-testid="navbarHeaderLogoutLink"
+                    onClick={logout}
+                  >
+                    Logout
+                  </button>
                   {props.isSearch && (
                     <div className="navbarHeaderSearchContainer">
                       <div className="navbarHeaderSearchFlexBorder">
@@ -89,14 +89,6 @@ const Navbar = (props: NavbarProps) => {
                       </div>
                     </div>
                   )}
-                  <Link
-                    to="/"
-                    className="navbarHeaderItems"
-                    data-testid="navbarHeaderLogoutLink"
-                    onClick={logout}
-                  >
-                    Logout
-                  </Link>
                 </div>
               </div>
 
@@ -146,6 +138,13 @@ const Navbar = (props: NavbarProps) => {
                     Courses
                   </Link>
                 )}
+                <button
+                  className="flex items-center justify-center navbarHeaderItems"
+                  data-testid="navbarHeaderLogoutLink"
+                  onClick={logout}
+                >
+                  Logout
+                </button>
                 {props.isSearch && (
                   <div className="navbarHeaderSearchContainer">
                     <div className="navbarHeaderTransitionSearch">
