@@ -5,6 +5,7 @@ import { JwtService } from '@nestjs/jwt';
 import { Test, TestingModule } from '@nestjs/testing';
 import { genSalt, hash } from 'bcrypt';
 import { AuthService } from './auth.service';
+import { Role } from './role.enum';
 
 describe('AuthService', () => {
   let service: AuthService;
@@ -76,6 +77,7 @@ describe('AuthService', () => {
         eId: 'E0001',
         role: 'BQA',
         clientTeam: 'abc',
+        roles: Role.Employee,
       });
       const result = await service.signup(userDTO);
       expect(prismaService.user.create).toBeCalledTimes(1);
@@ -111,6 +113,7 @@ describe('AuthService', () => {
         eId: 'E0001',
         role: 'BQA',
         clientTeam: 'abc',
+        roles: Role.Employee,
       };
 
       jest
@@ -140,6 +143,7 @@ describe('AuthService', () => {
         eId: 'E0001',
         role: 'BQA',
         clientTeam: 'abc',
+        roles: Role.Employee,
       });
 
       jest
@@ -154,6 +158,7 @@ describe('AuthService', () => {
       expect(jwtService.sign).toHaveBeenCalledWith({
         email: userDTO.email,
         id: '83b7e649-1e37-43be-8229-02ab06c9ba9a',
+        roles: Role.Employee,
       });
       expect(accessToken).toBeDefined();
       expect(accessToken).toBe(
@@ -184,6 +189,7 @@ describe('AuthService', () => {
         eId: 'E0001',
         role: 'BQA',
         clientTeam: 'abc',
+        roles: Role.Employee,
       });
       await expect(service.signin(invalidUserDto)).rejects.toThrow(
         new BadRequestException('Invalid password'),

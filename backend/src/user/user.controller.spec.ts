@@ -1,3 +1,4 @@
+import { Role } from '@/auth/role.enum';
 import { UserDto } from '@Auth/dto/user.dto';
 import { UpdateUserDto } from '@User/dto/updateUser.dto';
 import { UserController } from '@User/user.controller';
@@ -37,6 +38,7 @@ describe('UserController', () => {
     const userDecorator = {
       id: '1',
       email: userDTO.email,
+      roles: Role.Employee,
     };
 
     it('should return the user by specified id', async () => {
@@ -50,6 +52,7 @@ describe('UserController', () => {
         eId: 'E0001',
         role: 'BQA',
         clientTeam: 'abc',
+        roles: Role.Employee,
       };
 
       jest.spyOn(service, 'getUserById').mockResolvedValue(mockResponse);
@@ -130,6 +133,7 @@ describe('UserController', () => {
         eId: 'E0001',
         role: 'BQAE',
         clientTeam: 'abcd',
+        roles: Role.Employee,
       };
 
       jest.spyOn(service, 'updateProfile').mockResolvedValue(mockResponse);
@@ -158,6 +162,7 @@ describe('UserController', () => {
             profilePhoto: 'https://profilephoto.com',
             createdAt: Date.prototype,
             updatedAt: Date.prototype,
+            roles: Role.Employee,
           },
           CompletedCourseCount: 4,
         },
@@ -174,6 +179,7 @@ describe('UserController', () => {
               'https://res.cloudinary.com/dxepcudkt/image/upload/v1682573373/cojqoxpcgax1tkq0zi6a.jpg',
             createdAt: Date.prototype,
             updatedAt: Date.prototype,
+            roles: Role.Employee,
           },
           CompletedCourseCount: 2,
         },
@@ -188,6 +194,7 @@ describe('UserController', () => {
       const userDecorator = {
         id: '1',
         email: 'john@incubyte.co',
+        roles: Role.Employee,
       };
 
       const courseBody = {
@@ -211,6 +218,7 @@ describe('UserController', () => {
       const userDecorator = {
         id: '1',
         email: 'john@incubyte.co',
+        roles: Role.Employee,
       };
       const courseBody = {
         id: 'course1',
@@ -231,6 +239,7 @@ describe('UserController', () => {
       const userDecorator = {
         id: '1',
         email: 'john@incubyte.co',
+        roles: Role.Employee,
       };
 
       const courseId = 'course1';

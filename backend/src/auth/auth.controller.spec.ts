@@ -3,6 +3,7 @@ import { AuthService } from '@Auth/auth.service';
 import { UserDto } from '@Auth/dto/user.dto';
 import { Test, TestingModule } from '@nestjs/testing';
 import { mock } from 'jest-mock-extended';
+import { Role } from './role.enum';
 describe('AuthController', () => {
   let controller: AuthController;
   let service: AuthService;
@@ -41,6 +42,7 @@ describe('AuthController', () => {
       eId: 'E0001',
       role: 'BQA',
       clientTeam: 'abc',
+      roles: Role.Employee,
     });
     const result = await controller.signup(user);
     expect(service.signup).toBeCalledTimes(1);

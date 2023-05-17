@@ -1,11 +1,12 @@
+import { Role } from '@/auth/role.enum';
 import { UserDto } from '@Auth/dto/user.dto';
 import { PrismaService } from '@Prisma/prisma.service';
 import { UpdateUserDto } from '@User/dto/updateUser.dto';
 import { UserService } from '@User/user.service';
-import { Test, TestingModule } from '@nestjs/testing';
-import { ProfileCourseDto } from './dto/profileCourse.dto';
 import { BadRequestException, NotFoundException } from '@nestjs/common';
+import { Test, TestingModule } from '@nestjs/testing';
 import { UserCourse } from '@prisma/client';
+import { ProfileCourseDto } from './dto/profileCourse.dto';
 
 describe('UserService', () => {
   let service: UserService;
@@ -68,6 +69,7 @@ describe('UserService', () => {
         eId: 'E0001',
         role: 'BQA',
         clientTeam: 'abc',
+        roles: Role.Employee,
       };
 
       jest
@@ -270,6 +272,7 @@ describe('UserService', () => {
         eId: 'E0001',
         role: 'BQAE',
         clientTeam: 'abcd',
+        roles: Role.Employee,
       };
       jest
         .spyOn(prismaService.user, 'update')
@@ -293,6 +296,7 @@ describe('UserService', () => {
             profilePhoto: 'https://profilephoto.com',
             createdAt: Date.prototype,
             updatedAt: Date.prototype,
+            roles: Role.Employee,
           },
           CompletedCourseCount: 4,
         },
@@ -309,6 +313,7 @@ describe('UserService', () => {
               'https://res.cloudinary.com/dxepcudkt/image/upload/v1682573373/cojqoxpcgax1tkq0zi6a.jpg',
             createdAt: Date.prototype,
             updatedAt: Date.prototype,
+            roles: Role.Employee,
           },
           CompletedCourseCount: 2,
         },
@@ -326,6 +331,7 @@ describe('UserService', () => {
           'https://res.cloudinary.com/dxepcudkt/image/upload/v1682573373/cojqoxpcgax1tkq0zi6a.jpg',
         createdAt: Date.prototype,
         updatedAt: Date.prototype,
+        roles: Role.Employee,
       };
 
       const mockUser2 = {
@@ -339,6 +345,7 @@ describe('UserService', () => {
         profilePhoto: 'https://profilephoto.com',
         createdAt: Date.prototype,
         updatedAt: Date.prototype,
+        roles: Role.Employee,
       };
       const mockUsers = [mockUser2, mockUser1];
       const mockUserCourse1 = {
