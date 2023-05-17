@@ -82,6 +82,7 @@ export async function insertUser(prisma: PrismaClient) {
         profilePhoto: 'https://profilephoto.com',
         eId: 'E0001',
         role: 'PST',
+        roles: 'Admin',
       },
       {
         email: 'utsav.p@incubyte.co',
@@ -91,6 +92,7 @@ export async function insertUser(prisma: PrismaClient) {
         eId: 'E0002',
         role: 'SC',
         clientTeam: 'SH',
+        roles: 'Admin',
       },
     ],
   });

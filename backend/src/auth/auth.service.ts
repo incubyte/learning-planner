@@ -1,10 +1,10 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
-import { PrismaService } from '@Prisma/prisma.service';
-import * as bcrypt from 'bcrypt';
-import { User } from '@prisma/client';
-import { compareSync } from 'bcrypt';
-import { JwtService } from '@nestjs/jwt';
 import { UserDto } from '@Auth/dto/user.dto';
+import { PrismaService } from '@Prisma/prisma.service';
+import { BadRequestException, Injectable } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
+import { User } from '@prisma/client';
+import * as bcrypt from 'bcrypt';
+import { compareSync } from 'bcrypt';
 
 @Injectable()
 export class AuthService {
@@ -52,6 +52,7 @@ export class AuthService {
     const accessToken = this.jwtService.sign({
       id: prismaUser.id,
       email: user.email,
+      roles: prismaUser.roles,
     });
     return accessToken;
   }
