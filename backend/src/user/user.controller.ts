@@ -1,3 +1,5 @@
+import { Role } from '@/auth/role.enum';
+import { Roles } from '@/decorator/role.decorator';
 import { UserDecorator } from '@/decorator/user.decorator';
 import { JwtAuthGuard } from '@Auth/jwt-auth-guard/jwt-auth.guard';
 import { jwtPayload } from '@Auth/jwtpayload/jwt.payload';
@@ -14,9 +16,10 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { User, UserCourse } from '@prisma/client';
+import { AddUserDto } from './dto/addUser.dto';
+import { courseIdBodyDto } from './dto/courseIdBody.dto';
 import { LeaderboardDto } from './dto/leaderboard.dto';
 import { ProfileCourseDto } from './dto/profileCourse.dto';
-import { courseIdBodyDto } from './dto/courseIdBody.dto';
 
 @UseGuards(JwtAuthGuard)
 @Controller('user')
@@ -71,5 +74,11 @@ export class UserController {
     @Param('courseId') courseId: string,
   ): Promise<number> {
     return await this.userService.getStatusOfCourse(user.id, courseId);
+  }
+
+  @Roles(Role.Admin)
+  @Post('/add')
+  async addUser(@Body() users: AddUserDto[]): Promise<User[]> {
+    return await this.userService.addUser(users);
   }
 }

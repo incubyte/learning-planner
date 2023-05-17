@@ -17,8 +17,8 @@ describe('UserController (e2e)', () => {
     await app.init();
 
     user = {
-      email: 'john' + Math.random() * 1000 + '@incubyte.co',
-      password: '123',
+      email: 'shilpi@incubyte.co',
+      password: 'Incubyte@111',
     };
     await request(app.getHttpServer()).post('/auth/signup').send(user);
     const signInResponse = await request(app.getHttpServer())
@@ -91,6 +91,13 @@ describe('UserController (e2e)', () => {
     const courseId = '67778aa0-945d-4864-873d-f29906cb6c4e';
     const response = await request(app.getHttpServer())
       .get('/user/course/status/:' + courseId)
+      .set('Authorization', `Bearer ${authToken}`);
+    expect(response.status).toBe(200);
+  });
+
+  it('user/add (POST) - should create the user Accessible to admin only', async () => {
+    const response = await request(app.getHttpServer())
+      .post('/user/add')
       .set('Authorization', `Bearer ${authToken}`);
     expect(response.status).toBe(200);
   });

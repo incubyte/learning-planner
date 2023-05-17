@@ -4,8 +4,10 @@ import {
   BadRequestException,
   Injectable,
   NotFoundException,
+  NotImplementedException,
 } from '@nestjs/common';
 import { User, UserCourse } from '@prisma/client';
+import { AddUserDto } from './dto/addUser.dto';
 import { LeaderboardDto } from './dto/leaderboard.dto';
 import { ProfileCourseDto } from './dto/profileCourse.dto';
 
@@ -168,5 +170,9 @@ export class UserService {
       return 0;
     }
     return userCourse.isCompleted ? 2 : 1;
+  }
+
+  async addUser(users: AddUserDto[]): Promise<User[]> {
+    throw new NotImplementedException();
   }
 }

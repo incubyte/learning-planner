@@ -4,7 +4,9 @@ import { UpdateUserDto } from '@User/dto/updateUser.dto';
 import { UserController } from '@User/user.controller';
 import { UserService } from '@User/user.service';
 import { Test, TestingModule } from '@nestjs/testing';
+import { User } from '@prisma/client';
 import { mock } from 'jest-mock-extended';
+import { AddUserDto } from './dto/addUser.dto';
 
 describe('UserController', () => {
   let controller: UserController;
@@ -253,6 +255,39 @@ describe('UserController', () => {
       );
       expect(service.getStatusOfCourse).toHaveBeenCalledWith('1', 'course1');
       expect(service.getStatusOfCourse).toHaveBeenCalledTimes(1);
+      expect(result).toEqual(mockResponse);
+    });
+
+    it('should create users', async () => {
+      const user: AddUserDto[] = [
+        {
+          eid: 'E0001',
+          role: 'SC',
+          email: 'john@incubyte.co',
+          clientTeam: 'SH',
+          roles: Role.Employee,
+        },
+      ];
+
+      const mockResponse: User[] = [
+        {
+          id: '1',
+          eId: 'E0001',
+          role: 'SC',
+          email: 'john@incubyte.co',
+          clientTeam: 'SH',
+          roles: Role.Employee,
+          profilePhoto: 'www.image.com',
+          password: 'John@111',
+          createdAt: Date.prototype,
+          updatedAt: Date.prototype,
+        },
+      ];
+
+      jest.spyOn(service, 'addUser').mockResolvedValue(mockResponse);
+      const result = await controller.addUser(user);
+      expect(service.addUser).toHaveBeenCalledWith(user);
+      expect(service.addUser).toHaveBeenCalledTimes(1);
       expect(result).toEqual(mockResponse);
     });
   });
