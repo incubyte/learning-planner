@@ -4,7 +4,6 @@ import { UpdateUserDto } from '@User/dto/updateUser.dto';
 import { UserController } from '@User/user.controller';
 import { UserService } from '@User/user.service';
 import { Test, TestingModule } from '@nestjs/testing';
-import { User } from '@prisma/client';
 import { mock } from 'jest-mock-extended';
 import { AddUserDto } from './dto/addUser.dto';
 
@@ -269,26 +268,11 @@ describe('UserController', () => {
         },
       ];
 
-      const mockResponse: User[] = [
-        {
-          id: '1',
-          eId: 'E0001',
-          role: 'SC',
-          email: 'john@incubyte.co',
-          clientTeam: 'SH',
-          roles: Role.Employee,
-          profilePhoto: 'www.image.com',
-          password: 'John@111',
-          createdAt: Date.prototype,
-          updatedAt: Date.prototype,
-        },
-      ];
-
-      jest.spyOn(service, 'addUser').mockResolvedValue(mockResponse);
+      jest.spyOn(service, 'addUser').mockResolvedValue(1);
       const result = await controller.addUser(user);
       expect(service.addUser).toHaveBeenCalledWith(user);
       expect(service.addUser).toHaveBeenCalledTimes(1);
-      expect(result).toEqual(mockResponse);
+      expect(result).toEqual(1);
     });
   });
 });

@@ -6,6 +6,7 @@ import { UserService } from '@User/user.service';
 import { BadRequestException, NotFoundException } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { UserCourse } from '@prisma/client';
+import { AddUserDto } from './dto/addUser.dto';
 import { ProfileCourseDto } from './dto/profileCourse.dto';
 
 describe('UserService', () => {
@@ -23,6 +24,7 @@ describe('UserService', () => {
                 findFirst: jest.fn(),
                 update: jest.fn(),
                 findMany: jest.fn(),
+                createMany: jest.fn(),
               },
               userCourse: {
                 findMany: jest.fn(),
@@ -569,6 +571,28 @@ describe('UserService', () => {
         },
       });
       expect(result).toEqual(2);
+    });
+    it('should create user', async () => {
+      const user: AddUserDto[] = [
+        {
+          eid: 'E0001',
+          role: 'SC',
+          email: 'john@incubyte.co',
+          clientTeam: 'SH',
+          roles: Role.Employee,
+        },
+      ];
+
+      const mockResponse = {
+        count: 1,
+      };
+      jest
+        .spyOn(prismaService.user, 'createMany')
+        .mockResolvedValueOnce(mockResponse);
+      const result = await service.addUser(user);
+      expect(prismaService.user.createMany).toBeCalledTimes(1);
+
+      expect(result).toEqual(1);
     });
   });
 });

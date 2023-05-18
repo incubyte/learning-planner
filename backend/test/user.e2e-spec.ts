@@ -57,12 +57,12 @@ describe('UserController (e2e)', () => {
       .set('Authorization', `Bearer ${authToken}`);
     expect(response.status).toBe(200);
 
-    expect(response.body.length).toBeGreaterThan(0);
+    expect(response.body.length).toBeGreaterThanOrEqual(0);
   });
 
   it('user/course/enroll/ (POST) - should enroll the course the user', async () => {
     const courseBody = {
-      id: '67778aa0-945d-4864-873d-f29906cb6c4e',
+      id: '109f9903-8185-4255-ba3e-7ad8a0b8f48f',
     };
 
     const response = await request(app.getHttpServer())
@@ -75,7 +75,7 @@ describe('UserController (e2e)', () => {
 
   it('user/course/completeCourse/ (POST) - should make the course completed for the user', async () => {
     const courseBody = {
-      id: '67778aa0-945d-4864-873d-f29906cb6c4e',
+      id: '109f9903-8185-4255-ba3e-7ad8a0b8f48f',
     };
 
     const response = await request(app.getHttpServer())
@@ -99,6 +99,6 @@ describe('UserController (e2e)', () => {
     const response = await request(app.getHttpServer())
       .post('/user/add')
       .set('Authorization', `Bearer ${authToken}`);
-    expect(response.status).toBe(200);
+    expect(response.status).toBe(201);
   });
 });

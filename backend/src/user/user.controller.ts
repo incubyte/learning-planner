@@ -1,4 +1,5 @@
 import { Role } from '@/auth/role.enum';
+import { RolesGuard } from '@/auth/role.guard';
 import { Roles } from '@/decorator/role.decorator';
 import { UserDecorator } from '@/decorator/user.decorator';
 import { JwtAuthGuard } from '@Auth/jwt-auth-guard/jwt-auth.guard';
@@ -21,7 +22,7 @@ import { courseIdBodyDto } from './dto/courseIdBody.dto';
 import { LeaderboardDto } from './dto/leaderboard.dto';
 import { ProfileCourseDto } from './dto/profileCourse.dto';
 
-@UseGuards(JwtAuthGuard)
+@UseGuards(JwtAuthGuard, RolesGuard)
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
@@ -78,7 +79,7 @@ export class UserController {
 
   @Roles(Role.Admin)
   @Post('/add')
-  async addUser(@Body() users: AddUserDto[]): Promise<User[]> {
+  async addUser(@Body() users: AddUserDto[]): Promise<number> {
     return await this.userService.addUser(users);
   }
 }

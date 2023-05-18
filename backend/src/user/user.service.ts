@@ -4,7 +4,6 @@ import {
   BadRequestException,
   Injectable,
   NotFoundException,
-  NotImplementedException,
 } from '@nestjs/common';
 import { User, UserCourse } from '@prisma/client';
 import { AddUserDto } from './dto/addUser.dto';
@@ -172,7 +171,18 @@ export class UserService {
     return userCourse.isCompleted ? 2 : 1;
   }
 
-  async addUser(users: AddUserDto[]): Promise<User[]> {
-    throw new NotImplementedException();
+  async addUser(users: AddUserDto[]): Promise<number> {
+    const userData = [];
+
+    for (let i = 0; i < users.length; i++) {
+      userData.push({
+        ...users[i],
+        password: 'Incubyte' + '@a' + Math.floor(Math.random() * 1000),
+        profilePhoto:
+          'https://res.cloudinary.com/dxepcudkt/image/upload/v1684320851/logo_wkuxqf.jpg',
+      });
+    }
+    const result = await this.prismaService.user.createMany({ data: userData });
+    return result.count;
   }
 }
