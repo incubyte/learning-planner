@@ -84,8 +84,11 @@ export class UserController {
   }
 
   @Roles(Role.Admin)
-  @Patch('/updateUser')
-  async updateUser(@Body() user: UpdateUserDto): Promise<User> {
-    return await this.userService.updateUser(user);
+  @Patch('/update/:id')
+  async updateUser(
+    @Body() user: UpdateUserDto,
+    @Param('id') id: string,
+  ): Promise<User> {
+    return await this.userService.updateUser(user, id);
   }
 }

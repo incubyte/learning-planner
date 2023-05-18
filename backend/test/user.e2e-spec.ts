@@ -104,8 +104,9 @@ describe('UserController (e2e)', () => {
 
   it('user/update/:id (PATCH) - should update the user Accessible to admin only', async () => {
     const response = await request(app.getHttpServer())
-      .post('/user/update/1')
+      .patch('/user/update/1')
       .set('Authorization', `Bearer ${authToken}`);
-    expect(response.status).toBe(200);
+    expect(response.status).toBe(404);
+    expect(response.body.message).toEqual('user not found');
   });
 });

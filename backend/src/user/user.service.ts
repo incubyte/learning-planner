@@ -4,7 +4,6 @@ import {
   BadRequestException,
   Injectable,
   NotFoundException,
-  NotImplementedException,
 } from '@nestjs/common';
 import { User, UserCourse } from '@prisma/client';
 import * as bcrypt from 'bcrypt';
@@ -205,7 +204,20 @@ export class UserService {
     }
   }
 
-  async updateUser(updateUser: UpdateUserDto): Promise<User> {
-    throw new NotImplementedException();
+  async updateUser(updateUser: UpdateUserDto, id: string): Promise<User> {
+    const user = await this.prismaService.user.findFirst({
+      where: {
+        id: id,
+      },
+    });
+
+    if (!user) {
+      throw new NotFoundException('user not found');
+    }
+
+    return await this.prismaService.user.update({
+      where: { id },
+      data: { ...updateUser },
+    });
   }
 }

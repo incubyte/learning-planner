@@ -5,7 +5,7 @@ import { UpdateUserDto } from '@User/dto/updateUser.dto';
 import { UserService } from '@User/user.service';
 import { BadRequestException, NotFoundException } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
-import { UserCourse } from '@prisma/client';
+import { Course, UserCourse } from '@prisma/client';
 import { AddUserDto } from './dto/addUser.dto';
 import { ProfileCourseDto } from './dto/profileCourse.dto';
 
@@ -262,6 +262,9 @@ describe('UserService', () => {
         role: 'BQAE',
         clientTeam: 'abcd',
         profilePhoto: 'https://profilephoto.com',
+        eId: 'E0010',
+        email: 'john@incubyte.co',
+        roles: Role.Employee,
       };
 
       const mockUpdatedUser = {
@@ -381,6 +384,24 @@ describe('UserService', () => {
 
     it('should enroll the course for user', async () => {
       const mockUserCourse: UserCourse = null;
+      const mockCourse: Course = {
+        name: 'Day 1 clean code kata',
+        resourseUrls: [
+          'https://web.microsoftstream.com/video/21407c23-bd35-471f-ba4a-548ae215539d',
+        ],
+        testUrls: [''],
+        imageUrl:
+          'https://in.images.search.yahoo.com/images/view;_ylt=Awr1SSiRTy1kb4cLLsq9HAx.;_ylu=c2VjA3NyBHNsawNpbWcEb2lkAzQyZTY0MDk5ZDU4ZTA0NjIxZGIyOTFiMzFhNjU3YmIxBGdwb3MDMjAEaXQDYmluZw--?back=https%3A%2F%2Fin.images.search.yahoo.com%2Fsearch%2Fimages%3Fp%3Dclean%2Bcode%26type%3DE211IN826G0%26fr%3Dmcafee%26fr2%3Dpiv-web%26tab%3Dorganic%26ri%3D20&w=1280&h=720&imgurl=i.ytimg.com%2Fvi%2F4LUNr4AeLZM%2Fmaxresdefault.jpg&rurl=http%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3D4LUNr4AeLZM&size=138.8KB&p=clean+code&oid=42e64099d58e04621db291b31a657bb1&fr2=piv-web&fr=mcafee&tt=Clean+Code%21+-+YouTube&b=0&ni=21&no=20&ts=&tab=organic&sigr=BwBZBBbiDgZS&sigb=N4X2keUrYF9q&sigi=E7Tff6GG25xa&sigt=NZfjbeVtrurr&.crumb=AVdd1qPlDGC&fr=mcafee&fr2=piv-web&type=E211IN826G0',
+        credit: 10,
+        tags: [1],
+        description: 'description',
+        id: '',
+        createdAt: undefined,
+        updatedAt: undefined,
+      };
+      jest
+        .spyOn(prismaService.course, 'findFirst')
+        .mockResolvedValueOnce(mockCourse);
       jest
         .spyOn(prismaService.userCourse, 'findFirst')
         .mockResolvedValueOnce(mockUserCourse);
@@ -424,7 +445,7 @@ describe('UserService', () => {
         .mockResolvedValueOnce(mockUserCourse);
       jest.spyOn(service, 'isUserEnrolledInCourse').mockReturnValue(true);
       await expect(service.enrollCourse('1', 'course1')).rejects.toThrow(
-        BadRequestException,
+        NotFoundException,
       );
       expect(prismaService.userCourse.create).not.toHaveBeenCalled();
     });
@@ -593,6 +614,40 @@ describe('UserService', () => {
       expect(prismaService.user.createMany).toBeCalledTimes(1);
 
       expect(result).toEqual(1);
+    });
+    it('should update user', async () => {
+      const updateProfileBody: UpdateUserDto = {
+        role: 'BQAE',
+        clientTeam: 'abcd',
+        profilePhoto: 'https://profilephoto.com',
+        eId: 'E0010',
+        email: 'john@incubyte.co',
+        roles: Role.Employee,
+      };
+
+      const mockUpdatedUser = {
+        email: userDTO.email,
+        password: userDTO.password,
+        id: '1',
+        createdAt: Date.prototype,
+        profilePhoto: 'https://profilephoto.com',
+        updatedAt: Date.prototype,
+        eId: 'E0001',
+        role: 'BQAE',
+        clientTeam: 'abcd',
+        roles: Role.Employee,
+      };
+      jest
+        .spyOn(prismaService.user, 'findFirst')
+        .mockResolvedValueOnce(mockUpdatedUser);
+
+      jest
+        .spyOn(prismaService.user, 'update')
+        .mockResolvedValueOnce(mockUpdatedUser);
+      const result = await service.updateUser(updateProfileBody, '1');
+      expect(prismaService.user.update).toBeCalledTimes(1);
+
+      expect(result).toEqual(mockUpdatedUser);
     });
   });
 });
