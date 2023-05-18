@@ -220,4 +220,8 @@ export class UserService {
       data: { ...updateUser },
     });
   }
+
+  deleteUser(deleteUser: any) {
+    throw new Error('Method not implemented.');
+  }
 }

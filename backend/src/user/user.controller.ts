@@ -9,6 +9,7 @@ import { UserService } from '@User/user.service';
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   Patch,
@@ -90,5 +91,11 @@ export class UserController {
     @Param('id') id: string,
   ): Promise<User> {
     return await this.userService.updateUser(user, id);
+  }
+
+  @Roles(Role.Admin)
+  @Delete('/delete/:id')
+  deleteUser(@Param('id') id: string) {
+    this.userService.deleteUser(id);
   }
 }

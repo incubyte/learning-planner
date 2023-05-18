@@ -306,5 +306,11 @@ describe('UserController', () => {
       expect(service.updateUser).toHaveBeenCalledTimes(1);
       expect(result).toEqual(mockResponse);
     });
+    it('should delete users', async () => {
+      jest.spyOn(service, 'deleteUser');
+      await controller.deleteUser('1');
+      expect(service.deleteUser).toHaveBeenCalledWith('1');
+      expect(service.deleteUser).toHaveBeenCalledTimes(1);
+    });
   });
 });

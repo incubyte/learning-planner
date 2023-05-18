@@ -109,4 +109,12 @@ describe('UserController (e2e)', () => {
     expect(response.status).toBe(404);
     expect(response.body.message).toEqual('user not found');
   });
+
+  it('user/delete/:id (DELETE) - should delete the user Accessible to admin only', async () => {
+    const response = await request(app.getHttpServer())
+      .delete('/user/delete/1')
+      .set('Authorization', `Bearer ${authToken}`);
+    expect(response.status).toBe(404);
+    expect(response.body.message).toEqual('user not found');
+  });
 });
