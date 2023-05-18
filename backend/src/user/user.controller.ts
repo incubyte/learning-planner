@@ -82,4 +82,10 @@ export class UserController {
   async addUser(@Body() users: AddUserDto[]): Promise<number> {
     return await this.userService.addUser(users);
   }
+
+  @Roles(Role.Admin)
+  @Patch('/updateUser')
+  async updateUser(@Body() user: UpdateUserDto): Promise<User> {
+    return await this.userService.updateUser(user);
+  }
 }

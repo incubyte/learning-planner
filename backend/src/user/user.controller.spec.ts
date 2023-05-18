@@ -122,6 +122,9 @@ describe('UserController', () => {
         role: 'BQAE',
         clientTeam: 'abcd',
         profilePhoto: 'https://profilephoto.com',
+        eId: 'E0010',
+        email: 'john@incubyte.co',
+        roles: Role.Employee,
       };
 
       const mockResponse = {
@@ -273,6 +276,35 @@ describe('UserController', () => {
       expect(service.addUser).toHaveBeenCalledWith(user);
       expect(service.addUser).toHaveBeenCalledTimes(1);
       expect(result).toEqual(1);
+    });
+    it('should update users', async () => {
+      const user: UpdateUserDto = {
+        role: 'BQAE',
+        clientTeam: 'abcd',
+        profilePhoto: 'https://profilephoto.com',
+        eId: 'E0010',
+        email: 'john@incubyte.co',
+        roles: Role.Employee,
+      };
+
+      const mockResponse = {
+        email: userDTO.email,
+        password: userDTO.password,
+        id: '1',
+        createdAt: Date.prototype,
+        profilePhoto: 'https://profilephoto.com',
+        updatedAt: Date.prototype,
+        eId: 'E0001',
+        role: 'BQAE',
+        clientTeam: 'abcd',
+        roles: Role.Employee,
+      };
+
+      jest.spyOn(service, 'updateUser').mockResolvedValueOnce(mockResponse);
+      const result = await controller.updateUser(user);
+      expect(service.updateUser).toHaveBeenCalledWith(user);
+      expect(service.updateUser).toHaveBeenCalledTimes(1);
+      expect(result).toEqual(mockResponse);
     });
   });
 });

@@ -4,6 +4,7 @@ import {
   BadRequestException,
   Injectable,
   NotFoundException,
+  NotImplementedException,
 } from '@nestjs/common';
 import { User, UserCourse } from '@prisma/client';
 import * as bcrypt from 'bcrypt';
@@ -113,6 +114,14 @@ export class UserService {
   }
 
   async enrollCourse(userId: string, courseId: string): Promise<UserCourse> {
+    const course = await this.prismaService.course.findFirst({
+      where: {
+        id: courseId,
+      },
+    });
+    if (!course) {
+      throw new NotFoundException('course not found');
+    }
     const userCourse = await this.prismaService.userCourse.findFirst({
       where: {
         userId: userId,
@@ -194,5 +203,9 @@ export class UserService {
     } catch (e) {
       throw new BadRequestException('User(s) Already Exists');
     }
+  }
+
+  async updateUser(updateUser: UpdateUserDto): Promise<User> {
+    throw new NotImplementedException();
   }
 }
