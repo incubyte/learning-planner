@@ -25,6 +25,7 @@ describe('UserService', () => {
                 update: jest.fn(),
                 findMany: jest.fn(),
                 createMany: jest.fn(),
+                delete: jest.fn(),
               },
               userCourse: {
                 findMany: jest.fn(),
@@ -648,6 +649,31 @@ describe('UserService', () => {
       expect(prismaService.user.update).toBeCalledTimes(1);
 
       expect(result).toEqual(mockUpdatedUser);
+    });
+    it('should delete user', async () => {
+      const mockResponse = {
+        email: userDTO.email,
+        password: userDTO.password,
+        id: '1',
+        createdAt: Date.prototype,
+        profilePhoto: 'https://profilephoto.com',
+        updatedAt: Date.prototype,
+        eId: 'E0001',
+        role: 'BQAE',
+        clientTeam: 'abcd',
+        roles: Role.Employee,
+      };
+      jest
+        .spyOn(prismaService.user, 'findFirst')
+        .mockResolvedValueOnce(mockResponse);
+
+      jest
+        .spyOn(prismaService.user, 'delete')
+        .mockResolvedValueOnce(mockResponse);
+      const result = await service.deleteUser('1');
+      expect(prismaService.user.delete).toBeCalledTimes(1);
+
+      expect(result).toEqual(mockResponse);
     });
   });
 });

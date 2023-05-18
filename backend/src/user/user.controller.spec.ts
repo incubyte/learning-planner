@@ -307,10 +307,23 @@ describe('UserController', () => {
       expect(result).toEqual(mockResponse);
     });
     it('should delete users', async () => {
-      jest.spyOn(service, 'deleteUser');
-      await controller.deleteUser('1');
+      const mockResponse = {
+        email: userDTO.email,
+        password: userDTO.password,
+        id: '1',
+        createdAt: Date.prototype,
+        profilePhoto: 'https://profilephoto.com',
+        updatedAt: Date.prototype,
+        eId: 'E0001',
+        role: 'BQAE',
+        clientTeam: 'abcd',
+        roles: Role.Employee,
+      };
+      jest.spyOn(service, 'deleteUser').mockResolvedValueOnce(mockResponse);
+      const result = await controller.deleteUser('1');
       expect(service.deleteUser).toHaveBeenCalledWith('1');
       expect(service.deleteUser).toHaveBeenCalledTimes(1);
+      expect(result).toEqual(mockResponse);
     });
   });
 });

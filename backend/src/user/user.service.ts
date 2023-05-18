@@ -221,7 +221,22 @@ export class UserService {
     });
   }
 
-  deleteUser(deleteUser: any) {
-    throw new Error('Method not implemented.');
+  async deleteUser(id: string) {
+    const user = await this.prismaService.user.findFirst({
+      where: {
+        id: id,
+      },
+    });
+
+    if (!user) {
+      throw new NotFoundException('user not found');
+    }
+    try {
+      return await this.prismaService.user.delete({
+        where: { id },
+      });
+    } catch (e) {
+      throw new BadRequestException('Something wrong');
+    }
   }
 }
