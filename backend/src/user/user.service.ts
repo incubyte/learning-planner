@@ -6,6 +6,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { User, UserCourse } from '@prisma/client';
+import * as bcrypt from 'bcrypt';
 import { AddUserDto } from './dto/addUser.dto';
 import { LeaderboardDto } from './dto/leaderboard.dto';
 import { ProfileCourseDto } from './dto/profileCourse.dto';
@@ -175,14 +176,23 @@ export class UserService {
     const userData = [];
 
     for (let i = 0; i < users.length; i++) {
+      const password = 'Incubyte' + '@' + Math.floor(Math.random() * 1000);
+      const saltOrRounds = 10;
+      const hash = bcrypt.hashSync(password, saltOrRounds);
       userData.push({
         ...users[i],
-        password: 'Incubyte' + '@a' + Math.floor(Math.random() * 1000),
+        password: hash,
         profilePhoto:
           'https://res.cloudinary.com/dxepcudkt/image/upload/v1684320851/logo_wkuxqf.jpg',
       });
     }
-    const result = await this.prismaService.user.createMany({ data: userData });
-    return result.count;
+    try {
+      const result = await this.prismaService.user.createMany({
+        data: userData,
+      });
+      return result.count;
+    } catch (e) {
+      throw new BadRequestException('User(s) Already Exists');
+    }
   }
 }
