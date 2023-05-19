@@ -5,6 +5,7 @@ import {
   Controller,
   Get,
   Param,
+  Patch,
   Post,
   Query,
   UseGuards,
@@ -14,6 +15,7 @@ import { CourseDto } from './dto/course.dto';
 import { Roles } from '@/decorator/role.decorator';
 import { Role } from '@/auth/role.enum';
 import { RolesGuard } from '@/auth/role.guard';
+import { updateCourseDto } from './dto/updateCourse.dto';
 
 @UseGuards(JwtAuthGuard, RolesGuard)
 @Controller('course')
@@ -40,7 +42,16 @@ export class CourseController {
 
   @Roles(Role.Admin)
   @Post('/create')
-  createCourse(@Body() course: CourseDto): Promise<Course> {
-    return this.courseService.createCourse(course);
+  async createCourse(@Body() course: CourseDto): Promise<Course> {
+    return await this.courseService.createCourse(course);
+  }
+
+  @Roles(Role.Admin)
+  @Patch('/updateCourseById/:id')
+  async updateCoures(
+    @Param('id') id: string,
+    @Body() updateCourse: updateCourseDto,
+  ) {
+    return await this.courseService.updateCourse(id, updateCourse);
   }
 }

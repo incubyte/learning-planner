@@ -2,6 +2,7 @@ import { PrismaService } from '@Prisma/prisma.service';
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { Course } from '@prisma/client';
 import { CourseDto } from './dto/course.dto';
+import { updateCourseDto } from './dto/updateCourse.dto';
 
 @Injectable()
 export class CourseService {
@@ -75,5 +76,12 @@ export class CourseService {
     } catch (e) {
       throw new BadRequestException('Course already present');
     }
+  }
+
+  async updateCourse(
+    id: string,
+    updateCourse: updateCourseDto,
+  ): Promise<Course> {
+    throw new Error('Method not implemented.');
   }
 }

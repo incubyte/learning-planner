@@ -4,6 +4,7 @@ import { CourseDto } from '@Course/dto/course.dto';
 import { Test, TestingModule } from '@nestjs/testing';
 import { Course } from '@prisma/client';
 import { mock } from 'jest-mock-extended';
+import { updateCourseDto } from './dto/updateCourse.dto';
 
 describe('CourseController', () => {
   let controller: CourseController;
@@ -254,6 +255,35 @@ describe('CourseController', () => {
     const result = await controller.createCourse(course);
     expect(service.createCourse).toHaveBeenCalledWith(course);
     expect(service.createCourse).toHaveBeenCalledTimes(1);
+    expect(result).toEqual(responseCourse);
+  });
+
+  it('should update users', async () => {
+    const course: updateCourseDto = {
+      resourseUrls: ['resourceUrl1'],
+      testUrls: ['testurl2'],
+      imageUrl: 'image1',
+      credit: 10,
+      description: 'description',
+      tags: [2],
+    };
+    const responseCourse = {
+      id: '1',
+      name: 'Course1',
+      resourseUrls: ['resourceUrl1'],
+      testUrls: ['testurl2'],
+      imageUrl: 'image1',
+      credit: 10,
+      tags: [2],
+      description: 'description',
+      createdAt: Date.prototype,
+      updatedAt: Date.prototype,
+    };
+
+    jest.spyOn(service, 'updateCourse').mockResolvedValueOnce(responseCourse);
+    const result = await controller.updateCoures('1', course);
+    expect(service.updateCourse).toHaveBeenCalledWith('1', course);
+    expect(service.updateCourse).toHaveBeenCalledTimes(1);
     expect(result).toEqual(responseCourse);
   });
 });
