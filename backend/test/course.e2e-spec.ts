@@ -78,4 +78,12 @@ describe('CourseController (e2e)', () => {
     expect(response.status).toBe(404);
     expect(response.body.message).toEqual('Course does not exists');
   });
+
+  it('course/delete/:id (DELETE) - should delete the course which is Accessible to admin only', async () => {
+    const response = await request(app.getHttpServer())
+      .delete('/course/delete/1')
+      .set('Authorization', `Bearer ${authToken}`);
+    expect(response.status).toBe(404);
+    expect(response.body.message).toEqual('course not found');
+  });
 });

@@ -258,7 +258,7 @@ describe('CourseController', () => {
     expect(result).toEqual(responseCourse);
   });
 
-  it('should update users', async () => {
+  it('should update user', async () => {
     const course: updateCourseDto = {
       resourseUrls: ['resourceUrl1'],
       testUrls: ['testurl2'],

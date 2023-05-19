@@ -92,7 +92,6 @@ export class CourseService {
     if (prismaUpdateCourse == null) {
       throw new NotFoundException('Course does not exists');
     }
-    console.log('Hello');
     const updateCourseResponse = await this.prismaService.course.update({
       where: { id: id },
       data: { ...updateCourse },
