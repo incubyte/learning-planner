@@ -4,6 +4,7 @@ import { UpdateUserDto } from '@User/dto/updateUser.dto';
 import { UserController } from '@User/user.controller';
 import { UserService } from '@User/user.service';
 import { Test, TestingModule } from '@nestjs/testing';
+import { User } from '@prisma/client';
 import { mock } from 'jest-mock-extended';
 import { AddUserDto } from './dto/addUser.dto';
 
@@ -287,7 +288,7 @@ describe('UserController', () => {
         roles: Role.Employee,
       };
 
-      const mockResponse = {
+      const mockResponse: User = {
         email: userDTO.email,
         password: userDTO.password,
         id: '1',
@@ -307,7 +308,7 @@ describe('UserController', () => {
       expect(result).toEqual(mockResponse);
     });
     it('should delete users', async () => {
-      const mockResponse = {
+      const mockResponse: User = {
         email: userDTO.email,
         password: userDTO.password,
         id: '1',
@@ -326,8 +327,8 @@ describe('UserController', () => {
       expect(result).toEqual(mockResponse);
     });
 
-    it('should return the user all user', async () => {
-      const mockResponse = [
+    it('should return all the user', async () => {
+      const mockResponse: User[] = [
         {
           email: userDTO.email,
           password: userDTO.password,

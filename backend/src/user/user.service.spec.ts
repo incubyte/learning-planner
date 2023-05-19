@@ -5,7 +5,7 @@ import { UpdateUserDto } from '@User/dto/updateUser.dto';
 import { UserService } from '@User/user.service';
 import { BadRequestException, NotFoundException } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
-import { Course, UserCourse } from '@prisma/client';
+import { Course, User, UserCourse } from '@prisma/client';
 import { AddUserDto } from './dto/addUser.dto';
 import { ProfileCourseDto } from './dto/profileCourse.dto';
 
@@ -626,7 +626,7 @@ describe('UserService', () => {
         roles: Role.Employee,
       };
 
-      const mockUpdatedUser = {
+      const mockUpdatedUser: User = {
         email: userDTO.email,
         password: userDTO.password,
         id: '1',
@@ -651,7 +651,7 @@ describe('UserService', () => {
       expect(result).toEqual(mockUpdatedUser);
     });
     it('should delete user', async () => {
-      const mockResponse = {
+      const mockResponse: User = {
         email: userDTO.email,
         password: userDTO.password,
         id: '1',
@@ -677,7 +677,7 @@ describe('UserService', () => {
     });
 
     it('should return all user', async () => {
-      const mockResponse = [
+      const mockResponse: User[] = [
         {
           email: userDTO.email,
           password: userDTO.password,
