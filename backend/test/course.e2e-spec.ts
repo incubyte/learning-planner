@@ -15,11 +15,8 @@ describe('CourseController (e2e)', () => {
     app = moduleFixture.createNestApplication();
     await app.init();
     const user = {
-      email: 'john' + Math.random() * 1000 + '@incubyte.co',
-      password: '123',
-      eId: 'E00' + Math.random() * 1000,
-      role: 'SC',
-      clientTeam: 'Learning Planner',
+      email: 'shilpi@incubyte.co',
+      password: 'Incubyte@111',
     };
     await request(app.getHttpServer()).post('/auth/signup').send(user);
     const signInResponse = await request(app.getHttpServer())
@@ -54,5 +51,12 @@ describe('CourseController (e2e)', () => {
       .get('/course/popular')
       .set('Authorization', `Bearer ${authToken}`);
     expect(response.status).toBe(200);
+  });
+
+  it('course/create (POST) - should create the course', async () => {
+    const response = await request(app.getHttpServer())
+      .post('/course/create')
+      .set('Authorization', `Bearer ${authToken}`);
+    expect(response.status).toBe(201);
   });
 });
