@@ -334,7 +334,7 @@ describe('CourseService', () => {
       jest
         .spyOn(prismaService.course, 'findFirst')
         .mockResolvedValue(responseCourse);
-      const response = new BadRequestException('Course already exist');
+      const response = new BadRequestException('Course already present');
       jest.spyOn(prismaService.course, 'create').mockRejectedValue(response);
       await expect(service.createCourse(course)).rejects.toThrow(
         new BadRequestException('Course already present'),

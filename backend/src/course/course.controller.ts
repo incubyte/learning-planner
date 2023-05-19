@@ -13,8 +13,9 @@ import { Course } from '@prisma/client';
 import { CourseDto } from './dto/course.dto';
 import { Roles } from '@/decorator/role.decorator';
 import { Role } from '@/auth/role.enum';
+import { RolesGuard } from '@/auth/role.guard';
 
-@UseGuards(JwtAuthGuard)
+@UseGuards(JwtAuthGuard, RolesGuard)
 @Controller('course')
 export class CourseController {
   constructor(private readonly courseService: CourseService) {}

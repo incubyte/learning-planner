@@ -70,4 +70,12 @@ describe('CourseController (e2e)', () => {
       .set('Authorization', `Bearer ${authToken}`);
     expect(response.status).toBe(201);
   });
+
+  it('course/updateCourseById/:id (PATCH) - should update the course which is Accessible to admin only', async () => {
+    const response = await request(app.getHttpServer())
+      .patch('/course/updateCourseById/1')
+      .set('Authorization', `Bearer ${authToken}`);
+    expect(response.status).toBe(404);
+    expect(response.body.message).toEqual('course not found');
+  });
 });
