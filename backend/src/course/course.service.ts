@@ -1,5 +1,9 @@
 import { PrismaService } from '@Prisma/prisma.service';
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { Course } from '@prisma/client';
 import { CourseDto } from './dto/course.dto';
 import { updateCourseDto } from './dto/updateCourse.dto';
@@ -86,8 +90,9 @@ export class CourseService {
       where: { id: id },
     });
     if (prismaUpdateCourse == null) {
-      throw new BadRequestException('Course does not exists');
+      throw new NotFoundException('Course does not exists');
     }
+    console.log('Hello');
     const updateCourseResponse = await this.prismaService.course.update({
       where: { id: id },
       data: { ...updateCourse },

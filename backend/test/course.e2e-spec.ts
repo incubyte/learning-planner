@@ -76,6 +76,6 @@ describe('CourseController (e2e)', () => {
       .patch('/course/updateCourseById/1')
       .set('Authorization', `Bearer ${authToken}`);
     expect(response.status).toBe(404);
-    expect(response.body.message).toEqual('course not found');
+    expect(response.body.message).toEqual('Course does not exists');
   });
 });
