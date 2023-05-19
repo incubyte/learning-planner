@@ -1,6 +1,7 @@
 import { PrismaService } from '@Prisma/prisma.service';
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { Course } from '@prisma/client';
+import { CourseDto } from './dto/course.dto';
 
 @Injectable()
 export class CourseService {
@@ -57,7 +58,22 @@ export class CourseService {
     return courses;
   }
 
-  createCourse(createCourse: any): Promise<Course> {
-    throw new Error('Method not implemented.');
+  async createCourse(course: CourseDto): Promise<Course> {
+    try {
+      const responseCourse = await this.prismaService.course.create({
+        data: {
+          name: course.name,
+          resourseUrls: course.resourseUrls,
+          testUrls: course.testUrls,
+          description: course.description,
+          imageUrl: course.imageUrl,
+          tags: course.tags,
+          credit: 10,
+        },
+      });
+      return responseCourse;
+    } catch (e) {
+      throw new BadRequestException('Course already present');
+    }
   }
 }

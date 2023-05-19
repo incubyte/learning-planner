@@ -53,9 +53,20 @@ describe('CourseController (e2e)', () => {
     expect(response.status).toBe(200);
   });
 
+  const course = {
+    name: 'Course' + Math.random() * 100,
+    resourseUrls: ['resourceUrl1'],
+    testUrls: ['testurl1'],
+    imageUrl: 'image1',
+    credit: 10,
+    description: 'description',
+    tags: [1, 3],
+  };
+
   it('course/create (POST) - should create the course', async () => {
     const response = await request(app.getHttpServer())
       .post('/course/create')
+      .send(course)
       .set('Authorization', `Bearer ${authToken}`);
     expect(response.status).toBe(201);
   });
