@@ -240,7 +240,7 @@ export class UserService {
     }
   }
 
-  getAll(): Promise<User[]> {
-    throw new Error('Method not implemented.');
+  async getAll(): Promise<User[]> {
+    return await this.prismaService.user.findMany();
   }
 }

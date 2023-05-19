@@ -675,5 +675,29 @@ describe('UserService', () => {
 
       expect(result).toEqual(mockResponse);
     });
+
+    it('should return all user', async () => {
+      const mockResponse = [
+        {
+          email: userDTO.email,
+          password: userDTO.password,
+          id: '1',
+          createdAt: Date.prototype,
+          profilePhoto: 'https://profilephoto.com',
+          updatedAt: Date.prototype,
+          eId: 'E0001',
+          role: 'BQA',
+          clientTeam: 'abc',
+          roles: Role.Employee,
+        },
+      ];
+
+      jest
+        .spyOn(prismaService.user, 'findMany')
+        .mockResolvedValue(mockResponse);
+      const result = await service.getAll();
+      expect(prismaService.user.findMany).toBeCalledTimes(1);
+      expect(result).toMatchObject(mockResponse);
+    });
   });
 });
