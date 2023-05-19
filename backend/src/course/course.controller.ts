@@ -3,6 +3,7 @@ import { CourseService } from '@Course/course.service';
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   Patch,
@@ -56,8 +57,8 @@ export class CourseController {
   }
 
   @Roles(Role.Admin)
-  @Patch('/delete/:id')
-  async deleteCourse(@Param('id') id: string) {
+  @Delete('/delete/:id')
+  async deleteCourse(@Param('id') id: string): Promise<String> {
     return await this.courseService.deleteCourse(id);
   }
 }

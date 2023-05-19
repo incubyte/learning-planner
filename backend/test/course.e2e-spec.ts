@@ -84,6 +84,6 @@ describe('CourseController (e2e)', () => {
       .delete('/course/delete/1')
       .set('Authorization', `Bearer ${authToken}`);
     expect(response.status).toBe(404);
-    expect(response.body.message).toEqual('course not found');
+    expect(response.body.message).toEqual('Course does not exists');
   });
 });

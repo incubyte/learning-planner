@@ -89,7 +89,7 @@ export class CourseService {
     const prismaUpdateCourse = await this.prismaService.course.findFirst({
       where: { id: id },
     });
-    if (prismaUpdateCourse == null) {
+    if (!prismaUpdateCourse) {
       throw new NotFoundException('Course does not exists');
     }
     const updateCourseResponse = await this.prismaService.course.update({
@@ -99,7 +99,21 @@ export class CourseService {
     return updateCourseResponse;
   }
 
-  async deleteCourse(deleteCourse: any): Promise<String> {
-    throw new Error('Method not implemented.');
+  async deleteCourse(id: string): Promise<String> {
+    const prismadeleteCourse = await this.prismaService.course.findFirst({
+      where: { id: id },
+    });
+
+    if (!prismadeleteCourse) {
+      throw new NotFoundException('Course does not exists');
+    }
+
+    const deleteCourseResponse = await this.prismaService.course.delete({
+      where: { id: id },
+    });
+    if (!deleteCourseResponse) {
+      throw new BadRequestException('Some problem occured');
+    }
+    return 'Course deleted Successfully';
   }
 }

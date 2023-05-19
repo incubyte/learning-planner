@@ -238,7 +238,7 @@ describe('CourseController', () => {
       description: 'description',
       tags: [1, 3],
     };
-    const responseCourse = {
+    const responseCourse: Course = {
       id: '7e67a826-636f-4fa7-a7a8-f1d57573f95f',
       name: 'Course1',
       resourseUrls: ['resourceUrl1'],
@@ -267,7 +267,7 @@ describe('CourseController', () => {
       description: 'description',
       tags: [2],
     };
-    const responseCourse = {
+    const responseCourse: Course = {
       id: '1',
       name: 'Course1',
       resourseUrls: ['resourceUrl1'],
