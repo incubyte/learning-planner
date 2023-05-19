@@ -54,4 +54,10 @@ export class CourseController {
   ): Promise<Course> {
     return await this.courseService.updateCourse(id, updateCourse);
   }
+
+  @Roles(Role.Admin)
+  @Patch('/delete/:id')
+  async deleteCourse(@Param('id') id: string) {
+    return await this.courseService.deleteCourse(id);
+  }
 }

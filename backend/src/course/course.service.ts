@@ -98,4 +98,8 @@ export class CourseService {
     });
     return updateCourseResponse;
   }
+
+  async deleteCourse(deleteCourse: any): Promise<String> {
+    throw new Error('Method not implemented.');
+  }
 }

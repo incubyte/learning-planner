@@ -286,4 +286,13 @@ describe('CourseController', () => {
     expect(service.updateCourse).toHaveBeenCalledTimes(1);
     expect(result).toEqual(responseCourse);
   });
+
+  it('should delete course', async () => {
+    const response = 'Course is deleted Successfully';
+    jest.spyOn(service, 'deleteCourse').mockResolvedValueOnce(response);
+    const result = await controller.deleteCourse('1');
+    expect(service.deleteCourse).toHaveBeenCalledWith('1');
+    expect(service.deleteCourse).toHaveBeenCalledTimes(1);
+    expect(result).toEqual('Course is deleted Successfully');
+  });
 });
