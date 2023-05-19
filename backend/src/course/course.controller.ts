@@ -1,7 +1,10 @@
 import { JwtAuthGuard } from '@Auth/jwt-auth-guard/jwt-auth.guard';
 import { CourseService } from '@Course/course.service';
-import { Controller, Get, Param, Query, UseGuards } from '@nestjs/common';
+import { Controller, Get, Param, Post, Query, UseGuards } from '@nestjs/common';
 import { Course } from '@prisma/client';
+import { CourseDto } from './dto/course.dto';
+import { Roles } from '@/decorator/role.decorator';
+import { Role } from '@/auth/role.enum';
 
 @UseGuards(JwtAuthGuard)
 @Controller('course')
@@ -24,5 +27,11 @@ export class CourseController {
   @Get('/filterByTags')
   async filterByTags(@Query('tags') tags: string[]): Promise<Course[]> {
     return await this.courseService.filterByTags(tags);
+  }
+
+  @Roles(Role.Admin)
+  @Post('/create')
+  createCourse(course: CourseDto): Promise<Course> {
+    return this.courseService.createCourse(course);
   }
 }

@@ -226,4 +226,34 @@ describe('CourseController', () => {
     expect(service.getPopularCourse).toBeCalledTimes(1);
     expect(result).toMatchObject(mockResponse);
   });
+
+  it('should create course', async () => {
+    const course: CourseDto = {
+      name: 'Course1',
+      resourseUrls: ['resourceUrl1'],
+      testUrls: ['testurl1'],
+      imageUrl: 'image1',
+      credit: 10,
+      description: 'description',
+      tags: [1, 3],
+    };
+    const responseCourse = {
+      id: '7e67a826-636f-4fa7-a7a8-f1d57573f95f',
+      name: 'Course1',
+      resourseUrls: ['resourceUrl1'],
+      testUrls: ['testurl1'],
+      imageUrl: 'image1',
+      credit: 10,
+      tags: [1, 3],
+      description: 'description',
+      createdAt: Date.prototype,
+      updatedAt: Date.prototype,
+    };
+
+    jest.spyOn(service, 'createCourse').mockResolvedValue(responseCourse);
+    const result = await controller.createCourse(course);
+    expect(service.createCourse).toHaveBeenCalledWith(course);
+    expect(service.createCourse).toHaveBeenCalledTimes(1);
+    expect(result).toEqual(responseCourse);
+  });
 });

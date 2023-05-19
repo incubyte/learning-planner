@@ -56,4 +56,8 @@ export class CourseService {
 
     return courses;
   }
+
+  createCourse(createCourse: any): Promise<Course> {
+    throw new Error('Method not implemented.');
+  }
 }
