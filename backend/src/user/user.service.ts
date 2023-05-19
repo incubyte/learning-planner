@@ -239,4 +239,8 @@ export class UserService {
       throw new BadRequestException('Something wrong');
     }
   }
+
+  getAll(): Promise<User[]> {
+    throw new Error('Method not implemented.');
+  }
 }

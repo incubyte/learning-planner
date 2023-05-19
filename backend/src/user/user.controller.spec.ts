@@ -325,5 +325,27 @@ describe('UserController', () => {
       expect(service.deleteUser).toHaveBeenCalledTimes(1);
       expect(result).toEqual(mockResponse);
     });
+
+    it('should return the user all user', async () => {
+      const mockResponse = [
+        {
+          email: userDTO.email,
+          password: userDTO.password,
+          id: '1',
+          createdAt: Date.prototype,
+          profilePhoto: 'https://profilephoto.com',
+          updatedAt: Date.prototype,
+          eId: 'E0001',
+          role: 'BQA',
+          clientTeam: 'abc',
+          roles: Role.Employee,
+        },
+      ];
+
+      jest.spyOn(service, 'getAll').mockResolvedValue(mockResponse);
+      const result = await controller.getAll();
+      expect(service.getAll).toBeCalledTimes(1);
+      expect(result).toMatchObject(mockResponse);
+    });
   });
 });

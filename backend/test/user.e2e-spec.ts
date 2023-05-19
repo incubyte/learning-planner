@@ -117,4 +117,12 @@ describe('UserController (e2e)', () => {
     expect(response.status).toBe(404);
     expect(response.body.message).toEqual('user not found');
   });
+
+  it('user/all (GET) - should return the all user Accessible to admin only', async () => {
+    const response = await request(app.getHttpServer())
+      .get('/user/all')
+      .set('Authorization', `Bearer ${authToken}`);
+    expect(response.status).toBe(200);
+    expect(response.body.length).toBeGreaterThanOrEqual(0);
+  });
 });

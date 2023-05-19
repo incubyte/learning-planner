@@ -98,4 +98,10 @@ export class UserController {
   async deleteUser(@Param('id') id: string) {
     return await this.userService.deleteUser(id);
   }
+
+  @Roles(Role.Admin)
+  @Get('/all')
+  async getAll(): Promise<User[]> {
+    return await this.userService.getAll();
+  }
 }
