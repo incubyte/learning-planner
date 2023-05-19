@@ -82,6 +82,16 @@ export class CourseService {
     id: string,
     updateCourse: updateCourseDto,
   ): Promise<Course> {
-    throw new Error('Method not implemented.');
+    const prismaUpdateCourse = await this.prismaService.course.findFirst({
+      where: { id: id },
+    });
+    if (prismaUpdateCourse == null) {
+      throw new BadRequestException('Course does not exists');
+    }
+    const updateCourseResponse = await this.prismaService.course.update({
+      where: { id: id },
+      data: { ...updateCourse },
+    });
+    return updateCourseResponse;
   }
 }

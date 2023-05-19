@@ -51,7 +51,7 @@ export class CourseController {
   async updateCoures(
     @Param('id') id: string,
     @Body() updateCourse: updateCourseDto,
-  ) {
+  ): Promise<Course> {
     return await this.courseService.updateCourse(id, updateCourse);
   }
 }
