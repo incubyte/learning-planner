@@ -3,7 +3,7 @@ import { Contains, IsEmail, IsNotEmpty } from 'class-validator';
 
 export class AddUserDto {
   @IsNotEmpty()
-  eid: string;
+  eId: string;
 
   @IsNotEmpty()
   role: string;

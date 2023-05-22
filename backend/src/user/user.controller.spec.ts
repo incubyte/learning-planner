@@ -6,7 +6,7 @@ import { UserService } from '@User/user.service';
 import { Test, TestingModule } from '@nestjs/testing';
 import { User } from '@prisma/client';
 import { mock } from 'jest-mock-extended';
-import { AddUserDto } from './dto/addUser.dto';
+import { AddUserBodyDto } from './dto/addUserBody.dto';
 
 describe('UserController', () => {
   let controller: UserController;
@@ -262,19 +262,19 @@ describe('UserController', () => {
     });
 
     it('should create users', async () => {
-      const user: AddUserDto[] = [
-        {
-          eid: 'E0001',
-          role: 'SC',
-          email: 'john@incubyte.co',
-          clientTeam: 'SH',
-          roles: Role.Employee,
-        },
-      ];
+      const user: AddUserBodyDto = new AddUserBodyDto();
+      user.users = [];
+      user.users.push({
+        eId: 'E0001',
+        role: 'SC',
+        email: 'john@incubyte.co',
+        clientTeam: 'SH',
+        roles: Role.Employee,
+      });
 
       jest.spyOn(service, 'addUser').mockResolvedValue(1);
       const result = await controller.addUser(user);
-      expect(service.addUser).toHaveBeenCalledWith(user);
+      expect(service.addUser).toHaveBeenCalledWith(user.users);
       expect(service.addUser).toHaveBeenCalledTimes(1);
       expect(result).toEqual(1);
     });

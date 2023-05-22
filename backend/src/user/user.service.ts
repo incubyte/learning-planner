@@ -182,17 +182,18 @@ export class UserService {
 
   async addUser(users: AddUserDto[]): Promise<number> {
     const userData = [];
-
-    for (let i = 0; i < users.length; i++) {
-      const password = 'Incubyte' + '@' + Math.floor(Math.random() * 1000);
-      const saltOrRounds = 10;
-      const hash = bcrypt.hashSync(password, saltOrRounds);
-      userData.push({
-        ...users[i],
-        password: hash,
-        profilePhoto:
-          'https://res.cloudinary.com/dxepcudkt/image/upload/v1684320851/logo_wkuxqf.jpg',
-      });
+    if (users) {
+      for (let i = 0; i < users.length; i++) {
+        const password = 'Incubyte' + '@' + Math.floor(Math.random() * 1000);
+        const saltOrRounds = 10;
+        const hash = bcrypt.hashSync(password, saltOrRounds);
+        userData.push({
+          ...users[i],
+          password: hash,
+          profilePhoto:
+            'https://res.cloudinary.com/dxepcudkt/image/upload/v1684320851/logo_wkuxqf.jpg',
+        });
+      }
     }
     try {
       const result = await this.prismaService.user.createMany({

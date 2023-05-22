@@ -597,7 +597,7 @@ describe('UserService', () => {
     it('should create user', async () => {
       const user: AddUserDto[] = [
         {
-          eid: 'E0001',
+          eId: 'E0001',
           role: 'SC',
           email: 'john@incubyte.co',
           clientTeam: 'SH',
