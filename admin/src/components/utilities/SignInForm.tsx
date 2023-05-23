@@ -4,6 +4,7 @@ import { ToastContainer } from "react-toastify";
 import EmailIcon from "./icons/Email";
 import PasswordIcon from "./icons/Password";
 import Input from "./Input";
+import "../../css/SignIn.css";
 
 interface signInFormProps {
   handleFormSubmit: any;
@@ -58,7 +59,7 @@ const SignInForm = (props: signInFormProps) => {
           validation={emailValidation}
         />
 
-        <div data-testid="signinEmailError" className="SignInErros">
+        <div data-testid="signinEmailError" className="SignInErrors">
           {errors.email ? <>{errors.email.message}</> : <></>}
         </div>
 

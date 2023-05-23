@@ -23,7 +23,7 @@
 }
 
 .SignInFormItems {
-   @apply grid gap-2 grid-cols-1 justify-items-center
+    @apply grid gap-2 grid-cols-1 justify-items-center
 }
 
 .SignInErrors{
@@ -44,7 +44,7 @@
 }
 
 .SignInSubmit {
-        @apply bg-blue-800 mt-3 block w-40 hover:bg-blue-900 text-white font-bold py-2 px-4 rounded text-xl lg:text-base lg:py-3 md:text-3xl md:py-5 md:mt-8 lg:mt-3;
+    @apply bg-blue-800 mt-3 block w-40 hover:bg-blue-900 text-white font-bold py-2 px-4 rounded text-xl lg:text-base lg:py-3 md:text-3xl md:py-5 md:mt-8 lg:mt-3;
 }
 
 .SignInNewAcc {
