@@ -1,9 +1,10 @@
-import React, { Suspense } from "react";
+import React from "react";
 import ReactDOM from "react-dom/client";
-import "./index.css";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import App from "./App";
 import SignIn from "./components/SignIn";
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import AddUser from "./components/user/AddUser";
+import "./index.css";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -12,7 +13,12 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
-    children: [],
+    children: [
+      {
+        path: "/addUser",
+        element: <AddUser />,
+      },
+    ],
   },
   {
     path: "/auth",
