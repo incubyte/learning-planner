@@ -52,14 +52,16 @@ const addUser = () => {
               <input
                 type="file"
                 id="file-upload"
-                className="hidden"
                 accept=".csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
                 onChange={(event) => {
                   onChange(event);
                 }}
               />
               <ToastContainer />
-              <label className="z-20 flex flex-col-reverse items-center justify-center w-full h-full cursor-pointer">
+              <label
+                htmlFor="file-upload"
+                className="z-20 flex flex-col-reverse items-center justify-center w-full h-full cursor-pointer"
+              >
                 <p className="z-10 text-xs font-light text-center text-gray-500">
                   Drag & Drop your files here
                 </p>

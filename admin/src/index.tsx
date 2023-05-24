@@ -4,6 +4,7 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import App from "./App";
 import SignIn from "./components/SignIn";
 import AddUser from "./components/user/AddUser";
+import Users from "./components/user/Users";
 import "./index.css";
 
 const root = ReactDOM.createRoot(
@@ -17,6 +18,10 @@ const router = createBrowserRouter([
       {
         path: "/addUser",
         element: <AddUser />,
+      },
+      {
+        path: "/users",
+        element: <Users />,
       },
     ],
   },
