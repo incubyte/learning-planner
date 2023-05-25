@@ -22,6 +22,9 @@ export class UserService {
 
   async getUserById(id: string): Promise<User> {
     const user = await this.prismaService.user.findFirst({ where: { id } });
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
     delete user.password;
     return user;
   }
