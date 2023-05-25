@@ -17,7 +17,7 @@ describe('UserController (e2e)', () => {
     await app.init();
 
     user = {
-      email: 'shilpi@incubyte.co',
+      email: 'utsav.p@incubyte.co',
       password: 'Incubyte@111',
     };
     await request(app.getHttpServer()).post('/auth/signup').send(user);
@@ -30,6 +30,13 @@ describe('UserController (e2e)', () => {
   it('user/ (GET) - should return the user', async () => {
     const response = await request(app.getHttpServer())
       .get('/user/')
+      .set('Authorization', `Bearer ${authToken}`);
+    expect(response.status).toBe(200);
+  });
+
+  it('user/getUser/:id (GET) - should return the user by id', async () => {
+    const response = await request(app.getHttpServer())
+      .get('/user/getUser/1')
       .set('Authorization', `Bearer ${authToken}`);
     expect(response.status).toBe(200);
   });

@@ -27,6 +27,10 @@ describe('UserController', () => {
     service = module.get<UserService>(UserService);
   });
 
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
   it('should be defined', () => {
     expect(controller).toBeDefined();
   });
@@ -59,6 +63,26 @@ describe('UserController', () => {
 
       jest.spyOn(service, 'getUserById').mockResolvedValue(mockResponse);
       const result = await controller.getUserById(userDecorator);
+      expect(service.getUserById).toBeCalledTimes(1);
+      expect(result).toMatchObject(mockResponse);
+    });
+
+    it('should return the user by specified id', async () => {
+      const mockResponse = {
+        email: userDTO.email,
+        password: userDTO.password,
+        id: '1',
+        createdAt: Date.prototype,
+        profilePhoto: 'https://profilephoto.com',
+        updatedAt: Date.prototype,
+        eId: 'E0001',
+        role: 'BQA',
+        clientTeam: 'abc',
+        roles: Role.Employee,
+      };
+
+      jest.spyOn(service, 'getUserById').mockResolvedValue(mockResponse);
+      const result = await controller.getUserByUserId('1');
       expect(service.getUserById).toBeCalledTimes(1);
       expect(result).toMatchObject(mockResponse);
     });

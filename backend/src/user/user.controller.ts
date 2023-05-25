@@ -33,6 +33,12 @@ export class UserController {
     return await this.userService.getUserById(user.id);
   }
 
+  @Roles(Role.Admin)
+  @Get('/getUser/:id')
+  async getUserByUserId(@Param('id') id: string): Promise<User> {
+    return await this.userService.getUserById(id);
+  }
+
   @Get('/course')
   async getCourseByUserId(
     @UserDecorator() user: jwtPayload,
