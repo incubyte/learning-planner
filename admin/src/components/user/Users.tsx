@@ -72,7 +72,7 @@ const Users = () => {
                   <td className="px-6 py-4">{user.roles}</td>
                   <td className="px-6 py-4">
                     <a
-                      href="#"
+                      href={"user/" + user.id}
                       className="font-medium text-blue-600 hover:underline"
                     >
                       Info
