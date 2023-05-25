@@ -23,6 +23,7 @@ const Navbar = (props: NavbarProps) => {
   const [usersData, setUserData] = useState<any>([]);
 
   const [isOpen, setIsOpen] = useState(false);
+  var arraylist: any[] = [];
 
   const logout = async () => {
     await localStorage.removeItem("authToken");
@@ -42,23 +43,29 @@ const Navbar = (props: NavbarProps) => {
           "Content-Type": "application/json",
           Authorization: `Bearer ${authToken}`,
         },
-        body: JSON.stringify({ users: usersData }),
+        body: JSON.stringify({ users: arraylist }),
       }
     );
 
     console.log(response);
     if (response.ok) {
-      toast("users added", {
+      toast.success("users added", {
         autoClose: 2500,
         closeButton: false,
       });
     } else {
-      const jsonResponse = await response.json();
-      console.log(jsonResponse);
-      toast.error("Please check data and try again", {
-        autoClose: 2500,
-        closeButton: false,
-      });
+      if (response.status !== 400) {
+        const jsonResponse = await response.json();
+        toast.error(jsonResponse.message, {
+          autoClose: 2500,
+          closeButton: false,
+        });
+      } else {
+        toast.error("Please check data and try again", {
+          autoClose: 2500,
+          closeButton: false,
+        });
+      }
     }
   };
 
@@ -90,9 +97,9 @@ const Navbar = (props: NavbarProps) => {
         var first_sheet_name = workbook.SheetNames[0];
         var worksheet = workbook.Sheets[first_sheet_name];
         console.log(XLSX.utils.sheet_to_json(worksheet, { raw: true }));
-        var arraylist = XLSX.utils.sheet_to_json(worksheet, { raw: true });
-        await setUserData(arraylist);
-        if (usersData) handleSubmit();
+        arraylist = XLSX.utils.sheet_to_json(worksheet, { raw: true });
+        // setUserData(arraylist);
+        if (arraylist.length > 0) handleSubmit();
       };
     }
   };

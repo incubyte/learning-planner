@@ -47,7 +47,7 @@ const addUser = () => {
             </div>
             <form
               action="#"
-              className="relative w-4/5 h-32 max-w-xs mb-10 bg-white bg-gray-100 rounded-lg shadow-inner"
+              className="relative w-4/5 h-32 max-w-xs mb-10 bg-gray-100 rounded-lg shadow-inner"
             >
               <input
                 type="file"

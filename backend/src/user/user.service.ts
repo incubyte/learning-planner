@@ -2,6 +2,7 @@ import { PrismaService } from '@Prisma/prisma.service';
 import { UpdateUserDto } from '@User/dto/updateUser.dto';
 import {
   BadRequestException,
+  ConflictException,
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
@@ -201,7 +202,7 @@ export class UserService {
       });
       return result.count;
     } catch (e) {
-      throw new BadRequestException('User(s) Already Exists');
+      throw new ConflictException('User(s) Already Exists');
     }
   }
 
