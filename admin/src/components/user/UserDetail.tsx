@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import "../../css/user/adminProfile.css";
 import Navbar from "../utilities/Navbar";
 import { imageUpload } from "./ImageUpload";
+import { ToastContainer, toast } from "react-toastify";
 import { userType } from "./user";
 
 const UserDetail = () => {
   const [user, setUser] = useState<userType>();
+  const navigator = useNavigate();
   const urlParams = useParams();
   const [showModal, setShowModal] = useState(false);
   const [avatar, setAvatar] = useState("");
@@ -15,6 +17,35 @@ const UserDetail = () => {
     const file = e.target.files[0];
     setAvatar(file);
   };
+  const deleteUser = async () => {
+    const authToken = localStorage.getItem("authToken");
+    const response = await fetch(
+      "https://backend-mu-plum.vercel.app/user/delete/" + urlParams.id,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${authToken}`,
+        },
+      }
+    );
+    if (response.ok) {
+      console.log(await response.json());
+      toast.success("User deleted successfully", {
+        autoClose: 2500,
+        closeButton: false,
+      });
+      setTimeout(() => {
+        navigator("/users");
+      }, 3000);
+    } else {
+      toast.error("Something wrong, please try again", {
+        autoClose: 2500,
+        closeButton: false,
+      });
+    }
+  };
+  const updateUser = async () => {};
 
   const handleSubmit = async () => {
     let media: any = [];
@@ -122,7 +153,7 @@ const UserDetail = () => {
           <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
         </>
       ) : null}
-
+      <ToastContainer />
       <Navbar
         isCourse={true}
         isHome={false}
@@ -210,6 +241,7 @@ const UserDetail = () => {
             data-testid="UserDetailUpdate"
             className="AdminProfileModalSaveButton bg-emerald-500 hover:bg-emerald-400 active:bg-emerald-600"
             type="button"
+            onClick={updateUser}
           >
             Update
           </button>
@@ -217,6 +249,7 @@ const UserDetail = () => {
             data-testid="UserDetailDelete"
             className="AdminProfileModalSaveButton bg-red-600 hover:bg-red-500 active:bg-red-700"
             type="button"
+            onClick={deleteUser}
           >
             delete
           </button>
