@@ -24,8 +24,7 @@ const UserDetail = () => {
   const urlParams = useParams();
   const [showModal, setShowModal] = useState(false);
   const [avatar, setAvatar] = useState("");
-  const [profilePhoto, setProfilePhoto] = useState("");
-
+  
   const blob = new Blob([avatar]);
   const changeAvatar = (e: any) => {
     const file = e.target.files[0];
