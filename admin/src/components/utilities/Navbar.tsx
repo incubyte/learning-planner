@@ -212,7 +212,7 @@ const Navbar = (props: NavbarProps) => {
                   {!props.isUser && (
                     <button
                       className="navbarHeaderItems"
-                      data-testid="navbarHeaderLogoutLink"
+                      data-testid="navbarHeaderAddUserLink"
                       onClick={addUser}
                     >
                       Add User

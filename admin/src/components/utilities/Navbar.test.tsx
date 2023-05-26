@@ -11,13 +11,7 @@ describe("Navbar", () => {
   test("Navbar is present", () => {
     render(
       <BrowserRouter>
-        <Navbar
-          getQuery={mockGetQuery}
-          isCourse={true}
-          isHome={true}
-          isProfile={true}
-          isUser={true}
-        />
+        <Navbar isCourse={true} isHome={true} isProfile={true} isUser={true} />
       </BrowserRouter>
     );
 
@@ -34,17 +28,62 @@ describe("Navbar", () => {
   test("Logout is present in navbar", () => {
     render(
       <BrowserRouter>
-        <Navbar
-          getQuery={mockGetQuery}
-          isCourse={true}
-          isHome={true}
-          isProfile={true}
-          isUser={true}
-        />
+        <Navbar isCourse={true} isHome={true} isProfile={true} isUser={true} />
       </BrowserRouter>
     );
 
     const navbarLogout = screen.getByTestId("navbarHeaderLogoutLink");
     expect(navbarLogout).toBeInTheDocument();
+  });
+
+  test("course button is present in navbar", () => {
+    render(
+      <BrowserRouter>
+        <Navbar isCourse={true} isHome={true} isProfile={true} isUser={true} />
+      </BrowserRouter>
+    );
+
+    const navbarCourse = screen.getByTestId("navbarHeaderCourseLink");
+    expect(navbarCourse).toBeInTheDocument();
+  });
+  test("Home button is present in navbar", () => {
+    render(
+      <BrowserRouter>
+        <Navbar isCourse={true} isHome={true} isProfile={true} isUser={true} />
+      </BrowserRouter>
+    );
+
+    const navbarHome = screen.getByTestId("navbarHeaderHomeLink");
+    expect(navbarHome).toBeInTheDocument();
+  });
+  test("Profile button is present in navbar", () => {
+    render(
+      <BrowserRouter>
+        <Navbar isCourse={true} isHome={true} isProfile={true} isUser={true} />
+      </BrowserRouter>
+    );
+
+    const navbarProfile = screen.getByTestId("navbarHeaderProfileLink");
+    expect(navbarProfile).toBeInTheDocument();
+  });
+  test("User button is present in navbar", () => {
+    render(
+      <BrowserRouter>
+        <Navbar isCourse={true} isHome={true} isProfile={true} isUser={true} />
+      </BrowserRouter>
+    );
+
+    const navbarUser = screen.getByTestId("navbarHeaderUserLink");
+    expect(navbarUser).toBeInTheDocument();
+  });
+  test("AddUser button is present in navbar", () => {
+    render(
+      <BrowserRouter>
+        <Navbar isCourse={true} isHome={true} isProfile={true} isUser={false} />
+      </BrowserRouter>
+    );
+
+    const navbarAddUser = screen.getByTestId("navbarHeaderAddUserLink");
+    expect(navbarAddUser).toBeInTheDocument();
   });
 });
