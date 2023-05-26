@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import "../../css/user/profile.css";
+import "../../css/user/adminProfile.css";
 import Navbar from "../utilities/Navbar";
 import { imageUpload } from "./ImageUpload";
 import { userType } from "./user";
@@ -64,13 +64,13 @@ const UserDetail = () => {
     <>
       {showModal ? (
         <>
-          <div data-testid="UserDetailImageModel" className="ProfileModal">
+          <div data-testid="UserDetailImageModel" className="AdminProfileModal">
             <div className="relative w-auto my-6 mx-auto">
-              <div className="ProfileModalContainer">
-                <div className="ProfileModelUploadContainer">
+              <div className="AdminProfileModalContainer">
+                <div className="AdminProfileModelUploadContainer">
                   <h3 className="text-3xl font-semibold">Upload Image</h3>
                   <button
-                    className="ProfileModalUploadButton"
+                    className="AdminProfileModalUploadButton"
                     onClick={() => setShowModal(false)}
                   >
                     <span className="text-black h-6 w-6 text-2xl block outline-none">
@@ -79,13 +79,13 @@ const UserDetail = () => {
                   </button>
                 </div>
                 <div className="relative p-6 flex-auto">
-                  <label className="ProfileModelUploadFileLabel">
+                  <label className="AdminProfileModelUploadFileLabel">
                     Upload file
                   </label>
                   <input
                     data-testid="UserDetailImageInput"
                     accept="image/*"
-                    className="ProfileModalUploadInput"
+                    className="AdminProfileModalUploadInput"
                     aria-describedby="file_input_help"
                     id="file_input"
                     type="file"
@@ -98,10 +98,10 @@ const UserDetail = () => {
                     SVG, PNG, JPG or GIF (MAX. 350kb).
                   </p>
                 </div>
-                <div className="ProfileModalFooter">
+                <div className="AdminProfileModalFooter">
                   <button
                     data-testid="UserDetailImageClose"
-                    className="ProfileModalCloseButton"
+                    className="AdminProfileModalCloseButton"
                     type="button"
                     onClick={() => setShowModal(false)}
                   >
@@ -109,7 +109,7 @@ const UserDetail = () => {
                   </button>
                   <button
                     data-testid="UserDetailImageSave"
-                    className="ProfileModalSaveButton bg-emerald-500 active:bg-emerald-600"
+                    className="AdminProfileModalSaveButton bg-emerald-500 active:bg-emerald-600"
                     type="button"
                     onClick={handleSubmit}
                   >
@@ -129,18 +129,18 @@ const UserDetail = () => {
         isProfile={true}
         isUser={false}
       ></Navbar>
-      <div className="ProfileDiv">
-        <div className="ProfileContainer">
-          <div className="ProfilePhotoDiv">
+      <div className="AdminProfileDiv">
+        <div className="AdminProfileContainer">
+          <div className="AdminProfilePhotoDiv">
             <img
               data-testid="UserDetailImage"
-              className="ProfilePhoto"
+              className="AdminProfilePhoto"
               src={avatar ? URL.createObjectURL(blob) : user?.profilePhoto}
             ></img>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               data-testid="UserDetailImageButton"
-              className="ProfileImageUpdateIcon"
+              className="AdminProfileImageUpdateIcon"
               onClick={() => setShowModal(true)}
               viewBox="0 0 24 24"
             >
@@ -148,62 +148,78 @@ const UserDetail = () => {
             </svg>
           </div>
 
-          <div className="ProfileContentContainer">
-            <div className="ProfileContentGridContainer">
-              <div className="ProfileGridContent">
+          <div className="AdminProfileContentContainer">
+            <div className="AdminProfileContentGridContainer">
+              <div className="AdminProfileGridContent">
                 <label
                   data-testid="UserDetailEmailLabel"
-                  className="ProfileLabel"
+                  className="AdminProfileLabel"
                 >
                   Email
                 </label>
                 <input
                   data-testid="UserDetailEmailInput"
                   defaultValue={user?.email}
-                  className="ProfileInput"
+                  className="AdminProfileInput"
                 ></input>
               </div>
-              <div className="ProfileGridContent">
+              <div className="AdminProfileGridContent">
                 <label
                   data-testid="UserDetailEidLabel"
-                  className="ProfileLabel"
+                  className="AdminProfileLabel"
                 >
                   Employee Id
                 </label>
                 <input
                   data-testid="UserDetailEidInput"
                   defaultValue={user?.eId}
-                  className="ProfileInput"
+                  className="AdminProfileInput"
                 ></input>
               </div>
-              <div className="ProfileGridContent">
+              <div className="AdminProfileGridContent">
                 <label
                   data-testid="UserDetailDesignationLabel"
-                  className="ProfileLabel"
+                  className="AdminProfileLabel"
                 >
                   Designation
                 </label>
                 <input
                   data-testid="UserDetailDesignationInput"
                   defaultValue={user?.role}
-                  className="ProfileInput"
+                  className="AdminProfileInput"
                 ></input>
               </div>
-              <div className="ProfileGridContent">
+              <div className="AdminProfileGridContent">
                 <label
                   data-testid="UserDetailRoleLabel"
-                  className="ProfileLabel"
+                  className="AdminProfileLabel"
                 >
                   Role
                 </label>
                 <input
                   data-testid="UserDetailRoleInput"
                   defaultValue={user?.roles}
-                  className="ProfileInput"
+                  className="AdminProfileInput"
                 ></input>
               </div>
             </div>
           </div>
+        </div>
+        <div className="mt-24 grid grid-cols-2 gap-24">
+          <button
+            data-testid="UserDetailUpdate"
+            className="AdminProfileModalSaveButton bg-emerald-500 hover:bg-emerald-400 active:bg-emerald-600"
+            type="button"
+          >
+            Update
+          </button>
+          <button
+            data-testid="UserDetailDelete"
+            className="AdminProfileModalSaveButton bg-red-600 hover:bg-red-500 active:bg-red-700"
+            type="button"
+          >
+            delete
+          </button>
         </div>
       </div>
     </>

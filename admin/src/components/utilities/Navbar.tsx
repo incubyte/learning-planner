@@ -98,7 +98,6 @@ const Navbar = (props: NavbarProps) => {
         var worksheet = workbook.Sheets[first_sheet_name];
         console.log(XLSX.utils.sheet_to_json(worksheet, { raw: true }));
         arraylist = XLSX.utils.sheet_to_json(worksheet, { raw: true });
-        // setUserData(arraylist);
         if (arraylist.length > 0) handleSubmit();
       };
     }
@@ -130,6 +129,7 @@ const Navbar = (props: NavbarProps) => {
                   <input
                     type="file"
                     id="file-upload"
+                    className="ProfileModalUploadInput"
                     accept=".csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
                     onChange={(event) => {
                       onChange(event);
