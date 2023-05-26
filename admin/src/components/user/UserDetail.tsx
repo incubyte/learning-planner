@@ -43,7 +43,7 @@ const UserDetail = () => {
 
   const fetchUser = async () => {
     const response = await fetch(
-      "https://backend-mu-plum.vercel.app/user/" + urlParams.id,
+      "https://backend-mu-plum.vercel.app/user/getUser/" + urlParams.id,
       {
         headers: {
           Authorization: `Bearer ${authToken}`,
@@ -64,7 +64,7 @@ const UserDetail = () => {
     <>
       {showModal ? (
         <>
-          <div data-testid="profileImageModel" className="ProfileModal">
+          <div data-testid="UserDetailImageModel" className="ProfileModal">
             <div className="relative w-auto my-6 mx-auto">
               <div className="ProfileModalContainer">
                 <div className="ProfileModelUploadContainer">
@@ -83,7 +83,7 @@ const UserDetail = () => {
                     Upload file
                   </label>
                   <input
-                    data-testid="profileImageInput"
+                    data-testid="UserDetailImageInput"
                     accept="image/*"
                     className="ProfileModalUploadInput"
                     aria-describedby="file_input_help"
@@ -100,7 +100,7 @@ const UserDetail = () => {
                 </div>
                 <div className="ProfileModalFooter">
                   <button
-                    data-testid="profileImageClose"
+                    data-testid="UserDetailImageClose"
                     className="ProfileModalCloseButton"
                     type="button"
                     onClick={() => setShowModal(false)}
@@ -108,7 +108,7 @@ const UserDetail = () => {
                     Close
                   </button>
                   <button
-                    data-testid="profileImageSave"
+                    data-testid="UserDetailImageSave"
                     className="ProfileModalSaveButton bg-emerald-500 active:bg-emerald-600"
                     type="button"
                     onClick={handleSubmit}
@@ -133,13 +133,13 @@ const UserDetail = () => {
         <div className="ProfileContainer">
           <div className="ProfilePhotoDiv">
             <img
-              data-testid="profileImage"
+              data-testid="UserDetailImage"
               className="ProfilePhoto"
               src={avatar ? URL.createObjectURL(blob) : user?.profilePhoto}
             ></img>
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              data-testid="profileImageButton"
+              data-testid="UserDetailImageButton"
               className="ProfileImageUpdateIcon"
               onClick={() => setShowModal(true)}
               viewBox="0 0 24 24"
@@ -151,49 +151,54 @@ const UserDetail = () => {
           <div className="ProfileContentContainer">
             <div className="ProfileContentGridContainer">
               <div className="ProfileGridContent">
-                <label data-testid="profileEmailLabel" className="ProfileLabel">
+                <label
+                  data-testid="UserDetailEmailLabel"
+                  className="ProfileLabel"
+                >
                   Email
                 </label>
                 <input
-                  disabled
-                  data-testid="profileEmailInput"
-                  value={user?.email}
-                  className="ProfileInput"
-                ></input>
-              </div>
-              <div className="ProfileGridContent">
-                <label data-testid="profileEidLabel" className="ProfileLabel">
-                  Employee Id
-                </label>
-                <input
-                  disabled
-                  data-testid="profileEidInput"
-                  value={user?.eId}
+                  data-testid="UserDetailEmailInput"
+                  defaultValue={user?.email}
                   className="ProfileInput"
                 ></input>
               </div>
               <div className="ProfileGridContent">
                 <label
-                  data-testid="profileClientTeamLabel"
+                  data-testid="UserDetailEidLabel"
                   className="ProfileLabel"
                 >
-                  Client Team
+                  Employee Id
                 </label>
                 <input
-                  disabled
-                  data-testid="profileClientTeamInput"
-                  value={user?.clientTeam}
+                  data-testid="UserDetailEidInput"
+                  defaultValue={user?.eId}
                   className="ProfileInput"
                 ></input>
               </div>
               <div className="ProfileGridContent">
-                <label data-testid="profileRoleLabel" className="ProfileLabel">
+                <label
+                  data-testid="UserDetailDesignationLabel"
+                  className="ProfileLabel"
+                >
+                  Designation
+                </label>
+                <input
+                  data-testid="UserDetailDesignationInput"
+                  defaultValue={user?.role}
+                  className="ProfileInput"
+                ></input>
+              </div>
+              <div className="ProfileGridContent">
+                <label
+                  data-testid="UserDetailRoleLabel"
+                  className="ProfileLabel"
+                >
                   Role
                 </label>
                 <input
-                  disabled
-                  data-testid="profileRoleInput"
-                  value={user?.role}
+                  data-testid="UserDetailRoleInput"
+                  defaultValue={user?.roles}
                   className="ProfileInput"
                 ></input>
               </div>
