@@ -5,18 +5,33 @@ import Navbar from "../utilities/Navbar";
 import { imageUpload } from "./ImageUpload";
 import { ToastContainer, toast } from "react-toastify";
 import { userType } from "./user";
+import { json } from "stream/consumers";
 
 const UserDetail = () => {
-  const [user, setUser] = useState<userType>();
+  const [user, setUser] = useState<userType>({
+    email: "",
+    eId: "",
+    clientTeam: "",
+    role: "",
+    roles: "",
+    profilePhoto: "",
+    updatedAt: "",
+    id: "",
+    createdAt: "",
+  });
+
   const navigator = useNavigate();
   const urlParams = useParams();
   const [showModal, setShowModal] = useState(false);
   const [avatar, setAvatar] = useState("");
+  const [profilePhoto, setProfilePhoto] = useState("");
+
   const blob = new Blob([avatar]);
   const changeAvatar = (e: any) => {
     const file = e.target.files[0];
     setAvatar(file);
   };
+
   const deleteUser = async () => {
     const authToken = localStorage.getItem("authToken");
     const response = await fetch(
@@ -30,7 +45,6 @@ const UserDetail = () => {
       }
     );
     if (response.ok) {
-      console.log(await response.json());
       toast.success("User deleted successfully", {
         autoClose: 2500,
         closeButton: false,
@@ -45,29 +59,58 @@ const UserDetail = () => {
       });
     }
   };
-  const updateUser = async () => {};
-
+  const updateUser = async () => {
+    const response = await fetch(
+      "https://backend-mu-plum.vercel.app/user/update/" + urlParams.id,
+      {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+          "Content-Type": "application/json",
+        },
+        method: "PATCH",
+        body: JSON.stringify({
+          eId: user.eId,
+          email: user.email,
+          profilePhoto: user.profilePhoto,
+          role: user.role,
+          roles: user.roles,
+          clientTeam: user.clientTeam,
+        }),
+      }
+    );
+    if (response.ok) {
+      const jsonResponse = await response.json();
+      setUser(jsonResponse);
+      toast.success("User updated successfully", {
+        autoClose: 2500,
+        closeButton: false,
+      });
+      setTimeout(() => {
+        navigator("/users");
+      }, 3000);
+    } else {
+      const jsonResponse = await response.json();
+      toast.error("Something went wrong, please try again", {
+        autoClose: 2500,
+        closeButton: false,
+      });
+    }
+  };
   const handleSubmit = async () => {
     let media: any = [];
     if (avatar) {
       media = await imageUpload([avatar]);
-      const response = await fetch(
-        "https://backend-mu-plum.vercel.app/user/updateProfile",
-        {
-          headers: {
-            Authorization: `Bearer ${authToken}`,
-            "Content-Type": "application/json",
-          },
-          method: "PATCH",
-          body: JSON.stringify({
-            profilePhoto: media[0].url,
-          }),
-        }
-      );
-      if (response.ok) {
-        const jsonResnponse = await response.json();
-        setUser(jsonResnponse);
-      }
+      setUser({
+        email: user.email,
+        eId: user.eId,
+        clientTeam: user.clientTeam,
+        role: user.role,
+        roles: user.roles,
+        profilePhoto: media[0].url,
+        updatedAt: user.updatedAt,
+        id: user.id,
+        createdAt: user.createdAt,
+      });
       setShowModal(false);
     }
   };
@@ -166,7 +209,7 @@ const UserDetail = () => {
             <img
               data-testid="UserDetailImage"
               className="AdminProfilePhoto"
-              src={avatar ? URL.createObjectURL(blob) : user?.profilePhoto}
+              src={avatar ? URL.createObjectURL(blob) : user.profilePhoto}
             ></img>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -190,8 +233,21 @@ const UserDetail = () => {
                 </label>
                 <input
                   data-testid="UserDetailEmailInput"
-                  defaultValue={user?.email}
+                  defaultValue={user.email}
                   className="AdminProfileInput"
+                  onChange={(e) =>
+                    setUser({
+                      email: e.target.value,
+                      eId: user.eId,
+                      clientTeam: user.clientTeam,
+                      role: user.role,
+                      roles: user.roles,
+                      profilePhoto: user.profilePhoto,
+                      updatedAt: user.updatedAt,
+                      id: user.id,
+                      createdAt: user.createdAt,
+                    })
+                  }
                 ></input>
               </div>
               <div className="AdminProfileGridContent">
@@ -205,6 +261,19 @@ const UserDetail = () => {
                   data-testid="UserDetailEidInput"
                   defaultValue={user?.eId}
                   className="AdminProfileInput"
+                  onChange={(e) =>
+                    setUser({
+                      email: user.email,
+                      eId: e.target.value,
+                      clientTeam: user.clientTeam,
+                      role: user.role,
+                      roles: user.roles,
+                      profilePhoto: user.profilePhoto,
+                      updatedAt: user.updatedAt,
+                      id: user.id,
+                      createdAt: user.createdAt,
+                    })
+                  }
                 ></input>
               </div>
               <div className="AdminProfileGridContent">
@@ -216,8 +285,21 @@ const UserDetail = () => {
                 </label>
                 <input
                   data-testid="UserDetailDesignationInput"
-                  defaultValue={user?.role}
+                  defaultValue={user.role}
                   className="AdminProfileInput"
+                  onChange={(e) =>
+                    setUser({
+                      email: user.email,
+                      eId: user.eId,
+                      clientTeam: user.clientTeam,
+                      role: e.target.value,
+                      roles: user.roles,
+                      profilePhoto: user.profilePhoto,
+                      updatedAt: user.updatedAt,
+                      id: user.id,
+                      createdAt: user.createdAt,
+                    })
+                  }
                 ></input>
               </div>
               <div className="AdminProfileGridContent">
@@ -229,8 +311,49 @@ const UserDetail = () => {
                 </label>
                 <input
                   data-testid="UserDetailRoleInput"
-                  defaultValue={user?.roles}
+                  defaultValue={user.roles}
                   className="AdminProfileInput"
+                  onChange={(e) =>
+                    setUser({
+                      email: user.email,
+                      eId: user.eId,
+                      clientTeam: user.clientTeam,
+                      role: user.role,
+                      roles: e.target.value,
+                      profilePhoto: user.profilePhoto,
+                      updatedAt: user.updatedAt,
+                      id: user.id,
+                      createdAt: user.createdAt,
+                    })
+                  }
+                ></input>
+              </div>
+              <div className="AdminProfileGridContent">
+                <label
+                  data-testid="UserDetailClientTeamLabel"
+                  className="AdminProfileLabel"
+                >
+                  Client Team
+                </label>
+                <input
+                  data-testid="UserDetailClientTeamInput"
+                  defaultValue={
+                    user.clientTeam !== null ? user.clientTeam : "-"
+                  }
+                  className="AdminProfileInput"
+                  onChange={(e) =>
+                    setUser({
+                      email: user.email,
+                      eId: user.eId,
+                      clientTeam: e.target.value,
+                      role: user.role,
+                      roles: user.roles,
+                      profilePhoto: user.profilePhoto,
+                      updatedAt: user.updatedAt,
+                      id: user.id,
+                      createdAt: user.createdAt,
+                    })
+                  }
                 ></input>
               </div>
             </div>
