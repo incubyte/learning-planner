@@ -1,5 +1,6 @@
 import { PrismaService } from '@Prisma/prisma.service';
 import { UpdateUserDto } from '@User/dto/updateUser.dto';
+import { MailerService } from '@nestjs-modules/mailer';
 import {
   BadRequestException,
   ConflictException,
@@ -14,7 +15,10 @@ import { ProfileCourseDto } from './dto/profileCourse.dto';
 
 @Injectable()
 export class UserService {
-  constructor(private readonly prismaService: PrismaService) {}
+  constructor(
+    private readonly prismaService: PrismaService,
+    private readonly mailerService: MailerService,
+  ) {}
 
   isUserEnrolledInCourse(prismaUserCourse: UserCourse) {
     return prismaUserCourse !== null;
@@ -186,11 +190,14 @@ export class UserService {
 
   async addUser(users: AddUserDto[]): Promise<number> {
     const userData = [];
+
+    const userMails = [];
     if (users) {
       for (let i = 0; i < users.length; i++) {
         const password = 'Incubyte' + '@' + Math.floor(Math.random() * 1000);
         const saltOrRounds = 10;
         const hash = bcrypt.hashSync(password, saltOrRounds);
+        userMails.push({ email: users[i].email, password: password });
         userData.push({
           ...users[i],
           password: hash,
@@ -203,6 +210,15 @@ export class UserService {
       const result = await this.prismaService.user.createMany({
         data: userData,
       });
+      for (let i = 0; i < userMails.length; i++) {
+        console.log(userMails[i]);
+        this.mailerService.sendMail({
+          to: userMails[i].email,
+          from: 'a.learningplanner@gmail.com',
+          subject: 'Account created LearningPlanner@Incubyte',
+          html: `<b>welcome to Learning Planner</b> <p>Your password is ${userMails[i].password}</p>`,
+        });
+      }
       return result.count;
     } catch (e) {
       throw new ConflictException('User(s) Already Exists');

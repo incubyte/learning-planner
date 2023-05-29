@@ -14,6 +14,7 @@
     "@types/react-file-reader-input": "^2.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-dropdown": "^1.11.0",
     "react-file-reader": "^1.1.4",
     "react-form-with-constraints": "^0.19.1",
     "react-hook-form": "^7.43.5",

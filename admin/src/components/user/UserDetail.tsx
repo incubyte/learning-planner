@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
+import Dropdown from "react-dropdown";
+import "react-dropdown/style.css";
 import { useNavigate, useParams } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
 import "../../css/user/adminProfile.css";
 import Navbar from "../utilities/Navbar";
 import { imageUpload } from "./ImageUpload";
-import { ToastContainer, toast } from "react-toastify";
 import { userType } from "./user";
-import { json } from "stream/consumers";
 
 const UserDetail = () => {
   const [user, setUser] = useState<userType>({
@@ -20,11 +21,15 @@ const UserDetail = () => {
     createdAt: "",
   });
 
+  const options = ["Admin", "Employee"];
+  const defaultOption = options[0];
   const navigator = useNavigate();
   const urlParams = useParams();
   const [showModal, setShowModal] = useState(false);
   const [avatar, setAvatar] = useState("");
-  
+
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+
   const blob = new Blob([avatar]);
   const changeAvatar = (e: any) => {
     const file = e.target.files[0];
@@ -308,24 +313,24 @@ const UserDetail = () => {
                 >
                   Role
                 </label>
-                <input
+                <Dropdown
                   data-testid="UserDetailRoleInput"
-                  defaultValue={user.roles}
-                  className="AdminProfileInput"
-                  onChange={(e) =>
+                  options={options}
+                  value={user.roles}
+                  onChange={(e) => {
                     setUser({
                       email: user.email,
                       eId: user.eId,
                       clientTeam: user.clientTeam,
                       role: user.role,
-                      roles: e.target.value,
+                      roles: e.value,
                       profilePhoto: user.profilePhoto,
                       updatedAt: user.updatedAt,
                       id: user.id,
                       createdAt: user.createdAt,
-                    })
-                  }
-                ></input>
+                    });
+                  }}
+                />
               </div>
               <div className="AdminProfileGridContent">
                 <label
@@ -375,6 +380,7 @@ const UserDetail = () => {
           >
             delete
           </button>
+          ;
         </div>
       </div>
     </>
