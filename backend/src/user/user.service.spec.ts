@@ -3,6 +3,7 @@ import { UserDto } from '@Auth/dto/user.dto';
 import { PrismaService } from '@Prisma/prisma.service';
 import { UpdateUserDto } from '@User/dto/updateUser.dto';
 import { UserService } from '@User/user.service';
+import { MailerService } from '@nestjs-modules/mailer';
 import { BadRequestException, NotFoundException } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { Course, User, UserCourse } from '@prisma/client';
@@ -12,6 +13,7 @@ import { ProfileCourseDto } from './dto/profileCourse.dto';
 describe('UserService', () => {
   let service: UserService;
   let prismaService: PrismaService;
+  let mailService: MailerService;
   beforeAll(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
@@ -41,11 +43,18 @@ describe('UserService', () => {
             };
           },
         },
+        {
+          provide: MailerService,
+          useValue: {
+            sendMail: jest.fn(),
+          },
+        },
       ],
     }).compile();
 
     service = module.get<UserService>(UserService);
     prismaService = module.get<PrismaService>(PrismaService);
+    mailService = module.get<MailerService>(MailerService);
   });
 
   afterEach(() => {
@@ -611,6 +620,7 @@ describe('UserService', () => {
       jest
         .spyOn(prismaService.user, 'createMany')
         .mockResolvedValueOnce(mockResponse);
+      jest.spyOn(mailService, 'sendMail').mockResolvedValueOnce('');
       const result = await service.addUser(user);
       expect(prismaService.user.createMany).toBeCalledTimes(1);
 
