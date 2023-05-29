@@ -28,30 +28,30 @@ const Users = () => {
     <>
       <Navbar
         isCourse={true}
-        isHome={false}
+        isHome={true}
         isProfile={true}
         isUser={false}
       ></Navbar>
-      <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+      <div className="relative overflow-x-auto shadow-md sm:rounded-lg m-10">
         <table
           data-testid="UsersTable"
-          className="w-full text-sm text-left text-gray-500"
+          className="w-full table text-center text-base border border-gray-400 bg-white rounded-b-lg rounded-lg justify-center align-middle p-5"
         >
-          <thead className="text-xs text-gray-700 uppercase bg-gray-200">
+          <thead className="text-gray-700 uppercase bg-gray-200">
             <tr>
-              <th scope="col" className="px-6 py-3">
+              <th scope="col" className="border border-gray-100 p-5 m-5">
                 EId
               </th>
-              <th scope="col" className="px-6 py-3">
+              <th scope="col" className="border border-gray-100 p-5 m-5">
                 Email
               </th>
-              <th scope="col" className="px-6 py-3">
+              <th scope="col" className="border border-gray-100 p-5 m-5">
                 Designation
               </th>
-              <th scope="col" className="px-6 py-3">
+              <th scope="col" className="border border-gray-100 p-5 m-5">
                 Role
               </th>
-              <th scope="col" className="px-6 py-3">
+              <th scope="col" className="border border-gray-100 p-5 m-5">
                 Actions
               </th>
             </tr>
@@ -64,16 +64,19 @@ const Users = () => {
                   className={`${index % 2 === 1 ? "bg-gray-100" : "bg-white"}`}
                   role="row"
                 >
-                  <th
-                    scope="row"
-                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
-                  >
+                  <td scope="row" className="border border-gray-100 p-5 m-5">
                     {user.eId}
-                  </th>
-                  <td className="px-6 py-4">{user.email}</td>
-                  <td className="px-6 py-4">{user.role}</td>
-                  <td className="px-6 py-4">{user.roles}</td>
-                  <td className="px-6 py-4">
+                  </td>
+                  <td className="border border-gray-100 p-5 m-5">
+                    {user.email}
+                  </td>
+                  <td className="border border-gray-100 p-5 m-5">
+                    {user.role}
+                  </td>
+                  <td className="border border-gray-100 p-5 m-5">
+                    {user.roles}
+                  </td>
+                  <td className="border border-gray-100 p-5 m-5">
                     <a
                       href={"user/" + user.id}
                       className="font-medium text-blue-600 hover:underline"

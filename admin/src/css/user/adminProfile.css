@@ -5,7 +5,7 @@
 .AdminProfileModalContainer{
     @apply border-0 rounded-lg shadow-lg relative flex flex-col w-80 bg-white outline-none focus:outline-none
 }
-.AdminAdminProfileModelUploadContainer{
+.AdminProfileModelUploadContainer{
     @apply flex items-start justify-between p-5 xsm:p-3 border-b border-solid border-slate-200 rounded-t
 }
 .AdminProfileModalUploadButton{

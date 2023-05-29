@@ -203,9 +203,9 @@ const UserDetail = () => {
       <ToastContainer />
       <Navbar
         isCourse={true}
-        isHome={false}
+        isHome={true}
         isProfile={true}
-        isUser={false}
+        isUser={true}
       ></Navbar>
       <div className="AdminProfileDiv">
         <div className="AdminProfileContainer">
@@ -315,6 +315,7 @@ const UserDetail = () => {
                 </label>
                 <Dropdown
                   data-testid="UserDetailRoleInput"
+                  className="AdminProfileInput"
                   options={options}
                   value={user.roles}
                   onChange={(e) => {

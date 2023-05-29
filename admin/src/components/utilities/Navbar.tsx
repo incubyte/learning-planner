@@ -184,7 +184,7 @@ const Navbar = (props: NavbarProps) => {
                   )}
                   {props.isProfile && (
                     <Link
-                      to="/user"
+                      to="/users"
                       className="navbarHeaderItems"
                       data-testid="navbarHeaderProfileLink"
                     >
@@ -202,7 +202,7 @@ const Navbar = (props: NavbarProps) => {
                   )}
                   {props.isUser && (
                     <Link
-                      to="/user"
+                      to="/users"
                       className="navbarHeaderItems"
                       data-testid="navbarHeaderUserLink"
                     >
