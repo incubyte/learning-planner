@@ -1,10 +1,10 @@
 import Tippy from "@tippyjs/react";
 import { useForm } from "react-hook-form";
 import { ToastContainer } from "react-toastify";
+import "../../css/SignIn.css";
+import Input from "./Input";
 import EmailIcon from "./icons/Email";
 import PasswordIcon from "./icons/Password";
-import Input from "./Input";
-import "../../css/SignIn.css";
 
 interface signInFormProps {
   handleFormSubmit: any;
@@ -82,7 +82,7 @@ const SignInForm = (props: signInFormProps) => {
           data-testid="signinForgotPasswordLink"
           className="ForgotPass"
         >
-          forgot password?
+          FORGOT PASSWORD?
         </a>
         <button data-testid="signinButton" className="SignInSubmit">
           Sign In
@@ -91,17 +91,6 @@ const SignInForm = (props: signInFormProps) => {
         <div data-testid="signinToast">
           <ToastContainer />
         </div>
-
-        <label className="SignInNewAcc">
-          {accountText}
-          <a
-            className="SignUplink"
-            data-testid="signinDontHaveAccountLink"
-            href="/auth/signup"
-          >
-            Sign Up
-          </a>
-        </label>
       </label>
     </form>
   );

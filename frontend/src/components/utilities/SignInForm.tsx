@@ -1,9 +1,9 @@
 import Tippy from "@tippyjs/react";
 import { useForm } from "react-hook-form";
 import { ToastContainer } from "react-toastify";
+import Input from "./Input";
 import EmailIcon from "./icons/Email";
 import PasswordIcon from "./icons/Password";
-import Input from "./Input";
 
 interface signInFormProps {
   handleFormSubmit: any;
@@ -90,17 +90,6 @@ const SignInForm = (props: signInFormProps) => {
         <div data-testid="signinToast">
           <ToastContainer />
         </div>
-
-        <label className="SignInNewAcc">
-          {accountText}
-          <a
-            className="SignUplink"
-            data-testid="signinDontHaveAccountLink"
-            href="/auth/signup"
-          >
-            Sign Up
-          </a>
-        </label>
       </label>
     </form>
   );
