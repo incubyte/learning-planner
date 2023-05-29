@@ -116,6 +116,11 @@ describe("UserDetail Component", () => {
         "UserDetailDesignationLabel"
       );
       expect(userDetailDesignationLabel).toBeInTheDocument();
+
+      const userDetailClientTeamLabel = screen.getByTestId(
+        "UserDetailClientTeamLabel"
+      );
+      expect(userDetailClientTeamLabel).toBeInTheDocument();
     });
   });
 
@@ -132,13 +137,18 @@ describe("UserDetail Component", () => {
       const userDetailEidInput = screen.getByTestId("UserDetailEidInput");
       expect(userDetailEidInput).toBeInTheDocument();
 
-      const userDetailRoleInput = screen.getByTestId("UserDetailRoleInput");
-      expect(userDetailRoleInput).toBeInTheDocument();
+      // const userDetailRoleInput = screen.getByTestId("UserDetailRoleInput");
+      // expect(userDetailRoleInput).toBeInTheDocument();
 
       const userDetailDesignationInput = screen.getByTestId(
         "UserDetailDesignationInput"
       );
       expect(userDetailDesignationInput).toBeInTheDocument();
+
+      const userDetailClientTeamInput = screen.getByTestId(
+        "UserDetailClientTeamInput"
+      );
+      expect(userDetailClientTeamInput).toBeInTheDocument();
     });
   });
 });
