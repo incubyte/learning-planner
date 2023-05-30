@@ -54,4 +54,12 @@ describe('CourseController (e2e)', () => {
       .set('Authorization', `Bearer ${authToken}`);
     expect(response.status).toBe(201);
   });
+
+  it('tag/updateTag/:id (PATCH) - should update the tag which is Accessible to admin only', async () => {
+    const response = await request(app.getHttpServer())
+      .patch('/tag/update/100')
+      .set('Authorization', `Bearer ${authToken}`);
+    expect(response.status).toBe(400);
+    expect(response.body.message).toEqual('Tag does not exists');
+  });
 });
