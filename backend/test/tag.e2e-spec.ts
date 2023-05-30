@@ -42,4 +42,16 @@ describe('CourseController (e2e)', () => {
       .set('Authorization', `Bearer ${authToken}`);
     expect(response.status).toBe(200);
   });
+
+  const tag = {
+    name: 'Tag' + Math.random() * 100,
+  };
+
+  it('tag/create (POST) - should create the tag', async () => {
+    const response = await request(app.getHttpServer())
+      .post('/tag/create')
+      .send(tag)
+      .set('Authorization', `Bearer ${authToken}`);
+    expect(response.status).toBe(201);
+  });
 });
