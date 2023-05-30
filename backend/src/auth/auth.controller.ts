@@ -20,6 +20,6 @@ export class AuthController {
 
   @Post('/admin/signin')
   async signinAdmin(@Body() user: UserDto): Promise<string> {
-    return await this.authService.signin(user);
+    return await this.authService.signinAdmin(user);
   }
 }

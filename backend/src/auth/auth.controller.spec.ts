@@ -85,12 +85,12 @@ describe('AuthController', () => {
       password: '123',
     };
     jest
-      .spyOn(service, 'signin')
+      .spyOn(service, 'signinAdmin')
       .mockResolvedValueOnce(
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjgzYjdlNjQ5LTFlMzctNDNiZS04MjI5LTAyYWIwNmM5YmE5YSIsImVtYWlsIjoiam9obkBpbmN1Ynl0ZS5jbyJ9.6P194HePv2AaSgB1jvyb_lM5EOKyMMu0cWkx_p0O2cc',
       );
     const result = await controller.signinAdmin(user);
-    expect(service.signin).toBeCalledTimes(1);
+    expect(service.signinAdmin).toBeCalledTimes(1);
     expect(result).toBe(
       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjgzYjdlNjQ5LTFlMzctNDNiZS04MjI5LTAyYWIwNmM5YmE5YSIsImVtYWlsIjoiam9obkBpbmN1Ynl0ZS5jbyJ9.6P194HePv2AaSgB1jvyb_lM5EOKyMMu0cWkx_p0O2cc',
     );
