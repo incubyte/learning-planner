@@ -13,7 +13,7 @@ function App() {
       },
     });
     if (!response.ok) {
-      navigator("/auth/signin");
+      navigator("/auth/sign_in");
     }
   };
   const authToken = localStorage.getItem("authToken");
