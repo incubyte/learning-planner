@@ -5,9 +5,6 @@ import { TagDto } from './dto/tag.dto';
 
 @Injectable()
 export class TagService {
-  deleteTag(tagId: number): string | PromiseLike<string> {
-    throw new Error('Method not implemented.');
-  }
   constructor(private readonly prismaService: PrismaService) {}
 
   async getAll(): Promise<Tag[]> {
@@ -47,5 +44,23 @@ export class TagService {
     });
 
     return updateTagResponse;
+  }
+
+  async deleteTag(id: number): Promise<string> {
+    const prismadeleteTag = await this.prismaService.tag.findFirst({
+      where: { id: id },
+    });
+
+    if (!prismadeleteTag) {
+      throw new BadRequestException('Tag does not exists');
+    }
+
+    const deleteTagResponse = await this.prismaService.tag.delete({
+      where: { id: id },
+    });
+    if (!deleteTagResponse) {
+      throw new BadRequestException('Some problem occured');
+    }
+    return 'Tag deleted Successfully';
   }
 }

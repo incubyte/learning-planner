@@ -3,6 +3,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { TagDto } from '@Tag/dto/tag.dto';
 import { TagService } from '@Tag/tag.service';
 import { BadRequestException } from '@nestjs/common';
+import { Tag } from '@prisma/client';
 
 describe('TagService', () => {
   let service: TagService;
@@ -21,6 +22,7 @@ describe('TagService', () => {
                 findFirst: jest.fn(),
                 create: jest.fn(),
                 update: jest.fn(),
+                delete: jest.fn(),
               },
             };
           },
@@ -149,5 +151,46 @@ describe('TagService', () => {
       new BadRequestException('Tag does not exists'),
     );
     expect(prismaService.tag.update).not.toBeCalled();
+  });
+
+  it('should delete tag if it is present', async () => {
+    const responseTag: Tag = {
+      id: 1,
+      name: 'Course1',
+    };
+    const response = 'Tag deleted Successfully';
+    jest.spyOn(prismaService.tag, 'findFirst').mockResolvedValue(responseTag);
+    jest.spyOn(prismaService.tag, 'delete').mockResolvedValue(responseTag);
+    const result = await service.deleteTag(1);
+    expect(prismaService.tag.delete).toHaveBeenCalledTimes(1);
+    expect(result).toEqual(response);
+  });
+
+  it('should throw BadRequest Execption if the Tag is not found in the delete', async () => {
+    const response: Tag = null;
+
+    jest.spyOn(prismaService.tag, 'findFirst').mockResolvedValueOnce(response);
+
+    await expect(service.deleteTag(1)).rejects.toThrow(
+      new BadRequestException('Tag does not exists'),
+    );
+    expect(prismaService.tag.delete).not.toBeCalled();
+  });
+
+  it('should throw badRequest if prisma delete course method returns null ', async () => {
+    const responseTag: Tag = {
+      id: 1,
+      name: 'Tag1',
+    };
+
+    jest
+      .spyOn(prismaService.tag, 'findFirst')
+      .mockResolvedValueOnce(responseTag);
+
+    jest.spyOn(prismaService.tag, 'delete').mockResolvedValueOnce(null);
+
+    await expect(service.deleteTag(1)).rejects.toThrow(
+      new BadRequestException('Some problem occured'),
+    );
   });
 });
