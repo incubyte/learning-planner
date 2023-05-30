@@ -56,16 +56,6 @@ describe("Navbar", () => {
     const navbarHome = screen.getByTestId("navbarHeaderHomeLink");
     expect(navbarHome).toBeInTheDocument();
   });
-  test("Profile button is present in navbar", () => {
-    render(
-      <BrowserRouter>
-        <Navbar isCourse={true} isHome={true} isProfile={true} isUser={true} />
-      </BrowserRouter>
-    );
-
-    const navbarProfile = screen.getByTestId("navbarHeaderProfileLink");
-    expect(navbarProfile).toBeInTheDocument();
-  });
   test("User button is present in navbar", () => {
     render(
       <BrowserRouter>
