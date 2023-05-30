@@ -182,15 +182,7 @@ const Navbar = (props: NavbarProps) => {
                       Home
                     </Link>
                   )}
-                  {props.isProfile && (
-                    <Link
-                      to="/users"
-                      className="navbarHeaderItems"
-                      data-testid="navbarHeaderProfileLink"
-                    >
-                      Profile
-                    </Link>
-                  )}
+
                   {props.isCourse && (
                     <Link
                       to="/course"

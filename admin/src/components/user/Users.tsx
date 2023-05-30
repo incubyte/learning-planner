@@ -76,12 +76,15 @@ const Users = () => {
                   <td className="border border-gray-100 p-5 m-5">
                     {user.roles}
                   </td>
-                  <td className="border border-gray-100 p-5 m-5">
+                  <td className=" grid  justify-center p-5 m-5">
                     <a
                       href={"user/" + user.id}
-                      className="font-medium text-blue-600 hover:underline"
+                      className="font-medium hover:underline"
                     >
-                      Info
+                      <img
+                        className="h-10 w-10"
+                        src="https://res.cloudinary.com/dxepcudkt/image/upload/v1685424291/edit-svgrepo-com_hkhijf.svg"
+                      ></img>
                     </a>
                   </td>
                 </tr>
