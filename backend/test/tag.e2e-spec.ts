@@ -62,4 +62,12 @@ describe('CourseController (e2e)', () => {
     expect(response.status).toBe(400);
     expect(response.body.message).toEqual('Tag does not exists');
   });
+
+  it('tag/delete/:id (DELETE) - should delete the tag which is Accessible to admin only', async () => {
+    const response = await request(app.getHttpServer())
+      .delete('/tag/delete/100')
+      .set('Authorization', `Bearer ${authToken}`);
+    expect(response.status).toBe(400);
+    expect(response.body.message).toEqual('Tag does not exists');
+  });
 });
