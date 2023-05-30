@@ -86,4 +86,20 @@ describe('TagController', () => {
     expect(service.createTag).toBeCalledTimes(1);
     expect(result).toMatchObject(mockResponse);
   });
+
+  it('should update user', async () => {
+    const tags: TagDto = {
+      name: 'clean-code',
+    };
+    const mockResponse = {
+      id: 1,
+      name: 'clean-code',
+    };
+
+    jest.spyOn(service, 'updateTag').mockResolvedValueOnce(mockResponse);
+    const result = await controller.updateTag('1', tags);
+    expect(service.updateTag).toHaveBeenCalledWith(1, tags);
+    expect(service.updateTag).toHaveBeenCalledTimes(1);
+    expect(result).toEqual(mockResponse);
+  });
 });

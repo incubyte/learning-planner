@@ -1,7 +1,15 @@
 import { Role } from '@/auth/role.enum';
 import { Roles } from '@/decorator/role.decorator';
 import { JwtAuthGuard } from '@Auth/jwt-auth-guard/jwt-auth.guard';
-import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Patch,
+  Post,
+  UseGuards,
+} from '@nestjs/common';
 import { Tag } from '@prisma/client';
 import { TagService } from '@Tag/tag.service';
 import { TagDto } from './dto/tag.dto';
@@ -23,5 +31,14 @@ export class TagController {
   @Post('/create')
   async create(@Body() tagDTo: TagDto): Promise<Tag> {
     return await this.tagService.createTag(tagDTo);
+  }
+  @Roles(Role.Admin)
+  @Patch('/update/:id')
+  async updateTag(
+    @Param('id') id: string,
+    @Body() tagBody: TagDto,
+  ): Promise<Tag> {
+    const tagId = parseInt(id);
+    return await this.tagService.updateTag(tagId, tagBody);
   }
 }
