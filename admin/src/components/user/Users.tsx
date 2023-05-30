@@ -64,25 +64,23 @@ const Users = () => {
                   className={`${index % 2 === 1 ? "bg-gray-100" : "bg-white"}`}
                   role="row"
                 >
-                  <td scope="row" className="border border-gray-100 p-5 m-5">
-                    {user.eId}
-                  </td>
-                  <td className="border border-gray-100 p-5 m-5">
+                  <td className="border border-gray-100 p-2 m-2">{user.eId}</td>
+                  <td className="border border-gray-100 p-2 m-2">
                     {user.email}
                   </td>
-                  <td className="border border-gray-100 p-5 m-5">
+                  <td className="border border-gray-100 p-2 m-2">
                     {user.role}
                   </td>
-                  <td className="border border-gray-100 p-5 m-5">
+                  <td className="border border-gray-100 p-2 m-2">
                     {user.roles}
                   </td>
-                  <td className=" grid  justify-center p-5 m-5">
+                  <td className="flex justify-center p-2 m-2">
                     <a
                       href={"user/" + user.id}
                       className="font-medium hover:underline"
                     >
                       <img
-                        className="h-10 w-10"
+                        className="h-8 w-8"
                         src="https://res.cloudinary.com/dxepcudkt/image/upload/v1685424291/edit-svgrepo-com_hkhijf.svg"
                       ></img>
                     </a>

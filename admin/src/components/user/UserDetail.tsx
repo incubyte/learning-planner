@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import Dropdown from "react-dropdown";
 import "react-dropdown/style.css";
 import { useNavigate, useParams } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
@@ -28,7 +27,7 @@ const UserDetail = () => {
   const [showModal, setShowModal] = useState(false);
   const [avatar, setAvatar] = useState("");
 
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isUpdated, setIsUpdated] = useState<boolean>(false);
 
   const blob = new Blob([avatar]);
   const changeAvatar = (e: any) => {
@@ -239,7 +238,9 @@ const UserDetail = () => {
                   data-testid="UserDetailEmailInput"
                   defaultValue={user.email}
                   className="AdminProfileInput"
-                  onChange={(e) =>
+                  onChange={(e) => {
+                    e.target.style.borderColor = "green";
+                    setIsUpdated(true);
                     setUser({
                       email: e.target.value,
                       eId: user.eId,
@@ -250,8 +251,8 @@ const UserDetail = () => {
                       updatedAt: user.updatedAt,
                       id: user.id,
                       createdAt: user.createdAt,
-                    })
-                  }
+                    });
+                  }}
                 ></input>
               </div>
               <div className="AdminProfileGridContent">
@@ -265,7 +266,9 @@ const UserDetail = () => {
                   data-testid="UserDetailEidInput"
                   defaultValue={user?.eId}
                   className="AdminProfileInput"
-                  onChange={(e) =>
+                  onChange={(e) => {
+                    e.target.style.borderColor = "green";
+                    setIsUpdated(true);
                     setUser({
                       email: user.email,
                       eId: e.target.value,
@@ -276,8 +279,8 @@ const UserDetail = () => {
                       updatedAt: user.updatedAt,
                       id: user.id,
                       createdAt: user.createdAt,
-                    })
-                  }
+                    });
+                  }}
                 ></input>
               </div>
               <div className="AdminProfileGridContent">
@@ -291,7 +294,9 @@ const UserDetail = () => {
                   data-testid="UserDetailDesignationInput"
                   defaultValue={user.role}
                   className="AdminProfileInput"
-                  onChange={(e) =>
+                  onChange={(e) => {
+                    e.target.style.borderColor = "green";
+                    setIsUpdated(true);
                     setUser({
                       email: user.email,
                       eId: user.eId,
@@ -302,37 +307,11 @@ const UserDetail = () => {
                       updatedAt: user.updatedAt,
                       id: user.id,
                       createdAt: user.createdAt,
-                    })
-                  }
-                ></input>
-              </div>
-              <div className="AdminProfileGridContent">
-                <label
-                  data-testid="UserDetailRoleLabel"
-                  className="AdminProfileLabel"
-                >
-                  Role
-                </label>
-                <Dropdown
-                  data-testid="UserDetailRoleInput"
-                  className="AdminProfileInput"
-                  options={options}
-                  value={user.roles}
-                  onChange={(e) => {
-                    setUser({
-                      email: user.email,
-                      eId: user.eId,
-                      clientTeam: user.clientTeam,
-                      role: user.role,
-                      roles: e.value,
-                      profilePhoto: user.profilePhoto,
-                      updatedAt: user.updatedAt,
-                      id: user.id,
-                      createdAt: user.createdAt,
                     });
                   }}
-                />
+                ></input>
               </div>
+
               <div className="AdminProfileGridContent">
                 <label
                   data-testid="UserDetailClientTeamLabel"
@@ -346,7 +325,9 @@ const UserDetail = () => {
                     user.clientTeam !== null ? user.clientTeam : "-"
                   }
                   className="AdminProfileInput"
-                  onChange={(e) =>
+                  onChange={(e) => {
+                    e.target.style.borderColor = "green";
+                    setIsUpdated(true);
                     setUser({
                       email: user.email,
                       eId: user.eId,
@@ -357,8 +338,38 @@ const UserDetail = () => {
                       updatedAt: user.updatedAt,
                       id: user.id,
                       createdAt: user.createdAt,
-                    })
-                  }
+                    });
+                  }}
+                ></input>
+              </div>
+              <div className="AdminProfileGridContent">
+                <label
+                  data-testid="UserDetailRoleLabel"
+                  className="AdminProfileLabel"
+                >
+                  Is Admin
+                </label>
+
+                <input
+                  data-testid="UserDetailRoleInput"
+                  className="h-5 w-5 m-3 hover:cursor-pointer"
+                  type="checkbox"
+                  checked={user.roles === "Admin"}
+                  onChange={(e) => {
+                    e.target.style.borderColor = "green";
+                    setIsUpdated(true);
+                    setUser({
+                      email: user.email,
+                      eId: user.eId,
+                      clientTeam: user.clientTeam,
+                      role: user.role,
+                      roles: e.target.checked === true ? "Admin" : "Employee",
+                      profilePhoto: user.profilePhoto,
+                      updatedAt: user.updatedAt,
+                      id: user.id,
+                      createdAt: user.createdAt,
+                    });
+                  }}
                 ></input>
               </div>
             </div>
@@ -370,6 +381,7 @@ const UserDetail = () => {
             className="AdminProfileModalSaveButton bg-emerald-500 hover:bg-emerald-400 active:bg-emerald-600"
             type="button"
             onClick={updateUser}
+            disabled={!isUpdated}
           >
             Update
           </button>
