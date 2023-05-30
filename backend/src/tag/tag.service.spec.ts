@@ -32,6 +32,10 @@ describe('TagService', () => {
     prismaService = module.get<PrismaService>(PrismaService);
   });
 
+  afterEach(() => {
+    jest.resetAllMocks();
+  });
+
   it('should be defined', () => {
     expect(service).toBeDefined();
   });
