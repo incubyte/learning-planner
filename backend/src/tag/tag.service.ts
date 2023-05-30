@@ -5,6 +5,9 @@ import { TagDto } from './dto/tag.dto';
 
 @Injectable()
 export class TagService {
+  deleteTag(tagId: number): string | PromiseLike<string> {
+    throw new Error('Method not implemented.');
+  }
   constructor(private readonly prismaService: PrismaService) {}
 
   async getAll(): Promise<Tag[]> {

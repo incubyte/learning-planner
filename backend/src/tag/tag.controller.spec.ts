@@ -102,4 +102,13 @@ describe('TagController', () => {
     expect(service.updateTag).toHaveBeenCalledTimes(1);
     expect(result).toEqual(mockResponse);
   });
+
+  it('should delete course', async () => {
+    const response = 'Tag is deleted Successfully';
+    jest.spyOn(service, 'deleteTag').mockResolvedValueOnce(response);
+    const result = await controller.deleteTag('1');
+    expect(service.deleteTag).toHaveBeenCalledWith(1);
+    expect(service.deleteTag).toHaveBeenCalledTimes(1);
+    expect(result).toEqual('Tag is deleted Successfully');
+  });
 });

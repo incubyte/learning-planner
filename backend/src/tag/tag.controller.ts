@@ -4,6 +4,7 @@ import { JwtAuthGuard } from '@Auth/jwt-auth-guard/jwt-auth.guard';
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   Patch,
@@ -23,15 +24,18 @@ export class TagController {
   async getAll(): Promise<Tag[]> {
     return await this.tagService.getAll();
   }
+
   @Get('/:id')
   async getById(@Param('id') id: string): Promise<Tag> {
     return await this.tagService.getById(id);
   }
+
   @Roles(Role.Admin)
   @Post('/create')
   async create(@Body() tagDTo: TagDto): Promise<Tag> {
     return await this.tagService.createTag(tagDTo);
   }
+
   @Roles(Role.Admin)
   @Patch('/update/:id')
   async updateTag(
@@ -40,5 +44,12 @@ export class TagController {
   ): Promise<Tag> {
     const tagId = parseInt(id);
     return await this.tagService.updateTag(tagId, tagBody);
+  }
+
+  @Roles(Role.Admin)
+  @Delete('/delete/:id')
+  async deleteTag(@Param('id') id: string): Promise<string> {
+    const tagId = parseInt(id);
+    return await this.tagService.deleteTag(tagId);
   }
 }
