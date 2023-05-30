@@ -19,6 +19,7 @@ describe('TagService', () => {
               tag: {
                 findMany: jest.fn(),
                 findFirst: jest.fn(),
+                create: jest.fn(),
               },
             };
           },
