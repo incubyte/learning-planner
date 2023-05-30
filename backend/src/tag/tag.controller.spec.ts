@@ -72,4 +72,18 @@ describe('TagController', () => {
     expect(service.getById).toBeCalledTimes(1);
     expect(result).toMatchObject(mockResponse);
   });
+
+  it('should create tags', async () => {
+    const tags: TagDto = {
+      name: 'clean-code',
+    };
+    const mockResponse = {
+      id: 1,
+      name: 'clean-code',
+    };
+    jest.spyOn(service, 'createTag').mockResolvedValueOnce(mockResponse);
+    const result = await controller.create(tags);
+    expect(service.createTag).toBeCalledTimes(1);
+    expect(result).toMatchObject(mockResponse);
+  });
 });
