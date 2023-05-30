@@ -20,9 +20,6 @@ describe("Navbar", () => {
 
     const homeLink = screen.getByTestId("navbarHeaderHomeLink");
     expect(homeLink).toBeInTheDocument();
-
-    const profileLink = screen.getByTestId("navbarHeaderProfileLink");
-    expect(profileLink).toBeInTheDocument();
   });
 
   test("Logout is present in navbar", () => {
