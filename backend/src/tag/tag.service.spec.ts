@@ -20,6 +20,7 @@ describe('TagService', () => {
                 findMany: jest.fn(),
                 findFirst: jest.fn(),
                 create: jest.fn(),
+                update: jest.fn(),
               },
             };
           },
@@ -116,5 +117,33 @@ describe('TagService', () => {
     await expect(service.createTag(tag)).rejects.toThrow(
       new BadRequestException('Tag already exist'),
     );
+  });
+
+  it('should update Tag', async () => {
+    const tag: TagDto = {
+      name: 'Tag 1',
+    };
+    const responseTag = {
+      id: 1,
+      name: 'Tag 1',
+    };
+    jest
+      .spyOn(prismaService.tag, 'findFirst')
+      .mockResolvedValueOnce(responseTag);
+    jest.spyOn(prismaService.tag, 'update').mockResolvedValueOnce(responseTag);
+    const result = await service.updateTag(1, tag);
+    expect(prismaService.tag.update).toBeCalledTimes(1);
+    expect(result).toEqual(responseTag);
+  });
+
+  it('should throw BadRequest Exception if the Tag is not found in update', async () => {
+    const tag: TagDto = {
+      name: 'Tag 1',
+    };
+    jest.spyOn(prismaService.tag, 'findFirst').mockResolvedValueOnce(null);
+    await expect(service.updateTag(1, tag)).rejects.toThrow(
+      new BadRequestException('Tag does not exists'),
+    );
+    expect(prismaService.tag.update).not.toBeCalled();
   });
 });
