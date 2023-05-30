@@ -15,8 +15,8 @@ describe('CourseController (e2e)', () => {
     app = moduleFixture.createNestApplication();
     await app.init();
     const user = {
-      email: 'john' + Math.random() * 1000 + '@incubyte.co',
-      password: '123',
+      email: 'utsav.p@incubyte.co',
+      password: 'Incubyte@111',
       eId: 'E00' + Math.random() * 1000,
       role: 'SC',
       clientTeam: 'Learning Planner',
