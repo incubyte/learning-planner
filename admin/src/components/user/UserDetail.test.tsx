@@ -137,8 +137,8 @@ describe("UserDetail Component", () => {
       const userDetailEidInput = screen.getByTestId("UserDetailEidInput");
       expect(userDetailEidInput).toBeInTheDocument();
 
-      // const userDetailRoleInput = screen.getByTestId("UserDetailRoleInput");
-      // expect(userDetailRoleInput).toBeInTheDocument();
+      const userDetailRoleInput = screen.getByTestId("UserDetailRoleInput");
+      expect(userDetailRoleInput).toBeInTheDocument();
 
       const userDetailDesignationInput = screen.getByTestId(
         "UserDetailDesignationInput"
