@@ -46,20 +46,27 @@ const HomePage = () => {
         isProfile={false}
         isUser={true}
       ></Navbar>
-      <HomeCard
-        dataTestId="userCard"
-        count={allUsers?.length}
-        header="Total Users"
-        link="/users"
-        linkText="See All Users"
-      ></HomeCard>
-      <HomeCard
-        dataTestId="courseCard"
-        count={allCourse?.length}
-        header="Total Courses"
-        link="/"
-        linkText="See All Course"
-      ></HomeCard>
+      <div className="justify-center mt-16">
+        <p className="text-gray-800 whitespace-normal text-3xl font-bold">
+          Welcome, Admin!
+        </p>
+        <div className="flex flex-row gap-44 justify-center mt-16">
+          <HomeCard
+            dataTestId="userCard"
+            count={allUsers?.length}
+            header="Total Users"
+            link="/users"
+            linkText="See All Users"
+          ></HomeCard>
+          <HomeCard
+            dataTestId="courseCard"
+            count={allCourse?.length}
+            header="Total Courses"
+            link="/"
+            linkText="See All Course"
+          ></HomeCard>
+        </div>
+      </div>
     </>
   );
 };

@@ -1,4 +1,5 @@
 import SeeMore from "./icons/SeeMore";
+import "../../css/utilities/HomeCard.css";
 
 interface HomeCardProp {
   count?: number;

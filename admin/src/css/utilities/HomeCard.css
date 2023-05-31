@@ -1,5 +1,5 @@
 .HomeCardContainer{
-   @apply max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow
+   @apply max-w-sm bg-gray-100 border border-gray-200 rounded-lg shadow hover:shadow-lg p-10
 }
 .HomeCardHeader{
    @apply mb-2 text-2xl font-bold tracking-tight text-gray-900
