@@ -37,7 +37,6 @@ const UserDetail = () => {
   };
 
   const deleteUser = async () => {
-    const authToken = localStorage.getItem("authToken");
     const response = await fetch(
       "https://backend-mu-plum.vercel.app/user/delete/" + urlParams.id,
       {
@@ -104,6 +103,7 @@ const UserDetail = () => {
     let media: any = [];
     if (avatar) {
       media = await imageUpload([avatar]);
+      setIsUpdated(true);
       setUser({
         email: user.email,
         eId: user.eId,

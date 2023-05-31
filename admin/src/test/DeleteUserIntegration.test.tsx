@@ -33,6 +33,18 @@ beforeAll(async () => {
   userId = jsonBody.id;
 });
 
+afterAll(async () => {
+  const authToken = localStorage.getItem("authToken");
+  const response = await fetch(
+    "https://backend-mu-plum.vercel.app/user/delete/" + userId,
+    {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+      },
+    }
+  );
+});
 function sleep(ms: any) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
