@@ -2,7 +2,6 @@ import { Transition } from "@headlessui/react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import IncubyteLogo from "../../assets/IncubyteLogo.png";
-import "../../css/user/profile.css";
 import "../../css/utilities/Navbar.css";
 import CloseMenu from "./icons/CloseMenu";
 import OpenMenu from "./icons/OpenMenu";
@@ -23,7 +22,7 @@ const Navbar = (props: NavbarProps) => {
 
   const logout = async () => {
     await localStorage.removeItem("authToken");
-    await navigator("/auth/signin");
+    await navigator("/auth/sign_in");
   };
 
   const addUser = async () => {

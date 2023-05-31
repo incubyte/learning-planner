@@ -1,7 +1,6 @@
-import React from "react";
 import { ToastContainer, toast } from "react-toastify";
 import * as XLSX from "xlsx";
-import { useState } from "react";
+import "../../css/user/addUser.css";
 interface addUserProps {
   showModal: boolean;
   setShowModal: Function;
@@ -81,13 +80,13 @@ const AddUser = (props: addUserProps) => {
     <>
       {props.showModal ? (
         <>
-          <div data-testid="profileImageModel" className="ProfileModal">
+          <div data-testid="AddUserModel" className="AddUserModal">
             <div className="relative w-auto my-6 mx-auto">
-              <div className="ProfileModalContainer">
-                <div className="ProfileModelUploadContainer">
+              <div className="AddUserModalContainer">
+                <div className="AddUserModelUploadContainer">
                   <h3 className="text-3xl font-semibold">Upload Excel</h3>
                   <button
-                    className="ProfileModalUploadButton"
+                    className="AddUserModalUploadButton"
                     onClick={() => props.setShowModal(false)}
                   >
                     <span className="text-black h-6 w-6 text-2xl block outline-none">
@@ -96,13 +95,13 @@ const AddUser = (props: addUserProps) => {
                   </button>
                 </div>
                 <div className="relative p-6 flex-auto">
-                  <label className="ProfileModelUploadFileLabel">
+                  <label className="AddUserModelUploadFileLabel">
                     Upload file
                   </label>
                   <input
                     type="file"
                     id="file-upload"
-                    className="ProfileModalUploadInput"
+                    className="AddUserModalUploadInput"
                     accept=".csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
                     onChange={(event) => {
                       onChange(event);
@@ -115,10 +114,10 @@ const AddUser = (props: addUserProps) => {
                     csv, xlsx, xls
                   </p>
                 </div>
-                <div className="ProfileModalFooter">
+                <div className="AddUserModalFooter">
                   <button
-                    data-testid="profileImageClose"
-                    className="ProfileModalCloseButton"
+                    data-testid="AddUserImageClose"
+                    className="AddUserModalCloseButton bg-red-500"
                     type="button"
                     onClick={() => props.setShowModal(false)}
                   >
