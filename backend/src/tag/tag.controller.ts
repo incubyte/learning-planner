@@ -14,6 +14,7 @@ import {
 import { Tag } from '@prisma/client';
 import { TagService } from '@Tag/tag.service';
 import { TagDto } from './dto/tag.dto';
+import { RolesGuard } from '@/auth/role.guard';
 
 @UseGuards(JwtAuthGuard, RolesGuard)
 @Controller('tag')
