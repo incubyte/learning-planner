@@ -15,7 +15,7 @@ import { Tag } from '@prisma/client';
 import { TagService } from '@Tag/tag.service';
 import { TagDto } from './dto/tag.dto';
 
-@UseGuards(JwtAuthGuard)
+@UseGuards(JwtAuthGuard, RolesGuard)
 @Controller('tag')
 export class TagController {
   constructor(private readonly tagService: TagService) {}
