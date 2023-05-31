@@ -7,7 +7,7 @@ import {
   waitFor,
 } from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
-import SignIn from "../components/auth/SignIn";
+import SignIn from "../components/SignIn";
 
 afterEach(() => {
   cleanup();

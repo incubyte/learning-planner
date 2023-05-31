@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import "react-dropdown/style.css";
 import { useNavigate, useParams } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "../../css/user/adminProfile.css";
 import Navbar from "../utilities/Navbar";
 import { imageUpload } from "./ImageUpload";
