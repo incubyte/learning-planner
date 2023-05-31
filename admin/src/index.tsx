@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import App from "./App";
+import HomePage from "./components/HomePage";
 import SignIn from "./components/SignIn";
 import UserDetail from "./components/user/UserDetail";
 import Users from "./components/user/Users";
@@ -15,6 +16,10 @@ const router = createBrowserRouter([
     path: "/",
     element: <App />,
     children: [
+      {
+        path: "",
+        element: <HomePage />,
+      },
       {
         path: "/users",
         element: <Users />,
