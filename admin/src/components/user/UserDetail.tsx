@@ -3,7 +3,7 @@ import "react-dropdown/style.css";
 import { useNavigate, useParams } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import "../../css/user/adminProfile.css";
+import "../../css/user/userDetails.css";
 import Navbar from "../utilities/Navbar";
 import { imageUpload } from "./ImageUpload";
 import { userType } from "./user";
@@ -142,13 +142,13 @@ const UserDetail = () => {
     <>
       {showModal ? (
         <>
-          <div data-testid="UserDetailImageModel" className="AdminProfileModal">
+          <div data-testid="UserDetailImageModel" className="UserDetailsModal">
             <div className="relative w-auto my-6 mx-auto">
-              <div className="AdminProfileModalContainer">
-                <div className="AdminProfileModelUploadContainer">
+              <div className="UserDetailsModalContainer">
+                <div className="UserDetailsModelUploadContainer">
                   <h3 className="text-3xl font-semibold">Upload Image</h3>
                   <button
-                    className="AdminProfileModalUploadButton"
+                    className="UserDetailsModalUploadButton"
                     onClick={() => setShowModal(false)}
                   >
                     <span className="text-black h-6 w-6 text-2xl block outline-none">
@@ -157,13 +157,13 @@ const UserDetail = () => {
                   </button>
                 </div>
                 <div className="relative p-6 flex-auto">
-                  <label className="AdminProfileModelUploadFileLabel">
+                  <label className="UserDetailsModelUploadFileLabel">
                     Upload file
                   </label>
                   <input
                     data-testid="UserDetailImageInput"
                     accept="image/*"
-                    className="AdminProfileModalUploadInput"
+                    className="UserDetailsModalUploadInput"
                     aria-describedby="file_input_help"
                     id="file_input"
                     type="file"
@@ -176,10 +176,10 @@ const UserDetail = () => {
                     SVG, PNG, JPG or GIF (MAX. 350kb).
                   </p>
                 </div>
-                <div className="AdminProfileModalFooter">
+                <div className="UserDetailsModalFooter">
                   <button
                     data-testid="UserDetailImageClose"
-                    className="AdminProfileModalCloseButton"
+                    className="UserDetailsModalCloseButton"
                     type="button"
                     onClick={() => setShowModal(false)}
                   >
@@ -187,7 +187,7 @@ const UserDetail = () => {
                   </button>
                   <button
                     data-testid="UserDetailImageSave"
-                    className="AdminProfileModalSaveButton bg-emerald-500 active:bg-emerald-600"
+                    className="UserDetailsModalSaveButton bg-emerald-500 active:bg-emerald-600"
                     type="button"
                     onClick={handleSubmit}
                   >
@@ -207,18 +207,18 @@ const UserDetail = () => {
         isProfile={true}
         isUser={true}
       ></Navbar>
-      <div className="AdminProfileDiv">
-        <div className="AdminProfileContainer">
-          <div className="AdminProfilePhotoDiv">
+      <div className="UserDetailsDiv">
+        <div className="UserDetailsContainer">
+          <div className="UserDetailsPhotoDiv">
             <img
               data-testid="UserDetailImage"
-              className="AdminProfilePhoto"
+              className="UserDetailsPhoto"
               src={avatar ? URL.createObjectURL(blob) : user.profilePhoto}
             ></img>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               data-testid="UserDetailImageButton"
-              className="AdminProfileImageUpdateIcon"
+              className="UserDetailsImageUpdateIcon"
               onClick={() => setShowModal(true)}
               viewBox="0 0 24 24"
             >
@@ -226,19 +226,19 @@ const UserDetail = () => {
             </svg>
           </div>
 
-          <div className="AdminProfileContentContainer">
-            <div className="AdminProfileContentGridContainer">
-              <div className="AdminProfileGridContent">
+          <div className="UserDetailsContentContainer">
+            <div className="UserDetailsContentGridContainer">
+              <div className="UserDetailsGridContent">
                 <label
                   data-testid="UserDetailEmailLabel"
-                  className="AdminProfileLabel"
+                  className="UserDetailsLabel"
                 >
                   Email
                 </label>
                 <input
                   data-testid="UserDetailEmailInput"
                   defaultValue={user.email}
-                  className="AdminProfileInput"
+                  className="UserDetailsInput"
                   onChange={(e) => {
                     e.target.style.borderColor = "green";
                     setIsUpdated(true);
@@ -256,17 +256,17 @@ const UserDetail = () => {
                   }}
                 ></input>
               </div>
-              <div className="AdminProfileGridContent">
+              <div className="UserDetailsGridContent">
                 <label
                   data-testid="UserDetailEidLabel"
-                  className="AdminProfileLabel"
+                  className="UserDetailsLabel"
                 >
                   Employee Id
                 </label>
                 <input
                   data-testid="UserDetailEidInput"
                   defaultValue={user?.eId}
-                  className="AdminProfileInput"
+                  className="UserDetailsInput"
                   onChange={(e) => {
                     e.target.style.borderColor = "green";
                     setIsUpdated(true);
@@ -284,17 +284,17 @@ const UserDetail = () => {
                   }}
                 ></input>
               </div>
-              <div className="AdminProfileGridContent">
+              <div className="UserDetailsGridContent">
                 <label
                   data-testid="UserDetailDesignationLabel"
-                  className="AdminProfileLabel"
+                  className="UserDetailsLabel"
                 >
                   Designation
                 </label>
                 <input
                   data-testid="UserDetailDesignationInput"
                   defaultValue={user.role}
-                  className="AdminProfileInput"
+                  className="UserDetailsInput"
                   onChange={(e) => {
                     e.target.style.borderColor = "green";
                     setIsUpdated(true);
@@ -313,10 +313,10 @@ const UserDetail = () => {
                 ></input>
               </div>
 
-              <div className="AdminProfileGridContent">
+              <div className="UserDetailsGridContent">
                 <label
                   data-testid="UserDetailClientTeamLabel"
-                  className="AdminProfileLabel"
+                  className="UserDetailsLabel"
                 >
                   Client Team
                 </label>
@@ -325,7 +325,7 @@ const UserDetail = () => {
                   defaultValue={
                     user.clientTeam !== null ? user.clientTeam : "-"
                   }
-                  className="AdminProfileInput"
+                  className="UserDetailsInput"
                   onChange={(e) => {
                     e.target.style.borderColor = "green";
                     setIsUpdated(true);
@@ -343,10 +343,10 @@ const UserDetail = () => {
                   }}
                 ></input>
               </div>
-              <div className="AdminProfileGridContent">
+              <div className="UserDetailsGridContent">
                 <label
                   data-testid="UserDetailRoleLabel"
-                  className="AdminProfileLabel"
+                  className="UserDetailsLabel"
                 >
                   Is Admin
                 </label>
@@ -379,7 +379,7 @@ const UserDetail = () => {
         <div className="mt-24 grid grid-cols-2 gap-24">
           <button
             data-testid="UserDetailUpdate"
-            className="AdminProfileModalSaveButton bg-emerald-500 hover:bg-emerald-400 active:bg-emerald-600"
+            className="UserDetailsModalSaveButton bg-emerald-500 hover:bg-emerald-400 active:bg-emerald-600"
             type="button"
             onClick={updateUser}
             disabled={!isUpdated}
@@ -388,7 +388,7 @@ const UserDetail = () => {
           </button>
           <button
             data-testid="UserDetailDelete"
-            className="AdminProfileModalSaveButton bg-red-600 hover:bg-red-500 active:bg-red-700"
+            className="UserDetailsModalSaveButton bg-red-600 hover:bg-red-500 active:bg-red-700"
             type="button"
             onClick={deleteUser}
           >
