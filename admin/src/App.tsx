@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
-import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
+
 function App() {
   const navigator = useNavigate();
 
   const [page, setPage] = useState([]);
+  const authToken = localStorage.getItem("authToken");
   const fetchPage = async () => {
     const response = await fetch("https://backend-mu-plum.vercel.app/", {
       headers: {
@@ -16,14 +17,14 @@ function App() {
       navigator("/auth/sign_in");
     }
   };
-  const authToken = localStorage.getItem("authToken");
   useEffect(() => {
     fetchPage();
   }, page);
   return (
     <>
-      <Outlet></Outlet>
-      <div className="App">admin</div>
+      <div className="App">
+        <Outlet></Outlet>
+      </div>
     </>
   );
 }

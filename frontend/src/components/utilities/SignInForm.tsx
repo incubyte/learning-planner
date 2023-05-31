@@ -81,7 +81,7 @@ const SignInForm = (props: signInFormProps) => {
           data-testid="signinForgotPasswordLink"
           className="ForgotPass"
         >
-          forgot password?
+          FORGOT PASSWORD?
         </a>
         <button data-testid="signinButton" className="SignInSubmit">
           Sign In

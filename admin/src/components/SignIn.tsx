@@ -9,7 +9,7 @@ const SignIn = () => {
 
   const handleFormSubmit = async (data: any) => {
     const response = await fetch(
-      "https://backend-mu-plum.vercel.app/auth/signin",
+      "https://backend-mu-plum.vercel.app/auth/admin/signin",
       {
         method: "POST",
         headers: {
