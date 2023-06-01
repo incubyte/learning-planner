@@ -97,6 +97,15 @@ describe('AuthController', () => {
   });
 
   it('should be able to return the response', async () => {
+    jest
+      .spyOn(service, 'forgotPasswordAdmin')
+      .mockResolvedValueOnce('email sent');
+    const result = await controller.forgotPasswordAdmin('john@incubyte.co');
+    expect(service.forgotPasswordAdmin).toBeCalledTimes(1);
+    expect(result).toBe('email sent');
+  });
+
+  it('should be able to return the response', async () => {
     jest.spyOn(service, 'forgotPassword').mockResolvedValueOnce('email sent');
     const result = await controller.forgotPassword('john@incubyte.co');
     expect(service.forgotPassword).toBeCalledTimes(1);

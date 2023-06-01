@@ -92,7 +92,31 @@ export class AuthService {
         to: useremail,
         from: 'a.learningplanner@gmail.com',
         subject: 'Reset Password LearningPlanner@Incubyte',
-        html: `<p>click here http://localhost:4000/auth/reset_password/ ${token} to reset your password</p>`,
+        html: `<p>click <a href="http://localhost:4000/auth/reset_password/${token}"> here </a> to reset your password</p>`,
+      });
+
+      await this.prismaService.forgotPassword.create({
+        data: { email: useremail, token: token },
+      });
+      return 'email sent';
+    } catch (e) {
+      throw new BadRequestException('Something wrong please try again');
+    }
+  }
+  async forgotPassword(useremail: string): Promise<string> {
+    const prismaUser = await this.prismaService.user.findFirst({
+      where: { email: useremail },
+    });
+    if (!this.checkUserExist(prismaUser)) {
+      throw new BadRequestException('User not found');
+    }
+    const token = uid(21);
+    try {
+      await this.mailerService.sendMail({
+        to: useremail,
+        from: 'a.learningplanner@gmail.com',
+        subject: 'Reset Password LearningPlanner@Incubyte',
+        html: `<p>click <a href="http://localhost:3000/auth/reset_password/${token}">here </a>to reset your password</p>`,
       });
 
       await this.prismaService.forgotPassword.create({
