@@ -18,7 +18,7 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { User, UserCourse } from '@prisma/client';
-import { AddUserDto } from './dto/addUser.dto';
+import { AddUserBodyDto } from './dto/addUserBody.dto';
 import { courseIdBodyDto } from './dto/courseIdBody.dto';
 import { LeaderboardDto } from './dto/leaderboard.dto';
 import { ProfileCourseDto } from './dto/profileCourse.dto';
@@ -31,6 +31,12 @@ export class UserController {
   @Get('/')
   async getUserById(@UserDecorator() user: jwtPayload): Promise<User> {
     return await this.userService.getUserById(user.id);
+  }
+
+  @Roles(Role.Admin)
+  @Get('/getUser/:id')
+  async getUserByUserId(@Param('id') id: string): Promise<User> {
+    return await this.userService.getUserById(id);
   }
 
   @Get('/course')
@@ -80,8 +86,8 @@ export class UserController {
 
   @Roles(Role.Admin)
   @Post('/add')
-  async addUser(@Body() users: AddUserDto[]): Promise<number> {
-    return await this.userService.addUser(users);
+  async addUser(@Body() users: AddUserBodyDto): Promise<number> {
+    return await this.userService.addUser(users.users);
   }
 
   @Roles(Role.Admin)

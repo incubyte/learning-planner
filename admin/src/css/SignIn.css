@@ -1,0 +1,56 @@
+.SignInContainer{
+    @apply grid grid-cols-1 lg:grid-cols-3 md:bg-sign-in bg-sign-in-sm lg:bg-none justify-items-center h-screen object-cover
+}
+
+.SignInLeftside {
+    @apply lg:col-span-2 lg:flex lg:visible hidden
+}
+
+.SignInImage {
+    @apply lg:w-screen lg:visible
+}
+
+.SignInHeader{
+    @apply text-5xl lg:text-4xl md:text-7xl xsm:text-4xl mb-5
+}
+
+.SignInRightside {
+    @apply grid grid-cols-1 justify-items-center content-center object-contain
+}
+
+.SignInRightContent {
+    @apply bg-white bg-opacity-70 p-8 md:p-20 xsm:p-7 rounded-xl lg:bg-none lg:p-0 lg:rounded-none m-3;
+}
+
+.SignInFormItems {
+    @apply grid gap-2 grid-cols-1 justify-items-center
+}
+
+.SignInErrors{
+    @apply text-red-600 font-bold  md:text-2xl lg:text-base
+}
+
+.ForgotPass{
+    @apply mt-5 block text-xl sm:text-lg lg:text-base md:text-3xl xsm:text-base text-blue-900 lg:text-blue-500;
+}
+
+.SignInFormInput {
+    @apply mt-5 md:mt-10 lg:mt-6 block w-60 lg:w-72 md:w-auto xsm:w-52 sm:w-72 lg:px-3 xsm:px-2 px-5 lg:py-2 
+    md:py-5 xsm:py-2 sm:py-4 py-3 bg-white border border-slate-300 rounded-md shadow-sm 
+    placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 
+    disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none 
+    invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500 
+    lg:pl-11 md:pl-14 lg:pr-11 md:pr-14 xsm:pl-11 xsm:pr-11 text-xl lg:text-base sm:text-xl xsm:text-sm md:text-3xl;
+}
+
+.SignInSubmit {
+    @apply bg-blue-800 mt-3 block w-40 hover:bg-blue-900 text-white font-bold py-2 px-4 rounded text-xl lg:text-base lg:py-3 md:text-3xl md:py-5 md:mt-8 lg:mt-3;
+}
+
+.SignInNewAcc {
+    @apply mt-5 block text-lg lg:text-base xsm:text-sm md:text-3xl mdl:text-4xl sm:text-lg
+}
+
+.SignUplink {
+    @apply text-blue-900 lg:text-blue-500
+}

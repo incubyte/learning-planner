@@ -1,9 +1,9 @@
 import Tippy from "@tippyjs/react";
 import { useForm } from "react-hook-form";
 import { ToastContainer } from "react-toastify";
+import Input from "./Input";
 import EmailIcon from "./icons/Email";
 import PasswordIcon from "./icons/Password";
-import Input from "./Input";
 
 interface signInFormProps {
   handleFormSubmit: any;
@@ -58,7 +58,7 @@ const SignInForm = (props: signInFormProps) => {
           validation={emailValidation}
         />
 
-        <div data-testid="signinEmailError" className="SignInErors">
+        <div data-testid="signinEmailError" className="SignInErros">
           {errors.email ? <>{errors.email.message}</> : <></>}
         </div>
 
@@ -71,7 +71,7 @@ const SignInForm = (props: signInFormProps) => {
           validation={passwordValidation}
         />
         <Tippy content="password must contain 1 uppercase, 1 lowercase, 1 special character and 1 number">
-          <div data-testid="signinPasswordError" className="SignInErors">
+          <div data-testid="signinPasswordError" className="SignInErrors">
             {errors.password ? <>{errors.password.message}</> : <></>}
           </div>
         </Tippy>
@@ -81,7 +81,7 @@ const SignInForm = (props: signInFormProps) => {
           data-testid="signinForgotPasswordLink"
           className="ForgotPass"
         >
-          forgot password?
+          FORGOT PASSWORD?
         </a>
         <button data-testid="signinButton" className="SignInSubmit">
           Sign In
@@ -90,17 +90,6 @@ const SignInForm = (props: signInFormProps) => {
         <div data-testid="signinToast">
           <ToastContainer />
         </div>
-
-        <label className="SignInNewAcc">
-          {accountText}
-          <a
-            className="SignUplink"
-            data-testid="signinDontHaveAccountLink"
-            href="/auth/signup"
-          >
-            Sign Up
-          </a>
-        </label>
       </label>
     </form>
   );

@@ -2,7 +2,6 @@ import React, { Suspense } from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import SignIn from "./components/auth/SignIn";
-import SignUp from "./components/auth/SignUp";
 
 import LoadingScreen from "./components/utilities/LoadingScreen";
 import "./index.css";
@@ -64,11 +63,7 @@ const router = createBrowserRouter([
     path: "/auth",
     children: [
       {
-        path: "signup",
-        element: <SignUp></SignUp>,
-      },
-      {
-        path: "signin",
+        path: "sign_in",
         element: <SignIn></SignIn>,
       },
     ],

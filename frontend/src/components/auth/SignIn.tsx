@@ -1,9 +1,9 @@
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "tippy.js/dist/tippy.css";
+import loginImage from "../../assets/login-image.jpg";
 import "../../css/auth/SignIn.css";
 import SignInForm from "../utilities/SignInForm";
-import loginImage from "../../assets/login-image.jpg";
 
 const SignIn = () => {
   const navigator = useNavigate();
@@ -19,7 +19,7 @@ const SignIn = () => {
         body: JSON.stringify({ email: data.email, password: data.password }),
       }
     );
-
+    console.log(response);
     if (response.ok) {
       const authToken = await response.text();
       localStorage.setItem("authToken", authToken);

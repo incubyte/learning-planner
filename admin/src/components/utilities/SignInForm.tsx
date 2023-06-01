@@ -1,23 +1,22 @@
 import Tippy from "@tippyjs/react";
 import { useForm } from "react-hook-form";
 import { ToastContainer } from "react-toastify";
+import "../../css/SignIn.css";
 import Input from "./Input";
 import EmailIcon from "./icons/Email";
 import PasswordIcon from "./icons/Password";
 
-interface signUpFormProps {
+interface signInFormProps {
   handleFormSubmit: any;
   dataTestId?: string;
 }
-
-const SignUpForm = (props: signUpFormProps) => {
+const SignInForm = (props: signInFormProps) => {
   const {
     register,
     handleSubmit,
     getValues,
     formState: { errors },
   } = useForm();
-
   const emailValidation = {
     ...register("email", {
       required: {
@@ -43,26 +42,16 @@ const SignUpForm = (props: signUpFormProps) => {
       },
     }),
   };
-
-  const confirmPasswordValidation = {
-    ...register("confirmpassword", {
-      validate: {
-        confirmPasswordEqual: (value) =>
-          value === getValues().password ||
-          "Confirm Password must match with Password",
-      },
-    }),
-  };
-  const accountText = "Already have an account? ";
+  const accountText = "Don't have an account? ";
   return (
     <form
       data-testid={props.dataTestId}
       onSubmit={handleSubmit(props.handleFormSubmit)}
     >
-      <label className="SignUpFormItems">
+      <label className="SignInFormItems">
         <Input
           icon={EmailIcon}
-          dataTestId="signupEmail"
+          dataTestId="signinEmail"
           placeholder="email"
           Id="email"
           type="text"
@@ -70,66 +59,41 @@ const SignUpForm = (props: signUpFormProps) => {
           validation={emailValidation}
         />
 
-        <div
-          data-testid="signupEmailError"
-          id="signupEmailError"
-          className="SignUpErrors"
-        >
+        <div data-testid="signinEmailError" className="SignInErrors">
           {errors.email ? <>{errors.email.message}</> : <></>}
         </div>
 
         <Input
           icon={PasswordIcon}
-          dataTestId="signupPassword"
+          dataTestId="signinPassword"
           placeholder="password"
           Id="password"
           showPasswordButton={true}
           validation={passwordValidation}
         />
-
         <Tippy content="password must contain 1 uppercase, 1 lowercase, 1 special character and 1 number">
-          <div data-testid="signupPasswordError" className="SignUpErrors">
+          <div data-testid="signinPasswordError" className="SignInErrors">
             {errors.password ? <>{errors.password.message}</> : <></>}
           </div>
         </Tippy>
 
-        <Input
-          icon={PasswordIcon}
-          dataTestId="signupConfirmPassword"
-          placeholder="confirm password"
-          Id="confirmpassword"
-          showPasswordButton={true}
-          validation={confirmPasswordValidation}
-        />
-        <div data-testid="signupConfirmPasswordError" className="SignUpErrors">
-          {errors.confirmpassword ? (
-            <>{errors.confirmpassword.message}</>
-          ) : (
-            <></>
-          )}
-        </div>
-
-        <button className="SignUpSubmit" data-testid="signupButton">
-          Sign Up
+        <a
+          href=""
+          data-testid="signinForgotPasswordLink"
+          className="ForgotPass"
+        >
+          FORGOT PASSWORD?
+        </a>
+        <button data-testid="signinButton" className="SignInSubmit">
+          Sign In
         </button>
 
-        <div data-testid="signupToast">
+        <div data-testid="signinToast">
           <ToastContainer />
         </div>
-
-        <label className="SignUpAlreadyAccount">
-          {accountText}
-          <a
-            className="SignInLink"
-            data-testid="signupAccountAlreadyExistsLink"
-            href="/auth/signin"
-          >
-            Sign In
-          </a>
-        </label>
       </label>
     </form>
   );
 };
 
-export default SignUpForm;
+export default SignInForm;
