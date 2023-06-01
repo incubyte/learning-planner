@@ -1,5 +1,6 @@
 import { UserDto } from '@Auth/dto/user.dto';
 import { PrismaService } from '@Prisma/prisma.service';
+import { MailerService } from '@nestjs-modules/mailer';
 import { BadRequestException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { Test, TestingModule } from '@nestjs/testing';
@@ -11,6 +12,7 @@ describe('AuthService', () => {
   let service: AuthService;
   let prismaService: PrismaService;
   let jwtService: JwtService;
+  let mailService: MailerService;
 
   beforeAll(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -25,6 +27,9 @@ describe('AuthService', () => {
                 delete: jest.fn(),
                 findFirst: jest.fn(),
               },
+              forgotPassword: {
+                create: jest.fn(),
+              },
             };
           },
         },
@@ -36,11 +41,18 @@ describe('AuthService', () => {
             };
           },
         },
+        {
+          provide: MailerService,
+          useValue: {
+            sendMail: jest.fn(),
+          },
+        },
       ],
     }).compile();
     service = module.get<AuthService>(AuthService);
     prismaService = module.get<PrismaService>(PrismaService);
     jwtService = module.get<JwtService>(JwtService);
+    mailService = module.get<MailerService>(MailerService);
   });
 
   afterEach(() => {
@@ -205,7 +217,7 @@ describe('AuthService', () => {
 
     it('should be able to return response', async () => {
       jest.spyOn(prismaService.user, 'findFirst').mockResolvedValueOnce({
-        email: userDTO.email,
+        email: 'john@incubyte.co',
         password: await hash(userDTO.password, await genSalt(10)),
         id: '83b7e649-1e37-43be-8229-02ab06c9ba9a',
         createdAt: Date.prototype,
@@ -217,24 +229,22 @@ describe('AuthService', () => {
         roles: Role.Employee,
       });
 
+      const mockResponse = {
+        id: 1,
+        email: 'john@incubyte.co',
+        token: 'abc',
+      };
+      jest.spyOn(mailService, 'sendMail').mockResolvedValueOnce('');
       jest
-        .spyOn(jwtService, 'sign')
-        .mockReturnValueOnce(
-          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjgzYjdlNjQ5LTFlMzctNDNiZS04MjI5LTAyYWIwNmM5YmE5YSIsImVtYWlsIjoiam9obkBpbmN1Ynl0ZS5jbyJ9.6P194HePv2AaSgB1jvyb_lM5EOKyMMu0cWkx_p0O2cc',
-        );
+        .spyOn(prismaService.forgotPassword, 'create')
+        .mockResolvedValueOnce(mockResponse);
 
-      const accessToken = await service.signinAdmin(userDTO);
+      const result = await service.forgotPasswordAdmin('john@incubyte.co');
+      expect(prismaService.user.findFirst).toBeCalledTimes(1);
+      expect(mailService.sendMail).toBeCalledTimes(1);
+      expect(prismaService.forgotPassword.create).toBeCalledTimes(1);
 
-      expect(jwtService.sign).toBeCalledTimes(1);
-      expect(jwtService.sign).toHaveBeenCalledWith({
-        email: userDTO.email,
-        id: '83b7e649-1e37-43be-8229-02ab06c9ba9a',
-        roles: Role.Employee,
-      });
-      expect(accessToken).toBeDefined();
-      expect(accessToken).toBe(
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjgzYjdlNjQ5LTFlMzctNDNiZS04MjI5LTAyYWIwNmM5YmE5YSIsImVtYWlsIjoiam9obkBpbmN1Ynl0ZS5jbyJ9.6P194HePv2AaSgB1jvyb_lM5EOKyMMu0cWkx_p0O2cc',
-      );
+      expect(result).toEqual('email sent');
     });
 
     it('should throw BadRequestException if user not found', async () => {
