@@ -51,4 +51,14 @@ describe('AuthController (e2e)', () => {
       .send(admin);
     expect(response.status).toBe(201);
   });
+
+  it('/forgotPassword (POST) - should send email to user', async () => {
+    const user = {
+      email: 'john@incubyte.co',
+    };
+    const response = await request(app.getHttpServer())
+      .post('/auth/forgotPassword')
+      .send(user);
+    expect(response.status).toBe(400);
+  });
 });

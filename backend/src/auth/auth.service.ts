@@ -1,6 +1,10 @@
 import { UserDto } from '@Auth/dto/user.dto';
 import { PrismaService } from '@Prisma/prisma.service';
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotImplementedException,
+} from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { User } from '@prisma/client';
 import * as bcrypt from 'bcrypt';
@@ -74,5 +78,9 @@ export class AuthService {
       roles: prismaUser.roles,
     });
     return accessToken;
+  }
+
+  async forgotPassword(useremail: string): Promise<string> {
+    throw new NotImplementedException();
   }
 }

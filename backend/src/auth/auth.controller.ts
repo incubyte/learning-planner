@@ -22,4 +22,9 @@ export class AuthController {
   async signinAdmin(@Body() user: UserDto): Promise<string> {
     return await this.authService.signinAdmin(user);
   }
+
+  @Post('/forgotPassword')
+  async forgotPassword(@Body() useremail: string): Promise<string> {
+    return await this.authService.forgotPassword(useremail);
+  }
 }
