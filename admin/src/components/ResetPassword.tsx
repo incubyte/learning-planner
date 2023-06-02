@@ -1,12 +1,13 @@
+import Tippy from "@tippyjs/react";
 import { useForm } from "react-hook-form";
 import { toast, ToastContainer } from "react-toastify";
 import Input from "./utilities/Input";
+import PasswordIcon from "./utilities/icons/Password";
 import { useNavigate } from "react-router-dom";
 import "../css/auth/SignUp.css";
 import "tippy.js/dist/tippy.css";
-import EmailIcon from "./utilities/icons/Email";
 
-const ForgotPassword = () => {
+const ResetPassword = () => {
   const {
     register,
     getValues,
@@ -45,15 +46,26 @@ const ForgotPassword = () => {
     //     });
     //   }
   };
-  const emailValidation = {
-    ...register("email", {
+
+  const passwordValidation = {
+    ...register("password", {
       required: {
         value: true,
-        message: "email is required",
+        message: "password is required",
       },
       pattern: {
-        value: /^\S+@\incubyte.co$/i,
-        message: "email must be an incubyte email",
+        value: /((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W]).{6,20})/,
+        message: "password is not valid",
+      },
+    }),
+  };
+
+  const confirmPasswordValidation = {
+    ...register("confirmpassword", {
+      validate: {
+        confirmPasswordEqual: (value) =>
+          value === getValues().password ||
+          "Confirm Password must match with Password",
       },
     }),
   };
@@ -65,26 +77,43 @@ const ForgotPassword = () => {
           src="https://res.cloudinary.com/dxepcudkt/image/upload/v1685686631/change-password_zsunue.svg"
         ></img>
         <p className="text-3xl font-bold font-sans text-sky-900 m-5">
-          Forget Password
+          Reset Password
         </p>
         <label className="SignUpFormItems">
           <Input
-            icon={EmailIcon}
-            dataTestId="signupEmail"
-            placeholder="email"
-            Id="email"
-            type="text"
-            showPasswordButton={false}
-            validation={emailValidation}
+            icon={PasswordIcon}
+            dataTestId="signupPassword"
+            placeholder="password"
+            Id="password"
+            showPasswordButton={true}
+            validation={passwordValidation}
           />
 
+          <Tippy content="password must contain 1 uppercase, 1 lowercase, 1 special character and 1 number">
+            <div data-testid="signupPasswordError" className="SignUpErrors">
+              {errors.password ? <>{errors.password.message}</> : <></>}
+            </div>
+          </Tippy>
+
+          <Input
+            icon={PasswordIcon}
+            dataTestId="signupConfirmPassword"
+            placeholder="confirm password"
+            Id="confirmpassword"
+            showPasswordButton={true}
+            validation={confirmPasswordValidation}
+          />
           <div
-            data-testid="signupEmailError"
-            id="signupEmailError"
+            data-testid="signupConfirmPasswordError"
             className="SignUpErrors"
           >
-            {errors.email ? <>{errors.email.message}</> : <></>}
+            {errors.confirmpassword ? (
+              <>{errors.confirmpassword.message}</>
+            ) : (
+              <></>
+            )}
           </div>
+
           <button
             className="SignUpSubmit"
             onClick={handleSubmit(handleFormSubmit)}
@@ -102,4 +131,4 @@ const ForgotPassword = () => {
   );
 };
 
-export default ForgotPassword;
+export default ResetPassword;

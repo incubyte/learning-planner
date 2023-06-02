@@ -78,7 +78,7 @@ const SignInForm = (props: signInFormProps) => {
         </Tippy>
 
         <a
-          href=""
+          href="/auth/forgot_password"
           data-testid="signinForgotPasswordLink"
           className="ForgotPass"
         >

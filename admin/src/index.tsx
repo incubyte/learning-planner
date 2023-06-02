@@ -7,6 +7,7 @@ import SignIn from "./components/SignIn";
 import UserDetail from "./components/user/UserDetail";
 import Users from "./components/user/Users";
 import "./index.css";
+import ResetPassword from "./components/ResetPassword";
 import ForgotPassword from "./components/ForgotPassword";
 
 const root = ReactDOM.createRoot(
@@ -41,6 +42,10 @@ const router = createBrowserRouter([
       {
         path: "forgot_password",
         element: <ForgotPassword />,
+      },
+      {
+        path: "reset_password/:token",
+        element: <ResetPassword />,
       },
     ],
   },
