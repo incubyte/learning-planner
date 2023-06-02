@@ -4,6 +4,7 @@ import { MailerService } from '@nestjs-modules/mailer';
 import { BadRequestException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { Test, TestingModule } from '@nestjs/testing';
+import { User } from '@prisma/client';
 import { genSalt, hash } from 'bcrypt';
 import { AuthService } from './auth.service';
 import { Role } from './role.enum';
@@ -26,9 +27,11 @@ describe('AuthService', () => {
                 create: jest.fn(),
                 delete: jest.fn(),
                 findFirst: jest.fn(),
+                update: jest.fn(),
               },
               forgotPassword: {
                 create: jest.fn(),
+                findFirst: jest.fn(),
               },
             };
           },
@@ -276,6 +279,37 @@ describe('AuthService', () => {
       expect(prismaService.forgotPassword.create).toBeCalledTimes(1);
 
       expect(result).toEqual('email sent');
+    });
+
+    it('should be able to reset the password (Admin)', async () => {
+      jest
+        .spyOn(prismaService.forgotPassword, 'findFirst')
+        .mockResolvedValueOnce({
+          id: 1,
+          email: 'john@incubyte.co',
+          token: '1',
+        });
+
+      const mockUser: User = {
+        email: 'john@incubyte.co',
+        password: '123',
+        id: '1',
+        createdAt: Date.prototype,
+        profilePhoto: 'https://profilephoto.com',
+        updatedAt: Date.prototype,
+        eId: 'E0001',
+        role: 'BQA',
+        clientTeam: 'abc',
+        roles: Role.Employee,
+      };
+
+      jest.spyOn(prismaService.user, 'update').mockResolvedValueOnce(mockUser);
+
+      const result = await service.resetPasswordAdmin('1', '123');
+      expect(prismaService.forgotPassword.findFirst).toBeCalledTimes(1);
+      expect(prismaService.user.update).toBeCalledTimes(1);
+
+      expect(result).toEqual('password changed');
     });
 
     it('should throw BadRequestException if user not found', async () => {
