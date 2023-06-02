@@ -1,7 +1,11 @@
 import { UserDto } from '@Auth/dto/user.dto';
 import { PrismaService } from '@Prisma/prisma.service';
 import { MailerService } from '@nestjs-modules/mailer';
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotImplementedException,
+} from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { User } from '@prisma/client';
 import * as bcrypt from 'bcrypt';
@@ -102,6 +106,13 @@ export class AuthService {
     } catch (e) {
       throw new BadRequestException('Something wrong please try again');
     }
+  }
+
+  async resetPasswordAdmin(
+    token: string,
+    userPassword: string,
+  ): Promise<string> {
+    throw new NotImplementedException();
   }
   async forgotPassword(useremail: string): Promise<string> {
     const prismaUser = await this.prismaService.user.findFirst({

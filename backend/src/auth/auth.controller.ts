@@ -1,6 +1,6 @@
 import { AuthService } from '@Auth/auth.service';
 import { UserDto } from '@Auth/dto/user.dto';
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Param, Post } from '@nestjs/common';
 import { User } from '@prisma/client';
 
 @Controller('/auth')
@@ -26,6 +26,14 @@ export class AuthController {
   @Post('/admin/forgotPassword')
   async forgotPasswordAdmin(@Body('email') useremail: string): Promise<string> {
     return await this.authService.forgotPasswordAdmin(useremail);
+  }
+
+  @Post('/admin/resetPassword/:token')
+  async resetPasswordAdmin(
+    @Param('token') token: string,
+    @Body('password') userpassword: string,
+  ): Promise<string> {
+    return await this.authService.resetPasswordAdmin(token, userpassword);
   }
 
   @Post('/forgotPassword')

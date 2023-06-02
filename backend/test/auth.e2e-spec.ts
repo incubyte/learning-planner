@@ -62,6 +62,16 @@ describe('AuthController (e2e)', () => {
     expect(response.status).toBe(400);
   });
 
+  it('/resetPasswordAdmin/:token (POST) - should reset password of admin', async () => {
+    const userPassword = {
+      password: 'Incubyte@111',
+    };
+    const response = await request(app.getHttpServer())
+      .post('/auth/admin/resetPassword/1')
+      .send(userPassword);
+    expect(response.status).toBe(400);
+  });
+
   it('/forgotPassword (POST) - should send email to user', async () => {
     const user = {
       email: 'john@incubyte.co',
