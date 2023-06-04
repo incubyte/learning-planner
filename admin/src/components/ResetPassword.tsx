@@ -1,11 +1,11 @@
 import Tippy from "@tippyjs/react";
 import { useForm } from "react-hook-form";
-import { toast, ToastContainer } from "react-toastify";
+import { useNavigate, useParams } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "tippy.js/dist/tippy.css";
+import "../css/auth/SignUp.css";
 import Input from "./utilities/Input";
 import PasswordIcon from "./utilities/icons/Password";
-import { useNavigate } from "react-router-dom";
-import "../css/auth/SignUp.css";
-import "tippy.js/dist/tippy.css";
 
 const ResetPassword = () => {
   const {
@@ -14,37 +14,39 @@ const ResetPassword = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
+  const urlParams = useParams();
 
   const navigator = useNavigate();
 
   const handleFormSubmit = async (data: any) => {
     console.log(data);
-    //   const response = await fetch(
-    //     "https://backend-mu-plum.vercel.app/auth/signup",
-    //     {
-    //       method: "POST",
-    //       headers: {
-    //         "Content-Type": "application/json",
-    //       },
-    //       body: JSON.stringify({ email: data.email, password: data.password }),
-    //     }
-    //   );
+    const response = await fetch(
+      "https://backend-mu-plum.vercel.app/auth/resetPassword/" +
+        urlParams.token,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ password: data.password }),
+      }
+    );
 
-    //   if (response.ok) {
-    //     toast("Hurray! Account created 🥳🥳", {
-    //       autoClose: 2500,
-    //       closeButton: false,
-    //     });
-    //     setTimeout(() => {
-    //       navigator("/auth/signin");
-    //     }, 3000);
-    //   } else {
-    //     const jsonResponse = await response.json();
-    //     toast.error(jsonResponse.message, {
-    //       autoClose: 2500,
-    //       closeButton: false,
-    //     });
-    //   }
+    if (response.ok) {
+      toast.success("Password Changed", {
+        autoClose: 2500,
+        closeButton: false,
+      });
+      setTimeout(() => {
+        navigator("/auth/sign_in");
+      }, 3000);
+    } else {
+      const jsonResponse = await response.json();
+      toast.error(jsonResponse.message, {
+        autoClose: 2500,
+        closeButton: false,
+      });
+    }
   };
 
   const passwordValidation = {

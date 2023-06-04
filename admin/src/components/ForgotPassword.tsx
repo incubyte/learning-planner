@@ -1,9 +1,9 @@
 import { useForm } from "react-hook-form";
-import { toast, ToastContainer } from "react-toastify";
-import Input from "./utilities/Input";
 import { useNavigate } from "react-router-dom";
-import "../css/auth/SignUp.css";
+import { ToastContainer, toast } from "react-toastify";
 import "tippy.js/dist/tippy.css";
+import "../css/auth/SignUp.css";
+import Input from "./utilities/Input";
 import EmailIcon from "./utilities/icons/Email";
 
 const ForgotPassword = () => {
@@ -18,32 +18,29 @@ const ForgotPassword = () => {
 
   const handleFormSubmit = async (data: any) => {
     console.log(data);
-    //   const response = await fetch(
-    //     "https://backend-mu-plum.vercel.app/auth/signup",
-    //     {
-    //       method: "POST",
-    //       headers: {
-    //         "Content-Type": "application/json",
-    //       },
-    //       body: JSON.stringify({ email: data.email, password: data.password }),
-    //     }
-    //   );
+    const response = await fetch(
+      "https://backend-mu-plum.vercel.app/auth/admin/forgotPassword",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email: data.email }),
+      }
+    );
 
-    //   if (response.ok) {
-    //     toast("Hurray! Account created 🥳🥳", {
-    //       autoClose: 2500,
-    //       closeButton: false,
-    //     });
-    //     setTimeout(() => {
-    //       navigator("/auth/signin");
-    //     }, 3000);
-    //   } else {
-    //     const jsonResponse = await response.json();
-    //     toast.error(jsonResponse.message, {
-    //       autoClose: 2500,
-    //       closeButton: false,
-    //     });
-    //   }
+    if (response.ok) {
+      toast.success("email sent", {
+        autoClose: 2500,
+        closeButton: false,
+      });
+    } else {
+      const jsonResponse = await response.json();
+      toast.error(jsonResponse.message, {
+        autoClose: 2500,
+        closeButton: false,
+      });
+    }
   };
   const emailValidation = {
     ...register("email", {
