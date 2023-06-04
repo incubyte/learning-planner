@@ -31,6 +31,7 @@ describe('AuthService', () => {
               },
               forgotPassword: {
                 create: jest.fn(),
+                deleteMany: jest.fn(),
                 findFirst: jest.fn(),
               },
             };
@@ -308,7 +309,7 @@ describe('AuthService', () => {
       const result = await service.resetPassword('1', '123');
       expect(prismaService.forgotPassword.findFirst).toBeCalledTimes(1);
       expect(prismaService.user.update).toBeCalledTimes(1);
-
+      expect(prismaService.forgotPassword.deleteMany).toBeCalledTimes(1);
       expect(result).toEqual('password changed');
     });
 

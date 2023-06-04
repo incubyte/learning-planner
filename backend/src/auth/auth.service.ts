@@ -113,6 +113,10 @@ export class AuthService {
     if (!forgotPasswordToken) {
       throw new BadRequestException('User not found, Please try again');
     }
+
+    await this.prismaService.forgotPassword.deleteMany({
+      where: { token: token },
+    });
     const saltOrRounds = 10;
     const hash = bcrypt.hashSync(userPassword, saltOrRounds);
 
