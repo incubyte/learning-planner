@@ -305,7 +305,7 @@ describe('AuthService', () => {
 
       jest.spyOn(prismaService.user, 'update').mockResolvedValueOnce(mockUser);
 
-      const result = await service.resetPasswordAdmin('1', '123');
+      const result = await service.resetPassword('1', '123');
       expect(prismaService.forgotPassword.findFirst).toBeCalledTimes(1);
       expect(prismaService.user.update).toBeCalledTimes(1);
 

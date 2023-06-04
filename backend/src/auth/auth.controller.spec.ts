@@ -107,10 +107,10 @@ describe('AuthController', () => {
 
   it('should be able to change the password', async () => {
     jest
-      .spyOn(service, 'resetPasswordAdmin')
+      .spyOn(service, 'resetPassword')
       .mockResolvedValueOnce('password changed');
-    const result = await controller.resetPasswordAdmin('1', '123');
-    expect(service.resetPasswordAdmin).toBeCalledTimes(1);
+    const result = await controller.resetPassword('1', '123');
+    expect(service.resetPassword).toBeCalledTimes(1);
     expect(result).toBe('password changed');
   });
 

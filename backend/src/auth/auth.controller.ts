@@ -28,12 +28,12 @@ export class AuthController {
     return await this.authService.forgotPasswordAdmin(useremail);
   }
 
-  @Post('/admin/resetPassword/:token')
-  async resetPasswordAdmin(
+  @Post('/resetPassword/:token')
+  async resetPassword(
     @Param('token') token: string,
     @Body('password') userpassword: string,
   ): Promise<string> {
-    return await this.authService.resetPasswordAdmin(token, userpassword);
+    return await this.authService.resetPassword(token, userpassword);
   }
 
   @Post('/forgotPassword')

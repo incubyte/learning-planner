@@ -104,10 +104,7 @@ export class AuthService {
     }
   }
 
-  async resetPasswordAdmin(
-    token: string,
-    userPassword: string,
-  ): Promise<string> {
+  async resetPassword(token: string, userPassword: string): Promise<string> {
     const forgotPasswordToken =
       await this.prismaService.forgotPassword.findFirst({
         where: { token: token },
