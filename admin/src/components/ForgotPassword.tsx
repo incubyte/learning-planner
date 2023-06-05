@@ -71,7 +71,7 @@ const ForgotPassword = () => {
         <label data-testid="forgotForm" className="SignUpFormItems">
           <Input
             icon={EmailIcon}
-            dataTestId="signupEmail"
+            dataTestId="forgotEmail"
             placeholder="email"
             Id="email"
             type="text"
@@ -80,7 +80,7 @@ const ForgotPassword = () => {
           />
 
           <div
-            data-testid="signupEmailError"
+            data-testid="forgotEmailError"
             id="signupEmailError"
             className="SignUpErrors"
           >
@@ -89,7 +89,7 @@ const ForgotPassword = () => {
           <button
             className="SignUpSubmit"
             onClick={handleSubmit(handleFormSubmit)}
-            data-testid="signupButton"
+            data-testid="forgotButton"
           >
             Submit
           </button>
