@@ -56,6 +56,7 @@ const Course = () => {
         isHome={true}
         isProfile={true}
         isUser={false}
+        isTag={false}
       ></Navbar>
       <div>
         <h1 data-testid="CourseHeading" className="courseHeading">

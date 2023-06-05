@@ -45,6 +45,7 @@ const HomePage = () => {
         isHome={false}
         isProfile={false}
         isUser={true}
+        isTag={false}
       ></Navbar>
       <div className="justify-center mt-16">
         <p className="text-gray-800 whitespace-normal text-3xl font-bold text-center">

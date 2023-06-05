@@ -206,6 +206,7 @@ const UserDetail = () => {
         isHome={true}
         isProfile={true}
         isUser={true}
+        isTag={true}
       ></Navbar>
       <div className="UserDetailsDiv">
         <div className="UserDetailsContainer">

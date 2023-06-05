@@ -328,6 +328,7 @@ const AddCourse = () => {
         isHome={true}
         isProfile={true}
         isUser={false}
+        isTag={false}
       ></Navbar>
       <div>
         <h1

@@ -220,6 +220,7 @@ const UpdateCourse = ({ id }: any) => {
         isHome={false}
         isProfile={false}
         isUser={true}
+        isTag={false}
       ></Navbar>
       <div className="container">
         <div>

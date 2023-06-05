@@ -13,6 +13,7 @@ interface NavbarProps {
   isProfile: boolean;
   isUser: boolean;
   isCourse: boolean;
+  isTag: boolean;
   getQuery?: (query: string) => void;
 }
 
@@ -62,7 +63,6 @@ const Navbar = (props: NavbarProps) => {
                       Home
                     </Link>
                   )}
-
                   {props.isCourse && (
                     <Link
                       to="/courses"
@@ -81,6 +81,7 @@ const Navbar = (props: NavbarProps) => {
                       Add Course
                     </Link>
                   )}
+
                   {props.isUser && (
                     <Link
                       to="/users"
@@ -98,6 +99,15 @@ const Navbar = (props: NavbarProps) => {
                     >
                       Add User
                     </button>
+                  )}
+                  {!props.isTag && (
+                    <Link
+                      to=""
+                      className="navbarHeaderItems"
+                      data-testid="navbarHeaderTagLink"
+                    >
+                      Tags
+                    </Link>
                   )}
                   <button
                     className="navbarHeaderItems"

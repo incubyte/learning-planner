@@ -31,6 +31,7 @@ const Users = () => {
         isCourse={true}
         isHome={true}
         isProfile={true}
+        isTag={true}
         isUser={false}
       ></Navbar>
       <div className="UsersContainer">
