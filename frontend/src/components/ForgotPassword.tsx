@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "tippy.js/dist/tippy.css";
 import "../css/auth/SignUp.css";
 import Input from "./utilities/Input";
