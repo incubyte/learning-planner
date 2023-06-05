@@ -75,13 +75,17 @@ const ResetPassword = () => {
     <div className="flex justify-center items-center bg-slate-100 h-screen">
       <div className="rounded overflow-hidden shadow-lg max-w-fit max-h-fit bg-white p-10 flex flex-col items-center">
         <img
+          data-testid="resetImage"
           className="h-28 w-28"
           src="https://res.cloudinary.com/dxepcudkt/image/upload/v1685686631/change-password_zsunue.svg"
         ></img>
-        <p className="text-3xl font-bold font-sans text-sky-900 m-5">
+        <p
+          data-testid="resetHeader"
+          className="text-3xl font-bold font-sans text-sky-900 m-5"
+        >
           Reset Password
         </p>
-        <label className="SignUpFormItems">
+        <label data-testid="resetForm" className="SignUpFormItems">
           <Input
             icon={PasswordIcon}
             dataTestId="signupPassword"
@@ -124,7 +128,7 @@ const ResetPassword = () => {
             Submit
           </button>
 
-          <div data-testid="signupToast">
+          <div data-testid="resetToast">
             <ToastContainer />
           </div>
         </label>
