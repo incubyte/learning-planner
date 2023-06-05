@@ -181,4 +181,46 @@ describe("Display Course Page ", () => {
     const courseImageModel = getByTestId("courseImageModel");
     expect(courseImageModel).toBeInTheDocument();
   });
+
+  test("Course Image Model file input is present", async () => {
+    const { getByTestId } = render(
+      <BrowserRouter>
+        <AddCourse />
+      </BrowserRouter>
+    );
+    const courseImageButton = getByTestId("courseImageButton");
+    await act(() => {
+      fireEvent.click(courseImageButton);
+    });
+    const courseImageInput = getByTestId("courseImageInput");
+    expect(courseImageInput).toBeInTheDocument();
+  });
+
+  test("Course Image Model save button is present", async () => {
+    const { getByTestId } = render(
+      <BrowserRouter>
+        <AddCourse />
+      </BrowserRouter>
+    );
+    const courseImageButton = getByTestId("courseImageButton");
+    await act(() => {
+      fireEvent.click(courseImageButton);
+    });
+    const courseImageSave = getByTestId("courseImageSave");
+    expect(courseImageSave).toBeInTheDocument();
+  });
+
+  test("Course Image Modal close button is present", async () => {
+    const { getByTestId } = render(
+      <BrowserRouter>
+        <AddCourse />
+      </BrowserRouter>
+    );
+    const courseImageButton = getByTestId("courseImageButton");
+    await act(() => {
+      fireEvent.click(courseImageButton);
+    });
+    const courseImageClose = getByTestId("courseImageClose");
+    expect(courseImageClose).toBeInTheDocument();
+  });
 });
