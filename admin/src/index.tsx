@@ -10,6 +10,7 @@ import "./index.css";
 import Courses from "./components/course/Courses";
 import AddCourse from "./components/course/AddCourse";
 import UpdateCourse from "./components/course/UpdateCourse";
+import Tags from "./components/tag/Tags";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -42,6 +43,10 @@ const router = createBrowserRouter([
       {
         path: "/updateCourse",
         element: <UpdateCourse></UpdateCourse>,
+      },
+      {
+        path: "/tags",
+        element: <Tags></Tags>,
       },
     ],
   },

@@ -411,6 +411,13 @@ const AddCourse = () => {
                 setTags(updatedTagsIds);
               }}
             />
+            <button
+              type="button"
+              className="px-2 py-1 bg-green-500 mt-5 text-white rounded-md"
+              onClick={() => setShowAddTagModal(true)}
+            >
+              Add Tags
+            </button>
           </div>
           <div className="form-group mt-3 justify-between">
             <label className="text-md font-bold">Resource URLs</label>

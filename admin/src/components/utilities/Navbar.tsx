@@ -102,7 +102,7 @@ const Navbar = (props: NavbarProps) => {
                   )}
                   {!props.isTag && (
                     <Link
-                      to=""
+                      to="/tags"
                       className="navbarHeaderItems"
                       data-testid="navbarHeaderTagLink"
                     >
