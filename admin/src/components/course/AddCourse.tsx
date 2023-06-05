@@ -1,4 +1,3 @@
-import React from "react";
 import { useEffect, useState } from "react";
 import Navbar from "./../utilities/Navbar";
 import { ToastContainer, toast } from "react-toastify";
@@ -22,6 +21,7 @@ const AddCourse = () => {
   const [newTagName, setNewTagName] = useState("");
   const authToken = localStorage.getItem("authToken");
 
+  // add test
   const changeAvatar = (e: any) => {
     const file = e.target.files[0];
     setAvatar(file);
@@ -178,13 +178,11 @@ const AddCourse = () => {
   };
 
   const data = {
-    options: defaultTags.map((tag: any) => ({
-      id: tag.id,
-      name: tag.name,
-    })),
+    options: defaultTags.map((tag: any) => ({ id: tag.id, name: tag.name })),
   };
 
   useEffect(() => {}, [tags]);
+
   return (
     <>
       {showModal ? (
@@ -323,12 +321,11 @@ const AddCourse = () => {
       ) : null}
 
       <Navbar
-        isCourse={false}
+        isCourse={true}
         isHome={true}
         isProfile={true}
         isUser={false}
       ></Navbar>
-
       <div>
         <h1
           className="text-center pt-10 text-3xl font-bold "
@@ -345,7 +342,9 @@ const AddCourse = () => {
           className="w-full sm:w-full md:w-4/5 lg:w-4/5 xl:w-4/5 2xl:w-4/5 mt-10 p-6"
         >
           <div className="form-group mt-3" data-testid="courseTitle">
-            <label className="text-md font-bold">Course Title</label>
+            <label className="text-md font-bold inline-block w-28 align-middle">
+              Title
+            </label>
             <input
               className="w-full border mt-2 border-gray-300 rounded-md p-2"
               type="text"
@@ -356,7 +355,9 @@ const AddCourse = () => {
             />
           </div>
           <div className="form-group mt-3" data-testid="courseDescription">
-            <label className="text-md font-bold">Description</label>
+            <label className="text-md font-bold inline-block w-28 align-middle">
+              Description
+            </label>
             <textarea
               className="w-full border mt-2 border-gray-300 rounded-md p-2"
               placeholder="Enter course description"
@@ -366,7 +367,9 @@ const AddCourse = () => {
             ></textarea>
           </div>
           <div className="form-group mt-3" data-testid="courseCredit">
-            <label className="text-md font-bold">Credit</label>
+            <label className="text-md font-bold inline-block w-28 align-middle">
+              Credit
+            </label>
             <input
               className="w-full border mt-2 border-gray-300 rounded-md p-2"
               type="number"
@@ -377,7 +380,9 @@ const AddCourse = () => {
             />
           </div>
           <div className="form-group mt-3" data-testid="multiselect">
-            <label className="text-md font-bold">Tags</label>
+            <label className="text-md font-bold inline-block w-28 align-middle">
+              Tags
+            </label>
             <Multiselect
               options={data.options}
               data-testid={data}
@@ -396,19 +401,12 @@ const AddCourse = () => {
                 const removedTagsIds = removedOptions.map(
                   (removedTag: { id: any }) => removedTag.id
                 );
-                const updatedTags = tags.filter((tag) =>
-                  removedTagsIds.includes(tag)
+                const updatedTagsIds = tags.filter(
+                  (tagId: any) => !removedTagsIds.includes(tagId)
                 );
-                setTags(updatedTags);
+                setTags(updatedTagsIds);
               }}
             />
-            <button
-              type="button"
-              className="px-2 py-1 bg-green-500 mt-5 text-white rounded-md"
-              onClick={() => setShowAddTagModal(true)}
-            >
-              Add Tags
-            </button>
           </div>
           <div className="form-group mt-3 justify-between">
             <label className="text-md font-bold">Resource URLs</label>

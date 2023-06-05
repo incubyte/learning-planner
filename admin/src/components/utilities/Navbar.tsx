@@ -74,7 +74,7 @@ const Navbar = (props: NavbarProps) => {
                   )}
                   {!props.isCourse && (
                     <Link
-                      to="/courses"
+                      to="/addCourse"
                       className="navbarHeaderItems"
                       data-testid="navbarHeaderCourseLink"
                     >
@@ -151,7 +151,7 @@ const Navbar = (props: NavbarProps) => {
                 )}
                 {!props.isCourse && (
                   <Link
-                    to=""
+                    to="/addCourse"
                     className="navbarHeaderItems"
                     data-testid="navbarHeaderCourseLink"
                   >

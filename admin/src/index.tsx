@@ -8,6 +8,7 @@ import UserDetail from "./components/user/UserDetail";
 import Users from "./components/user/Users";
 import "./index.css";
 import Courses from "./components/course/Courses";
+import AddCourse from "./components/course/AddCourse";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
       {
         path: "/courses",
         element: <Courses></Courses>,
+      },
+      {
+        path: "/addCourse",
+        element: <AddCourse></AddCourse>,
       },
     ],
   },
