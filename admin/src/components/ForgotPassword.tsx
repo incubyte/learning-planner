@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "tippy.js/dist/tippy.css";
-import "../css/auth/SignUp.css";
+import "../css/auth/PasswordFiles.css";
 import Input from "./utilities/Input";
 import EmailIcon from "./utilities/icons/Email";
 
@@ -55,20 +55,17 @@ const ForgotPassword = () => {
     }),
   };
   return (
-    <div className="flex justify-center items-center bg-slate-100 h-screen">
-      <div className="rounded overflow-hidden shadow-lg max-w-fit max-h-fit bg-white p-10 flex flex-col items-center">
+    <div className="PasswordForm">
+      <div className="PasswordFormContainer">
         <img
           data-testid="forgotImage"
           className="h-28 w-28"
           src="https://res.cloudinary.com/dxepcudkt/image/upload/v1685686631/change-password_zsunue.svg"
         ></img>
-        <p
-          data-testid="forgotHeader"
-          className="text-3xl font-bold font-sans text-sky-900 m-5"
-        >
+        <p data-testid="forgotHeader" className="PasswordFormHeader">
           Forget Password
         </p>
-        <label data-testid="forgotForm" className="SignUpFormItems">
+        <label data-testid="forgotForm" className="PasswordFormItems">
           <Input
             icon={EmailIcon}
             dataTestId="forgotEmail"
@@ -81,13 +78,13 @@ const ForgotPassword = () => {
 
           <div
             data-testid="forgotEmailError"
-            id="signupEmailError"
-            className="SignUpErrors"
+            id="forgotEmailError"
+            className="PasswordFormErrors"
           >
             {errors.email ? <>{errors.email.message}</> : <></>}
           </div>
           <button
-            className="SignUpSubmit"
+            className="PasswordFormSubmit"
             onClick={handleSubmit(handleFormSubmit)}
             data-testid="forgotButton"
           >

@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "tippy.js/dist/tippy.css";
 import loginImage from "../assets/login-image.jpg";
-import "../css/SignIn.css";
+import "../css/auth/SignIn.css";
 import SignInForm from "./utilities/SignInForm";
 const SignIn = () => {
   const navigator = useNavigate();

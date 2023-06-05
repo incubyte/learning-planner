@@ -1,7 +1,7 @@
 import Tippy from "@tippyjs/react";
 import { useForm } from "react-hook-form";
 import { ToastContainer } from "react-toastify";
-import "../../css/SignIn.css";
+import "../../css/auth/SignIn.css";
 import Input from "./Input";
 import EmailIcon from "./icons/Email";
 import PasswordIcon from "./icons/Password";

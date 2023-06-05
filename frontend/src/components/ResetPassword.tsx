@@ -4,7 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "tippy.js/dist/tippy.css";
-import "../css/auth/SignUp.css";
+import "../css/auth/PasswordFiles.css";
 import Input from "./utilities/Input";
 import PasswordIcon from "./utilities/icons/Password";
 
@@ -73,20 +73,17 @@ const ResetPassword = () => {
     }),
   };
   return (
-    <div className="flex justify-center items-center bg-slate-100 h-screen">
-      <div className="rounded overflow-hidden shadow-lg max-w-fit max-h-fit bg-white p-10 flex flex-col items-center">
+    <div className="PasswordForm">
+      <div className="PasswordFormContainer">
         <img
           data-testid="resetImage"
           className="h-28 w-28"
           src="https://res.cloudinary.com/dxepcudkt/image/upload/v1685686631/change-password_zsunue.svg"
         ></img>
-        <p
-          data-testid="resetHeader"
-          className="text-3xl font-bold font-sans text-sky-900 m-5"
-        >
+        <p data-testid="resetHeader" className="PasswordFormHeader">
           Reset Password
         </p>
-        <label data-testid="resetForm" className="SignUpFormItems">
+        <label data-testid="resetForm" className="PasswordFormItems">
           <Input
             icon={PasswordIcon}
             dataTestId="resetPassword"
@@ -97,7 +94,10 @@ const ResetPassword = () => {
           />
 
           <Tippy content="password must contain 1 uppercase, 1 lowercase, 1 special character and 1 number">
-            <div data-testid="signupPasswordError" className="SignUpErrors">
+            <div
+              data-testid="resetPasswordError"
+              className="PasswordFormErrors"
+            >
               {errors.password ? <>{errors.password.message}</> : <></>}
             </div>
           </Tippy>
@@ -110,7 +110,10 @@ const ResetPassword = () => {
             showPasswordButton={true}
             validation={confirmPasswordValidation}
           />
-          <div data-testid="resetConfirmPasswordError" className="SignUpErrors">
+          <div
+            data-testid="resetConfirmPasswordError"
+            className="PasswordFormErrors"
+          >
             {errors.confirmpassword ? (
               <>{errors.confirmpassword.message}</>
             ) : (
@@ -119,7 +122,7 @@ const ResetPassword = () => {
           </div>
 
           <button
-            className="SignUpSubmit"
+            className="PasswordFormSubmit"
             onClick={handleSubmit(handleFormSubmit)}
             data-testid="resetButton"
           >
