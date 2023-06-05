@@ -1,14 +1,13 @@
-import { useEffect, useState } from "react";
-import Navbar from "./../utilities/Navbar";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import React, { useEffect, useState } from "react";
 import Multiselect from "multiselect-react-dropdown";
+import Navbar from "../utilities/Navbar";
 import { imageUpload } from "../user/ImageUpload";
-import { useNavigate } from "react-router-dom";
-const AddCourse = () => {
+import { ToastContainer, toast } from "react-toastify";
+import { useLocation, useNavigate } from "react-router-dom";
+
+const UpdateCourse = ({ id }: any) => {
   const navigator = useNavigate();
   const [showModal, setShowModal] = useState(false);
-  const [showAddTagModel, setShowAddTagModal] = useState(false);
   const [avatar, setAvatar] = useState("");
   const blob = new Blob([avatar]);
   const [createCourse, setCreateCourse] = useState();
@@ -20,21 +19,31 @@ const AddCourse = () => {
   const [resourseUrls, setResourseUrls] = useState<string[]>([]);
   const [testUrls, setTestUrls] = useState<string[]>([]);
   const [imageUrl, setImageUrl] = useState("");
-  const [newTagName, setNewTagName] = useState("");
   const authToken = localStorage.getItem("authToken");
+  const location = useLocation();
+  const courseData = location.state;
 
-  // add test
   const changeAvatar = (e: any) => {
     const file = e.target.files[0];
     setAvatar(file);
   };
 
+  useEffect(() => {
+    setResourseUrls(courseData.resourseUrls);
+    setTestUrls(courseData.testUrls);
+    setCourseName(courseData.name);
+    setDescription(courseData.description);
+    setCredit(courseData.credit);
+    setTags(courseData.tags);
+    setImageUrl(courseData.imageUrl);
+    console.log(courseData.tags);
+  }, [courseData]);
+
   const handleImageUrl = async () => {
     let media: any = [];
     if (avatar) {
       media = await imageUpload([avatar]);
-      await setImageUrl(media[0].url);
-      console.log(imageUrl);
+      setImageUrl(media[0].url);
     }
     setShowModal(false);
   };
@@ -53,49 +62,17 @@ const AddCourse = () => {
 
   useEffect(() => {
     fetchTags();
-  }, [defaultTags]);
+  }, []);
 
-  const handelTagSubmit = async () => {
+  const handleUpdateCourse = async () => {
     const response = await fetch(
-      "https://backend-mu-plum.vercel.app/tag/create",
+      `https://backend-mu-plum.vercel.app/course/updateCourseById/${courseData.id}`,
       {
         headers: {
           Authorization: `Bearer ${authToken}`,
           "Content-Type": "application/json",
         },
-        method: "POST",
-        body: JSON.stringify({
-          name: newTagName,
-        }),
-      }
-    );
-    if (response.ok) {
-      const jsonResnponse = await response.json();
-      console.log(jsonResnponse);
-      setNewTagName(jsonResnponse);
-      toast("Hurray! Tag created 🥳🥳", {
-        autoClose: 2500,
-        closeButton: false,
-      });
-      setNewTagName("");
-    } else {
-      const jsonResponse = await response.json();
-      toast.error(jsonResponse.message, {
-        autoClose: 2500,
-        closeButton: false,
-      });
-    }
-  };
-
-  const handleCreateCourse = async () => {
-    const response = await fetch(
-      "https://backend-mu-plum.vercel.app/course/create",
-      {
-        headers: {
-          Authorization: `Bearer ${authToken}`,
-          "Content-Type": "application/json",
-        },
-        method: "POST",
+        method: "PATCH",
         body: JSON.stringify({
           name: courseName,
           description: description,
@@ -110,7 +87,8 @@ const AddCourse = () => {
     if (response.ok) {
       const jsonResnponse = await response.json();
       setCreateCourse(jsonResnponse);
-      toast("Hurray! Course created 🥳🥳", {
+      console.log("Course updated Successfully");
+      toast("Hurray! Course Updated", {
         autoClose: 2500,
         closeButton: false,
       });
@@ -121,32 +99,14 @@ const AddCourse = () => {
         autoClose: 2500,
         closeButton: false,
       });
+      console.log("Course Failed");
     }
   };
 
   const handleSubmit = (event: any) => {
-    handleCreateCourse();
+    handleUpdateCourse();
     event.preventDefault();
-    setCredit("");
-    setCourseName("");
-    setDescription("");
-    setTags([]);
-    setResourseUrls([]);
-    setTestUrls([]);
-    setImageUrl("");
   };
-
-  useEffect(() => {
-    if (resourseUrls.length === 0) {
-      setResourseUrls([""]);
-    }
-  }, []);
-
-  useEffect(() => {
-    if (testUrls.length === 0) {
-      setTestUrls([""]);
-    }
-  }, []);
 
   const handleResourceUrlChange = (index: any, event: any) => {
     const updatedUrls = [...resourseUrls];
@@ -258,84 +218,21 @@ const AddCourse = () => {
         </>
       ) : null}
 
-      {showAddTagModel ? (
-        <>
-          <div
-            data-testid="profileImageModel"
-            className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
-          >
-            <div className="relative w-auto my-6 mx-auto">
-              <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-80 bg-white outline-none focus:outline-none">
-                <div className="flex items-start justify-between p-5 xsm:p-3 border-b border-solid border-slate-200 rounded-t">
-                  <h3 className="text-3xl font-semibold">Add Tags here</h3>
-                  <button
-                    className="p-1 ml-auto border-0 text-black float-right text-3xl font-semibold outline-none"
-                    onClick={() => setShowAddTagModal(false)}
-                  >
-                    <span className="text-black h-6 w-6 text-2xl block outline-none">
-                      x
-                    </span>
-                  </button>
-                </div>
-                <div className="relative p-6 flex-auto">
-                  <input
-                    value={newTagName}
-                    onChange={(e) => {
-                      console.log(newTagName);
-                      setNewTagName(e.target.value);
-                    }}
-                    data-testid="tagsInput"
-                    className="relative m-0 block w-auto xsm:w-72 min-w-0 flex-auto rounded border 
-    border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] text-base font-normal 
-    text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] 
-    file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit 
-    file:bg-neutral-100 file:px-3 file:py-[0.32rem] file:text-neutral-700 file:transition 
-    file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] 
-    hover:file:bg-neutral-200"
-                    placeholder="Tag name"
-                  />
-                </div>
-                <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
-                  <button
-                    data-testid="courseImageClose"
-                    className="text-red-500 font-bold uppercase px-6 py-2 text-sm outline-none mr-1 mb-1 transition-all duration-150"
-                    type="button"
-                    onClick={() => setShowAddTagModal(false)}
-                  >
-                    Close
-                  </button>
-                  <button
-                    data-testid="AddTagButton"
-                    className="text-white font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg mr-1 mb-1 ease-linear transition-all duration-150 bg-emerald-500 active:bg-emerald-600"
-                    type="button"
-                    onClick={() => {
-                      handelTagSubmit();
-                      setShowAddTagModal(false);
-                    }}
-                  >
-                    Add Tag
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>{" "}
-        </>
-      ) : null}
-
       <Navbar
-        isCourse={true}
-        isHome={true}
-        isProfile={true}
-        isUser={false}
+        isCourse={false}
+        isHome={false}
+        isProfile={false}
+        isUser={true}
       ></Navbar>
-      <div>
-        <h1
-          className="text-center pt-10 text-3xl font-bold "
-          data-testid="addCourseHeading"
-        >
-          Add Courses
-        </h1>
+      <div className="container">
+        <div>
+          <h1
+            data-testid="updateCourseHeading"
+            className="text-center pt-10 text-3xl font-bold "
+          >
+            Update Courses
+          </h1>
+        </div>
       </div>
       <div className="flex justify-center">
         <ToastContainer />
@@ -345,50 +242,42 @@ const AddCourse = () => {
           className="w-full sm:w-full md:w-4/5 lg:w-4/5 xl:w-4/5 2xl:w-4/5 mt-10 p-6"
         >
           <div className="form-group mt-3" data-testid="courseTitle">
-            <label className="text-md font-bold inline-block w-28 align-middle">
-              Title
-            </label>
+            <label className="text-md font-bold">Course Name</label>
             <input
-              className="w-full border mt-2 border-gray-300 rounded-md p-2"
+              className="form-control w-full border mt-2 border-gray-300 rounded-md p-2"
               type="text"
-              placeholder="Enter course name"
-              required
+              id="courseName"
               value={courseName}
-              onChange={(e) => setCourseName(e.target.value)}
+              onChange={(e) => {
+                setCourseName(e.target.value);
+              }}
             />
           </div>
           <div className="form-group mt-3" data-testid="courseDescription">
-            <label className="text-md font-bold inline-block w-28 align-middle">
-              Description
-            </label>
+            <label className="text-md font-bold">Description</label>
             <textarea
-              className="w-full border mt-2 border-gray-300 rounded-md p-2"
-              placeholder="Enter course description"
-              required
+              id="description"
               value={description}
+              rows={4}
+              className="form-control w-full border mt-2 border-gray-300 rounded-md p-2"
+              placeholder="Enter course description"
               onChange={(e) => setDescription(e.target.value)}
             ></textarea>
           </div>
           <div className="form-group mt-3" data-testid="courseCredit">
-            <label className="text-md font-bold inline-block w-28 align-middle">
-              Credit
-            </label>
+            <label className="form-control text-md font-bold">Credit</label>
             <input
               className="w-full border mt-2 border-gray-300 rounded-md p-2"
               type="number"
-              placeholder="Enter course credit"
-              required
               value={credit}
+              placeholder="Enter course credit"
               onChange={(e) => setCredit(e.target.value)}
             />
           </div>
           <div className="form-group mt-3" data-testid="multiselect">
-            <label className="text-md font-bold inline-block w-28 align-middle">
-              Tags
-            </label>
+            <label className="text-md font-bold">Tags</label>
             <Multiselect
               options={data.options}
-              data-testid={data}
               className="mt-2"
               displayValue="name"
               onSelect={(selectedOptions) => {
@@ -404,25 +293,29 @@ const AddCourse = () => {
                 const removedTagsIds = removedOptions.map(
                   (removedTag: { id: any }) => removedTag.id
                 );
-                const updatedTagsIds = tags.filter(
-                  (tagId: any) => !removedTagsIds.includes(tagId)
+                const updatedTags = tags.filter((tag) =>
+                  removedTagsIds.includes(tag)
                 );
-                setTags(updatedTagsIds);
+                setTags(updatedTags);
               }}
             />
+            <p className="text-xsm text-red-600">
+              NOTE: Please Select all the tags dedicated to the course.
+            </p>
           </div>
           <div className="form-group mt-3 justify-between">
             <label className="text-md font-bold">Resource URLs</label>
             {resourseUrls.map((url, index) => (
               <div key={index} className="flex mt-2">
                 <input
-                  type="url"
+                  type="text"
                   className="w-full border border-gray-300 rounded-md p-2"
                   value={url}
-                  required={index === 0}
                   placeholder="Enter resource URL"
                   data-testid="ResourceUrl"
-                  onChange={(event) => handleResourceUrlChange(index, event)}
+                  onChange={(event) => {
+                    handleResourceUrlChange(index, event);
+                  }}
                 />
                 {resourseUrls.length > 1 ? (
                   <button
@@ -451,11 +344,11 @@ const AddCourse = () => {
             {testUrls.map((url, index) => (
               <div key={index} className="flex mt-2">
                 <input
-                  type="url"
+                  type="text"
                   className="w-full border border-gray-300 rounded-md p-2"
                   value={url}
                   data-testid="testUrl"
-                  required={index === 0}
+                  // required={index === 0}
                   placeholder="Enter Test URL"
                   onChange={(event) => handleTestUrlChange(index, event)}
                 />
@@ -464,7 +357,9 @@ const AddCourse = () => {
                     type="button"
                     data-testid="RemoveTestButton"
                     className="ml-2 px-2 py-1 bg-red-500 text-white rounded-md"
-                    onClick={() => handleRemoveTestUrl(index)}
+                    onClick={() => {
+                      handleRemoveTestUrl(index);
+                    }}
                   >
                     Remove
                   </button>
@@ -487,9 +382,9 @@ const AddCourse = () => {
             <label className="text-md  font-bold">Image</label>
             <div className="h-10 w-10">
               <svg
-                xmlns="http://www.w3.org/2000/svg"
+                xmlns={imageUrl}
                 data-testid="courseImageButton"
-                className="ProfileImageUpdateIcon"
+                className="courseImageUpdateIcon"
                 onClick={() => setShowModal(true)}
                 viewBox="0 0 24 24"
               >
@@ -503,7 +398,7 @@ const AddCourse = () => {
               className="bg-blue-500 mt-10 text-white font-semibold px-4 py-2 rounded-md w-[200px]"
               type="submit"
             >
-              Add Course
+              Update Course
             </button>
           </div>
         </form>
@@ -512,4 +407,4 @@ const AddCourse = () => {
   );
 };
 
-export default AddCourse;
+export default UpdateCourse;

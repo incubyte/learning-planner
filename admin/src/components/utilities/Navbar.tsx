@@ -78,7 +78,7 @@ const Navbar = (props: NavbarProps) => {
                       className="navbarHeaderItems"
                       data-testid="navbarHeaderCourseLink"
                     >
-                      Add Courses
+                      Add Course
                     </Link>
                   )}
                   {props.isUser && (
