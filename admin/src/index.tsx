@@ -7,6 +7,7 @@ import SignIn from "./components/SignIn";
 import UserDetail from "./components/user/UserDetail";
 import Users from "./components/user/Users";
 import "./index.css";
+import Courses from "./components/course/Courses";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
       {
         path: "/user/:id",
         element: <UserDetail />,
+      },
+      {
+        path: "/courses",
+        element: <Courses></Courses>,
       },
     ],
   },

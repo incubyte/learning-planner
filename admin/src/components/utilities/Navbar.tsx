@@ -65,11 +65,20 @@ const Navbar = (props: NavbarProps) => {
 
                   {props.isCourse && (
                     <Link
-                      to="/course"
+                      to="/courses"
                       className="navbarHeaderItems"
                       data-testid="navbarHeaderCourseLink"
                     >
                       Courses
+                    </Link>
+                  )}
+                  {!props.isCourse && (
+                    <Link
+                      to="/courses"
+                      className="navbarHeaderItems"
+                      data-testid="navbarHeaderCourseLink"
+                    >
+                      Add Courses
                     </Link>
                   )}
                   {props.isUser && (
@@ -140,6 +149,16 @@ const Navbar = (props: NavbarProps) => {
                     Courses
                   </Link>
                 )}
+                {!props.isCourse && (
+                  <Link
+                    to=""
+                    className="navbarHeaderItems"
+                    data-testid="navbarHeaderCourseLink"
+                  >
+                    Add Courses
+                  </Link>
+                )}
+
                 {!props.isUser && (
                   <button
                     className="navbarHeaderItems"
