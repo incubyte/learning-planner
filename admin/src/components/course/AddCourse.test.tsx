@@ -156,4 +156,29 @@ describe("Display Course Page ", () => {
       fireEvent.click(RemovetestUrlButton[0]);
     });
   });
+
+  test("Checks the image container and its contents", async () => {
+    const { getByTestId } = render(
+      <BrowserRouter>
+        <AddCourse />
+      </BrowserRouter>
+    );
+
+    const imageContainer = getByTestId("CourseImageContainer");
+    expect(imageContainer).toBeInTheDocument();
+  });
+
+  test("Course Image Model is present", async () => {
+    const { getByTestId } = render(
+      <BrowserRouter>
+        <AddCourse />
+      </BrowserRouter>
+    );
+    const courseImageButton = getByTestId("courseImageButton");
+    await act(() => {
+      fireEvent.click(courseImageButton);
+    });
+    const courseImageModel = getByTestId("courseImageModel");
+    expect(courseImageModel).toBeInTheDocument();
+  });
 });
