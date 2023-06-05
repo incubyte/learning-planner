@@ -73,4 +73,49 @@ describe("UpdateCourse", () => {
     const updateCourseHeading = screen.getByTestId("updateCourseHeading");
     expect(updateCourseHeading).toBeInTheDocument();
   });
+
+  test("renders course title input", () => {
+    render(
+      <MemoryRouter initialEntries={["/updateCourse"]}>
+        <Routes>
+          <Route path="/updateCourse" element={<UpdateCourse />} />
+        </Routes>
+      </MemoryRouter>
+    );
+    const courseTitleInput = screen.getByTestId("courseTitle");
+    expect(courseTitleInput).toBeInTheDocument();
+  });
+
+  test("renders course description textarea", () => {
+    render(
+      <MemoryRouter initialEntries={["/updateCourse"]}>
+        <Routes>
+          <Route path="/updateCourse" element={<UpdateCourse />} />
+        </Routes>
+      </MemoryRouter>
+    );
+    const courseDescriptionTextarea = screen.getByTestId("courseDescription");
+    expect(courseDescriptionTextarea).toBeInTheDocument();
+
+    const courseDescriptionPlaceholder = screen.getByPlaceholderText(
+      "Enter course description"
+    );
+    expect(courseDescriptionPlaceholder).toBeInTheDocument();
+  });
+
+  test("renders course credit input", () => {
+    render(
+      <MemoryRouter initialEntries={["/updateCourse"]}>
+        <Routes>
+          <Route path="/updateCourse" element={<UpdateCourse />} />
+        </Routes>
+      </MemoryRouter>
+    );
+    const courseCreditInput = screen.getByTestId("courseCredit");
+    expect(courseCreditInput).toBeInTheDocument();
+    const courseCreditPlaceholder = screen.getByPlaceholderText(
+      "Enter course credit"
+    );
+    expect(courseCreditPlaceholder).toBeInTheDocument();
+  });
 });
