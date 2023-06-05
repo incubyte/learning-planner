@@ -130,4 +130,61 @@ describe("UpdateCourse", () => {
     const multiselectComponent = screen.getByTestId("multiselect");
     expect(multiselectComponent).toBeInTheDocument();
   });
+
+  test("adds a resource URL", async () => {
+    render(
+      <MemoryRouter initialEntries={["/updateCourse"]}>
+        <Routes>
+          <Route path="/updateCourse" element={<UpdateCourse />} />
+        </Routes>
+      </MemoryRouter>
+    );
+    const ResourceUrlPlaceholder =
+      screen.getByPlaceholderText("Enter resource URL");
+    expect(ResourceUrlPlaceholder).toBeInTheDocument();
+
+    const addResourceUrlButton = screen.getByTestId("Add Resource Url");
+    fireEvent.click(addResourceUrlButton);
+
+    await waitFor(() => {
+      const resourceUrlInput = screen.getAllByTestId("ResourceUrl");
+      fireEvent.change(resourceUrlInput[0], {
+        target: { value: "https://example.com/resource" },
+      });
+      expect(resourceUrlInput[0]).toHaveValue("https://example.com/resource");
+    });
+
+    await waitFor(() => {
+      const RemoveResourceUrlButton = screen.getAllByTestId("RemoveButton");
+      fireEvent.click(RemoveResourceUrlButton[0]);
+    });
+  });
+
+  test("adds a test URL", async () => {
+    render(
+      <MemoryRouter initialEntries={["/updateCourse"]}>
+        <Routes>
+          <Route path="/updateCourse" element={<UpdateCourse />} />
+        </Routes>
+      </MemoryRouter>
+    );
+    const ResourceUrlPlaceholder =
+      screen.getByPlaceholderText("Enter Test URL");
+    expect(ResourceUrlPlaceholder).toBeInTheDocument();
+    const addTestUrlButton = screen.getByTestId("Add Test Url");
+    fireEvent.click(addTestUrlButton);
+
+    await waitFor(() => {
+      const testUrlInput = screen.getAllByTestId("testUrl");
+      fireEvent.change(testUrlInput[0], {
+        target: { value: "https://example.com/test" },
+      });
+      expect(testUrlInput[0]).toHaveValue("https://example.com/test");
+    });
+
+    await waitFor(() => {
+      const RemovetestUrlButton = screen.getAllByTestId("RemoveTestButton");
+      fireEvent.click(RemovetestUrlButton[0]);
+    });
+  });
 });
