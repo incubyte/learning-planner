@@ -51,6 +51,7 @@ describe("Display Tag Page ", () => {
     const authToken = localStorage.getItem("authToken");
     expect(getByRole("navigation")).toBeInTheDocument();
     expect(getByTestId("tagHeading")).toBeInTheDocument();
+    expect(getByTestId("AddTagButton")).toBeInTheDocument();
     expect(fetch).toHaveBeenCalledTimes(1);
     expect(fetch).toHaveBeenCalledWith(
       "https://backend-mu-plum.vercel.app/tag/",
@@ -68,6 +69,36 @@ describe("Display Tag Page ", () => {
 
       const actionsElements = getAllByTestId("Actions");
       expect(actionsElements.length).toBe(2);
+    });
+  });
+
+  test("display delete button", async () => {
+    const { getByTestId, getAllByTestId } = render(
+      <BrowserRouter>
+        <Tags />
+      </BrowserRouter>
+    );
+
+    jest.setTimeout(30000);
+    await waitFor(() => getByTestId("container2 table"));
+
+    await waitFor(() => {
+      const deleteButtons1 = getAllByTestId("deleteButton1");
+      expect(deleteButtons1.length).toBe(1);
+      const deleteButtons2 = getAllByTestId("deleteButton2");
+      expect(deleteButtons2.length).toBe(1);
+    });
+  });
+
+  test("delete Operation", async () => {
+    const { getAllByTestId } = render(
+      <BrowserRouter>
+        <Tags />
+      </BrowserRouter>
+    );
+    jest.setTimeout(30000);
+    await waitFor(() => {
+      fireEvent.click(getAllByTestId("deleteButton1")[0]);
     });
   });
 });

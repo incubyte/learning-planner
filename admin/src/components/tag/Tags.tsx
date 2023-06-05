@@ -273,6 +273,7 @@ const Tags = () => {
       </div>
       <div className="tagContainer">
         <button
+          data-testid="AddTagButton"
           type="button"
           className="px-2 py-1 bg-green-500 mt-5 text-white rounded-md m-5"
           onClick={() => setShowAddTagModal(true)}
