@@ -105,4 +105,55 @@ describe("Display Course Page ", () => {
     const multiselectComponent = getByTestId("multiselect");
     expect(multiselectComponent).toBeInTheDocument();
   });
+  test("adds a resource URL", async () => {
+    const { getByTestId, getAllByTestId, getByPlaceholderText } = render(
+      <BrowserRouter>
+        <AddCourse />
+      </BrowserRouter>
+    );
+
+    const ResourceUrlPlaceholder = getByPlaceholderText("Enter resource URL");
+    expect(ResourceUrlPlaceholder).toBeInTheDocument();
+
+    const addResourceUrlButton = getByTestId("Add Resource Url");
+    fireEvent.click(addResourceUrlButton);
+
+    await waitFor(() => {
+      const resourceUrlInput = getAllByTestId("ResourceUrl");
+      fireEvent.change(resourceUrlInput[0], {
+        target: { value: "https://example.com/resource" },
+      });
+      expect(resourceUrlInput[0]).toHaveValue("https://example.com/resource");
+    });
+
+    await waitFor(() => {
+      const RemoveResourceUrlButton = getAllByTestId("RemoveButton");
+      fireEvent.click(RemoveResourceUrlButton[0]);
+    });
+  });
+
+  test("adds a test URL", async () => {
+    const { getByTestId, getAllByTestId, getByPlaceholderText } = render(
+      <BrowserRouter>
+        <AddCourse />
+      </BrowserRouter>
+    );
+    const ResourceUrlPlaceholder = getByPlaceholderText("Enter Test URL");
+    expect(ResourceUrlPlaceholder).toBeInTheDocument();
+    const addTestUrlButton = getByTestId("Add Test Url");
+    fireEvent.click(addTestUrlButton);
+
+    await waitFor(() => {
+      const testUrlInput = getAllByTestId("testUrl");
+      fireEvent.change(testUrlInput[0], {
+        target: { value: "https://example.com/test" },
+      });
+      expect(testUrlInput[0]).toHaveValue("https://example.com/test");
+    });
+
+    await waitFor(() => {
+      const RemovetestUrlButton = getAllByTestId("RemoveTestButton");
+      fireEvent.click(RemovetestUrlButton[0]);
+    });
+  });
 });
