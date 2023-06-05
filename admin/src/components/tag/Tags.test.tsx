@@ -101,4 +101,20 @@ describe("Display Tag Page ", () => {
       fireEvent.click(getAllByTestId("deleteButton1")[0]);
     });
   });
+
+  test("display update button", async () => {
+    const { getByTestId, getAllByTestId } = render(
+      <BrowserRouter>
+        <Tags />
+      </BrowserRouter>
+    );
+
+    jest.setTimeout(30000);
+    await waitFor(() => getByTestId("container2 table"));
+
+    await waitFor(() => {
+      const updateButtons = getAllByTestId("updateButton");
+      expect(updateButtons.length).toBe(2);
+    });
+  });
 });
