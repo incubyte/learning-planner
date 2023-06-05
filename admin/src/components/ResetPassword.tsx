@@ -88,7 +88,7 @@ const ResetPassword = () => {
         <label data-testid="resetForm" className="SignUpFormItems">
           <Input
             icon={PasswordIcon}
-            dataTestId="signupPassword"
+            dataTestId="resetPassword"
             placeholder="password"
             Id="password"
             showPasswordButton={true}
@@ -103,16 +103,13 @@ const ResetPassword = () => {
 
           <Input
             icon={PasswordIcon}
-            dataTestId="signupConfirmPassword"
+            dataTestId="resetConfirmPassword"
             placeholder="confirm password"
             Id="confirmpassword"
             showPasswordButton={true}
             validation={confirmPasswordValidation}
           />
-          <div
-            data-testid="signupConfirmPasswordError"
-            className="SignUpErrors"
-          >
+          <div data-testid="resetConfirmPasswordError" className="SignUpErrors">
             {errors.confirmpassword ? (
               <>{errors.confirmpassword.message}</>
             ) : (
@@ -123,7 +120,7 @@ const ResetPassword = () => {
           <button
             className="SignUpSubmit"
             onClick={handleSubmit(handleFormSubmit)}
-            data-testid="signupButton"
+            data-testid="resetButton"
           >
             Submit
           </button>
