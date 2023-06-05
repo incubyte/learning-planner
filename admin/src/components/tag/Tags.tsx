@@ -3,7 +3,7 @@ import { toast } from "react-toastify";
 import "../../css/tag/Tags.css";
 import Navbar from "../utilities/Navbar";
 
-const DisplayTag = () => {
+const Tags = () => {
   const authToken = localStorage.getItem("authToken");
   const [getAllTag, setGetAllTag] = useState([]);
   const [showAddTagModel, setShowAddTagModal] = useState(false);
@@ -335,4 +335,4 @@ const DisplayTag = () => {
   );
 };
 
-export default DisplayTag;
+export default Tags;
