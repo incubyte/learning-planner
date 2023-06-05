@@ -118,4 +118,16 @@ describe("UpdateCourse", () => {
     );
     expect(courseCreditPlaceholder).toBeInTheDocument();
   });
+
+  test("renders multiselect component", () => {
+    render(
+      <MemoryRouter initialEntries={["/updateCourse"]}>
+        <Routes>
+          <Route path="/updateCourse" element={<UpdateCourse />} />
+        </Routes>
+      </MemoryRouter>
+    );
+    const multiselectComponent = screen.getByTestId("multiselect");
+    expect(multiselectComponent).toBeInTheDocument();
+  });
 });

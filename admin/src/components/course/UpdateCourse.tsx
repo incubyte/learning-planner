@@ -36,7 +36,6 @@ const UpdateCourse = ({ id }: any) => {
     setCredit(courseData.credit);
     setTags(courseData.tags);
     setImageUrl(courseData.imageUrl);
-    console.log(courseData.tags);
   }, [courseData]);
 
   const handleImageUrl = async () => {
@@ -87,7 +86,6 @@ const UpdateCourse = ({ id }: any) => {
     if (response.ok) {
       const jsonResnponse = await response.json();
       setCreateCourse(jsonResnponse);
-      console.log("Course updated Successfully");
       toast("Hurray! Course Updated", {
         autoClose: 2500,
         closeButton: false,
@@ -99,7 +97,6 @@ const UpdateCourse = ({ id }: any) => {
         autoClose: 2500,
         closeButton: false,
       });
-      console.log("Course Failed");
     }
   };
 
