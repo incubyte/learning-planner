@@ -95,4 +95,14 @@ describe("Display Course Page ", () => {
     const courseCreditPlaceholder = getByPlaceholderText("Enter course credit");
     expect(courseCreditPlaceholder).toBeInTheDocument();
   });
+
+  test("renders multiselect component", () => {
+    const { getByTestId } = render(
+      <BrowserRouter>
+        <AddCourse />
+      </BrowserRouter>
+    );
+    const multiselectComponent = getByTestId("multiselect");
+    expect(multiselectComponent).toBeInTheDocument();
+  });
 });
