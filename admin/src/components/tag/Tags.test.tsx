@@ -117,4 +117,20 @@ describe("Display Tag Page ", () => {
       expect(updateButtons.length).toBe(2);
     });
   });
+
+  test("submits the form", async () => {
+    const { getByTestId, getByText } = render(
+      <BrowserRouter>
+        <Tags />
+      </BrowserRouter>
+    );
+
+    global.fetch = jest.fn().mockResolvedValueOnce({
+      ok: true,
+      json: () => Promise.resolve({}),
+    });
+
+    const submitButton = getByTestId("AddTagButton");
+    fireEvent.click(submitButton);
+  });
 });
