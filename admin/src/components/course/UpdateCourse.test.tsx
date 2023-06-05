@@ -251,4 +251,22 @@ describe("UpdateCourse", () => {
     const courseImageClose = screen.getByTestId("courseImageClose");
     expect(courseImageClose).toBeInTheDocument();
   });
+
+  test("submits the form", async () => {
+    render(
+      <MemoryRouter initialEntries={["/updateCourse"]}>
+        <Routes>
+          <Route path="/updateCourse" element={<UpdateCourse />} />
+        </Routes>
+      </MemoryRouter>
+    );
+
+    global.fetch = jest.fn().mockResolvedValueOnce({
+      ok: true,
+      json: () => Promise.resolve({}),
+    });
+
+    const submitButton = screen.getByTestId("submitButton");
+    fireEvent.click(submitButton);
+  });
 });
