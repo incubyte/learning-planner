@@ -187,4 +187,68 @@ describe("UpdateCourse", () => {
       fireEvent.click(RemovetestUrlButton[0]);
     });
   });
+
+  test("Course Image Model is present", async () => {
+    render(
+      <MemoryRouter initialEntries={["/updateCourse"]}>
+        <Routes>
+          <Route path="/updateCourse" element={<UpdateCourse />} />
+        </Routes>
+      </MemoryRouter>
+    );
+    const courseImageButton = screen.getByTestId("courseImageButton");
+    await act(() => {
+      fireEvent.click(courseImageButton);
+    });
+    const courseImageModel = screen.getByTestId("courseImageModel");
+    expect(courseImageModel).toBeInTheDocument();
+  });
+
+  test("Course Image Model file input is present", async () => {
+    render(
+      <MemoryRouter initialEntries={["/updateCourse"]}>
+        <Routes>
+          <Route path="/updateCourse" element={<UpdateCourse />} />
+        </Routes>
+      </MemoryRouter>
+    );
+    const courseImageButton = screen.getByTestId("courseImageButton");
+    await act(() => {
+      fireEvent.click(courseImageButton);
+    });
+    const courseImageInput = screen.getByTestId("courseImageInput");
+    expect(courseImageInput).toBeInTheDocument();
+  });
+
+  test("Course Image Model save button is present", async () => {
+    render(
+      <MemoryRouter initialEntries={["/updateCourse"]}>
+        <Routes>
+          <Route path="/updateCourse" element={<UpdateCourse />} />
+        </Routes>
+      </MemoryRouter>
+    );
+    const courseImageButton = screen.getByTestId("courseImageButton");
+    await act(() => {
+      fireEvent.click(courseImageButton);
+    });
+    const courseImageSave = screen.getByTestId("courseImageSave");
+    expect(courseImageSave).toBeInTheDocument();
+  });
+
+  test("Course Image Modal close button is present", async () => {
+    render(
+      <MemoryRouter initialEntries={["/updateCourse"]}>
+        <Routes>
+          <Route path="/updateCourse" element={<UpdateCourse />} />
+        </Routes>
+      </MemoryRouter>
+    );
+    const courseImageButton = screen.getByTestId("courseImageButton");
+    await act(() => {
+      fireEvent.click(courseImageButton);
+    });
+    const courseImageClose = screen.getByTestId("courseImageClose");
+    expect(courseImageClose).toBeInTheDocument();
+  });
 });
