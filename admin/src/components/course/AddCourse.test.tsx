@@ -223,4 +223,25 @@ describe("Display Course Page ", () => {
     const courseImageClose = getByTestId("courseImageClose");
     expect(courseImageClose).toBeInTheDocument();
   });
+
+  test("submits the form", async () => {
+    const { getByTestId, getAllByText } = render(
+      <BrowserRouter>
+        <AddCourse />
+      </BrowserRouter>
+    );
+
+    global.fetch = jest.fn().mockResolvedValueOnce({
+      ok: true,
+      json: () => Promise.resolve({}),
+    });
+
+    const submitButton = getByTestId("submitButton");
+    fireEvent.click(submitButton);
+
+    await waitFor(() => {
+      const successMessage = getAllByText("Hurray! Course created 🥳🥳");
+      expect(successMessage[0]).toBeInTheDocument();
+    });
+  });
 });
