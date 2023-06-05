@@ -43,8 +43,8 @@ afterEach(() => {
   cleanup();
 });
 
-describe("Display Page ", () => {
-  test("renders course title input", () => {
+describe("Display Course Page ", () => {
+  test("renders heading  of Course Page", () => {
     const { getByTestId } = render(
       <BrowserRouter>
         <AddCourse />
@@ -54,5 +54,45 @@ describe("Display Page ", () => {
     expect(formContainer).toBeInTheDocument();
     const addCourseHeading = getByTestId("addCourseHeading");
     expect(addCourseHeading).toBeInTheDocument();
+  });
+
+  test("renders course title input", () => {
+    const { getByTestId, getByPlaceholderText } = render(
+      <BrowserRouter>
+        <AddCourse />
+      </BrowserRouter>
+    );
+    const courseTitleInput = getByTestId("courseTitle");
+    expect(courseTitleInput).toBeInTheDocument();
+
+    const courseTitlePlaceholder = getByPlaceholderText("Enter course name");
+    expect(courseTitlePlaceholder).toBeInTheDocument();
+  });
+
+  test("renders course description textarea", () => {
+    const { getByTestId, getByPlaceholderText } = render(
+      <BrowserRouter>
+        <AddCourse />
+      </BrowserRouter>
+    );
+    const courseDescriptionTextarea = getByTestId("courseDescription");
+    expect(courseDescriptionTextarea).toBeInTheDocument();
+
+    const courseDescriptionPlaceholder = getByPlaceholderText(
+      "Enter course description"
+    );
+    expect(courseDescriptionPlaceholder).toBeInTheDocument();
+  });
+
+  test("renders course credit input", () => {
+    const { getByTestId, getByPlaceholderText } = render(
+      <BrowserRouter>
+        <AddCourse />
+      </BrowserRouter>
+    );
+    const courseCreditInput = getByTestId("courseCredit");
+    expect(courseCreditInput).toBeInTheDocument();
+    const courseCreditPlaceholder = getByPlaceholderText("Enter course credit");
+    expect(courseCreditPlaceholder).toBeInTheDocument();
   });
 });
