@@ -5,6 +5,7 @@ import { courseType } from "../courses/Courses";
 import { LeaderBoardType } from "./LeaderBoardType";
 import React from "react";
 import { userType } from "../user/user";
+import LoadingScreen from "../utilities/LoadingScreen";
 
 const LeaderBoard = () => {
   const [activeCourses, setActiveCourses] = useState<courseType[]>([]);
@@ -15,7 +16,7 @@ const LeaderBoard = () => {
   const [currentUser, setCurrentUser] = useState<userType>();
 
   const authToken = localStorage.getItem("authToken");
-
+  const [isLoading, setIsLoading] = useState(true);
   const fetchCurrentUserCredit = async () => {
     const response = await fetch(
       "https://backend-mu-plum.vercel.app/user/course?status=completed",
@@ -78,13 +79,25 @@ const LeaderBoard = () => {
   };
 
   useEffect(() => {
-    fetchCurrentUserCredit();
-    fetchActiveCourses();
-    fetchLeaderBoardUsers();
-    fetchCurrentUser();
+    const fetchData = async () => {
+      setIsLoading(true);
+
+      await Promise.all([
+        fetchCurrentUserCredit(),
+        fetchActiveCourses(),
+        fetchLeaderBoardUsers(),
+        fetchCurrentUser(),
+      ]);
+
+      setIsLoading(false);
+    };
+
+    fetchData();
   }, []);
 
-  return (
+  return isLoading ? (
+    <LoadingScreen />
+  ) : (
     <>
       <div className="LeaderBoardContainer " role="leaderBoard">
         <div className="w-full text-center mb-8">

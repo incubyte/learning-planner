@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import "../../css/courses/Filter.css";
 import { courseType } from "./Courses";
+import LoadingScreen from "../utilities/LoadingScreen";
 
 interface FilterProps {
   getCourseByFilter: (courses: courseType[]) => void;
@@ -10,6 +11,8 @@ const Filter = ({ getCourseByFilter }: FilterProps) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [courses, setCourses] = useState([]);
   const [tags, setTags] = useState([{ id: "1", name: "Java" }]);
+  const [isLoading, setIsLoading] = useState(true);
+
   const [selectTagId, setSelectTagId] = useState<string[]>([]);
   const authToken = localStorage.getItem("authToken");
 
@@ -54,6 +57,7 @@ const Filter = ({ getCourseByFilter }: FilterProps) => {
   };
 
   useEffect(() => {
+    setIsLoading(true);
     if (selectTagId.length > 0) {
       const filterByTagUrl =
         "https://backend-mu-plum.vercel.app/course/filterByTags?" +
@@ -62,14 +66,25 @@ const Filter = ({ getCourseByFilter }: FilterProps) => {
     } else {
       fetchCourses("https://backend-mu-plum.vercel.app/course/");
     }
+    setIsLoading(false);
   }, [selectTagId, courses.length]);
 
   useEffect(() => {
-    getCourseByFilter(courses);
+    const fetchData = async (courses: any) => {
+      setIsLoading(true);
+
+      await Promise.all([getCourseByFilter(courses)]);
+
+      setIsLoading(false);
+    };
+
+    fetchData(courses);
   }, [courses]);
 
   const Tags = isExpanded ? tags : tags.slice(0, 7);
-  return (
+  return isLoading ? (
+    <LoadingScreen />
+  ) : (
     <div className="filterTagsContainer" role="filterByTags">
       <h4 className="filterTagsHeading">Explore By Tags</h4>
 

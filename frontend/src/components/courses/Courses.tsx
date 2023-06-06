@@ -4,6 +4,7 @@ import Carousel from "../utilities/Carousel";
 import Navbar from "../utilities/Navbar";
 import CoursePageIndex from "./CoursePageIndex";
 import Filter from "./Filter";
+import LoadingScreen from "../utilities/LoadingScreen";
 
 export interface courseType {
   id: string;
@@ -20,9 +21,10 @@ export interface courseType {
 
 const CoursePage = () => {
   const [query, setQuery] = useState("");
-  const navigator = useNavigate();
   const [availableCourses, setAvailableCourses] = useState<courseType[]>([]);
   const [popularCourses, setPopularCourses] = useState<courseType[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
   const [courseUrl, setCourseUrl] = useState<string>(
     "https://backend-mu-plum.vercel.app/course"
   );
@@ -63,8 +65,15 @@ const CoursePage = () => {
   };
 
   useEffect(() => {
-    fetchCourses(courseUrl);
-    fetchPopularCourses();
+    const fetchData = async (courseUrl: string) => {
+      setIsLoading(true);
+
+      await Promise.all([fetchCourses(courseUrl), fetchPopularCourses()]);
+
+      setIsLoading(false);
+    };
+
+    fetchData(courseUrl);
   }, []);
 
   const search = (data: courseType[]) => {
@@ -84,7 +93,9 @@ const CoursePage = () => {
     return filteredList;
   };
 
-  return (
+  return isLoading ? (
+    <LoadingScreen />
+  ) : (
     <>
       <Navbar
         getQuery={getQuery}
