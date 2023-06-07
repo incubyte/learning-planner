@@ -15,7 +15,7 @@ function App() {
         Authorization: `Bearer ${authToken}`,
       },
     });
-    if (!response.ok) {
+    if (response && !response.ok) {
       navigator("/auth/sign_in");
     }
   };

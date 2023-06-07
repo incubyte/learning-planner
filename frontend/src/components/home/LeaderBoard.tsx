@@ -27,7 +27,7 @@ const LeaderBoard = () => {
       }
     );
 
-    if (response.ok) {
+    if (response && response.ok) {
       const fetchCourses = await response.json();
       setCurrentUserCredit(fetchCourses.courses.length * 10);
     }
@@ -43,7 +43,7 @@ const LeaderBoard = () => {
       }
     );
 
-    if (response.ok) {
+    if (response && response.ok) {
       const fetchCourses = await response.json();
       setActiveCourses(fetchCourses.courses);
     }
@@ -59,7 +59,7 @@ const LeaderBoard = () => {
       }
     );
 
-    if (response.ok) {
+    if (response && response.ok) {
       const leaderBoardUsersResponse = await response.json();
       setLeaderBoardUsers(leaderBoardUsersResponse);
     }
@@ -72,7 +72,7 @@ const LeaderBoard = () => {
       },
     });
 
-    if (response.ok) {
+    if (response && response.ok) {
       const currentUserResponse = await response.json();
       setCurrentUser(currentUserResponse);
     }

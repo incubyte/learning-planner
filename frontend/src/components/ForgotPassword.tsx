@@ -1,5 +1,4 @@
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "tippy.js/dist/tippy.css";
@@ -10,12 +9,9 @@ import EmailIcon from "./utilities/icons/Email";
 const ForgotPassword = () => {
   const {
     register,
-    getValues,
     handleSubmit,
     formState: { errors },
   } = useForm();
-
-  const navigator = useNavigate();
 
   const handleFormSubmit = async (data: any) => {
     const response = await fetch(

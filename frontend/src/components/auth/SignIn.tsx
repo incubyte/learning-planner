@@ -4,7 +4,6 @@ import "tippy.js/dist/tippy.css";
 import loginImage from "../../assets/login-image.jpg";
 import "../../css/auth/SignIn.css";
 import SignInForm from "../utilities/SignInForm";
-import { useState } from "react";
 
 const SignIn = () => {
   const navigator = useNavigate();

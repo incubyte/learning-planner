@@ -23,7 +23,7 @@ const CourseDetails = () => {
         },
       }
     );
-    if (response.ok) {
+    if (response && response.ok) {
       const jsonResnponse = await response.json();
       await setCourse(jsonResnponse);
     }
@@ -42,7 +42,7 @@ const CourseDetails = () => {
       }
     );
 
-    if (response.ok) {
+    if (response && response.ok) {
       toast.success("Course Enrolled!!", {
         autoClose: 2500,
         closeButton: false,
@@ -70,7 +70,7 @@ const CourseDetails = () => {
       }
     );
 
-    if (response.ok) {
+    if (response && response.ok) {
       toast.success("Course Completed!!", {
         autoClose: 2500,
         closeButton: false,
@@ -94,7 +94,7 @@ const CourseDetails = () => {
         },
       }
     );
-    if (response.ok) {
+    if (response && response.ok) {
       const courseStatusResponse = await response.json();
       if (courseStatusResponse == 0) {
         setIsEnrolled(false);

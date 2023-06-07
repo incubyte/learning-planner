@@ -7,8 +7,8 @@ import {
   waitFor,
 } from "@testing-library/react";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
-import SignIn from "../components/auth/SignIn";
 import CourseDetails from "../components/courseDetails/CourseDetails";
+import SignIn from "../components/auth/SignIn";
 
 afterEach(() => {
   cleanup();
@@ -19,8 +19,8 @@ function sleep(ms: any) {
 }
 describe("test course detail", () => {
   jest.setTimeout(30000);
-  it("Accessing courses detail Page", async () => {
-    const mockId = "bacd123445afha";
+  it("Enroll course", async () => {
+    const mockId = "23c9da04-e4e6-4ee5-b0ba-c2fbaba711ed";
     render(
       <MemoryRouter initialEntries={[`/course/${mockId}`]}>
         <SignIn />
@@ -29,7 +29,6 @@ describe("test course detail", () => {
         </Routes>
       </MemoryRouter>
     );
-
     const signInButton = screen.getByTestId(
       "signinButton"
     ) as HTMLButtonElement;
@@ -41,24 +40,23 @@ describe("test course detail", () => {
 
     await act(() => {
       fireEvent.change(signInEmail, {
-        target: { value: "shreyas@incubyte.co" },
+        target: { value: "charvit@incubyte.co" },
       });
     });
-
     await act(() => {
-      fireEvent.change(signInPassword, { target: { value: "Shreyas@111" } });
+      fireEvent.change(signInPassword, { target: { value: "Incubte@579" } });
     });
-
     await act(() => {
       fireEvent.click(signInButton);
     });
 
-    const enrollButton = screen.getByTestId(
-      "courseEnroll"
-    ) as HTMLButtonElement;
-
-    await act(async () => {
-      fireEvent.click(enrollButton);
+    await waitFor(async () => {
+      const enrollButton = screen.getByTestId(
+        "courseEnroll"
+      ) as HTMLButtonElement;
+      await act(async () => {
+        fireEvent.click(enrollButton);
+      });
     });
     await sleep(20000);
     await waitFor(() => expect(screen.getByRole("alert")).toBeInTheDocument());

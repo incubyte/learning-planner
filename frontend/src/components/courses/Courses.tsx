@@ -44,7 +44,7 @@ const CoursePage = () => {
       },
     });
 
-    if (response.ok) {
+    if (response && response.ok) {
       const courses = await response.json();
       setAvailableCourses(courses);
     }

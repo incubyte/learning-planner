@@ -47,7 +47,7 @@ const Profile = () => {
         Authorization: `Bearer ${authToken}`,
       },
     });
-    if (response.ok) {
+    if (response && response.ok) {
       const responseUser = await response.json();
       setUser(responseUser);
     } else {
@@ -64,7 +64,7 @@ const Profile = () => {
         },
       }
     );
-    if (response.ok) {
+    if (response && response.ok) {
       const responseCourse = await response.json();
       setActiveCourse(responseCourse.courses);
       setCompletedCourseCount(responseCourse.count);

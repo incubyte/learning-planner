@@ -1,4 +1,4 @@
-import { render, screen, fireEvent, act } from "@testing-library/react";
+import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import Filter from "./Filter";
 import { BrowserRouter } from "react-router-dom";
 
@@ -27,8 +27,10 @@ describe("Filter Component", () => {
         <Filter getCourseByFilter={getCourseByFilterMock} />
       </BrowserRouter>
     );
-    expect(screen.getByRole("filterByTags")).toBeInTheDocument();
-    expect(screen.getByText("Explore By Tags")).toBeInTheDocument();
+    await waitFor(() => {
+      expect(screen.getByRole("filterByTags")).toBeInTheDocument();
+      expect(screen.getByText("Explore By Tags")).toBeInTheDocument();
+    });
     expect(getCourseByFilterMock).toHaveBeenCalledTimes(1);
   });
 
@@ -38,44 +40,51 @@ describe("Filter Component", () => {
         <Filter getCourseByFilter={getCourseByFilterMock} />
       </BrowserRouter>
     );
-    const tagButton = screen.getByRole("button", { name: /Java/i });
-    act(() => {
+    await screen.findByText("Java");
+
+    const tagButton = screen.queryByText(/Java/i);
+    if (tagButton) {
       fireEvent.click(tagButton);
+      await waitFor(() => {
+        expect(tagButton).toHaveStyle("color: white");
+        expect(getCourseByFilterMock).toHaveBeenCalledTimes(1);
+        expect(getCourseByFilterMock).toHaveBeenCalledWith([]);
+      });
+    } else {
+      throw new Error("Tag button not found");
+    }
+  });
+
+  test("Displays all tags when the 'Show More' is clicked", async () => {
+    const { getByText, queryByText, getByRole } = render(
+      <BrowserRouter>
+        <Filter getCourseByFilter={getCourseByFilterMock} />
+      </BrowserRouter>
+    );
+    await waitFor(async () => {
+      const showMoreButton = getByRole("filterByTags");
+
+      await fireEvent.click(showMoreButton);
+      expect(getByText("Explore By Tags")).toBeInTheDocument();
+      expect(getByText("Java")).toBeInTheDocument();
+      expect(queryByText("React")).not.toBeInTheDocument();
     });
-
-    expect(screen.getByRole("button", { name: /Java/i })).toHaveStyle(
-      "color: white"
-    );
-    expect(getCourseByFilterMock).toHaveBeenCalledTimes(1);
-    expect(getCourseByFilterMock).toBeCalledWith([]);
   });
 
-  test("Displays all tags when the 'Show More' is clicked", () => {
+  test("Displays default tags when the 'Show Less' is clicked", async () => {
     const { getByText, queryByText, getByRole } = render(
       <BrowserRouter>
         <Filter getCourseByFilter={getCourseByFilterMock} />
       </BrowserRouter>
     );
-    const showMoreButton = getByRole("filterByTags");
-
-    fireEvent.click(showMoreButton);
-    expect(getByText("Explore By Tags")).toBeInTheDocument();
-    expect(getByText("Java")).toBeInTheDocument();
-    expect(queryByText("React")).not.toBeInTheDocument();
-  });
-
-  test("Displays default tags when the 'Show Less' is clicked", () => {
-    const { getByText, queryByText, getByRole } = render(
-      <BrowserRouter>
-        <Filter getCourseByFilter={getCourseByFilterMock} />
-      </BrowserRouter>
-    );
-    const showMoreButton = getByRole("filterByTags");
-    const showLessButton = getByRole("filterByTags");
-    fireEvent.click(showMoreButton);
-    fireEvent.click(showLessButton);
-    expect(getByText("Explore By Tags")).toBeInTheDocument();
-    expect(getByText("Java")).toBeInTheDocument();
-    expect(queryByText("React")).not.toBeInTheDocument();
+    await waitFor(() => {
+      const showMoreButton = getByRole("filterByTags");
+      const showLessButton = getByRole("filterByTags");
+      fireEvent.click(showMoreButton);
+      fireEvent.click(showLessButton);
+      expect(getByText("Explore By Tags")).toBeInTheDocument();
+      expect(getByText("Java")).toBeInTheDocument();
+      expect(queryByText("React")).not.toBeInTheDocument();
+    });
   });
 });
