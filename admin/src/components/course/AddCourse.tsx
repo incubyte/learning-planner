@@ -353,6 +353,7 @@ const AddCourse = () => {
             <input
               className="w-full border mt-2 border-gray-300 rounded-md p-2"
               type="text"
+              data-testid="courseTitleInput"
               placeholder="Enter course name"
               required
               value={courseName}
@@ -367,6 +368,7 @@ const AddCourse = () => {
               className="w-full border mt-2 border-gray-300 rounded-md p-2"
               placeholder="Enter course description"
               required
+              data-testid="courseDescriptionInput"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
             ></textarea>
@@ -378,6 +380,7 @@ const AddCourse = () => {
             <input
               className="w-full border mt-2 border-gray-300 rounded-md p-2"
               type="number"
+              data-testid="courseCreditInput"
               placeholder="Enter course credit"
               required
               value={credit}
@@ -390,7 +393,7 @@ const AddCourse = () => {
             </label>
             <Multiselect
               options={data.options}
-              data-testid={data}
+              data-testid="multiSelectInput"
               className="mt-2"
               displayValue="name"
               onSelect={(selectedOptions) => {
