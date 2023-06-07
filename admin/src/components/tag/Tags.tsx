@@ -238,7 +238,7 @@ const Tags = () => {
                     Close
                   </button>
                   <button
-                    data-testid="AddTagButton"
+                    data-testid="AddTagButtonModal"
                     className="text-white font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg mr-1 mb-1 ease-linear transition-all duration-150 bg-emerald-500 active:bg-emerald-600"
                     type="button"
                     onClick={() => {
