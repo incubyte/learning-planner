@@ -30,7 +30,6 @@ const Tags = () => {
     );
     if (response.ok) {
       const jsonResnponse = await response.json();
-      console.log(jsonResnponse);
       setNewTagName(jsonResnponse);
       toast("Hurray! Tag created 🥳🥳", {
         autoClose: 2500,
@@ -69,7 +68,6 @@ const Tags = () => {
       });
     } else {
       const jsonResponse = await response.json();
-      console.log(jsonResponse.message);
       toast.error(jsonResponse.message, {
         autoClose: 2500,
         closeButton: false,
@@ -152,7 +150,6 @@ const Tags = () => {
     file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] 
     hover:file:bg-neutral-200"
                     onChange={(e) => {
-                      console.log(tagName);
                       setTagName(e.target.value);
                     }}
                     placeholder="Tag name"
@@ -218,7 +215,6 @@ const Tags = () => {
                   <input
                     value={newTagName}
                     onChange={(e) => {
-                      console.log(newTagName);
                       setNewTagName(e.target.value);
                     }}
                     data-testid="tagsInput"

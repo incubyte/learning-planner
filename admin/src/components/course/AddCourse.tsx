@@ -33,7 +33,6 @@ const AddCourse = () => {
     if (avatar) {
       media = await imageUpload([avatar]);
       await setImageUrl(media[0].url);
-      console.log(imageUrl);
     }
     setShowModal(false);
   };
@@ -70,7 +69,6 @@ const AddCourse = () => {
     );
     if (response.ok) {
       const jsonResnponse = await response.json();
-      console.log(jsonResnponse);
       setNewTagName(jsonResnponse);
       toast("Hurray! Tag created 🥳🥳", {
         autoClose: 2500,
@@ -282,7 +280,6 @@ const AddCourse = () => {
                   <input
                     value={newTagName}
                     onChange={(e) => {
-                      console.log(newTagName);
                       setNewTagName(e.target.value);
                     }}
                     data-testid="tagsInput"
