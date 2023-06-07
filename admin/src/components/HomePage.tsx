@@ -63,7 +63,7 @@ const HomePage = () => {
             dataTestId="courseCard"
             count={allCourse?.length}
             header="Total Courses"
-            link="/"
+            link="/courses"
             linkText="See All Course"
           ></HomeCard>
         </div>
