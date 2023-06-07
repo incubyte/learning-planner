@@ -23,7 +23,6 @@ const AddCourse = () => {
   const [newTagName, setNewTagName] = useState("");
   const authToken = localStorage.getItem("authToken");
 
-  // add test
   const changeAvatar = (e: any) => {
     const file = e.target.files[0];
     setAvatar(file);
@@ -114,7 +113,9 @@ const AddCourse = () => {
         autoClose: 2500,
         closeButton: false,
       });
-      navigator("/courses");
+      setTimeout(() => {
+        navigator("/courses");
+      }, 2500);
     } else {
       const jsonResponse = await response.json();
       toast.error(jsonResponse.message, {

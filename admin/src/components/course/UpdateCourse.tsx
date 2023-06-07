@@ -90,7 +90,9 @@ const UpdateCourse = ({ id }: any) => {
         autoClose: 2500,
         closeButton: false,
       });
-      navigator("/courses");
+      setTimeout(() => {
+        navigator("/courses");
+      }, 2500);
     } else {
       const jsonResponse = await response.json();
       toast.error(jsonResponse.message, {
