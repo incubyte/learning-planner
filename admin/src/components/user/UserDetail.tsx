@@ -128,7 +128,6 @@ const UserDetail = () => {
     );
     if (response && response.ok) {
       const responseUser = await response.json();
-      console.log(responseUser);
       setUser(responseUser);
     }
   };
