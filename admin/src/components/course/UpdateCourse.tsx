@@ -247,6 +247,7 @@ const UpdateCourse = ({ id }: any) => {
               className="form-control w-full border mt-2 border-gray-300 rounded-md p-2"
               type="text"
               id="courseName"
+              data-testid="courseTitleInput"
               value={courseName}
               onChange={(e) => {
                 setCourseName(e.target.value);
@@ -257,6 +258,7 @@ const UpdateCourse = ({ id }: any) => {
             <label className="text-md font-bold">Description</label>
             <textarea
               id="description"
+              data-testid="courseDescriptionInput"
               value={description}
               rows={4}
               className="form-control w-full border mt-2 border-gray-300 rounded-md p-2"
@@ -269,6 +271,7 @@ const UpdateCourse = ({ id }: any) => {
             <input
               className="w-full border mt-2 border-gray-300 rounded-md p-2"
               type="number"
+              data-testid="courseCreditInput"
               value={credit}
               placeholder="Enter course credit"
               onChange={(e) => setCredit(e.target.value)}
