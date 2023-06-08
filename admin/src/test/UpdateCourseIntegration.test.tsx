@@ -14,26 +14,9 @@ import SignIn from "../components/SignIn";
 afterEach(() => {
   cleanup();
 });
-let userId = "";
 let courseData: courseType[];
 
 beforeAll(async () => {
-  const response = await fetch(
-    "https://backend-mu-plum.vercel.app/auth/signup",
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email: "john" + Math.random() + "@incubyte.co",
-        password: "Incubyte@111",
-      }),
-    }
-  );
-  const jsonBody = await response.json();
-  userId = jsonBody.id;
-
   const signInResponse = await fetch(
     "https://backend-mu-plum.vercel.app/auth/admin/signin",
     {
@@ -42,7 +25,7 @@ beforeAll(async () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        email: "utsav.p" + "@incubyte.co",
+        email: "utsav.p@incubyte.co",
         password: "Incubyte@111",
       }),
     }
