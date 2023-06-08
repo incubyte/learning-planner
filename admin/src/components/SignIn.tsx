@@ -22,6 +22,7 @@ const SignIn = () => {
     if (response.ok) {
       const authToken = await response.text();
       localStorage.setItem("authToken", authToken);
+      console.log(authToken);
       navigator("/");
     } else {
       const jsonResponse = await response.json();
