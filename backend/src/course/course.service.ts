@@ -1,5 +1,5 @@
 import { PrismaService } from '@Prisma/prisma.service';
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { Course } from '@prisma/client';
 
 @Injectable()
@@ -11,7 +11,11 @@ export class CourseService {
   }
 
   async getById(id: string): Promise<Course> {
-    return await this.prismaService.course.findFirst({ where: { id } });
+    const result = await this.prismaService.course.findFirst({ where: { id } });
+    if (!result) {
+      throw new NotFoundException('Course Not Found');
+    }
+    return result;
   }
 
   async filterByTags(tags: string[]): Promise<Course[]> {
