@@ -7,6 +7,7 @@ import "../../css/user/userDetails.css";
 import Navbar from "../utilities/Navbar";
 import { imageUpload } from "./ImageUpload";
 import { userType } from "./user";
+import LoadingScreen from "../utilities/LoadingScreen";
 
 const UserDetail = () => {
   const [user, setUser] = useState<userType>({
@@ -21,13 +22,11 @@ const UserDetail = () => {
     createdAt: "",
   });
 
-  const options = ["Admin", "Employee"];
-  const defaultOption = options[0];
   const navigator = useNavigate();
   const urlParams = useParams();
   const [showModal, setShowModal] = useState(false);
   const [avatar, setAvatar] = useState("");
-
+  const [isLoading, setIsLoading] = useState(true);
   const [isUpdated, setIsUpdated] = useState<boolean>(false);
 
   const blob = new Blob([avatar]);
@@ -47,7 +46,7 @@ const UserDetail = () => {
         },
       }
     );
-    if (response.ok) {
+    if (response && response.ok) {
       toast.success("User deleted successfully", {
         autoClose: 2500,
         closeButton: false,
@@ -81,7 +80,7 @@ const UserDetail = () => {
         }),
       }
     );
-    if (response.ok) {
+    if (response && response.ok) {
       const jsonResponse = await response.json();
       setUser(jsonResponse);
       toast.success("User updated successfully", {
@@ -92,7 +91,6 @@ const UserDetail = () => {
         navigator("/users");
       }, 3000);
     } else {
-      const jsonResponse = await response.json();
       toast.error("Something went wrong, please try again", {
         autoClose: 2500,
         closeButton: false,
@@ -128,7 +126,7 @@ const UserDetail = () => {
         },
       }
     );
-    if (response.ok) {
+    if (response && response.ok) {
       const responseUser = await response.json();
       setUser(responseUser);
     }
@@ -136,9 +134,19 @@ const UserDetail = () => {
 
   const authToken = localStorage.getItem("authToken");
   useEffect(() => {
-    fetchUser();
+    const fetchData = async () => {
+      setIsLoading(true);
+
+      await Promise.all([fetchUser()]);
+
+      setIsLoading(false);
+    };
+
+    fetchData();
   }, []);
-  return (
+  return isLoading ? (
+    <LoadingScreen />
+  ) : (
     <>
       {showModal ? (
         <>

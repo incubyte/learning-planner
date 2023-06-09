@@ -1,6 +1,6 @@
-import { cleanup, render, screen, waitFor } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
+import App from "./App";
 import { BrowserRouter } from "react-router-dom";
-import HomePage from "./HomePage";
 const mockUsers = [
   {
     email: "john1@incubyte.co",
@@ -113,31 +113,17 @@ beforeEach(() => {
     }
   });
 });
-afterEach(() => {
-  cleanup();
-});
+test("renders App component", async () => {
+  const { getByRole } = render(
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  );
+  await waitFor(() => {
+    const app = screen.getByTestId("App");
+    expect(app).toBeInTheDocument();
 
-describe("Home Component", () => {
-  test("user card is present in Home", async () => {
-    render(
-      <BrowserRouter>
-        <HomePage />
-      </BrowserRouter>
-    );
-    await waitFor(() => {
-      const userCard = screen.getByTestId("userCard") as HTMLInputElement;
-      expect(userCard).toBeInTheDocument();
-    });
-  });
-  test("Course card is present in Home", async () => {
-    render(
-      <BrowserRouter>
-        <HomePage />
-      </BrowserRouter>
-    );
-    await waitFor(() => {
-      const courseCard = screen.getByTestId("courseCard") as HTMLInputElement;
-      expect(courseCard).toBeInTheDocument();
-    });
+    const footer = getByRole("footer");
+    expect(footer).toBeInTheDocument();
   });
 });

@@ -2,11 +2,14 @@ import { useEffect, useState } from "react";
 import { userType } from "./user/user";
 import HomeCard from "./utilities/HomeCard";
 import Navbar from "./utilities/Navbar";
+import LoadingScreen from "./utilities/LoadingScreen";
 
 const HomePage = () => {
   const [allUsers, setAllUsers] = useState<userType[]>();
   const [allCourse, setAllCourse] = useState([]);
   const authToken = localStorage.getItem("authToken");
+  const [isLoading, setIsLoading] = useState(true);
+
   const fetchUsers = async () => {
     const response = await fetch(
       "https://backend-mu-plum.vercel.app/user/all",
@@ -17,7 +20,7 @@ const HomePage = () => {
       }
     );
 
-    if (response.ok) {
+    if (response && response.ok) {
       const fetchUsers = await response.json();
       setAllUsers(fetchUsers);
     }
@@ -29,16 +32,25 @@ const HomePage = () => {
       },
     });
 
-    if (response.ok) {
+    if (response && response.ok) {
       const fetchCourse = await response.json();
       setAllCourse(fetchCourse);
     }
   };
   useEffect(() => {
-    fetchUsers();
-    fetchCourse();
+    const fetchData = async () => {
+      setIsLoading(true);
+
+      await Promise.all([fetchUsers(), fetchCourse()]);
+
+      setIsLoading(false);
+    };
+
+    fetchData();
   }, []);
-  return (
+  return isLoading ? (
+    <LoadingScreen />
+  ) : (
     <>
       <Navbar
         isCourse={true}
