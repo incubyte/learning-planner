@@ -35,7 +35,7 @@ const Course = () => {
     );
     if (response && response.ok) {
       fetchCourses();
-      toast("Hurray! Course deleted Successfully 🥳🥳", {
+      toast.success("Hurray! Course deleted Successfully 🥳🥳", {
         autoClose: 2500,
         closeButton: false,
       });

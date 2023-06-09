@@ -107,7 +107,7 @@ const AddCourse = () => {
     if (response.ok) {
       const jsonResnponse = await response.json();
       setCreateCourse(jsonResnponse);
-      toast("Hurray! Course created 🥳🥳", {
+      toast.success("Hurray! Course created 🥳🥳", {
         autoClose: 2500,
         closeButton: false,
       });

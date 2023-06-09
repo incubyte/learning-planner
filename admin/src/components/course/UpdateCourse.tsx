@@ -86,7 +86,7 @@ const UpdateCourse = ({ id }: any) => {
     if (response.ok) {
       const jsonResnponse = await response.json();
       setCreateCourse(jsonResnponse);
-      toast("Hurray! Course Updated", {
+      toast.success("Hurray! Course Updated", {
         autoClose: 2500,
         closeButton: false,
       });
