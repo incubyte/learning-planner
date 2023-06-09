@@ -201,7 +201,7 @@ const Tags = () => {
             <div className="relative w-auto my-6 mx-auto">
               <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-80 bg-white outline-none focus:outline-none">
                 <div className="flex items-start justify-between p-5 xsm:p-3 border-b border-solid border-slate-200 rounded-t">
-                  <h3 className="text-3xl font-semibold">Add Tags here</h3>
+                  <h3 className="text-2xl font-semibold">Add Tag here</h3>
                   <button
                     className="p-1 ml-auto border-0 text-black float-right text-3xl font-semibold outline-none"
                     onClick={() => setShowAddTagModal(false)}
@@ -239,7 +239,7 @@ const Tags = () => {
                   </button>
                   <button
                     data-testid="AddTagButtonModal"
-                    className="text-white font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg mr-1 mb-1 ease-linear transition-all duration-150 bg-emerald-500 active:bg-emerald-600"
+                    className="text-white font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg mr-1 mb-1 ease-linear transition-all duration-150 bg-emerald-500 hover:bg-emerald-400 active:bg-emerald-600"
                     type="button"
                     onClick={() => {
                       handelTagSubmit();
@@ -271,7 +271,7 @@ const Tags = () => {
         <button
           data-testid="AddTagButton"
           type="button"
-          className="px-2 py-1 bg-green-500 mt-5 text-white rounded-md m-5"
+          className="px-2 py-1 bg-emerald-500 hover:bg-emerald-400 active:bg-emerald-600 text-white uppercase font-bold rounded-md m-5"
           onClick={() => setShowAddTagModal(true)}
         >
           Add Tag
@@ -309,14 +309,14 @@ const Tags = () => {
                           tagId: tag.id,
                         });
                       }}
-                      className="bg-yellow-400 w-[100px] m-5 p-2 pl-1 pr-1 rounded-lg hover:bg-yellow-500 "
+                      className=" w-[100px] m-5 p-2 pl-1 pr-1 rounded-lg bg-emerald-500 hover:bg-emerald-400 active:bg-emerald-600 text-white uppercase font-bold "
                     >
                       Update
                     </button>
                     <button
                       data-testid={"deleteButton" + `${tag.id}`}
                       role="deleteButton"
-                      className="bg-red-600 w-[100px] m-5 p-2 pl-1 pr-1 rounded-lg hover:bg-red-500 "
+                      className="bg-red-600 w-[100px] m-5 p-2 pl-1 pr-1 rounded-lg hover:bg-red-500 text-white uppercase font-bold  "
                       onClick={() => handleDelete(tag.id)}
                     >
                       Delete

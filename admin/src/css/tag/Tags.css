@@ -19,7 +19,7 @@
 }
 
 .tagTableRows {
-    @apply border border-gray-100 m-2 p-10 justify-start
+    @apply border border-gray-100 m-2 p-10 justify-start text-xl 
 }
 
 .tagTableUpdateCol {
