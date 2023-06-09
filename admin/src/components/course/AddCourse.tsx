@@ -70,7 +70,7 @@ const AddCourse = () => {
     if (response.ok) {
       const jsonResnponse = await response.json();
       setNewTagName(jsonResnponse);
-      toast("Hurray! Tag created 🥳🥳", {
+      toast.success("Hurray! Tag created 🥳🥳", {
         autoClose: 2500,
         closeButton: false,
       });

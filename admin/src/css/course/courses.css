@@ -27,11 +27,11 @@
 }
 
 .courseUpdateButton{
-    @apply bg-yellow-400 w-[100px] m-5 p-2 pl-1 pr-1 rounded-lg hover:bg-yellow-500 
+    @apply  w-[100px] m-5 p-2 pl-1 pr-1 rounded-lg bg-emerald-500 hover:bg-emerald-400 active:bg-emerald-600 text-white uppercase font-bold
 }
 
 .courseDeleteButton{
-    @apply bg-red-600 w-[100px] m-5 p-2 pl-1 pr-1 rounded-lg text-white hover:bg-red-500 sm:w-20
+    @apply bg-red-600 w-[100px] m-5 p-2 pl-1 pr-1 rounded-lg text-white hover:bg-red-500 sm:w-20 uppercase font-bold
 }
 
 
