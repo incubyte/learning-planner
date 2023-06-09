@@ -3,8 +3,8 @@ import { useParams } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "../../css/courseDetails/courseDetails.css";
 import { courseType } from "../courses/Courses";
-import Navbar from "../utilities/Navbar";
 import LoadingScreen from "../utilities/LoadingScreen";
+import Navbar from "../utilities/Navbar";
 
 const CourseDetails = () => {
   const { id } = useParams();
@@ -94,6 +94,7 @@ const CourseDetails = () => {
         },
       }
     );
+    console.log(response);
     if (response && response.ok) {
       const courseStatusResponse = await response.json();
       if (courseStatusResponse == 0) {
@@ -105,6 +106,8 @@ const CourseDetails = () => {
       } else {
         setIsCompleted(true);
       }
+    } else {
+      toast.error("course not found");
     }
   };
 

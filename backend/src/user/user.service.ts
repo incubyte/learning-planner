@@ -175,6 +175,13 @@ export class UserService {
   }
 
   async getStatusOfCourse(userId: string, courseId: string): Promise<number> {
+    const course = await this.prismaService.course.findFirst({
+      where: { id: courseId },
+    });
+
+    if (!course) {
+      throw new BadRequestException('course not found');
+    }
     const userCourse = await this.prismaService.userCourse.findFirst({
       where: {
         userId: userId,
