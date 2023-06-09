@@ -55,7 +55,7 @@ const Course = () => {
         isCourse={false}
         isHome={true}
         isProfile={true}
-        isUser={false}
+        isUser={true}
         isTag={false}
       ></Navbar>
       <div>

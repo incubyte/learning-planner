@@ -256,10 +256,10 @@ const Tags = () => {
         </>
       ) : null}
       <Navbar
-        isCourse={false}
+        isCourse={true}
         isHome={true}
         isProfile={true}
-        isUser={false}
+        isUser={true}
         isTag={true}
       />
       <div>
