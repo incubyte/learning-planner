@@ -31,7 +31,7 @@ const Tags = () => {
     if (response.ok) {
       const jsonResnponse = await response.json();
       setNewTagName(jsonResnponse);
-      toast("Hurray! Tag created 🥳🥳", {
+      toast.success("Hurray! Tag created 🥳🥳", {
         autoClose: 2500,
         closeButton: false,
       });
@@ -62,7 +62,7 @@ const Tags = () => {
     if (response.ok) {
       const jsonResnponse = await response.json();
       setTagName(jsonResnponse);
-      toast("Hurray! Tag Updated", {
+      toast.success("Hurray! Tag Updated", {
         autoClose: 2500,
         closeButton: false,
       });
@@ -99,7 +99,7 @@ const Tags = () => {
     );
     if (response && response.ok) {
       fetchTag();
-      toast("Hurray! Tag deleted Successfully 🥳🥳", {
+      toast.success("Hurray! Tag deleted Successfully 🥳🥳", {
         autoClose: 2500,
         closeButton: false,
       });
