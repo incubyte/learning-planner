@@ -122,15 +122,16 @@ const CourseDetails = () => {
       setTags(tagsResponse);
     }
   };
+  const fetchData = async () => {
+    setIsLoading(true);
+
+    await Promise.all([fetchCourse(), fetchTags(), fetchCourseStatus()]);
+    setIsLoading(false);
+  };
 
   const authToken = localStorage.getItem("authToken");
-  useEffect(() => {
-    const fetchData = async () => {
-      setIsLoading(true);
 
-      await Promise.all([fetchCourse(), fetchTags(), fetchCourseStatus()]);
-      setIsLoading(false);
-    };
+  useEffect(() => {
     fetchData();
   }, []);
 

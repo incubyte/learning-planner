@@ -40,10 +40,6 @@ const Filter = ({ getCourseByFilter }: FilterProps) => {
     }
   };
 
-  useEffect(() => {
-    fetchTags();
-  }, []);
-
   const toggleExpand = () => {
     setIsExpanded(!isExpanded);
   };
@@ -69,15 +65,18 @@ const Filter = ({ getCourseByFilter }: FilterProps) => {
     setIsLoading(false);
   }, [selectTagId, courses.length]);
 
+  const fetchData = async (courses: any) => {
+    setIsLoading(true);
+
+    await Promise.all([getCourseByFilter(courses)]);
+
+    setIsLoading(false);
+  };
   useEffect(() => {
-    const fetchData = async (courses: any) => {
-      setIsLoading(true);
+    fetchTags();
+  }, []);
 
-      await Promise.all([getCourseByFilter(courses)]);
-
-      setIsLoading(false);
-    };
-
+  useEffect(() => {
     fetchData(courses);
   }, [courses]);
 

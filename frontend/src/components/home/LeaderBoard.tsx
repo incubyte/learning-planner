@@ -78,20 +78,20 @@ const LeaderBoard = () => {
     }
   };
 
+  const fetchData = async () => {
+    setIsLoading(true);
+
+    await Promise.all([
+      fetchCurrentUserCredit(),
+      fetchActiveCourses(),
+      fetchLeaderBoardUsers(),
+      fetchCurrentUser(),
+    ]);
+
+    setIsLoading(false);
+  };
+
   useEffect(() => {
-    const fetchData = async () => {
-      setIsLoading(true);
-
-      await Promise.all([
-        fetchCurrentUserCredit(),
-        fetchActiveCourses(),
-        fetchLeaderBoardUsers(),
-        fetchCurrentUser(),
-      ]);
-
-      setIsLoading(false);
-    };
-
     fetchData();
   }, []);
 

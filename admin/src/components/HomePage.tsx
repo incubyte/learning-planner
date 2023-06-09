@@ -37,15 +37,14 @@ const HomePage = () => {
       setAllCourse(fetchCourse);
     }
   };
+  const fetchData = async () => {
+    setIsLoading(true);
+
+    await Promise.all([fetchUsers(), fetchCourse()]);
+
+    setIsLoading(false);
+  };
   useEffect(() => {
-    const fetchData = async () => {
-      setIsLoading(true);
-
-      await Promise.all([fetchUsers(), fetchCourse()]);
-
-      setIsLoading(false);
-    };
-
     fetchData();
   }, []);
   return isLoading ? (

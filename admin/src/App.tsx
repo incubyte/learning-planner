@@ -21,15 +21,14 @@ function App() {
       navigator("/auth/sign_in");
     }
   };
+  const fetchData = async () => {
+    setIsLoading(true);
+
+    await Promise.all([fetchPage()]);
+
+    setIsLoading(false);
+  };
   useEffect(() => {
-    const fetchData = async () => {
-      setIsLoading(true);
-
-      await Promise.all([fetchPage()]);
-
-      setIsLoading(false);
-    };
-
     fetchData();
   }, page);
   return isLoading ? (

@@ -82,15 +82,16 @@ const Profile = () => {
   };
 
   const authToken = localStorage.getItem("authToken");
+  
+  const fetchData = async () => {
+    setIsLoading(true);
+
+    await Promise.all([fetchUser(), fetchCourse()]);
+
+    setIsLoading(false);
+  };
+
   useEffect(() => {
-    const fetchData = async () => {
-      setIsLoading(true);
-
-      await Promise.all([fetchUser(), fetchCourse()]);
-
-      setIsLoading(false);
-    };
-
     fetchData();
   }, []);
   return isLoading ? (

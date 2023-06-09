@@ -24,16 +24,14 @@ const Users = () => {
       setAllUsers(fetchUsers);
     }
   };
+  const fetchData = async () => {
+    setIsLoading(true);
 
+    await Promise.all([fetchUsers()]);
+
+    setIsLoading(false);
+  };
   useEffect(() => {
-    const fetchData = async () => {
-      setIsLoading(true);
-
-      await Promise.all([fetchUsers()]);
-
-      setIsLoading(false);
-    };
-
     fetchData();
   }, []);
   return isLoading ? (

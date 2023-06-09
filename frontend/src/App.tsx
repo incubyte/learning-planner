@@ -20,15 +20,14 @@ function App() {
     }
   };
   const authToken = localStorage.getItem("authToken");
+  const fetchData = async () => {
+    setIsLoading(true);
+
+    await Promise.all([fetchPage()]);
+
+    setIsLoading(false);
+  };
   useEffect(() => {
-    const fetchData = async () => {
-      setIsLoading(true);
-
-      await Promise.all([fetchPage()]);
-
-      setIsLoading(false);
-    };
-
     fetchData();
   }, page);
   return isLoading ? (

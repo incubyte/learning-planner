@@ -133,15 +133,16 @@ const UserDetail = () => {
   };
 
   const authToken = localStorage.getItem("authToken");
+
+  const fetchData = async () => {
+    setIsLoading(true);
+
+    await Promise.all([fetchUser()]);
+
+    setIsLoading(false);
+  };
+
   useEffect(() => {
-    const fetchData = async () => {
-      setIsLoading(true);
-
-      await Promise.all([fetchUser()]);
-
-      setIsLoading(false);
-    };
-
     fetchData();
   }, []);
   return isLoading ? (

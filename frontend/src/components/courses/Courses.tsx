@@ -64,15 +64,15 @@ const CoursePage = () => {
     }
   };
 
+  const fetchData = async (courseUrl: string) => {
+    setIsLoading(true);
+
+    await Promise.all([fetchCourses(courseUrl), fetchPopularCourses()]);
+
+    setIsLoading(false);
+  };
+
   useEffect(() => {
-    const fetchData = async (courseUrl: string) => {
-      setIsLoading(true);
-
-      await Promise.all([fetchCourses(courseUrl), fetchPopularCourses()]);
-
-      setIsLoading(false);
-    };
-
     fetchData(courseUrl);
   }, []);
 
