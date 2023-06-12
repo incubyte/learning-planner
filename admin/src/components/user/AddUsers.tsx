@@ -9,36 +9,43 @@ const AddUser = (props: addUserProps) => {
   var arraylist: any[] = [];
   const handleSubmit = async () => {
     const authToken = localStorage.getItem("authToken");
-    const response = await fetch(
-      "https://backend-mu-plum.vercel.app/user/add",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${authToken}`,
-        },
-        body: JSON.stringify({ users: arraylist }),
-      }
-    );
+    try {
+      const response = await fetch(
+        "https://backend-mu-plum.vercel.app/user/add",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${authToken}`,
+          },
+          body: JSON.stringify({ users: arraylist }),
+        }
+      );
 
-    if (response.ok) {
-      toast.success("users added", {
-        autoClose: 2500,
-        closeButton: false,
-      });
-    } else {
-      if (response.status !== 400) {
-        const jsonResponse = await response.json();
-        toast.error(jsonResponse.message, {
+      if (response.ok) {
+        toast.success("users added", {
           autoClose: 2500,
           closeButton: false,
         });
       } else {
-        toast.error("Please check data and try again", {
-          autoClose: 2500,
-          closeButton: false,
-        });
+        if (response.status !== 400) {
+          const jsonResponse = await response.json();
+          toast.error(jsonResponse.message, {
+            autoClose: 2500,
+            closeButton: false,
+          });
+        } else {
+          toast.error("Please check data and try again", {
+            autoClose: 2500,
+            closeButton: false,
+          });
+        }
       }
+    } catch (error) {
+      toast.error("An error occurred" + error, {
+        autoClose: 2500,
+        closeButton: false,
+      });
     }
   };
 

@@ -36,62 +36,76 @@ const UserDetail = () => {
   };
 
   const deleteUser = async () => {
-    const response = await fetch(
-      "https://backend-mu-plum.vercel.app/user/delete/" + urlParams.id,
-      {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${authToken}`,
-        },
+    try {
+      const response = await fetch(
+        "https://backend-mu-plum.vercel.app/user/delete/" + urlParams.id,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${authToken}`,
+          },
+        }
+      );
+      if (response && response.ok) {
+        toast.success("User deleted successfully", {
+          autoClose: 2500,
+          closeButton: false,
+        });
+        setTimeout(() => {
+          navigator("/users");
+        }, 3000);
+      } else {
+        toast.error("Something wrong, please try again", {
+          autoClose: 2500,
+          closeButton: false,
+        });
       }
-    );
-    if (response && response.ok) {
-      toast.success("User deleted successfully", {
-        autoClose: 2500,
-        closeButton: false,
-      });
-      setTimeout(() => {
-        navigator("/users");
-      }, 3000);
-    } else {
-      toast.error("Something wrong, please try again", {
+    } catch (error) {
+      toast.error("An error occurred" + error, {
         autoClose: 2500,
         closeButton: false,
       });
     }
   };
   const updateUser = async () => {
-    const response = await fetch(
-      "https://backend-mu-plum.vercel.app/user/update/" + urlParams.id,
-      {
-        headers: {
-          Authorization: `Bearer ${authToken}`,
-          "Content-Type": "application/json",
-        },
-        method: "PATCH",
-        body: JSON.stringify({
-          eId: user.eId,
-          email: user.email,
-          profilePhoto: user.profilePhoto,
-          role: user.role,
-          roles: user.roles,
-          clientTeam: user.clientTeam,
-        }),
+    try {
+      const response = await fetch(
+        "https://backend-mu-plum.vercel.app/user/update/" + urlParams.id,
+        {
+          headers: {
+            Authorization: `Bearer ${authToken}`,
+            "Content-Type": "application/json",
+          },
+          method: "PATCH",
+          body: JSON.stringify({
+            eId: user.eId,
+            email: user.email,
+            profilePhoto: user.profilePhoto,
+            role: user.role,
+            roles: user.roles,
+            clientTeam: user.clientTeam,
+          }),
+        }
+      );
+      if (response && response.ok) {
+        const jsonResponse = await response.json();
+        setUser(jsonResponse);
+        toast.success("User updated successfully", {
+          autoClose: 2500,
+          closeButton: false,
+        });
+        setTimeout(() => {
+          navigator("/users");
+        }, 3000);
+      } else {
+        toast.error("Something went wrong, please try again", {
+          autoClose: 2500,
+          closeButton: false,
+        });
       }
-    );
-    if (response && response.ok) {
-      const jsonResponse = await response.json();
-      setUser(jsonResponse);
-      toast.success("User updated successfully", {
-        autoClose: 2500,
-        closeButton: false,
-      });
-      setTimeout(() => {
-        navigator("/users");
-      }, 3000);
-    } else {
-      toast.error("Something went wrong, please try again", {
+    } catch (error) {
+      toast.error("An error occurred" + error, {
         autoClose: 2500,
         closeButton: false,
       });
@@ -118,17 +132,24 @@ const UserDetail = () => {
   };
 
   const fetchUser = async () => {
-    const response = await fetch(
-      "https://backend-mu-plum.vercel.app/user/getUser/" + urlParams.id,
-      {
-        headers: {
-          Authorization: `Bearer ${authToken}`,
-        },
+    try {
+      const response = await fetch(
+        "https://backend-mu-plum.vercel.app/user/getUser/" + urlParams.id,
+        {
+          headers: {
+            Authorization: `Bearer ${authToken}`,
+          },
+        }
+      );
+      if (response && response.ok) {
+        const responseUser = await response.json();
+        setUser(responseUser);
       }
-    );
-    if (response && response.ok) {
-      const responseUser = await response.json();
-      setUser(responseUser);
+    } catch (error) {
+      toast.error("An error occurred" + error, {
+        autoClose: 2500,
+        closeButton: false,
+      });
     }
   };
 

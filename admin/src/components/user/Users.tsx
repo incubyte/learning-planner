@@ -3,6 +3,7 @@ import Navbar from "../utilities/Navbar";
 import { userType } from "./user";
 import "../../css/user/allUser.css";
 import LoadingScreen from "../utilities/LoadingScreen";
+import { ToastContainer, toast } from "react-toastify";
 
 const Users = () => {
   const [allUsers, setAllUsers] = useState<userType[]>();
@@ -10,18 +11,25 @@ const Users = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   const fetchUsers = async () => {
-    const response = await fetch(
-      "https://backend-mu-plum.vercel.app/user/all",
-      {
-        headers: {
-          Authorization: `Bearer ${authToken}`,
-        },
-      }
-    );
+    try {
+      const response = await fetch(
+        "https://backend-mu-plum.vercel.app/user/all",
+        {
+          headers: {
+            Authorization: `Bearer ${authToken}`,
+          },
+        }
+      );
 
-    if (response.ok) {
-      const fetchUsers = await response.json();
-      setAllUsers(fetchUsers);
+      if (response.ok) {
+        const fetchUsers = await response.json();
+        setAllUsers(fetchUsers);
+      }
+    } catch (error) {
+      toast.error("An error occurred" + error, {
+        autoClose: 2500,
+        closeButton: false,
+      });
     }
   };
   const fetchData = async () => {
@@ -93,6 +101,7 @@ const Users = () => {
             })}
           </tbody>
         </table>
+        <ToastContainer />
       </div>
     </>
   );

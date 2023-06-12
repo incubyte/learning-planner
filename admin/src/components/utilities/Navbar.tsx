@@ -45,8 +45,11 @@ const Navbar = (props: NavbarProps) => {
             <div className="NavbarHeaderFlexItems">
               <div className="navbarHeaderFlexShrink">
                 <img
-                  className="navbarHeaderLogoHeightWidth"
+                  className="navbarHeaderLogoHeightWidth cursor-pointer"
                   src={IncubyteLogo}
+                  onClick={() => {
+                    navigator("/");
+                  }}
                   alt="Workflow"
                   data-testid="navbarHeaderLogo"
                 />

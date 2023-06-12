@@ -8,24 +8,31 @@ const SignIn = () => {
   const navigator = useNavigate();
 
   const handleFormSubmit = async (data: any) => {
-    const response = await fetch(
-      "https://backend-mu-plum.vercel.app/auth/admin/signin",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email: data.email, password: data.password }),
-      }
-    );
+    try {
+      const response = await fetch(
+        "https://backend-mu-plum.vercel.app/auth/admin/signin",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email: data.email, password: data.password }),
+        }
+      );
 
-    if (response.ok) {
-      const authToken = await response.text();
-      localStorage.setItem("authToken", authToken);
-      navigator("/");
-    } else {
-      const jsonResponse = await response.json();
-      toast.error(jsonResponse.message, {
+      if (response.ok) {
+        const authToken = await response.text();
+        localStorage.setItem("authToken", authToken);
+        navigator("/");
+      } else {
+        const jsonResponse = await response.json();
+        toast.error(jsonResponse.message, {
+          autoClose: 2500,
+          closeButton: false,
+        });
+      }
+    } catch (error) {
+      toast.error("An error occurred during login" + error, {
         autoClose: 2500,
         closeButton: false,
       });

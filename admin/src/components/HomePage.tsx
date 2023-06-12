@@ -3,6 +3,7 @@ import { userType } from "./user/user";
 import HomeCard from "./utilities/HomeCard";
 import Navbar from "./utilities/Navbar";
 import LoadingScreen from "./utilities/LoadingScreen";
+import { ToastContainer, toast } from "react-toastify";
 
 const HomePage = () => {
   const [allUsers, setAllUsers] = useState<userType[]>();
@@ -11,30 +12,47 @@ const HomePage = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   const fetchUsers = async () => {
-    const response = await fetch(
-      "https://backend-mu-plum.vercel.app/user/all",
-      {
-        headers: {
-          Authorization: `Bearer ${authToken}`,
-        },
-      }
-    );
+    try {
+      const response = await fetch(
+        "https://backend-mu-plum.vercel.app/user/all",
+        {
+          headers: {
+            Authorization: `Bearer ${authToken}`,
+          },
+        }
+      );
 
-    if (response && response.ok) {
-      const fetchUsers = await response.json();
-      setAllUsers(fetchUsers);
+      if (response && response.ok) {
+        const fetchUsers = await response.json();
+        setAllUsers(fetchUsers);
+      }
+    } catch (error) {
+      toast.error("An error occurred" + error, {
+        autoClose: 2500,
+        closeButton: false,
+      });
     }
   };
   const fetchCourse = async () => {
-    const response = await fetch("https://backend-mu-plum.vercel.app/course/", {
-      headers: {
-        Authorization: `Bearer ${authToken}`,
-      },
-    });
+    try {
+      const response = await fetch(
+        "https://backend-mu-plum.vercel.app/course/",
+        {
+          headers: {
+            Authorization: `Bearer ${authToken}`,
+          },
+        }
+      );
 
-    if (response && response.ok) {
-      const fetchCourse = await response.json();
-      setAllCourse(fetchCourse);
+      if (response && response.ok) {
+        const fetchCourse = await response.json();
+        setAllCourse(fetchCourse);
+      }
+    } catch (error) {
+      toast.error("An error occurred" + error, {
+        autoClose: 2500,
+        closeButton: false,
+      });
     }
   };
   const fetchData = async () => {
@@ -77,6 +95,7 @@ const HomePage = () => {
             linkText="See All Course"
           ></HomeCard>
         </div>
+        <ToastContainer />
       </div>
     </>
   );
