@@ -1,12 +1,14 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import "../../css/tag/Tags.css";
+import LoadingScreen from "../utilities/LoadingScreen";
 import Navbar from "../utilities/Navbar";
 
 const Tags = () => {
   const authToken = localStorage.getItem("authToken");
   const [getAllTag, setGetAllTag] = useState([]);
   const [showAddTagModel, setShowAddTagModal] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [showupdateTagModel, setShowupdateTagModal] = useState({
     isModalOpen: false,
     tagId: 0,
@@ -110,10 +112,20 @@ const Tags = () => {
     deleteTag(id);
   };
 
+  const fetchData = async () => {
+    setIsLoading(true);
+
+    await Promise.all([fetchTag()]);
+
+    setIsLoading(false);
+  };
+
   useEffect(() => {
-    fetchTag();
+    fetchData();
   }, [tagName, newTagName]);
-  return (
+  return isLoading ? (
+    <LoadingScreen />
+  ) : (
     <>
       {showupdateTagModel.isModalOpen ? (
         <>
@@ -124,9 +136,15 @@ const Tags = () => {
             <div className="relative w-auto my-6 mx-auto">
               <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-80 bg-white outline-none focus:outline-none">
                 <div className="flex items-start justify-between p-5 xsm:p-3 border-b border-solid border-slate-200 rounded-t">
-                  <h3 className="text-3xl font-semibold">Update Tags here</h3>
+                  <h3
+                    className="text-3xl font-semibold"
+                    data-testid="modelHeader"
+                  >
+                    Update Tags here
+                  </h3>
                   <button
                     className="p-1 ml-auto border-0 text-black float-right text-3xl font-semibold outline-none"
+                    data-testid="modelUpdateButton"
                     onClick={() =>
                       setShowupdateTagModal({
                         isModalOpen: false,
@@ -157,7 +175,7 @@ const Tags = () => {
                 </div>
                 <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
                   <button
-                    data-testid="profileImageClose"
+                    data-testid="modelClose"
                     className="text-red-500 font-bold uppercase px-6 py-2 text-sm outline-none mr-1 mb-1 transition-all duration-150"
                     type="button"
                     onClick={() => {
@@ -302,7 +320,7 @@ const Tags = () => {
                   <td className="tagTableRows">{tag.name}</td>
                   <td className="tagTableUpdateCol" data-testid="Actions">
                     <button
-                      data-testid="updateButton"
+                      data-testid={"updateButton" + `${tag.id}`}
                       onClick={() => {
                         setShowupdateTagModal({
                           isModalOpen: true,
