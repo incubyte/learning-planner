@@ -424,7 +424,6 @@ const UserDetail = () => {
           >
             delete
           </button>
-          ;
         </div>
       </div>
     </>

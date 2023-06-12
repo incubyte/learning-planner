@@ -75,11 +75,11 @@ const HomePage = () => {
         isProfile={false}
         isUser={true}
       ></Navbar>
-      <div className="justify-center mt-16">
+      <div className="justify-center mt-8 lg:mt-16 md:mt-16">
         <p className="text-gray-800 whitespace-normal text-3xl font-bold">
           Welcome, Admin!
         </p>
-        <div className="flex flex-row gap-44 justify-center mt-16">
+        <div className="flex flex-col lg:flex-row md:flex-row gap-10 lg:gap-44 mad:gap-44 justify-center items-center mt-16">
           <HomeCard
             dataTestId="userCard"
             count={allUsers?.length}

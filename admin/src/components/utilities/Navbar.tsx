@@ -153,7 +153,7 @@ const Navbar = (props: NavbarProps) => {
                   </button>
                 )}
                 {props.isUser && (
-                  <Link to="/user" className="navbarHeaderItems">
+                  <Link to="/users" className="navbarHeaderItems">
                     Users
                   </Link>
                 )}
