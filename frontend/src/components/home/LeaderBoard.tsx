@@ -6,6 +6,7 @@ import { LeaderBoardType } from "./LeaderBoardType";
 import React from "react";
 import { userType } from "../user/user";
 import LoadingScreen from "../utilities/LoadingScreen";
+import { ToastContainer, toast } from "react-toastify";
 
 const LeaderBoard = () => {
   const [activeCourses, setActiveCourses] = useState<courseType[]>([]);
@@ -18,63 +19,91 @@ const LeaderBoard = () => {
   const authToken = localStorage.getItem("authToken");
   const [isLoading, setIsLoading] = useState(true);
   const fetchCurrentUserCredit = async () => {
-    const response = await fetch(
-      "https://backend-mu-plum.vercel.app/user/course?status=completed",
-      {
-        headers: {
-          Authorization: `Bearer ${authToken}`,
-        },
-      }
-    );
+    try {
+      const response = await fetch(
+        "https://backend-mu-plum.vercel.app/user/course?status=completed",
+        {
+          headers: {
+            Authorization: `Bearer ${authToken}`,
+          },
+        }
+      );
 
-    if (response && response.ok) {
-      const fetchCourses = await response.json();
-      setCurrentUserCredit(fetchCourses.courses.length * 10);
+      if (response && response.ok) {
+        const fetchCourses = await response.json();
+        setCurrentUserCredit(fetchCourses.courses.length * 10);
+      }
+    } catch (error) {
+      toast.error("An error occurred" + error, {
+        autoClose: 2500,
+        closeButton: false,
+      });
     }
   };
 
   const fetchActiveCourses = async () => {
-    const response = await fetch(
-      "https://backend-mu-plum.vercel.app/user/course?status=active",
-      {
-        headers: {
-          Authorization: `Bearer ${authToken}`,
-        },
-      }
-    );
+    try {
+      const response = await fetch(
+        "https://backend-mu-plum.vercel.app/user/course?status=active",
+        {
+          headers: {
+            Authorization: `Bearer ${authToken}`,
+          },
+        }
+      );
 
-    if (response && response.ok) {
-      const fetchCourses = await response.json();
-      setActiveCourses(fetchCourses.courses);
+      if (response && response.ok) {
+        const fetchCourses = await response.json();
+        setActiveCourses(fetchCourses.courses);
+      }
+    } catch (error) {
+      toast.error("An error occurred" + error, {
+        autoClose: 2500,
+        closeButton: false,
+      });
     }
   };
 
   const fetchLeaderBoardUsers = async () => {
-    const response = await fetch(
-      "https://backend-mu-plum.vercel.app/user/leaderboard",
-      {
-        headers: {
-          Authorization: `Bearer ${authToken}`,
-        },
-      }
-    );
+    try {
+      const response = await fetch(
+        "https://backend-mu-plum.vercel.app/user/leaderboard",
+        {
+          headers: {
+            Authorization: `Bearer ${authToken}`,
+          },
+        }
+      );
 
-    if (response && response.ok) {
-      const leaderBoardUsersResponse = await response.json();
-      setLeaderBoardUsers(leaderBoardUsersResponse);
+      if (response && response.ok) {
+        const leaderBoardUsersResponse = await response.json();
+        setLeaderBoardUsers(leaderBoardUsersResponse);
+      }
+    } catch (error) {
+      toast.error("An error occurred" + error, {
+        autoClose: 2500,
+        closeButton: false,
+      });
     }
   };
 
   const fetchCurrentUser = async () => {
-    const response = await fetch("https://backend-mu-plum.vercel.app/user", {
-      headers: {
-        Authorization: `Bearer ${authToken}`,
-      },
-    });
+    try {
+      const response = await fetch("https://backend-mu-plum.vercel.app/user", {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+      });
 
-    if (response && response.ok) {
-      const currentUserResponse = await response.json();
-      setCurrentUser(currentUserResponse);
+      if (response && response.ok) {
+        const currentUserResponse = await response.json();
+        setCurrentUser(currentUserResponse);
+      }
+    } catch (error) {
+      toast.error("An error occurred" + error, {
+        autoClose: 2500,
+        closeButton: false,
+      });
     }
   };
 
@@ -195,6 +224,7 @@ const LeaderBoard = () => {
         contentId={"activeContent"}
         courses={activeCourses}
       />
+      <ToastContainer />
     </>
   );
 };

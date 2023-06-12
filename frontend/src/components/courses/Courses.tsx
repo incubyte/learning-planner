@@ -5,6 +5,7 @@ import Navbar from "../utilities/Navbar";
 import CoursePageIndex from "./CoursePageIndex";
 import Filter from "./Filter";
 import LoadingScreen from "../utilities/LoadingScreen";
+import { ToastContainer, toast } from "react-toastify";
 
 export interface courseType {
   id: string;
@@ -38,29 +39,43 @@ const CoursePage = () => {
 
   const authToken = localStorage.getItem("authToken");
   const fetchCourses = async (url: string) => {
-    const response = await fetch(url, {
-      headers: {
-        Authorization: `Bearer ${authToken}`,
-      },
-    });
-
-    if (response && response.ok) {
-      const courses = await response.json();
-      setAvailableCourses(courses);
-    }
-  };
-  const fetchPopularCourses = async () => {
-    const response = await fetch(
-      "https://backend-mu-plum.vercel.app/course/popular",
-      {
+    try {
+      const response = await fetch(url, {
         headers: {
           Authorization: `Bearer ${authToken}`,
         },
+      });
+
+      if (response && response.ok) {
+        const courses = await response.json();
+        setAvailableCourses(courses);
       }
-    );
-    if (response && response.ok) {
-      const courses = await response.json();
-      setPopularCourses(courses);
+    } catch (error) {
+      toast.error("An error occurred" + error, {
+        autoClose: 2500,
+        closeButton: false,
+      });
+    }
+  };
+  const fetchPopularCourses = async () => {
+    try {
+      const response = await fetch(
+        "https://backend-mu-plum.vercel.app/course/popular",
+        {
+          headers: {
+            Authorization: `Bearer ${authToken}`,
+          },
+        }
+      );
+      if (response && response.ok) {
+        const courses = await response.json();
+        setPopularCourses(courses);
+      }
+    } catch (error) {
+      toast.error("An error occurred" + error, {
+        autoClose: 2500,
+        closeButton: false,
+      });
     }
   };
 
@@ -119,6 +134,7 @@ const CoursePage = () => {
         courses={search(availableCourses)}
         contentId="availContent"
       />
+      <ToastContainer />
     </>
   );
 };

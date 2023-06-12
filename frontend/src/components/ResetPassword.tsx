@@ -20,29 +20,36 @@ const ResetPassword = () => {
   const navigator = useNavigate();
 
   const handleFormSubmit = async (data: any) => {
-    const response = await fetch(
-      "https://backend-mu-plum.vercel.app/auth/resetPassword/" +
-        urlParams.token,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ password: data.password }),
-      }
-    );
+    try {
+      const response = await fetch(
+        "https://backend-mu-plum.vercel.app/auth/resetPassword/" +
+          urlParams.token,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ password: data.password }),
+        }
+      );
 
-    if (response.ok) {
-      toast.success("Password Changed", {
-        autoClose: 2500,
-        closeButton: false,
-      });
-      setTimeout(() => {
-        navigator("/auth/sign_in");
-      }, 3000);
-    } else {
-      const jsonResponse = await response.json();
-      toast.error(jsonResponse.message, {
+      if (response.ok) {
+        toast.success("Password Changed", {
+          autoClose: 2500,
+          closeButton: false,
+        });
+        setTimeout(() => {
+          navigator("/auth/sign_in");
+        }, 3000);
+      } else {
+        const jsonResponse = await response.json();
+        toast.error(jsonResponse.message, {
+          autoClose: 2500,
+          closeButton: false,
+        });
+      }
+    } catch (error) {
+      toast.error("An error occurred" + error, {
         autoClose: 2500,
         closeButton: false,
       });

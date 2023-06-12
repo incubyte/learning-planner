@@ -7,6 +7,7 @@ import Navbar from "../utilities/Navbar";
 import { imageUpload } from "./ImageUpload";
 import { userType } from "./user";
 import LoadingScreen from "../utilities/LoadingScreen";
+import { ToastContainer, toast } from "react-toastify";
 
 const Profile = () => {
   const [activeCourse, setActiveCourse] = useState<courseType[]>([]);
@@ -20,56 +21,77 @@ const Profile = () => {
     let media: any = [];
     if (avatar) {
       media = await imageUpload([avatar]);
-      const response = await fetch(
-        "https://backend-mu-plum.vercel.app/user/updateProfile",
-        {
-          headers: {
-            Authorization: `Bearer ${authToken}`,
-            "Content-Type": "application/json",
-          },
-          method: "PATCH",
-          body: JSON.stringify({
-            profilePhoto: media[0].url,
-          }),
+      try {
+        const response = await fetch(
+          "https://backend-mu-plum.vercel.app/user/updateProfile",
+          {
+            headers: {
+              Authorization: `Bearer ${authToken}`,
+              "Content-Type": "application/json",
+            },
+            method: "PATCH",
+            body: JSON.stringify({
+              profilePhoto: media[0].url,
+            }),
+          }
+        );
+        if (response.ok) {
+          const jsonResnponse = await response.json();
+          setUser(jsonResnponse);
         }
-      );
-      if (response.ok) {
-        const jsonResnponse = await response.json();
-        setUser(jsonResnponse);
+        setShowModal(false);
+      } catch (error) {
+        toast.error("An error occurred" + error, {
+          autoClose: 2500,
+          closeButton: false,
+        });
       }
-      setShowModal(false);
     }
   };
 
   const fetchUser = async () => {
-    const response = await fetch("https://backend-mu-plum.vercel.app/user", {
-      headers: {
-        Authorization: `Bearer ${authToken}`,
-      },
-    });
-    if (response && response.ok) {
-      const responseUser = await response.json();
-      setUser(responseUser);
-    } else {
-      navigator("/auth/signin");
+    try {
+      const response = await fetch("https://backend-mu-plum.vercel.app/user", {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+      });
+      if (response && response.ok) {
+        const responseUser = await response.json();
+        setUser(responseUser);
+      } else {
+        navigator("/auth/signin");
+      }
+    } catch (error) {
+      toast.error("An error occurred" + error, {
+        autoClose: 2500,
+        closeButton: false,
+      });
     }
   };
 
   const fetchCourse = async () => {
-    const response = await fetch(
-      "https://backend-mu-plum.vercel.app/user/course",
-      {
-        headers: {
-          Authorization: `Bearer ${authToken}`,
-        },
+    try {
+      const response = await fetch(
+        "https://backend-mu-plum.vercel.app/user/course",
+        {
+          headers: {
+            Authorization: `Bearer ${authToken}`,
+          },
+        }
+      );
+      if (response && response.ok) {
+        const responseCourse = await response.json();
+        setActiveCourse(responseCourse.courses);
+        setCompletedCourseCount(responseCourse.count);
+      } else {
+        navigator("/auth/signin");
       }
-    );
-    if (response && response.ok) {
-      const responseCourse = await response.json();
-      setActiveCourse(responseCourse.courses);
-      setCompletedCourseCount(responseCourse.count);
-    } else {
-      navigator("/auth/signin");
+    } catch (error) {
+      toast.error("An error occurred" + error, {
+        autoClose: 2500,
+        closeButton: false,
+      });
     }
   };
 
@@ -82,7 +104,7 @@ const Profile = () => {
   };
 
   const authToken = localStorage.getItem("authToken");
-  
+
   const fetchData = async () => {
     setIsLoading(true);
 
@@ -275,6 +297,7 @@ const Profile = () => {
         courses={activeCourse}
         contentId="popContent"
       />
+      <ToastContainer />
     </>
   );
 };

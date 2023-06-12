@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import "../../css/courses/Filter.css";
 import { courseType } from "./Courses";
 import LoadingScreen from "../utilities/LoadingScreen";
+import { ToastContainer, toast } from "react-toastify";
 
 interface FilterProps {
   getCourseByFilter: (courses: courseType[]) => void;
@@ -17,26 +18,40 @@ const Filter = ({ getCourseByFilter }: FilterProps) => {
   const authToken = localStorage.getItem("authToken");
 
   const fetchCourses = async (url: string) => {
-    const response = await fetch(url, {
-      headers: {
-        Authorization: `Bearer ${authToken}`,
-      },
-    });
-    if (response && response.ok) {
-      const coursesResponse = await response.json();
-      setCourses(coursesResponse);
+    try {
+      const response = await fetch(url, {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+      });
+      if (response && response.ok) {
+        const coursesResponse = await response.json();
+        setCourses(coursesResponse);
+      }
+    } catch (error) {
+      toast.error("An error occurred" + error, {
+        autoClose: 2500,
+        closeButton: false,
+      });
     }
   };
 
   const fetchTags = async () => {
-    const response = await fetch("https://backend-mu-plum.vercel.app/tag/", {
-      headers: {
-        Authorization: `Bearer ${authToken}`,
-      },
-    });
-    if (response && response.ok) {
-      const tagsResponse = await response.json();
-      setTags(tagsResponse);
+    try {
+      const response = await fetch("https://backend-mu-plum.vercel.app/tag/", {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+      });
+      if (response && response.ok) {
+        const tagsResponse = await response.json();
+        setTags(tagsResponse);
+      }
+    } catch (error) {
+      toast.error("An error occurred" + error, {
+        autoClose: 2500,
+        closeButton: false,
+      });
     }
   };
 
@@ -54,13 +69,20 @@ const Filter = ({ getCourseByFilter }: FilterProps) => {
 
   useEffect(() => {
     setIsLoading(true);
-    if (selectTagId.length > 0) {
-      const filterByTagUrl =
-        "https://backend-mu-plum.vercel.app/course/filterByTags?" +
-        selectTagId.map((tagId) => `tags=${tagId}`).join("&&");
-      fetchCourses(filterByTagUrl);
-    } else {
-      fetchCourses("https://backend-mu-plum.vercel.app/course/");
+    try {
+      if (selectTagId.length > 0) {
+        const filterByTagUrl =
+          "https://backend-mu-plum.vercel.app/course/filterByTags?" +
+          selectTagId.map((tagId) => `tags=${tagId}`).join("&&");
+        fetchCourses(filterByTagUrl);
+      } else {
+        fetchCourses("https://backend-mu-plum.vercel.app/course/");
+      }
+    } catch (error) {
+      toast.error("An error occurred" + error, {
+        autoClose: 2500,
+        closeButton: false,
+      });
     }
     setIsLoading(false);
   }, [selectTagId, courses.length]);
@@ -117,6 +139,7 @@ const Filter = ({ getCourseByFilter }: FilterProps) => {
           </button>
         </>
       )}
+      <ToastContainer />
     </div>
   );
 };
