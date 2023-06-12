@@ -62,6 +62,7 @@ const Tags = () => {
       }
     );
     if (response.ok) {
+      fetchTag();
       const jsonResnponse = await response.json();
       setTagName(jsonResnponse);
       toast.success("Hurray! Tag Updated", {
@@ -122,7 +123,7 @@ const Tags = () => {
 
   useEffect(() => {
     fetchData();
-  }, [tagName, newTagName]);
+  }, [newTagName]);
   return isLoading ? (
     <LoadingScreen />
   ) : (
@@ -188,7 +189,7 @@ const Tags = () => {
                     Close
                   </button>
                   <button
-                    data-testid="updateTagButton"
+                    data-testid="modelUpdateTagButton"
                     className="text-white font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg mr-1 mb-1 ease-linear transition-all duration-150 bg-emerald-500 active:bg-emerald-600"
                     type="button"
                     onClick={() => {

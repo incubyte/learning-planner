@@ -25,7 +25,6 @@ beforeAll(async () => {
       }),
     }
   );
-  console.log(response);
   const jsonBody = await response.json();
   userId = jsonBody.id;
 
@@ -58,7 +57,6 @@ beforeAll(async () => {
 
   const tagJsonBody = await responseTag.json();
   tagId = tagJsonBody.id;
-  console.log(tagId);
 });
 
 afterAll(async () => {
@@ -111,8 +109,6 @@ describe("test delete tag", () => {
       "tagsInput"
     ) as HTMLInputElement;
 
-    // const tmp = screen.getByTestId("modelClose") as HTMLButtonElement;
-
     await act(() => {
       fireEvent.change(modelUpdateInput, {
         target: { value: "tag1" },
@@ -120,7 +116,7 @@ describe("test delete tag", () => {
     });
 
     const modelUpdateButton = screen.getByTestId(
-      "updateTagButton"
+      "modelUpdateTagButton"
     ) as HTMLButtonElement;
 
     await act(() => {
