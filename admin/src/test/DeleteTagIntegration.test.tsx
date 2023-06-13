@@ -12,22 +12,6 @@ import Tags from "../components/tag/Tags";
 let userId = "";
 let tagId = "";
 beforeAll(async () => {
-  const response = await fetch(
-    "https://backend-mu-plum.vercel.app/auth/signup",
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email: "john" + Math.random() + "@incubyte.co",
-        password: "Incubyte@111",
-      }),
-    }
-  );
-  const jsonBody = await response.json();
-  userId = jsonBody.id;
-
   const res = await fetch("https://backend-mu-plum.vercel.app/auth/signin", {
     method: "POST",
     headers: {
@@ -59,18 +43,6 @@ beforeAll(async () => {
   tagId = tagJsonBody.id;
 });
 
-afterAll(async () => {
-  const authToken = localStorage.getItem("authToken");
-  const response = await fetch(
-    "https://backend-mu-plum.vercel.app/user/delete/" + userId,
-    {
-      method: "DELETE",
-      headers: {
-        Authorization: `Bearer ${authToken}`,
-      },
-    }
-  );
-});
 
 afterEach(() => {
   cleanup();

@@ -48,7 +48,7 @@ const Tags = () => {
     }
   };
 
-  const handleUpdatetag = async (id: any) => {
+  const handleUpdatetag = async (id: number) => {
     const response = await fetch(
       `https://backend-mu-plum.vercel.app/tag/update/${id}`,
       {
@@ -311,7 +311,7 @@ const Tags = () => {
             </tr>
           </thead>
           <tbody>
-            {getAllTag?.map((tag: any, index) => {
+            {getAllTag?.map((tag:{name:string,id:string}, index) => {
               return (
                 <tr
                   key={index}
@@ -326,7 +326,7 @@ const Tags = () => {
                       onClick={() => {
                         setShowupdateTagModal({
                           isModalOpen: true,
-                          tagId: tag.id,
+                          tagId: +tag.id,
                         });
                       }}
                       className=" w-[100px] m-5 p-2 pl-1 pr-1 rounded-lg bg-emerald-500 hover:bg-emerald-400 active:bg-emerald-600 text-white uppercase font-bold "
