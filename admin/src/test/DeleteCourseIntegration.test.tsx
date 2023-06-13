@@ -10,24 +10,8 @@ import { BrowserRouter } from "react-router-dom";
 import Course from "../components/course/Courses";
 
 let userId = "";
-let tagId = "";
+let courseId = "";
 beforeAll(async () => {
-  const response = await fetch(
-    "https://backend-mu-plum.vercel.app/auth/signup",
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email: "john" + Math.random() + "@incubyte.co",
-        password: "Incubyte@111",
-      }),
-    }
-  );
-  const jsonBody = await response.json();
-  userId = jsonBody.id;
-
   const res = await fetch("https://backend-mu-plum.vercel.app/auth/signin", {
     method: "POST",
     headers: {
@@ -41,7 +25,7 @@ beforeAll(async () => {
   const authToken = await res.text();
   localStorage.setItem("authToken", authToken);
 
-  const responseTag = await fetch(
+  const responsecourse = await fetch(
     "https://backend-mu-plum.vercel.app/course/create",
     {
       method: "POST",
@@ -50,7 +34,7 @@ beforeAll(async () => {
         Authorization: `Bearer ${authToken}`,
       },
       body: JSON.stringify({
-        name: "test1",
+        name: "test1" + Math.random(),
         resourseUrls: ["https://testresourseurl.com"],
         testUrls: ["https://testUrl.com"],
         imageUrl: "https://testimage.com",
@@ -58,23 +42,8 @@ beforeAll(async () => {
       }),
     }
   );
-
-  const tagJsonBody = await responseTag.json();
-  tagId = tagJsonBody.id;
-  console.log(tagId);
-});
-
-afterAll(async () => {
-  const authToken = localStorage.getItem("authToken");
-  const response = await fetch(
-    "https://backend-mu-plum.vercel.app/user/delete/" + userId,
-    {
-      method: "DELETE",
-      headers: {
-        Authorization: `Bearer ${authToken}`,
-      },
-    }
-  );
+  const courseJsonBody = await responsecourse.json();
+  courseId = courseJsonBody.id;
 });
 
 afterEach(() => {
@@ -85,7 +54,7 @@ function sleep(ms: any) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-describe("test delete tag", () => {
+describe("test delete course", () => {
   jest.setTimeout(40000);
   it("alert for delete course", async () => {
     render(
@@ -104,7 +73,7 @@ describe("test delete tag", () => {
     );
     sleep(10000);
     const deleteButton = screen.getByTestId(
-      `deleteButton${tagId}`
+      `deleteButton${courseId}`
     ) as HTMLButtonElement;
     await act(() => {
       fireEvent.click(deleteButton);
