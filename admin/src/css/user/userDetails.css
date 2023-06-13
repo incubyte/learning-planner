@@ -63,6 +63,9 @@
 .UserDetailsLabel{
     @apply grid justify-items-center content-center text-gray-700 text-sm lg:text-base md:text-base font-bold
 }
+.UserDetailsLabelCheckbox{
+    @apply grid justify-items-center content-center text-blue-800 text-base lg:text-xl md:text-xl font-bold mt-11
+}
 .UserDetailsGridContent{
     @apply grid grid-cols-2 justify-items-center content-center
 }

@@ -66,7 +66,7 @@ export class AuthService {
       where: { email: user.email, roles: Role.Admin },
     });
     if (!this.checkUserExist(prismaUser)) {
-      throw new BadRequestException('Admin not found');
+      throw new BadRequestException('Not an Admin');
     }
     if (!compareSync(user.password, prismaUser.password)) {
       throw new BadRequestException('Invalid password');

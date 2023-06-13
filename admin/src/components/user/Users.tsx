@@ -57,7 +57,7 @@ const Users = () => {
           <thead className="UsersTableHead">
             <tr>
               <th scope="col" className="UsersTableHeadCols">
-                EId
+                EmpId
               </th>
               <th scope="col" className="UsersTableHeadCols">
                 Email
@@ -86,10 +86,7 @@ const Users = () => {
                   <td className="UsersTableRows">{user.role}</td>
                   <td className="UsersTableRows">{user.roles}</td>
                   <td className="UsersTableUpdateCol">
-                    <a
-                      href={"user/" + user.id}
-                      className="font-medium hover:underline"
-                    >
+                    <a href={"user/" + user.id} className="font-medium">
                       <img
                         className="h-8 w-8"
                         src="https://res.cloudinary.com/dxepcudkt/image/upload/v1685424291/edit-svgrepo-com_hkhijf.svg"

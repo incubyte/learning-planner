@@ -153,19 +153,19 @@ const LeaderBoard = () => {
             >
               <div className="LeaderBoardUserInnerInfoContainer">
                 <p className="LeaderBoardUserInnerInfo">
-                  Email : {currentUser?.email}
+                  Email: {currentUser?.email}
                 </p>
                 <p className="LeaderBoardUserInnerInfo">
-                  Credits :{currentUserCredit}
+                  Credits: {currentUserCredit}
                 </p>
                 <p className="LeaderBoardUserInnerInfo">
-                  Role : {currentUser?.role}
+                  Role: {currentUser?.role}
                 </p>
               </div>
             </div>
           </div>
         </div>
-        <div className="LeaderBoardContainers p-4" data-testid="container2">
+        <div className="LeaderBoardContainers" data-testid="container2">
           <div className="LeaderBoardContainerTwoTableContainer">
             <div className="LeaderBoardInnerContainerScrollbar">
               <table
@@ -174,7 +174,9 @@ const LeaderBoard = () => {
               >
                 <thead>
                   <tr role="row">
-                    <th className="LeaderBoardContainerTwoTableBorder">Rank</th>
+                    <th className="rounded-tl LeaderBoardContainerTwoTableBorder">
+                      Rank
+                    </th>
                     <th className="LeaderBoardContainerTwoTableBorder">
                       Email
                     </th>
@@ -191,7 +193,7 @@ const LeaderBoard = () => {
                         {
                           <tr
                             className={`${
-                              index % 2 === 0 ? "bg-gray-200" : "bg-white"
+                              index % 2 === 0 ? "bg-gray-100" : "bg-white"
                             }`}
                             role="row"
                           >

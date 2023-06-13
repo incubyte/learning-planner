@@ -373,40 +373,40 @@ const UserDetail = () => {
                   }}
                 ></input>
               </div>
-              <div className="UserDetailsGridContent">
-                <label
-                  data-testid="UserDetailRoleLabel"
-                  className="UserDetailsLabel"
-                >
-                  Is Admin
-                </label>
-
-                <input
-                  data-testid="UserDetailRoleInput"
-                  className="h-5 w-5 m-3 hover:cursor-pointer"
-                  type="checkbox"
-                  checked={user.roles === "Admin"}
-                  onChange={(e) => {
-                    e.target.style.borderColor = "green";
-                    setIsUpdated(true);
-                    setUser({
-                      email: user.email,
-                      eId: user.eId,
-                      clientTeam: user.clientTeam,
-                      role: user.role,
-                      roles: e.target.checked === true ? "Admin" : "Employee",
-                      profilePhoto: user.profilePhoto,
-                      updatedAt: user.updatedAt,
-                      id: user.id,
-                      createdAt: user.createdAt,
-                    });
-                  }}
-                ></input>
-              </div>
             </div>
           </div>
         </div>
-        <div className="mt-24 grid grid-cols-2 gap-24">
+        <div className="flex flex-row gap-4">
+          <label
+            data-testid="UserDetailRoleLabel"
+            className="UserDetailsLabelCheckbox"
+          >
+            Is Admin
+          </label>
+
+          <input
+            data-testid="UserDetailRoleInput"
+            className="h-5 w-5 mt-12 hover:cursor-pointer"
+            type="checkbox"
+            checked={user.roles === "Admin"}
+            onChange={(e) => {
+              e.target.style.borderColor = "green";
+              setIsUpdated(true);
+              setUser({
+                email: user.email,
+                eId: user.eId,
+                clientTeam: user.clientTeam,
+                role: user.role,
+                roles: e.target.checked === true ? "Admin" : "Employee",
+                profilePhoto: user.profilePhoto,
+                updatedAt: user.updatedAt,
+                id: user.id,
+                createdAt: user.createdAt,
+              });
+            }}
+          ></input>
+        </div>
+        <div className="mt-16 grid grid-cols-2 gap-24">
           <button
             data-testid="UserDetailUpdate"
             className="UserDetailsModalSaveButton bg-emerald-500 hover:bg-emerald-400 active:bg-emerald-600"
