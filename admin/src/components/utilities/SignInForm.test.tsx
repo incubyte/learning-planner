@@ -49,7 +49,7 @@ describe("Sign In Form", () => {
       expect(signInEmailError.innerHTML).toEqual("email is required");
     });
 
-    test("signin email must be an incubyte email", async () => {
+    test("signin email must be an incubyte domain", async () => {
       render(
         <BrowserRouter>
           <SignInForm handleFormSubmit={handleFormSubmit} />
@@ -75,7 +75,7 @@ describe("Sign In Form", () => {
       });
       expect(signInEmailError).toBeInTheDocument();
       expect(signInEmailError.innerHTML).toEqual(
-        "email must be an incubyte email"
+        "email must be with incubyte domain"
       );
     });
   });
