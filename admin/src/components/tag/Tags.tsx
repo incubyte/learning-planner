@@ -31,6 +31,7 @@ const Tags = () => {
       }
     );
     if (response.ok) {
+      fetchTag();
       const jsonResnponse = await response.json();
       setNewTagName(jsonResnponse);
       toast.success("Hurray! Tag created 🥳🥳", {
@@ -123,7 +124,7 @@ const Tags = () => {
 
   useEffect(() => {
     fetchData();
-  }, [newTagName]);
+  }, []);
   return isLoading ? (
     <LoadingScreen />
   ) : (
