@@ -57,7 +57,6 @@ beforeAll(async () => {
 
   const tagJsonBody = await responseTag.json();
   tagId = tagJsonBody.id;
-  console.log(tagId);
 });
 
 afterAll(async () => {
