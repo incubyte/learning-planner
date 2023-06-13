@@ -1,4 +1,10 @@
-import { cleanup, fireEvent, render, waitFor } from "@testing-library/react";
+import {
+  cleanup,
+  fireEvent,
+  render,
+  screen,
+  waitFor,
+} from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
 import Tags from "./Tags";
 
@@ -39,7 +45,11 @@ afterEach(() => {
   localStorage.removeItem("authToken");
 });
 
+function sleep(ms: any) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
 describe("Display Tag Page ", () => {
+  jest.setTimeout(30000);
   test("should display the Tag list", async () => {
     const { getByTestId, getAllByTestId, getByRole, getAllByRole } = render(
       <BrowserRouter>
@@ -47,7 +57,16 @@ describe("Display Tag Page ", () => {
       </BrowserRouter>
     );
 
-    jest.setTimeout(30000);
+    await waitFor(
+      async () => {
+        const loadingIndicator = screen.getByTestId("LoadingScreen");
+        if (loadingIndicator.ATTRIBUTE_NODE > 0) {
+          await sleep(7000);
+        }
+      },
+      { timeout: 10000 }
+    );
+    sleep(10000);
     const authToken = localStorage.getItem("authToken");
     expect(getByRole("navigation")).toBeInTheDocument();
     expect(getByTestId("tagHeading")).toBeInTheDocument();
@@ -62,7 +81,6 @@ describe("Display Tag Page ", () => {
       }
     );
     expect(getByTestId("tableHeading")).toBeInTheDocument();
-    expect(getByRole("row")).toBeInTheDocument();
     await waitFor(() => {
       const tagRows = getAllByRole("row");
       expect(tagRows.length).toBe(3);
@@ -79,7 +97,6 @@ describe("Display Tag Page ", () => {
       </BrowserRouter>
     );
 
-    jest.setTimeout(30000);
     await waitFor(() => getByTestId("container2 table"));
 
     await waitFor(() => {
@@ -96,7 +113,6 @@ describe("Display Tag Page ", () => {
         <Tags />
       </BrowserRouter>
     );
-    jest.setTimeout(30000);
     await waitFor(() => {
       fireEvent.click(getAllByTestId("deleteButton1")[0]);
     });
@@ -109,12 +125,24 @@ describe("Display Tag Page ", () => {
       </BrowserRouter>
     );
 
-    jest.setTimeout(30000);
+    await waitFor(
+      async () => {
+        const loadingIndicator = screen.getByTestId("LoadingScreen");
+        if (loadingIndicator.ATTRIBUTE_NODE > 0) {
+          await sleep(7000);
+        }
+      },
+      { timeout: 10000 }
+    );
+    sleep(10000);
+
     await waitFor(() => getByTestId("container2 table"));
 
     await waitFor(() => {
-      const updateButtons = getAllByTestId("updateButton");
-      expect(updateButtons.length).toBe(2);
+      const updateButtons1 = getAllByTestId("updateButton1");
+      expect(updateButtons1.length).toBe(1);
+      const updateButtons2 = getAllByTestId("updateButton2");
+      expect(updateButtons2.length).toBe(1);
     });
   });
 
@@ -124,6 +152,17 @@ describe("Display Tag Page ", () => {
         <Tags />
       </BrowserRouter>
     );
+
+    await waitFor(
+      async () => {
+        const loadingIndicator = screen.getByTestId("LoadingScreen");
+        if (loadingIndicator.ATTRIBUTE_NODE > 0) {
+          await sleep(7000);
+        }
+      },
+      { timeout: 10000 }
+    );
+    sleep(10000);
 
     global.fetch = jest.fn().mockResolvedValueOnce({
       ok: true,
