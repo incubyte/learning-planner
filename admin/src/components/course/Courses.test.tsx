@@ -1,4 +1,10 @@
-import { cleanup, fireEvent, render, waitFor } from "@testing-library/react";
+import {
+  cleanup,
+  fireEvent,
+  render,
+  screen,
+  waitFor,
+} from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
 
 import Courses from "./Courses";
@@ -60,7 +66,12 @@ afterEach(() => {
   localStorage.removeItem("authToken");
 });
 
+function sleep(ms: any) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
 describe("Display Course Page ", () => {
+  jest.setTimeout(30000);
   test("should display the course list", async () => {
     const { getByTestId, getAllByTestId, getByRole, getAllByRole } = render(
       <BrowserRouter>
@@ -68,7 +79,16 @@ describe("Display Course Page ", () => {
       </BrowserRouter>
     );
 
-    jest.setTimeout(30000);
+    await waitFor(
+      async () => {
+        const loadingIndicator = screen.getByTestId("LoadingScreen");
+        if (loadingIndicator.ATTRIBUTE_NODE > 0) {
+          await sleep(7000);
+        }
+      },
+      { timeout: 10000 }
+    );
+    sleep(10000);
     const authToken = localStorage.getItem("authToken");
     expect(getByRole("navigation")).toBeInTheDocument();
     expect(getByTestId("CourseHeading")).toBeInTheDocument();
@@ -82,7 +102,6 @@ describe("Display Course Page ", () => {
       }
     );
     expect(getByTestId("tableHeading")).toBeInTheDocument();
-    expect(getByRole("row")).toBeInTheDocument();
     await waitFor(() => {
       const courseRows = getAllByRole("row");
       expect(courseRows.length).toBe(3);

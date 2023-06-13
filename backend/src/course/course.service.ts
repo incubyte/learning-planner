@@ -99,7 +99,7 @@ export class CourseService {
     return updateCourseResponse;
   }
 
-  async deleteCourse(id: string): Promise<String> {
+  async deleteCourse(id: string): Promise<string> {
     const prismadeleteCourse = await this.prismaService.course.findFirst({
       where: { id: id },
     });

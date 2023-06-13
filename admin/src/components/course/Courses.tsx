@@ -1,15 +1,17 @@
-import React, { useEffect, useState } from "react";
-import Navbar from "../utilities/Navbar";
-import "../../css/course/courses.css";
-import "tippy.js/dist/tippy.css";
-import "react-toastify/dist/ReactToastify.css";
-import { toast } from "react-toastify";
-import { courseType } from "./course";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import "tippy.js/dist/tippy.css";
+import "../../css/course/courses.css";
+import LoadingScreen from "../utilities/LoadingScreen";
+import Navbar from "../utilities/Navbar";
+import { courseType } from "./course";
 
 const Course = () => {
   const authToken = localStorage.getItem("authToken");
   const [getAllCourse, setGetAllCourse] = useState<courseType[]>();
+  const [isLoading, setIsLoading] = useState(true);
 
   const fetchCourses = async () => {
     const response = await fetch("https://backend-mu-plum.vercel.app/course/", {
@@ -46,10 +48,20 @@ const Course = () => {
     deleteCourses(id);
   };
 
+  const fetchData = async () => {
+    setIsLoading(true);
+
+    await Promise.all([fetchCourses()]);
+
+    setIsLoading(false);
+  };
+
   useEffect(() => {
-    fetchCourses();
+    fetchData();
   }, []);
-  return (
+  return isLoading ? (
+    <LoadingScreen />
+  ) : (
     <>
       <Navbar
         isCourse={false}

@@ -1,3 +1,6 @@
+import { Role } from '@/auth/role.enum';
+import { RolesGuard } from '@/auth/role.guard';
+import { Roles } from '@/decorator/role.decorator';
 import { JwtAuthGuard } from '@Auth/jwt-auth-guard/jwt-auth.guard';
 import { CourseService } from '@Course/course.service';
 import {
@@ -13,9 +16,6 @@ import {
 } from '@nestjs/common';
 import { Course } from '@prisma/client';
 import { CourseDto } from './dto/course.dto';
-import { Roles } from '@/decorator/role.decorator';
-import { Role } from '@/auth/role.enum';
-import { RolesGuard } from '@/auth/role.guard';
 import { updateCourseDto } from './dto/updateCourse.dto';
 
 @UseGuards(JwtAuthGuard, RolesGuard)
@@ -58,7 +58,7 @@ export class CourseController {
 
   @Roles(Role.Admin)
   @Delete('/delete/:id')
-  async deleteCourse(@Param('id') id: string): Promise<String> {
+  async deleteCourse(@Param('id') id: string): Promise<string> {
     return await this.courseService.deleteCourse(id);
   }
 }
