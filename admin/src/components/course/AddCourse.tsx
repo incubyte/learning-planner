@@ -1,10 +1,10 @@
+import Multiselect from "multiselect-react-dropdown";
 import { useEffect, useState } from "react";
-import Navbar from "./../utilities/Navbar";
+import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Multiselect from "multiselect-react-dropdown";
 import { imageUpload } from "../user/ImageUpload";
-import { useNavigate } from "react-router-dom";
+import Navbar from "./../utilities/Navbar";
 const AddCourse = () => {
   const navigator = useNavigate();
   const [showModal, setShowModal] = useState(false);
@@ -115,8 +115,7 @@ const AddCourse = () => {
         navigator("/courses");
       }, 2500);
     } else {
-      const jsonResponse = await response.json();
-      toast.error(jsonResponse.message, {
+      toast.error("Please enter valid data", {
         autoClose: 2500,
         closeButton: false,
       });

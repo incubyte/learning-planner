@@ -6,8 +6,7 @@ import {
   screen,
   waitFor,
 } from "@testing-library/react";
-import { MemoryRouter, Route, Routes } from "react-router-dom";
-import SignIn from "../components/SignIn";
+import { BrowserRouter } from "react-router-dom";
 import AddCourse from "../components/course/AddCourse";
 
 afterEach(() => {
@@ -16,21 +15,18 @@ afterEach(() => {
 let userId = "";
 
 beforeAll(async () => {
-  const response = await fetch(
-    "https://backend-mu-plum.vercel.app/auth/signup",
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email: "john" + Math.random() + "@incubyte.co",
-        password: "Incubyte@111",
-      }),
-    }
-  );
-  const jsonBody = await response.json();
-  userId = jsonBody.id;
+  const res = await fetch("https://backend-mu-plum.vercel.app/auth/signin", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      email: "testadmin@incubyte.co",
+      password: "Incubyte@111",
+    }),
+  });
+  const authToken = await res.text();
+  localStorage.setItem("authToken", authToken);
 });
 
 afterAll(async () => {
@@ -53,43 +49,21 @@ describe("test add course", () => {
   jest.setTimeout(40000);
   it("alert for course creation not successful", async () => {
     render(
-      <MemoryRouter initialEntries={[`/user/${userId}`]}>
-        <SignIn />
-        <Routes>
-          <Route path="/user/:id" element={<AddCourse />}></Route>
-        </Routes>
-      </MemoryRouter>
+      <BrowserRouter>
+        <AddCourse />
+      </BrowserRouter>
     );
 
-    const signInButton = screen.getByTestId(
-      "signinButton"
-    ) as HTMLButtonElement;
-    const signInEmail = screen.getByTestId("signinEmail") as HTMLInputElement;
-
-    const signInPassword = screen.getByTestId(
-      "signinPassword"
+    const courseTitle = screen.getByTestId(
+      "courseTitleInput"
     ) as HTMLInputElement;
-
-    await act(() => {
-      fireEvent.change(signInEmail, {
-        target: { value: "testadmin@incubyte.co" },
-      });
-    });
-
-    await act(() => {
-      fireEvent.change(signInPassword, { target: { value: "Incubyte@111" } });
-    });
-
-    await act(() => {
-      fireEvent.click(signInButton);
-    });
-
-    const courseTitle = screen.getByTestId("courseTitleInput") as HTMLInputElement;
     await act(() => {
       fireEvent.change(courseTitle, { target: { value: "test1" } });
     });
 
-    const description = screen.getByTestId("courseDescriptionInput") as HTMLInputElement;
+    const description = screen.getByTestId(
+      "courseDescriptionInput"
+    ) as HTMLInputElement;
 
     await act(() => {
       fireEvent.change(description, { target: { value: "desc of test1" } });
@@ -105,7 +79,10 @@ describe("test add course", () => {
       screen.getByPlaceholderText("Enter resource URL");
 
     const addResourceUrlButton = screen.getByTestId("Add Resource Url");
-    fireEvent.click(addResourceUrlButton);
+
+    await act(() => {
+      fireEvent.click(addResourceUrlButton);
+    });
 
     await waitFor(() => {
       const resourceUrlInput = screen.getAllByTestId("ResourceUrl");
@@ -116,7 +93,9 @@ describe("test add course", () => {
 
     const TestUrlPlaceholder = screen.getByPlaceholderText("Enter Test URL");
     const addTestUrlButton = screen.getByTestId("Add Test Url");
-    fireEvent.click(addTestUrlButton);
+    await act(() => {
+      fireEvent.click(addTestUrlButton);
+    });
 
     await waitFor(() => {
       const testUrlInput = screen.getAllByTestId("testUrl");
@@ -129,6 +108,8 @@ describe("test add course", () => {
       fireEvent.click(submitButton);
     });
     await sleep(20000);
-    await waitFor(() => expect(screen.getByRole("alert")).toBeInTheDocument());
+    await waitFor(() =>
+      expect(screen.getAllByRole("alert")[0]).toBeInTheDocument()
+    );
   });
 });
