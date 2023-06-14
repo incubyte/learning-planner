@@ -15,11 +15,8 @@ describe('CourseController (e2e)', () => {
     app = moduleFixture.createNestApplication();
     await app.init();
     const user = {
-      email: 'john' + Math.random() * 1000 + '@incubyte.co',
-      password: '123',
-      eId: 'E00' + Math.random() * 1000,
-      role: 'SC',
-      clientTeam: 'Learning Planner',
+      email: 'shilpi@incubyte.co',
+      password: 'Incubyte@111',
     };
     await request(app.getHttpServer()).post('/auth/signup').send(user);
     const signInResponse = await request(app.getHttpServer())
@@ -54,5 +51,39 @@ describe('CourseController (e2e)', () => {
       .get('/course/popular')
       .set('Authorization', `Bearer ${authToken}`);
     expect(response.status).toBe(200);
+  });
+
+  const course = {
+    name: 'Course' + Math.random() * 100,
+    resourseUrls: ['resourceUrl1'],
+    testUrls: ['testurl1'],
+    imageUrl: 'image1',
+    credit: 10,
+    description: 'description',
+    tags: [1, 3],
+  };
+
+  it('course/create (POST) - should create the course', async () => {
+    const response = await request(app.getHttpServer())
+      .post('/course/create')
+      .send(course)
+      .set('Authorization', `Bearer ${authToken}`);
+    expect(response.status).toBe(201);
+  });
+
+  it('course/updateCourseById/:id (PATCH) - should update the course which is Accessible to admin only', async () => {
+    const response = await request(app.getHttpServer())
+      .patch('/course/updateCourseById/1')
+      .set('Authorization', `Bearer ${authToken}`);
+    expect(response.status).toBe(404);
+    expect(response.body.message).toEqual('Course does not exists');
+  });
+
+  it('course/delete/:id (DELETE) - should delete the course which is Accessible to admin only', async () => {
+    const response = await request(app.getHttpServer())
+      .delete('/course/delete/1')
+      .set('Authorization', `Bearer ${authToken}`);
+    expect(response.status).toBe(404);
+    expect(response.body.message).toEqual('Course does not exists');
   });
 });

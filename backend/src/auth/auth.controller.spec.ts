@@ -23,6 +23,10 @@ describe('AuthController', () => {
     service = module.get<AuthService>(AuthService);
   });
 
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
   it('should be defined', () => {
     expect(controller).toBeDefined();
   });
@@ -70,6 +74,23 @@ describe('AuthController', () => {
       );
     const result = await controller.signin(user);
     expect(service.signin).toBeCalledTimes(1);
+    expect(result).toBe(
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjgzYjdlNjQ5LTFlMzctNDNiZS04MjI5LTAyYWIwNmM5YmE5YSIsImVtYWlsIjoiam9obkBpbmN1Ynl0ZS5jbyJ9.6P194HePv2AaSgB1jvyb_lM5EOKyMMu0cWkx_p0O2cc',
+    );
+  });
+
+  it('should be able to return the token for logged in admin', async () => {
+    const user: UserDto = {
+      email: 'john@incubyte.co',
+      password: '123',
+    };
+    jest
+      .spyOn(service, 'signinAdmin')
+      .mockResolvedValueOnce(
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjgzYjdlNjQ5LTFlMzctNDNiZS04MjI5LTAyYWIwNmM5YmE5YSIsImVtYWlsIjoiam9obkBpbmN1Ynl0ZS5jbyJ9.6P194HePv2AaSgB1jvyb_lM5EOKyMMu0cWkx_p0O2cc',
+      );
+    const result = await controller.signinAdmin(user);
+    expect(service.signinAdmin).toBeCalledTimes(1);
     expect(result).toBe(
       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjgzYjdlNjQ5LTFlMzctNDNiZS04MjI5LTAyYWIwNmM5YmE5YSIsImVtYWlsIjoiam9obkBpbmN1Ynl0ZS5jbyJ9.6P194HePv2AaSgB1jvyb_lM5EOKyMMu0cWkx_p0O2cc',
     );

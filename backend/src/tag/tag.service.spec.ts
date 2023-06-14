@@ -2,6 +2,8 @@ import { PrismaService } from '@Prisma/prisma.service';
 import { Test, TestingModule } from '@nestjs/testing';
 import { TagDto } from '@Tag/dto/tag.dto';
 import { TagService } from '@Tag/tag.service';
+import { BadRequestException } from '@nestjs/common';
+import { Tag } from '@prisma/client';
 
 describe('TagService', () => {
   let service: TagService;
@@ -18,6 +20,9 @@ describe('TagService', () => {
               tag: {
                 findMany: jest.fn(),
                 findFirst: jest.fn(),
+                create: jest.fn(),
+                update: jest.fn(),
+                delete: jest.fn(),
               },
             };
           },
@@ -27,6 +32,10 @@ describe('TagService', () => {
 
     service = module.get<TagService>(TagService);
     prismaService = module.get<PrismaService>(PrismaService);
+  });
+
+  afterEach(() => {
+    jest.resetAllMocks();
   });
 
   it('should be defined', () => {
@@ -78,5 +87,110 @@ describe('TagService', () => {
     const result = await service.getById('1');
     expect(prismaService.tag.findFirst).toBeCalledTimes(1);
     expect(result).toMatchObject(mockResponse);
+  });
+
+  it('should create a new tag if it is not present', async () => {
+    const tag: TagDto = {
+      name: 'Tag',
+    };
+    const responseTag = {
+      id: 1,
+      name: 'Tag',
+    };
+    jest.spyOn(prismaService.tag, 'findFirst').mockResolvedValue(null);
+    jest.spyOn(prismaService.tag, 'create').mockResolvedValueOnce(responseTag);
+    const result = await service.createTag(tag);
+    expect(prismaService.tag.create).toHaveBeenCalledWith({
+      data: {
+        name: tag.name,
+      },
+    });
+    expect(prismaService.tag.create).toHaveBeenCalledTimes(1);
+    expect(result).toEqual(responseTag);
+  });
+
+  it('should throw BadRequestExecption if tag is already present', async () => {
+    const tag: TagDto = {
+      name: 'Tag',
+    };
+    const responseTag = {
+      id: 1,
+      name: 'Tag',
+    };
+    jest.spyOn(prismaService.tag, 'findFirst').mockResolvedValue(responseTag);
+    const response = new BadRequestException('Tag already exist');
+    jest.spyOn(prismaService.tag, 'create').mockRejectedValue(response);
+    await expect(service.createTag(tag)).rejects.toThrow(
+      new BadRequestException('Tag already exist'),
+    );
+  });
+
+  it('should update Tag', async () => {
+    const tag: TagDto = {
+      name: 'Tag 1',
+    };
+    const responseTag = {
+      id: 1,
+      name: 'Tag 1',
+    };
+    jest
+      .spyOn(prismaService.tag, 'findFirst')
+      .mockResolvedValueOnce(responseTag);
+    jest.spyOn(prismaService.tag, 'update').mockResolvedValueOnce(responseTag);
+    const result = await service.updateTag(1, tag);
+    expect(prismaService.tag.update).toBeCalledTimes(1);
+    expect(result).toEqual(responseTag);
+  });
+
+  it('should throw BadRequest Exception if the Tag is not found in update', async () => {
+    const tag: TagDto = {
+      name: 'Tag 1',
+    };
+    jest.spyOn(prismaService.tag, 'findFirst').mockResolvedValueOnce(null);
+    await expect(service.updateTag(1, tag)).rejects.toThrow(
+      new BadRequestException('Tag does not exists'),
+    );
+    expect(prismaService.tag.update).not.toBeCalled();
+  });
+
+  it('should delete tag if it is present', async () => {
+    const responseTag: Tag = {
+      id: 1,
+      name: 'Course1',
+    };
+    const response = 'Tag deleted Successfully';
+    jest.spyOn(prismaService.tag, 'findFirst').mockResolvedValue(responseTag);
+    jest.spyOn(prismaService.tag, 'delete').mockResolvedValue(responseTag);
+    const result = await service.deleteTag(1);
+    expect(prismaService.tag.delete).toHaveBeenCalledTimes(1);
+    expect(result).toEqual(response);
+  });
+
+  it('should throw BadRequest Execption if the Tag is not found in the delete', async () => {
+    const response: Tag = null;
+
+    jest.spyOn(prismaService.tag, 'findFirst').mockResolvedValueOnce(response);
+
+    await expect(service.deleteTag(1)).rejects.toThrow(
+      new BadRequestException('Tag does not exists'),
+    );
+    expect(prismaService.tag.delete).not.toBeCalled();
+  });
+
+  it('should throw badRequest if prisma delete course method returns null ', async () => {
+    const responseTag: Tag = {
+      id: 1,
+      name: 'Tag1',
+    };
+
+    jest
+      .spyOn(prismaService.tag, 'findFirst')
+      .mockResolvedValueOnce(responseTag);
+
+    jest.spyOn(prismaService.tag, 'delete').mockResolvedValueOnce(null);
+
+    await expect(service.deleteTag(1)).rejects.toThrow(
+      new BadRequestException('Some problem occured'),
+    );
   });
 });

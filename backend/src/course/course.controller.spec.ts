@@ -4,6 +4,7 @@ import { CourseDto } from '@Course/dto/course.dto';
 import { Test, TestingModule } from '@nestjs/testing';
 import { Course } from '@prisma/client';
 import { mock } from 'jest-mock-extended';
+import { updateCourseDto } from './dto/updateCourse.dto';
 
 describe('CourseController', () => {
   let controller: CourseController;
@@ -225,5 +226,73 @@ describe('CourseController', () => {
     const result = await controller.getPopularCourse();
     expect(service.getPopularCourse).toBeCalledTimes(1);
     expect(result).toMatchObject(mockResponse);
+  });
+
+  it('should create course', async () => {
+    const course: CourseDto = {
+      name: 'Course1',
+      resourseUrls: ['resourceUrl1'],
+      testUrls: ['testurl1'],
+      imageUrl: 'image1',
+      credit: 10,
+      description: 'description',
+      tags: [1, 3],
+    };
+    const responseCourse: Course = {
+      id: '7e67a826-636f-4fa7-a7a8-f1d57573f95f',
+      name: 'Course1',
+      resourseUrls: ['resourceUrl1'],
+      testUrls: ['testurl1'],
+      imageUrl: 'image1',
+      credit: 10,
+      tags: [1, 3],
+      description: 'description',
+      createdAt: Date.prototype,
+      updatedAt: Date.prototype,
+    };
+
+    jest.spyOn(service, 'createCourse').mockResolvedValue(responseCourse);
+    const result = await controller.createCourse(course);
+    expect(service.createCourse).toHaveBeenCalledWith(course);
+    expect(service.createCourse).toHaveBeenCalledTimes(1);
+    expect(result).toEqual(responseCourse);
+  });
+
+  it('should update user', async () => {
+    const course: updateCourseDto = {
+      resourseUrls: ['resourceUrl1'],
+      testUrls: ['testurl2'],
+      imageUrl: 'image1',
+      credit: 10,
+      description: 'description',
+      tags: [2],
+    };
+    const responseCourse: Course = {
+      id: '1',
+      name: 'Course1',
+      resourseUrls: ['resourceUrl1'],
+      testUrls: ['testurl2'],
+      imageUrl: 'image1',
+      credit: 10,
+      tags: [2],
+      description: 'description',
+      createdAt: Date.prototype,
+      updatedAt: Date.prototype,
+    };
+
+    jest.spyOn(service, 'updateCourse').mockResolvedValueOnce(responseCourse);
+    const result = await controller.updateCoures('1', course);
+    expect(service.updateCourse).toHaveBeenCalledWith('1', course);
+    expect(service.updateCourse).toHaveBeenCalledTimes(1);
+    expect(result).toEqual(responseCourse);
+  });
+
+  it('should delete course', async () => {
+    const response = 'Course is deleted Successfully';
+    jest.spyOn(service, 'deleteCourse').mockResolvedValueOnce(response);
+    const result = await controller.deleteCourse('1');
+    expect(service.deleteCourse).toHaveBeenCalledWith('1');
+    expect(service.deleteCourse).toHaveBeenCalledTimes(1);
+    expect(result).toEqual('Course is deleted Successfully');
   });
 });

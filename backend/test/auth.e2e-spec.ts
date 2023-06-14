@@ -36,4 +36,19 @@ describe('AuthController (e2e)', () => {
       .send(user);
     expect(response.status).toBe(201);
   });
+
+  const admin = {
+    email: 'testadmin@incubyte.co',
+    password: 'Incubyte@111',
+    eId: 'E0000',
+    role: 'SC',
+    clientTeam: 'Learning Planner',
+  };
+
+  it('/admin/signin (POST) - should return the token for loggedin admin', async () => {
+    const response = await request(app.getHttpServer())
+      .post('/auth/admin/signin')
+      .send(admin);
+    expect(response.status).toBe(201);
+  });
 });

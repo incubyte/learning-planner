@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "../../css/auth/SignIn.css";
 import ShowPasswordButton from "./ShowPasswordButton";
 
 interface InputProp {
@@ -19,7 +20,7 @@ const Input = (props: InputProp) => {
       <div className="relative  focus-within:text-gray-900 dark:focus-within:text-gray-800 ">
         {props.icon && <props.icon />}
         <input
-          className="SignUpFormInput"
+          className="SignInFormInput"
           id={props.Id}
           data-testid={props.dataTestId}
           type={
