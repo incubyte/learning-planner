@@ -34,7 +34,7 @@ const Tags = () => {
       fetchTag();
       const jsonResnponse = await response.json();
       setNewTagName(jsonResnponse);
-      toast.success("Hurray! Tag created 🥳🥳", {
+      toast.success("Tag created successfully", {
         autoClose: 2500,
         closeButton: false,
       });
@@ -66,7 +66,7 @@ const Tags = () => {
       fetchTag();
       const jsonResnponse = await response.json();
       setTagName(jsonResnponse);
-      toast.success("Hurray! Tag Updated", {
+      toast.success("Tag Updated Successfully", {
         autoClose: 2500,
         closeButton: false,
       });
@@ -103,7 +103,7 @@ const Tags = () => {
     );
     if (response && response.ok) {
       fetchTag();
-      toast.success("Hurray! Tag deleted Successfully 🥳🥳", {
+      toast.success("Tag deleted Successfully", {
         autoClose: 2500,
         closeButton: false,
       });
@@ -287,15 +287,18 @@ const Tags = () => {
           List of Tags
         </h1>
       </div>
-      <div className="tagContainer">
+      <div className="grid justify-center">
         <button
           data-testid="AddTagButton"
           type="button"
-          className="px-2 py-1 bg-emerald-500 hover:bg-emerald-400 active:bg-emerald-600 text-white uppercase font-bold rounded-md m-5"
+          className="container w-fit px-4 py-2 bg-emerald-500 hover:bg-emerald-400 active:bg-emerald-600 text-white uppercase font-bold rounded-md mx-10 mt-10 text-lg"
           onClick={() => setShowAddTagModal(true)}
         >
           Add Tag
         </button>
+      </div>
+
+      <div className="tagContainer">
         <table data-testid="container2 table" className="tagTable">
           <thead className="tagTableHead" data-testid="tableHeading">
             <tr>
@@ -311,7 +314,7 @@ const Tags = () => {
             </tr>
           </thead>
           <tbody>
-            {getAllTag?.map((tag:{name:string,id:string}, index) => {
+            {getAllTag?.map((tag: { name: string; id: string }, index) => {
               return (
                 <tr
                   key={index}

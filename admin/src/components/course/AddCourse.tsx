@@ -70,7 +70,7 @@ const AddCourse = () => {
     if (response.ok) {
       const jsonResnponse = await response.json();
       setNewTagName(jsonResnponse);
-      toast.success("Hurray! Tag created 🥳🥳", {
+      toast.success("Tag created successfully", {
         autoClose: 2500,
         closeButton: false,
       });
@@ -107,7 +107,7 @@ const AddCourse = () => {
     if (response.ok) {
       const jsonResnponse = await response.json();
       setCreateCourse(jsonResnponse);
-      toast.success("Hurray! Course created 🥳🥳", {
+      toast.success("Course created successfully", {
         autoClose: 2500,
         closeButton: false,
       });
@@ -146,7 +146,7 @@ const AddCourse = () => {
     }
   }, []);
 
-  const handleResourceUrlChange = (index: any, event: any) => {
+  const handleResourceUrlChange = (index: number, event: any) => {
     const updatedUrls = [...resourseUrls];
     updatedUrls[index] = event.target.value;
     setResourseUrls(updatedUrls);
@@ -156,13 +156,13 @@ const AddCourse = () => {
     setResourseUrls([...resourseUrls, ""]);
   };
 
-  const handleRemoveResourceUrl = (index: any) => {
+  const handleRemoveResourceUrl = (index: number) => {
     const updatedUrls = [...resourseUrls];
     updatedUrls.splice(index, 1);
     setResourseUrls(updatedUrls);
   };
 
-  const handleTestUrlChange = (index: any, event: any) => {
+  const handleTestUrlChange = (index: number, event: any) => {
     const updatedUrls = [...testUrls];
     updatedUrls[index] = event.target.value;
     setTestUrls(updatedUrls);
@@ -172,14 +172,14 @@ const AddCourse = () => {
     setTestUrls([...testUrls, ""]);
   };
 
-  const handleRemoveTestUrl = (index: any) => {
+  const handleRemoveTestUrl = (index: number) => {
     const updatedUrls = [...testUrls];
     updatedUrls.splice(index, 1);
     setTestUrls(updatedUrls);
   };
 
   const data = {
-    options: defaultTags.map((tag: any) => ({ id: tag.id, name: tag.name })),
+    options: defaultTags.map((tag: {id:number,name:string}) => ({ id: tag.id, name: tag.name })),
   };
 
   useEffect(() => {}, [tags]);
@@ -403,10 +403,10 @@ const AddCourse = () => {
               }}
               onRemove={(removedOptions) => {
                 const removedTagsIds = removedOptions.map(
-                  (removedTag: { id: any }) => removedTag.id
+                  (removedTag: { id: number }) => removedTag.id
                 );
                 const updatedTagsIds = tags.filter(
-                  (tagId: any) => !removedTagsIds.includes(tagId)
+                  (tagId: number) => !removedTagsIds.includes(tagId)
                 );
                 setTags(updatedTagsIds);
               }}
