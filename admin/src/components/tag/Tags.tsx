@@ -133,11 +133,11 @@ const Tags = () => {
         <>
           <div
             data-testid="profileImageModel"
-            className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
+            className="TagImageModel"
           >
             <div className="relative w-auto my-6 mx-auto">
-              <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-80 bg-white outline-none focus:outline-none">
-                <div className="flex items-start justify-between p-5 xsm:p-3 border-b border-solid border-slate-200 rounded-t">
+              <div className="TagImageModalContainer">
+                <div className="TagModelUploadContainer">
                   <h3
                     className="text-3xl font-semibold"
                     data-testid="modelHeader"
@@ -145,7 +145,7 @@ const Tags = () => {
                     Update Tags here
                   </h3>
                   <button
-                    className="p-1 ml-auto border-0 text-black float-right text-3xl font-semibold outline-none"
+                    className="TagModalUploadButton"
                     data-testid="modelUpdateButton"
                     onClick={() =>
                       setShowupdateTagModal({
@@ -162,23 +162,17 @@ const Tags = () => {
                 <div className="relative p-6 flex-auto">
                   <input
                     data-testid="tagsInput"
-                    className="relative m-0 block w-auto xsm:w-72 min-w-0 flex-auto rounded border 
-    border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] text-base font-normal 
-    text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] 
-    file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit 
-    file:bg-neutral-100 file:px-3 file:py-[0.32rem] file:text-neutral-700 file:transition 
-    file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] 
-    hover:file:bg-neutral-200"
+                    className="TagModalUploadInput"
                     onChange={(e) => {
                       setTagName(e.target.value);
                     }}
                     placeholder="Tag name"
                   />
                 </div>
-                <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
+                <div className="TagModalFooter">
                   <button
                     data-testid="modelClose"
-                    className="text-red-500 font-bold uppercase px-6 py-2 text-sm outline-none mr-1 mb-1 transition-all duration-150"
+                    className="TagModalCloseButton"
                     type="button"
                     onClick={() => {
                       setShowupdateTagModal({
@@ -191,7 +185,7 @@ const Tags = () => {
                   </button>
                   <button
                     data-testid="modelUpdateTagButton"
-                    className="text-white font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg mr-1 mb-1 ease-linear transition-all duration-150 bg-emerald-500 active:bg-emerald-600"
+                    className="TagModalSaveButton bg-emerald-500 active:bg-emerald-600"
                     type="button"
                     onClick={() => {
                       const id = showupdateTagModel.tagId;
@@ -216,14 +210,14 @@ const Tags = () => {
         <>
           <div
             data-testid="profileImageModel"
-            className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
+            className="TagImageModel"
           >
             <div className="relative w-auto my-6 mx-auto">
-              <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-80 bg-white outline-none focus:outline-none">
-                <div className="flex items-start justify-between p-5 xsm:p-3 border-b border-solid border-slate-200 rounded-t">
+              <div className="TagImageModalContainer">
+                <div className="TagModelUploadContainer">
                   <h3 className="text-2xl font-semibold">Add Tag here</h3>
                   <button
-                    className="p-1 ml-auto border-0 text-black float-right text-3xl font-semibold outline-none"
+                    className="TagModalUploadButton"
                     onClick={() => setShowAddTagModal(false)}
                   >
                     <span className="text-black h-6 w-6 text-2xl block outline-none">
@@ -238,20 +232,14 @@ const Tags = () => {
                       setNewTagName(e.target.value);
                     }}
                     data-testid="tagsInput"
-                    className="relative m-0 block w-auto xsm:w-72 min-w-0 flex-auto rounded border 
-    border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] text-base font-normal 
-    text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] 
-    file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit 
-    file:bg-neutral-100 file:px-3 file:py-[0.32rem] file:text-neutral-700 file:transition 
-    file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] 
-    hover:file:bg-neutral-200"
+                    className="TagModalUploadInput"
                     placeholder="Tag name"
                   />
                 </div>
-                <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
+                <div className="TagModalFooter">
                   <button
                     data-testid="tagImageClose"
-                    className="text-red-500 font-bold uppercase px-6 py-2 text-sm outline-none mr-1 mb-1 transition-all duration-150"
+                    className="TagModalCloseButton"
                     type="button"
                     onClick={() => setShowAddTagModal(false)}
                   >
@@ -259,7 +247,7 @@ const Tags = () => {
                   </button>
                   <button
                     data-testid="AddTagButtonModal"
-                    className="text-white font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg mr-1 mb-1 ease-linear transition-all duration-150 bg-emerald-500 hover:bg-emerald-400 active:bg-emerald-600"
+                    className="TagModalSaveButton bg-emerald-500 hover:bg-emerald-400 active:bg-emerald-600"
                     type="button"
                     onClick={() => {
                       handelTagSubmit();
@@ -291,7 +279,7 @@ const Tags = () => {
         <button
           data-testid="AddTagButton"
           type="button"
-          className="container w-fit px-4 py-2 bg-emerald-500 hover:bg-emerald-400 active:bg-emerald-600 text-white uppercase font-bold rounded-md mx-10 mt-10 text-lg"
+          className="AddTagButton"
           onClick={() => setShowAddTagModal(true)}
         >
           Add Tag
@@ -332,14 +320,14 @@ const Tags = () => {
                           tagId: +tag.id,
                         });
                       }}
-                      className=" w-[100px] m-5 p-2 pl-1 pr-1 rounded-lg bg-emerald-500 hover:bg-emerald-400 active:bg-emerald-600 text-white uppercase font-bold "
+                      className="UpdateTagButton"
                     >
                       Update
                     </button>
                     <button
                       data-testid={"deleteButton" + `${tag.id}`}
                       role="deleteButton"
-                      className="bg-red-600 w-[100px] m-5 p-2 pl-1 pr-1 rounded-lg hover:bg-red-500 text-white uppercase font-bold  "
+                      className="DeleteTagButton"
                       onClick={() => handleDelete(tag.id)}
                     >
                       Delete
