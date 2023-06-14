@@ -5,7 +5,7 @@ import { imageUpload } from "../user/ImageUpload";
 import { ToastContainer, toast } from "react-toastify";
 import { useLocation, useNavigate } from "react-router-dom";
 
-const UpdateCourse = ({ id }: any) => {
+const UpdateCourse = () => {
   const navigator = useNavigate();
   const [showModal, setShowModal] = useState(false);
   const [avatar, setAvatar] = useState("");
@@ -107,7 +107,7 @@ const UpdateCourse = ({ id }: any) => {
     event.preventDefault();
   };
 
-  const handleResourceUrlChange = (index: any, event: any) => {
+  const handleResourceUrlChange = (index: number, event: any) => {
     const updatedUrls = [...resourseUrls];
     updatedUrls[index] = event.target.value;
     setResourseUrls(updatedUrls);
@@ -117,13 +117,13 @@ const UpdateCourse = ({ id }: any) => {
     setResourseUrls([...resourseUrls, ""]);
   };
 
-  const handleRemoveResourceUrl = (index: any) => {
+  const handleRemoveResourceUrl = (index:number) => {
     const updatedUrls = [...resourseUrls];
     updatedUrls.splice(index, 1);
     setResourseUrls(updatedUrls);
   };
 
-  const handleTestUrlChange = (index: any, event: any) => {
+  const handleTestUrlChange = (index: number, event: any) => {
     const updatedUrls = [...testUrls];
     updatedUrls[index] = event.target.value;
     setTestUrls(updatedUrls);
@@ -133,14 +133,14 @@ const UpdateCourse = ({ id }: any) => {
     setTestUrls([...testUrls, ""]);
   };
 
-  const handleRemoveTestUrl = (index: any) => {
+  const handleRemoveTestUrl = (index: number) => {
     const updatedUrls = [...testUrls];
     updatedUrls.splice(index, 1);
     setTestUrls(updatedUrls);
   };
 
   const data = {
-    options: defaultTags.map((tag: any) => ({ id: tag.id, name: tag.name })),
+    options: defaultTags.map((tag: {id:number,name:string}) => ({ id: tag.id, name: tag.name })),
   };
 
   useEffect(() => {}, [tags]);
