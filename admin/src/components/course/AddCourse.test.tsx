@@ -240,7 +240,7 @@ describe("Display Course Page ", () => {
     fireEvent.click(submitButton);
 
     await waitFor(() => {
-      const successMessage = getAllByText("Hurray! Course created 🥳🥳");
+      const successMessage = getAllByText("Course created successfully");
       expect(successMessage[0]).toBeInTheDocument();
     });
   });
