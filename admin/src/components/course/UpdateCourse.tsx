@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Multiselect from "multiselect-react-dropdown";
 import Navbar from "../utilities/Navbar";
 import { imageUpload } from "../user/ImageUpload";
 import { ToastContainer, toast } from "react-toastify";
 import { useLocation, useNavigate } from "react-router-dom";
-
+import "../../css/course/updateCourse.css";
 const UpdateCourse = () => {
   const navigator = useNavigate();
   const [showModal, setShowModal] = useState(false);
@@ -117,7 +117,7 @@ const UpdateCourse = () => {
     setResourseUrls([...resourseUrls, ""]);
   };
 
-  const handleRemoveResourceUrl = (index:number) => {
+  const handleRemoveResourceUrl = (index: number) => {
     const updatedUrls = [...resourseUrls];
     updatedUrls.splice(index, 1);
     setResourseUrls(updatedUrls);
@@ -140,7 +140,10 @@ const UpdateCourse = () => {
   };
 
   const data = {
-    options: defaultTags.map((tag: {id:number,name:string}) => ({ id: tag.id, name: tag.name })),
+    options: defaultTags.map((tag: { id: number; name: string }) => ({
+      id: tag.id,
+      name: tag.name,
+    })),
   };
 
   useEffect(() => {}, [tags]);
@@ -151,14 +154,14 @@ const UpdateCourse = () => {
         <>
           <div
             data-testid="courseImageModel"
-            className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
+            className="CourseImageModel"
           >
             <div className="relative w-auto my-6 mx-auto">
-              <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-80 bg-white outline-none focus:outline-none">
-                <div className="flex items-start justify-between p-5 xsm:p-3 border-b border-solid border-slate-200 rounded-t">
+              <div className="CourseImageModalContainer">
+                <div className="CourseModelUploadContainer">
                   <h3 className="text-3xl font-semibold">Upload Image</h3>
                   <button
-                    className="p-1 ml-auto border-0 text-black float-right text-3xl font-semibold outline-none"
+                    className="CourseModalUploadButton"
                     onClick={() => setShowModal(false)}
                   >
                     <span className="text-black h-6 w-6 text-2xl block outline-none">
@@ -167,19 +170,13 @@ const UpdateCourse = () => {
                   </button>
                 </div>
                 <div className="relative p-6 flex-auto">
-                  <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                  <label className="CourseModelUploadFileLabel">
                     Upload file
                   </label>
                   <input
                     data-testid="courseImageInput"
                     accept="image/*"
-                    className="relative m-0 block w-auto xsm:w-72 min-w-0 flex-auto rounded border 
-    border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] text-base font-normal 
-    text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] 
-    file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit 
-    file:bg-neutral-100 file:px-3 file:py-[0.32rem] file:text-neutral-700 file:transition 
-    file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] 
-    hover:file:bg-neutral-200"
+                    className="CourseModalUploadInput"
                     aria-describedby="file_input_help"
                     id="file_input"
                     type="file"
@@ -192,10 +189,10 @@ const UpdateCourse = () => {
                     SVG, PNG, JPG or GIF (MAX. 350kb).
                   </p>
                 </div>
-                <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
+                <div className="CourseModalFooter">
                   <button
                     data-testid="courseImageClose"
-                    className="text-red-500 font-bold uppercase px-6 py-2 text-sm outline-none mr-1 mb-1 transition-all duration-150"
+                    className="CourseModalCloseButton"
                     type="button"
                     onClick={() => setShowModal(false)}
                   >
@@ -203,7 +200,7 @@ const UpdateCourse = () => {
                   </button>
                   <button
                     data-testid="courseImageSave"
-                    className="text-white font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg mr-1 mb-1 ease-linear transition-all duration-150 bg-emerald-500 active:bg-emerald-600"
+                    className="CourseModalSaveButton bg-emerald-500 active:bg-emerald-600"
                     type="button"
                     onClick={handleImageUrl}
                   >
@@ -228,7 +225,7 @@ const UpdateCourse = () => {
         <div>
           <h1
             data-testid="updateCourseHeading"
-            className="text-center pt-10 text-3xl font-bold "
+            className="text-center pt-10 text-3xl font-bold"
           >
             Update Courses
           </h1>
@@ -239,12 +236,12 @@ const UpdateCourse = () => {
         <form
           data-testid="formContainer"
           onSubmit={handleSubmit}
-          className="w-full sm:w-full md:w-4/5 lg:w-4/5 xl:w-4/5 2xl:w-4/5 mt-10 p-6"
+          className="UpdateCourseContainer"
         >
           <div className="form-group mt-3" data-testid="courseTitle">
             <label className="text-md font-bold">Course Name</label>
             <input
-              className="form-control w-full border mt-2 border-gray-300 rounded-md p-2"
+              className="form-control UpdateCourseTextInput"
               type="text"
               id="courseName"
               data-testid="courseTitleInput"
@@ -261,7 +258,7 @@ const UpdateCourse = () => {
               data-testid="courseDescriptionInput"
               value={description}
               rows={4}
-              className="form-control w-full border mt-2 border-gray-300 rounded-md p-2"
+              className="form-control UpdateCourseTextInput"
               placeholder="Enter course description"
               onChange={(e) => setDescription(e.target.value)}
             ></textarea>
@@ -269,7 +266,7 @@ const UpdateCourse = () => {
           <div className="form-group mt-3" data-testid="courseCredit">
             <label className="form-control text-md font-bold">Credit</label>
             <input
-              className="w-full border mt-2 border-gray-300 rounded-md p-2"
+              className="UpdateCourseTextInput"
               type="number"
               data-testid="courseCreditInput"
               value={credit}
@@ -324,7 +321,7 @@ const UpdateCourse = () => {
                   <button
                     type="button"
                     data-testid="RemoveButton"
-                    className="ml-2 px-2 py-1 bg-red-500 text-white rounded-md"
+                    className="UpdateCourseRemoveUrlButton"
                     onClick={() => handleRemoveResourceUrl(index)}
                   >
                     Remove
@@ -335,7 +332,7 @@ const UpdateCourse = () => {
             <button
               type="button"
               data-testid="Add Resource Url"
-              className="mt-2 px-2 py-1 bg-green-500 text-white rounded-md"
+              className="UpdateCourseAddUrlButton"
               onClick={handleAddResourceUrl}
             >
               Add
@@ -351,7 +348,6 @@ const UpdateCourse = () => {
                   className="w-full border border-gray-300 rounded-md p-2"
                   value={url}
                   data-testid="testUrl"
-                  // required={index === 0}
                   placeholder="Enter Test URL"
                   onChange={(event) => handleTestUrlChange(index, event)}
                 />
@@ -359,7 +355,7 @@ const UpdateCourse = () => {
                   <button
                     type="button"
                     data-testid="RemoveTestButton"
-                    className="ml-2 px-2 py-1 bg-red-500 text-white rounded-md"
+                    className="UpdateCourseRemoveUrlButton"
                     onClick={() => {
                       handleRemoveTestUrl(index);
                     }}
@@ -372,14 +368,14 @@ const UpdateCourse = () => {
             <button
               type="button"
               data-testid="Add Test Url"
-              className="mt-2 px-2 py-1 bg-green-500 text-white rounded-md"
+              className="UpdateCourseAddUrlButton"
               onClick={handleAddTestUrl}
             >
               Add
             </button>
           </div>
           <div
-            className="form-group flex flex-row justify-between mr-10 mt-5"
+            className="form-group UpdateCourseImageContainer"
             data-testid="CourseImageContainer"
           >
             <label className="text-md  font-bold">Image</label>
@@ -398,7 +394,7 @@ const UpdateCourse = () => {
           <div className="flex justify-center">
             <button
               data-testid="submitButton"
-              className="bg-blue-500 mt-10 text-white font-semibold px-4 py-2 rounded-md w-[200px]"
+              className="UpdateCourseSubmitButton"
               type="submit"
             >
               Update Course

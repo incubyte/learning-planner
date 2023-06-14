@@ -237,7 +237,7 @@ const AddCourse = () => {
                   </button>
                   <button
                     data-testid="courseImageSave"
-                    className="CourseModalSaveButton"
+                    className="CourseModalSaveButton bg-emerald-500 active:bg-emerald-600"
                     type="button"
                     onClick={handleImageUrl}
                   >
