@@ -27,7 +27,7 @@ const UpdateCourse = () => {
     setAvatar(file);
   };
 
-  const setData = () => {
+  useEffect(() => {
     setResourseUrls(courseData.resourseUrls);
     setTestUrls(courseData.testUrls);
     setCourseName(courseData.name);
@@ -35,10 +35,6 @@ const UpdateCourse = () => {
     setCredit(courseData.credit);
     setTags(courseData.tags);
     setImageUrl(courseData.imageUrl);
-  };
-
-  useEffect(() => {
-    setData();
   }, [courseData]);
 
   const handleImageUrl = async () => {
