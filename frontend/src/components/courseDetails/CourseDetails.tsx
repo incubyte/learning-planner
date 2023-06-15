@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "../../css/courseDetails/courseDetails.css";
 import { courseType } from "../courses/Courses";
+import LoadingScreen from "../utilities/LoadingScreen";
 import Navbar from "../utilities/Navbar";
 
 const CourseDetails = () => {
@@ -11,44 +12,59 @@ const CourseDetails = () => {
   const [tags, setTags] = useState([{ id: "1", name: "Java" }]);
   const [isEnrolled, setIsEnrolled] = useState(false);
   const [isCompleted, setIsCompleted] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   const fetchCourse = async () => {
-    const response = await fetch(
-      "https://backend-mu-plum.vercel.app/course/getCourseById/" + id,
-      {
-        headers: {
-          Authorization: `Bearer ${authToken}`,
-        },
+    try {
+      const response = await fetch(
+        "https://backend-mu-plum.vercel.app/course/getCourseById/" + id,
+        {
+          headers: {
+            Authorization: `Bearer ${authToken}`,
+          },
+        }
+      );
+      if (response && response.ok) {
+        const jsonResnponse = await response.json();
+        await setCourse(jsonResnponse);
       }
-    );
-    if (response.ok) {
-      const jsonResnponse = await response.json();
-      await setCourse(jsonResnponse);
+    } catch (error) {
+      toast.error("An error occurred" + error, {
+        autoClose: 2500,
+        closeButton: false,
+      });
     }
   };
 
   const enrollCourse = async () => {
-    const response = await fetch(
-      "https://backend-mu-plum.vercel.app/user/course/enroll",
-      {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${authToken}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ id: id }),
-      }
-    );
+    try {
+      const response = await fetch(
+        "https://backend-mu-plum.vercel.app/user/course/enroll",
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${authToken}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ id: id }),
+        }
+      );
 
-    if (response.ok) {
-      toast.success("Course Enrolled!!", {
-        autoClose: 2500,
-        closeButton: false,
-      });
-      setIsEnrolled(true);
-    } else {
-      const jsonResponse = await response.json();
-      toast.error(jsonResponse.message, {
+      if (response && response.ok) {
+        toast.success("Course Enrolled!!", {
+          autoClose: 2500,
+          closeButton: false,
+        });
+        setIsEnrolled(true);
+      } else {
+        const jsonResponse = await response.json();
+        toast.error(jsonResponse.message, {
+          autoClose: 2500,
+          closeButton: false,
+        });
+      }
+    } catch (error) {
+      toast.error("An error occurred" + error, {
         autoClose: 2500,
         closeButton: false,
       });
@@ -56,27 +72,34 @@ const CourseDetails = () => {
   };
 
   const completeCourse = async () => {
-    const response = await fetch(
-      "https://backend-mu-plum.vercel.app/user/course/completeCourse",
-      {
-        method: "PATCH",
-        headers: {
-          Authorization: `Bearer ${authToken}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ id: id }),
-      }
-    );
+    try {
+      const response = await fetch(
+        "https://backend-mu-plum.vercel.app/user/course/completeCourse",
+        {
+          method: "PATCH",
+          headers: {
+            Authorization: `Bearer ${authToken}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ id: id }),
+        }
+      );
 
-    if (response.ok) {
-      toast.success("Course Completed!!", {
-        autoClose: 2500,
-        closeButton: false,
-      });
-      setIsCompleted(true);
-    } else {
-      const jsonResponse = await response.json();
-      toast.error(jsonResponse.message, {
+      if (response && response.ok) {
+        toast.success("Course Completed!!", {
+          autoClose: 2500,
+          closeButton: false,
+        });
+        setIsCompleted(true);
+      } else {
+        const jsonResponse = await response.json();
+        toast.error(jsonResponse.message, {
+          autoClose: 2500,
+          closeButton: false,
+        });
+      }
+    } catch (error) {
+      toast.error("An error occurred" + error, {
         autoClose: 2500,
         closeButton: false,
       });
@@ -84,48 +107,71 @@ const CourseDetails = () => {
   };
 
   const fetchCourseStatus = async () => {
-    const response = await fetch(
-      "https://backend-mu-plum.vercel.app/user/course/status/" + id,
-      {
-        headers: {
-          Authorization: `Bearer ${authToken}`,
-        },
-      }
-    );
-    if (response.ok) {
-      const courseStatusResponse = await response.json();
-      if (courseStatusResponse == 0) {
-        setIsEnrolled(false);
-        setIsCompleted(false);
-      } else if (courseStatusResponse == 1) {
-        setIsEnrolled(true);
-        setIsCompleted(false);
+    try {
+      const response = await fetch(
+        "https://backend-mu-plum.vercel.app/user/course/status/" + id,
+        {
+          headers: {
+            Authorization: `Bearer ${authToken}`,
+          },
+        }
+      );
+      if (response && response.ok) {
+        const courseStatusResponse = await response.json();
+        if (courseStatusResponse == 0) {
+          setIsEnrolled(false);
+          setIsCompleted(false);
+        } else if (courseStatusResponse == 1) {
+          setIsEnrolled(true);
+          setIsCompleted(false);
+        } else {
+          setIsCompleted(true);
+        }
       } else {
-        setIsCompleted(true);
+        toast.error("course not found");
       }
+    } catch (error) {
+      toast.error("An error occurred" + error, {
+        autoClose: 2500,
+        closeButton: false,
+      });
     }
   };
 
   const fetchTags = async () => {
-    const response = await fetch("https://backend-mu-plum.vercel.app/tag/", {
-      headers: {
-        Authorization: `Bearer ${authToken}`,
-      },
-    });
-    if (response.ok) {
-      const tagsResponse = await response.json();
-      setTags(tagsResponse);
+    try {
+      const response = await fetch("https://backend-mu-plum.vercel.app/tag/", {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+      });
+      if (response.ok) {
+        const tagsResponse = await response.json();
+        setTags(tagsResponse);
+      }
+    } catch (error) {
+      toast.error("An error occurred" + error, {
+        autoClose: 2500,
+        closeButton: false,
+      });
     }
+  };
+  const fetchData = async () => {
+    setIsLoading(true);
+
+    await Promise.all([fetchCourse(), fetchTags(), fetchCourseStatus()]);
+    setIsLoading(false);
   };
 
   const authToken = localStorage.getItem("authToken");
+
   useEffect(() => {
-    fetchCourse();
-    fetchTags();
-    fetchCourseStatus();
+    fetchData();
   }, []);
 
-  return (
+  return isLoading ? (
+    <LoadingScreen />
+  ) : (
     <>
       <Navbar
         isCourse={true}

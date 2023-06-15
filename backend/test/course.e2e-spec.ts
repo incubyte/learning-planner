@@ -36,7 +36,7 @@ describe('CourseController (e2e)', () => {
     const response = await request(app.getHttpServer())
       .get('/course/getCourseById/1')
       .set('Authorization', `Bearer ${authToken}`);
-    expect(response.status).toBe(200);
+    expect(response.status).toBe(404);
   });
 
   it('course/filterByTags (GET) - should return courses which tags is provided', async () => {

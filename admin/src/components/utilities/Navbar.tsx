@@ -46,8 +46,11 @@ const Navbar = (props: NavbarProps) => {
             <div className="NavbarHeaderFlexItems">
               <div className="navbarHeaderFlexShrink">
                 <img
-                  className="navbarHeaderLogoHeightWidth"
+                  className="navbarHeaderLogoHeightWidth cursor-pointer"
                   src={IncubyteLogo}
+                  onClick={() => {
+                    navigator("/");
+                  }}
                   alt="Workflow"
                   data-testid="navbarHeaderLogo"
                 />
@@ -179,7 +182,7 @@ const Navbar = (props: NavbarProps) => {
                   </button>
                 )}
                 {props.isUser && (
-                  <Link to="/user" className="navbarHeaderItems">
+                  <Link to="/users" className="navbarHeaderItems">
                     Users
                   </Link>
                 )}

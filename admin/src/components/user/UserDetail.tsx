@@ -7,6 +7,7 @@ import "../../css/user/userDetails.css";
 import Navbar from "../utilities/Navbar";
 import { imageUpload } from "./ImageUpload";
 import { userType } from "./user";
+import LoadingScreen from "../utilities/LoadingScreen";
 
 const UserDetail = () => {
   const [user, setUser] = useState<userType>({
@@ -21,13 +22,11 @@ const UserDetail = () => {
     createdAt: "",
   });
 
-  const options = ["Admin", "Employee"];
-  const defaultOption = options[0];
   const navigator = useNavigate();
   const urlParams = useParams();
   const [showModal, setShowModal] = useState(false);
   const [avatar, setAvatar] = useState("");
-
+  const [isLoading, setIsLoading] = useState(true);
   const [isUpdated, setIsUpdated] = useState<boolean>(false);
 
   const blob = new Blob([avatar]);
@@ -37,63 +36,76 @@ const UserDetail = () => {
   };
 
   const deleteUser = async () => {
-    const response = await fetch(
-      "https://backend-mu-plum.vercel.app/user/delete/" + urlParams.id,
-      {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${authToken}`,
-        },
+    try {
+      const response = await fetch(
+        "https://backend-mu-plum.vercel.app/user/delete/" + urlParams.id,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${authToken}`,
+          },
+        }
+      );
+      if (response && response.ok) {
+        toast.success("User deleted successfully", {
+          autoClose: 2500,
+          closeButton: false,
+        });
+        setTimeout(() => {
+          navigator("/users");
+        }, 3000);
+      } else {
+        toast.error("Something wrong, please try again", {
+          autoClose: 2500,
+          closeButton: false,
+        });
       }
-    );
-    if (response.ok) {
-      toast.success("User deleted successfully", {
-        autoClose: 2500,
-        closeButton: false,
-      });
-      setTimeout(() => {
-        navigator("/users");
-      }, 3000);
-    } else {
-      toast.error("Something wrong, please try again", {
+    } catch (error) {
+      toast.error("An error occurred" + error, {
         autoClose: 2500,
         closeButton: false,
       });
     }
   };
   const updateUser = async () => {
-    const response = await fetch(
-      "https://backend-mu-plum.vercel.app/user/update/" + urlParams.id,
-      {
-        headers: {
-          Authorization: `Bearer ${authToken}`,
-          "Content-Type": "application/json",
-        },
-        method: "PATCH",
-        body: JSON.stringify({
-          eId: user.eId,
-          email: user.email,
-          profilePhoto: user.profilePhoto,
-          role: user.role,
-          roles: user.roles,
-          clientTeam: user.clientTeam,
-        }),
+    try {
+      const response = await fetch(
+        "https://backend-mu-plum.vercel.app/user/update/" + urlParams.id,
+        {
+          headers: {
+            Authorization: `Bearer ${authToken}`,
+            "Content-Type": "application/json",
+          },
+          method: "PATCH",
+          body: JSON.stringify({
+            eId: user.eId,
+            email: user.email,
+            profilePhoto: user.profilePhoto,
+            role: user.role,
+            roles: user.roles,
+            clientTeam: user.clientTeam,
+          }),
+        }
+      );
+      if (response && response.ok) {
+        const jsonResponse = await response.json();
+        setUser(jsonResponse);
+        toast.success("User updated successfully", {
+          autoClose: 2500,
+          closeButton: false,
+        });
+        setTimeout(() => {
+          navigator("/users");
+        }, 3000);
+      } else {
+        toast.error("Something went wrong, please try again", {
+          autoClose: 2500,
+          closeButton: false,
+        });
       }
-    );
-    if (response.ok) {
-      const jsonResponse = await response.json();
-      setUser(jsonResponse);
-      toast.success("User updated successfully", {
-        autoClose: 2500,
-        closeButton: false,
-      });
-      setTimeout(() => {
-        navigator("/users");
-      }, 3000);
-    } else {
-      const jsonResponse = await response.json();
-      toast.error("Something went wrong, please try again", {
+    } catch (error) {
+      toast.error("An error occurred" + error, {
         autoClose: 2500,
         closeButton: false,
       });
@@ -120,25 +132,43 @@ const UserDetail = () => {
   };
 
   const fetchUser = async () => {
-    const response = await fetch(
-      "https://backend-mu-plum.vercel.app/user/getUser/" + urlParams.id,
-      {
-        headers: {
-          Authorization: `Bearer ${authToken}`,
-        },
+    try {
+      const response = await fetch(
+        "https://backend-mu-plum.vercel.app/user/getUser/" + urlParams.id,
+        {
+          headers: {
+            Authorization: `Bearer ${authToken}`,
+          },
+        }
+      );
+      if (response && response.ok) {
+        const responseUser = await response.json();
+        setUser(responseUser);
       }
-    );
-    if (response.ok) {
-      const responseUser = await response.json();
-      setUser(responseUser);
+    } catch (error) {
+      toast.error("An error occurred" + error, {
+        autoClose: 2500,
+        closeButton: false,
+      });
     }
   };
 
   const authToken = localStorage.getItem("authToken");
+
+  const fetchData = async () => {
+    setIsLoading(true);
+
+    await Promise.all([fetchUser()]);
+
+    setIsLoading(false);
+  };
+
   useEffect(() => {
-    fetchUser();
+    fetchData();
   }, []);
-  return (
+  return isLoading ? (
+    <LoadingScreen />
+  ) : (
     <>
       {showModal ? (
         <>
@@ -344,40 +374,40 @@ const UserDetail = () => {
                   }}
                 ></input>
               </div>
-              <div className="UserDetailsGridContent">
-                <label
-                  data-testid="UserDetailRoleLabel"
-                  className="UserDetailsLabel"
-                >
-                  Is Admin
-                </label>
-
-                <input
-                  data-testid="UserDetailRoleInput"
-                  className="h-5 w-5 m-3 hover:cursor-pointer"
-                  type="checkbox"
-                  checked={user.roles === "Admin"}
-                  onChange={(e) => {
-                    e.target.style.borderColor = "green";
-                    setIsUpdated(true);
-                    setUser({
-                      email: user.email,
-                      eId: user.eId,
-                      clientTeam: user.clientTeam,
-                      role: user.role,
-                      roles: e.target.checked === true ? "Admin" : "Employee",
-                      profilePhoto: user.profilePhoto,
-                      updatedAt: user.updatedAt,
-                      id: user.id,
-                      createdAt: user.createdAt,
-                    });
-                  }}
-                ></input>
-              </div>
             </div>
           </div>
         </div>
-        <div className="mt-24 grid grid-cols-2 gap-24">
+        <div className="flex flex-row gap-4">
+          <label
+            data-testid="UserDetailRoleLabel"
+            className="UserDetailsLabelCheckbox"
+          >
+            Is Admin
+          </label>
+
+          <input
+            data-testid="UserDetailRoleInput"
+            className="h-5 w-5 mt-12 hover:cursor-pointer"
+            type="checkbox"
+            checked={user.roles === "Admin"}
+            onChange={(e) => {
+              e.target.style.borderColor = "green";
+              setIsUpdated(true);
+              setUser({
+                email: user.email,
+                eId: user.eId,
+                clientTeam: user.clientTeam,
+                role: user.role,
+                roles: e.target.checked === true ? "Admin" : "Employee",
+                profilePhoto: user.profilePhoto,
+                updatedAt: user.updatedAt,
+                id: user.id,
+                createdAt: user.createdAt,
+              });
+            }}
+          ></input>
+        </div>
+        <div className="mt-16 grid grid-cols-2 gap-24">
           <button
             data-testid="UserDetailUpdate"
             className="UserDetailsModalSaveButton bg-emerald-500 hover:bg-emerald-400 active:bg-emerald-600"
@@ -395,7 +425,6 @@ const UserDetail = () => {
           >
             delete
           </button>
-          ;
         </div>
       </div>
     </>

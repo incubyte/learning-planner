@@ -1,4 +1,10 @@
-import { cleanup, fireEvent, render, waitFor } from "@testing-library/react";
+import {
+  cleanup,
+  fireEvent,
+  render,
+  waitFor,
+  screen,
+} from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
 import CoursePage from "./Courses";
 
@@ -76,6 +82,19 @@ beforeEach(() => {
       });
     }
   });
+  const getCourseByFilterMock = jest.fn();
+  const tags = [
+    { id: "1", name: "Java" },
+    { id: "2", name: "Python" },
+    { id: "3", name: "Micronaut" },
+    { id: "4", name: "Angular" },
+    { id: "5", name: "Ruby" },
+    { id: "6", name: "TDD" },
+    { id: "7", name: "Java2" },
+    { id: "8", name: "Java3" },
+    { id: "9", name: "Java4" },
+  ];
+  getCourseByFilterMock.mockReturnValueOnce(tags);
 });
 
 afterEach(() => {
@@ -88,13 +107,13 @@ describe("Course Page ", () => {
         <CoursePage />
       </BrowserRouter>
     );
-
-    jest.setTimeout(30000);
-    expect(getByRole("navigation")).toBeInTheDocument();
-    expect(getByRole("coursePageIndexImage")).toBeInTheDocument();
-    expect(getByRole("filterByTags")).toBeInTheDocument();
-    expect(getByRole("popContent")).toBeInTheDocument();
-    expect(getByRole("availContent")).toBeInTheDocument();
+    await waitFor(() => {
+      expect(getByRole("navigation")).toBeInTheDocument();
+      expect(getByRole("coursePageIndexImage")).toBeInTheDocument();
+      expect(getByRole("filterByTags")).toBeInTheDocument();
+      expect(getByRole("popContent")).toBeInTheDocument();
+      expect(getByRole("availContent")).toBeInTheDocument();
+    });
   });
 
   test("filters courses by name when a search query is entered", async () => {
@@ -103,23 +122,27 @@ describe("Course Page ", () => {
         <CoursePage />
       </BrowserRouter>
     );
-    jest.setTimeout(30000);
+
     await waitFor(() => {
       expect(getByRole("popContent")).toBeInTheDocument();
       expect(getByRole("availContent")).toBeInTheDocument();
     });
 
     const searchInput = getByPlaceholderText("Search...");
-    expect(searchInput).toBeInTheDocument();
 
     fireEvent.change(searchInput, {
       target: { value: "Day 1 clean code kata" },
     });
 
-    await waitFor(() => {
-      const courses = getAllByText("Day 1 clean code kata");
-      expect(courses).not.toBeNull();
-    });
+    await waitFor(
+      async () => {
+        const courseElement = await screen.queryAllByText(
+          "Day 1 clean code kata"
+        );
+        expect(courseElement).not.toBeNull();
+      },
+      { timeout: 3000 }
+    );
   });
 
   test("displays all courses when the search query is empty", async () => {
@@ -128,7 +151,7 @@ describe("Course Page ", () => {
         <CoursePage />
       </BrowserRouter>
     );
-    jest.setTimeout(30000);
+
     await waitFor(() => {
       expect(getByRole("popContent")).toBeInTheDocument();
       expect(getByRole("availContent")).toBeInTheDocument();

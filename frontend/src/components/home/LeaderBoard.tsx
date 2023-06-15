@@ -5,6 +5,8 @@ import { courseType } from "../courses/Courses";
 import { LeaderBoardType } from "./LeaderBoardType";
 import React from "react";
 import { userType } from "../user/user";
+import LoadingScreen from "../utilities/LoadingScreen";
+import { ToastContainer, toast } from "react-toastify";
 
 const LeaderBoard = () => {
   const [activeCourses, setActiveCourses] = useState<courseType[]>([]);
@@ -13,77 +15,118 @@ const LeaderBoard = () => {
   );
   const [currentUserCredit, setCurrentUserCredit] = useState<number>(0);
   const [currentUser, setCurrentUser] = useState<userType>();
+  const [isLoading, setIsLoading] = useState(true);
 
   const authToken = localStorage.getItem("authToken");
   const fetchCurrentUserCredit = async () => {
-    const response = await fetch(
-      "https://backend-mu-plum.vercel.app/user/course?status=completed",
-      {
-        headers: {
-          Authorization: `Bearer ${authToken}`,
-        },
-      }
-    );
+    try {
+      const response = await fetch(
+        "https://backend-mu-plum.vercel.app/user/course?status=completed",
+        {
+          headers: {
+            Authorization: `Bearer ${authToken}`,
+          },
+        }
+      );
 
-    if (response.ok) {
-      const fetchCourses = await response.json();
-      setCurrentUserCredit(fetchCourses.courses.length * 10);
+      if (response && response.ok) {
+        const fetchCourses = await response.json();
+        setCurrentUserCredit(fetchCourses.courses.length * 10);
+      }
+    } catch (error) {
+      toast.error("An error occurred" + error, {
+        autoClose: 2500,
+        closeButton: false,
+      });
     }
   };
 
   const fetchActiveCourses = async () => {
-    const response = await fetch(
-      "https://backend-mu-plum.vercel.app/user/course?status=active",
-      {
-        headers: {
-          Authorization: `Bearer ${authToken}`,
-        },
-      }
-    );
+    try {
+      const response = await fetch(
+        "https://backend-mu-plum.vercel.app/user/course?status=active",
+        {
+          headers: {
+            Authorization: `Bearer ${authToken}`,
+          },
+        }
+      );
 
-    if (response.ok) {
-      const fetchCourses = await response.json();
-      setActiveCourses(fetchCourses.courses);
+      if (response && response.ok) {
+        const fetchCourses = await response.json();
+        setActiveCourses(fetchCourses.courses);
+      }
+    } catch (error) {
+      toast.error("An error occurred" + error, {
+        autoClose: 2500,
+        closeButton: false,
+      });
     }
   };
 
   const fetchLeaderBoardUsers = async () => {
-    const response = await fetch(
-      "https://backend-mu-plum.vercel.app/user/leaderboard",
-      {
-        headers: {
-          Authorization: `Bearer ${authToken}`,
-        },
-      }
-    );
+    try {
+      const response = await fetch(
+        "https://backend-mu-plum.vercel.app/user/leaderboard",
+        {
+          headers: {
+            Authorization: `Bearer ${authToken}`,
+          },
+        }
+      );
 
-    if (response.ok) {
-      const leaderBoardUsersResponse = await response.json();
-      setLeaderBoardUsers(leaderBoardUsersResponse);
+      if (response && response.ok) {
+        const leaderBoardUsersResponse = await response.json();
+        setLeaderBoardUsers(leaderBoardUsersResponse);
+      }
+    } catch (error) {
+      toast.error("An error occurred" + error, {
+        autoClose: 2500,
+        closeButton: false,
+      });
     }
   };
 
   const fetchCurrentUser = async () => {
-    const response = await fetch("https://backend-mu-plum.vercel.app/user", {
-      headers: {
-        Authorization: `Bearer ${authToken}`,
-      },
-    });
+    try {
+      const response = await fetch("https://backend-mu-plum.vercel.app/user", {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+      });
 
-    if (response.ok) {
-      const currentUserResponse = await response.json();
-      setCurrentUser(currentUserResponse);
+      if (response && response.ok) {
+        const currentUserResponse = await response.json();
+        setCurrentUser(currentUserResponse);
+      }
+    } catch (error) {
+      toast.error("An error occurred" + error, {
+        autoClose: 2500,
+        closeButton: false,
+      });
     }
   };
 
+  const fetchData = async () => {
+    setIsLoading(true);
+
+    await Promise.all([
+      fetchCurrentUserCredit(),
+      fetchActiveCourses(),
+      fetchLeaderBoardUsers(),
+      fetchCurrentUser(),
+    ]);
+
+    setIsLoading(false);
+  };
+
   useEffect(() => {
-    fetchCurrentUserCredit();
-    fetchActiveCourses();
-    fetchLeaderBoardUsers();
-    fetchCurrentUser();
+    fetchData();
   }, []);
 
-  return (
+  return isLoading ? (
+    <LoadingScreen />
+  ) : (
     <>
       <div className="LeaderBoardContainer " role="leaderBoard">
         <div className="w-full text-center mb-8">
@@ -110,19 +153,19 @@ const LeaderBoard = () => {
             >
               <div className="LeaderBoardUserInnerInfoContainer">
                 <p className="LeaderBoardUserInnerInfo">
-                  Email : {currentUser?.email}
+                  Email: {currentUser?.email}
                 </p>
                 <p className="LeaderBoardUserInnerInfo">
-                  Credits :{currentUserCredit}
+                  Credits: {currentUserCredit}
                 </p>
                 <p className="LeaderBoardUserInnerInfo">
-                  Role : {currentUser?.role}
+                  Role: {currentUser?.role}
                 </p>
               </div>
             </div>
           </div>
         </div>
-        <div className="LeaderBoardContainers p-4" data-testid="container2">
+        <div className="LeaderBoardContainers" data-testid="container2">
           <div className="LeaderBoardContainerTwoTableContainer">
             <div className="LeaderBoardInnerContainerScrollbar">
               <table
@@ -131,7 +174,9 @@ const LeaderBoard = () => {
               >
                 <thead>
                   <tr role="row">
-                    <th className="LeaderBoardContainerTwoTableBorder">Rank</th>
+                    <th className="rounded-tl LeaderBoardContainerTwoTableBorder">
+                      Rank
+                    </th>
                     <th className="LeaderBoardContainerTwoTableBorder">
                       Email
                     </th>
@@ -148,7 +193,7 @@ const LeaderBoard = () => {
                         {
                           <tr
                             className={`${
-                              index % 2 === 0 ? "bg-gray-200" : "bg-white"
+                              index % 2 === 0 ? "bg-gray-100" : "bg-white"
                             }`}
                             role="row"
                           >
@@ -181,6 +226,7 @@ const LeaderBoard = () => {
         contentId={"activeContent"}
         courses={activeCourses}
       />
+      <ToastContainer />
     </>
   );
 };

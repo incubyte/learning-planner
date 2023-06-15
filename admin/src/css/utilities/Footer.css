@@ -1,0 +1,17 @@
+.coursePageFooterContainer{
+   @apply bg-white rounded-lg shadow dark:bg-white m-4 w-auto border-solid border-2 border-slate-100
+}
+
+.coursePageFooterContent{
+    @apply w-auto mx-auto p-4 md:py-8
+}
+
+.coursePageFooterContentText{
+    @apply block text-sm text-black sm:text-center dark:text-black
+}
+
+.coursePageFooterLink{
+    @apply hover:underline
+}
+
+

@@ -17,7 +17,11 @@ export class CourseService {
   }
 
   async getById(id: string): Promise<Course> {
-    return await this.prismaService.course.findFirst({ where: { id } });
+    const result = await this.prismaService.course.findFirst({ where: { id } });
+    if (!result) {
+      throw new NotFoundException('Course Not Found');
+    }
+    return result;
   }
 
   async filterByTags(tags: string[]): Promise<Course[]> {

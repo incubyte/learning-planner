@@ -19,11 +19,11 @@
 }
 
 .tagTableRows {
-    @apply border border-gray-100 p-5 justify-start text-xl 
+    @apply border border-gray-100 p-5 justify-start text-base
 }
 
 .tagTableUpdateCol {
-    @apply flex justify-center p-1
+    @apply flex justify-center
 }
 
 .TagImageModel{

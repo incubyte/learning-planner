@@ -552,6 +552,24 @@ describe('UserService', () => {
     });
 
     it('should return 0 if the user is not enrolled for course', async () => {
+      const mockCourse: Course = {
+        id: 'course1',
+
+        name: 'name',
+        resourseUrls: [],
+        testUrls: [],
+        imageUrl: 'imageUrl',
+        credit: 0,
+        tags: [],
+        description: 'description',
+        createdAt: Date.prototype,
+        updatedAt: Date.prototype,
+      };
+
+      jest
+        .spyOn(prismaService.course, 'findFirst')
+        .mockResolvedValue(mockCourse);
+
       jest.spyOn(prismaService.userCourse, 'findFirst').mockResolvedValue(null);
       const result = await service.getStatusOfCourse('1', 'course1');
       expect(prismaService.userCourse.findFirst).toBeCalledTimes(1);
@@ -564,6 +582,23 @@ describe('UserService', () => {
       expect(result).toEqual(0);
     });
     it('should return 1 if the user is enrolled for course but not completed the course', async () => {
+      const mockCourse: Course = {
+        id: 'course1',
+
+        name: 'name',
+        resourseUrls: [],
+        testUrls: [],
+        imageUrl: 'imageUrl',
+        credit: 0,
+        tags: [],
+        description: 'description',
+        createdAt: Date.prototype,
+        updatedAt: Date.prototype,
+      };
+
+      jest
+        .spyOn(prismaService.course, 'findFirst')
+        .mockResolvedValue(mockCourse);
       const mockUserCourse: UserCourse = {
         id: 1,
         userId: '1',
@@ -584,6 +619,23 @@ describe('UserService', () => {
       expect(result).toEqual(1);
     });
     it('should return 2 if the user has completed the course', async () => {
+      const mockCourse: Course = {
+        id: 'course1',
+
+        name: 'name',
+        resourseUrls: [],
+        testUrls: [],
+        imageUrl: 'imageUrl',
+        credit: 0,
+        tags: [],
+        description: 'description',
+        createdAt: Date.prototype,
+        updatedAt: Date.prototype,
+      };
+
+      jest
+        .spyOn(prismaService.course, 'findFirst')
+        .mockResolvedValue(mockCourse);
       const mockUserCourse: UserCourse = {
         id: 1,
         userId: '1',

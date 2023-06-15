@@ -4,6 +4,8 @@ import Carousel from "../utilities/Carousel";
 import Navbar from "../utilities/Navbar";
 import CoursePageIndex from "./CoursePageIndex";
 import Filter from "./Filter";
+import LoadingScreen from "../utilities/LoadingScreen";
+import { ToastContainer, toast } from "react-toastify";
 
 export interface courseType {
   id: string;
@@ -22,6 +24,7 @@ const CoursePage = () => {
   const [query, setQuery] = useState("");
   const [availableCourses, setAvailableCourses] = useState<courseType[]>([]);
   const [popularCourses, setPopularCourses] = useState<courseType[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const [courseUrl, setCourseUrl] = useState<string>(
     "https://backend-mu-plum.vercel.app/course"
@@ -36,35 +39,56 @@ const CoursePage = () => {
 
   const authToken = localStorage.getItem("authToken");
   const fetchCourses = async (url: string) => {
-    const response = await fetch(url, {
-      headers: {
-        Authorization: `Bearer ${authToken}`,
-      },
-    });
-
-    if (response.ok) {
-      const courses = await response.json();
-      setAvailableCourses(courses);
-    }
-  };
-  const fetchPopularCourses = async () => {
-    const response = await fetch(
-      "https://backend-mu-plum.vercel.app/course/popular",
-      {
+    try {
+      const response = await fetch(url, {
         headers: {
           Authorization: `Bearer ${authToken}`,
         },
+      });
+
+      if (response && response.ok) {
+        const courses = await response.json();
+        setAvailableCourses(courses);
       }
-    );
-    if (response && response.ok) {
-      const courses = await response.json();
-      setPopularCourses(courses);
+    } catch (error) {
+      toast.error("An error occurred" + error, {
+        autoClose: 2500,
+        closeButton: false,
+      });
+    }
+  };
+  const fetchPopularCourses = async () => {
+    try {
+      const response = await fetch(
+        "https://backend-mu-plum.vercel.app/course/popular",
+        {
+          headers: {
+            Authorization: `Bearer ${authToken}`,
+          },
+        }
+      );
+      if (response && response.ok) {
+        const courses = await response.json();
+        setPopularCourses(courses);
+      }
+    } catch (error) {
+      toast.error("An error occurred" + error, {
+        autoClose: 2500,
+        closeButton: false,
+      });
     }
   };
 
+  const fetchData = async (courseUrl: string) => {
+    setIsLoading(true);
+
+    await Promise.all([fetchCourses(courseUrl), fetchPopularCourses()]);
+
+    setIsLoading(false);
+  };
+
   useEffect(() => {
-    fetchCourses(courseUrl);
-    fetchPopularCourses();
+    fetchData(courseUrl);
   }, []);
 
   const search = (data: courseType[]) => {
@@ -84,7 +108,9 @@ const CoursePage = () => {
     return filteredList;
   };
 
-  return (
+  return isLoading ? (
+    <LoadingScreen />
+  ) : (
     <>
       <Navbar
         getQuery={getQuery}
@@ -108,6 +134,7 @@ const CoursePage = () => {
         courses={search(availableCourses)}
         contentId="availContent"
       />
+      <ToastContainer />
     </>
   );
 };

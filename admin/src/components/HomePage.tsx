@@ -2,43 +2,73 @@ import { useEffect, useState } from "react";
 import { userType } from "./user/user";
 import HomeCard from "./utilities/HomeCard";
 import Navbar from "./utilities/Navbar";
+import LoadingScreen from "./utilities/LoadingScreen";
+import { ToastContainer, toast } from "react-toastify";
+import "../css/home/Home.css";
 
 const HomePage = () => {
   const [allUsers, setAllUsers] = useState<userType[]>();
   const [allCourse, setAllCourse] = useState([]);
   const authToken = localStorage.getItem("authToken");
-  const fetchUsers = async () => {
-    const response = await fetch(
-      "https://backend-mu-plum.vercel.app/user/all",
-      {
-        headers: {
-          Authorization: `Bearer ${authToken}`,
-        },
-      }
-    );
+  const [isLoading, setIsLoading] = useState(true);
 
-    if (response.ok) {
-      const fetchUsers = await response.json();
-      setAllUsers(fetchUsers);
+  const fetchUsers = async () => {
+    try {
+      const response = await fetch(
+        "https://backend-mu-plum.vercel.app/user/all",
+        {
+          headers: {
+            Authorization: `Bearer ${authToken}`,
+          },
+        }
+      );
+
+      if (response && response.ok) {
+        const fetchUsers = await response.json();
+        setAllUsers(fetchUsers);
+      }
+    } catch (error) {
+      toast.error("An error occurred" + error, {
+        autoClose: 2500,
+        closeButton: false,
+      });
     }
   };
   const fetchCourse = async () => {
-    const response = await fetch("https://backend-mu-plum.vercel.app/course/", {
-      headers: {
-        Authorization: `Bearer ${authToken}`,
-      },
-    });
+    try {
+      const response = await fetch(
+        "https://backend-mu-plum.vercel.app/course/",
+        {
+          headers: {
+            Authorization: `Bearer ${authToken}`,
+          },
+        }
+      );
 
-    if (response.ok) {
-      const fetchCourse = await response.json();
-      setAllCourse(fetchCourse);
+      if (response && response.ok) {
+        const fetchCourse = await response.json();
+        setAllCourse(fetchCourse);
+      }
+    } catch (error) {
+      toast.error("An error occurred" + error, {
+        autoClose: 2500,
+        closeButton: false,
+      });
     }
   };
+  const fetchData = async () => {
+    setIsLoading(true);
+
+    await Promise.all([fetchUsers(), fetchCourse()]);
+
+    setIsLoading(false);
+  };
   useEffect(() => {
-    fetchUsers();
-    fetchCourse();
+    fetchData();
   }, []);
-  return (
+  return isLoading ? (
+    <LoadingScreen />
+  ) : (
     <>
       <Navbar
         isCourse={true}
@@ -47,11 +77,9 @@ const HomePage = () => {
         isUser={true}
         isTag={false}
       ></Navbar>
-      <div className="justify-center mt-16">
-        <p className="text-gray-800 whitespace-normal text-3xl font-bold text-center">
-          Welcome, Admin!
-        </p>
-        <div className="flex flex-row gap-44 justify-center mt-16">
+      <div className="HomeContainer">
+        <p className="HomeHeader">Welcome, Admin!</p>
+        <div className="HomeBody">
           <HomeCard
             dataTestId="userCard"
             count={allUsers?.length}
@@ -63,10 +91,11 @@ const HomePage = () => {
             dataTestId="courseCard"
             count={allCourse?.length}
             header="Total Courses"
-            link="/courses"
+            link="/"
             linkText="See All Course"
           ></HomeCard>
         </div>
+        <ToastContainer />
       </div>
     </>
   );

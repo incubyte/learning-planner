@@ -1,5 +1,4 @@
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "tippy.js/dist/tippy.css";
@@ -10,33 +9,37 @@ import EmailIcon from "./utilities/icons/Email";
 const ForgotPassword = () => {
   const {
     register,
-    getValues,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
-  const navigator = useNavigate();
-
   const handleFormSubmit = async (data: any) => {
-    const response = await fetch(
-      "https://backend-mu-plum.vercel.app/auth/forgotPassword",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email: data.email }),
-      }
-    );
+    try {
+      const response = await fetch(
+        "https://backend-mu-plum.vercel.app/auth/forgotPassword",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email: data.email }),
+        }
+      );
 
-    if (response.ok) {
-      toast.success("email sent", {
-        autoClose: 2500,
-        closeButton: false,
-      });
-    } else {
-      const jsonResponse = await response.json();
-      toast.error(jsonResponse.message, {
+      if (response.ok) {
+        toast.success("email sent", {
+          autoClose: 2500,
+          closeButton: false,
+        });
+      } else {
+        const jsonResponse = await response.json();
+        toast.error(jsonResponse.message, {
+          autoClose: 2500,
+          closeButton: false,
+        });
+      }
+    } catch (error) {
+      toast.error("An error occurred" + error, {
         autoClose: 2500,
         closeButton: false,
       });

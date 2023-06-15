@@ -25,7 +25,7 @@ const SignInForm = (props: signInFormProps) => {
       },
       pattern: {
         value: /^\S+@\incubyte.co$/i,
-        message: "email must be an incubyte email",
+        message: "email must be with incubyte domain",
       },
     }),
   };
@@ -82,7 +82,7 @@ const SignInForm = (props: signInFormProps) => {
           data-testid="signinForgotPasswordLink"
           className="ForgotPass"
         >
-          FORGOT PASSWORD?
+          Forgot Password?
         </a>
         <button data-testid="signinButton" className="SignInSubmit">
           Sign In

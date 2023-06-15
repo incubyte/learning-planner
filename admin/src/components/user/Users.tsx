@@ -2,30 +2,49 @@ import { useEffect, useState } from "react";
 import Navbar from "../utilities/Navbar";
 import { userType } from "./user";
 import "../../css/user/allUser.css";
+import LoadingScreen from "../utilities/LoadingScreen";
+import { ToastContainer, toast } from "react-toastify";
 
 const Users = () => {
   const [allUsers, setAllUsers] = useState<userType[]>();
   const authToken = localStorage.getItem("authToken");
-  const fetchUsers = async () => {
-    const response = await fetch(
-      "https://backend-mu-plum.vercel.app/user/all",
-      {
-        headers: {
-          Authorization: `Bearer ${authToken}`,
-        },
-      }
-    );
+  const [isLoading, setIsLoading] = useState(true);
 
-    if (response.ok) {
-      const fetchUsers = await response.json();
-      setAllUsers(fetchUsers);
+  const fetchUsers = async () => {
+    try {
+      const response = await fetch(
+        "https://backend-mu-plum.vercel.app/user/all",
+        {
+          headers: {
+            Authorization: `Bearer ${authToken}`,
+          },
+        }
+      );
+
+      if (response.ok) {
+        const fetchUsers = await response.json();
+        setAllUsers(fetchUsers);
+      }
+    } catch (error) {
+      toast.error("An error occurred" + error, {
+        autoClose: 2500,
+        closeButton: false,
+      });
     }
   };
+  const fetchData = async () => {
+    setIsLoading(true);
 
+    await Promise.all([fetchUsers()]);
+
+    setIsLoading(false);
+  };
   useEffect(() => {
-    fetchUsers();
+    fetchData();
   }, []);
-  return (
+  return isLoading ? (
+    <LoadingScreen />
+  ) : (
     <>
       <Navbar
         isCourse={true}
@@ -39,7 +58,7 @@ const Users = () => {
           <thead className="UsersTableHead">
             <tr>
               <th scope="col" className="UsersTableHeadCols">
-                EId
+                EmpId
               </th>
               <th scope="col" className="UsersTableHeadCols">
                 Email
@@ -68,10 +87,7 @@ const Users = () => {
                   <td className="UsersTableRows">{user.role}</td>
                   <td className="UsersTableRows">{user.roles}</td>
                   <td className="UsersTableUpdateCol">
-                    <a
-                      href={"user/" + user.id}
-                      className="font-medium hover:underline"
-                    >
+                    <a href={"user/" + user.id} className="font-medium">
                       <img
                         className="h-8 w-8"
                         src="https://res.cloudinary.com/dxepcudkt/image/upload/v1685424291/edit-svgrepo-com_hkhijf.svg"
@@ -83,6 +99,7 @@ const Users = () => {
             })}
           </tbody>
         </table>
+        <ToastContainer />
       </div>
     </>
   );

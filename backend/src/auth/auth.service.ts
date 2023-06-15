@@ -66,7 +66,7 @@ export class AuthService {
       where: { email: user.email, roles: Role.Admin },
     });
     if (!this.checkUserExist(prismaUser)) {
-      throw new BadRequestException('Admin not found');
+      throw new BadRequestException('Not an Admin');
     }
     if (!compareSync(user.password, prismaUser.password)) {
       throw new BadRequestException('Invalid password');
@@ -92,7 +92,7 @@ export class AuthService {
         to: useremail,
         from: 'a.learningplanner@gmail.com',
         subject: 'Reset Password LearningPlanner@Incubyte',
-        html: `<p>click <a href="http://localhost:4000/auth/reset_password/${token}"> here </a> to reset your password</p>`,
+        html: `<p>click <a href="https://admin-incubyte-learningplanner.netlify.app/auth/reset_password/${token}"> here </a> to reset your password</p>`,
       });
 
       await this.prismaService.forgotPassword.create({
@@ -140,7 +140,7 @@ export class AuthService {
         to: useremail,
         from: 'a.learningplanner@gmail.com',
         subject: 'Reset Password LearningPlanner@Incubyte',
-        html: `<p>click <a href="http://localhost:3000/auth/reset_password/${token}">here </a>to reset your password</p>`,
+        html: `<p>click <a href="https://incubyte-learningplanner.netlify.app/auth/reset_password/${token}">here </a>to reset your password</p>`,
       });
 
       await this.prismaService.forgotPassword.create({
