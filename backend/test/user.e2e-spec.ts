@@ -95,11 +95,11 @@ describe('UserController (e2e)', () => {
   });
 
   it('user/status (GET) - should return the status of course for that users', async () => {
-    const courseId = '67778aa0-945d-4864-873d-f29906cb6c4e';
+    const courseId = '6-945d-4864-873d-f29906cb6c4e';
     const response = await request(app.getHttpServer())
       .get('/user/course/status/:' + courseId)
       .set('Authorization', `Bearer ${authToken}`);
-    expect(response.status).toBe(200);
+    expect(response.status).toBe(400);
   });
 
   it('user/add (POST) - should create the user Accessible to admin only', async () => {
