@@ -15,8 +15,8 @@ describe('CourseController (e2e)', () => {
     app = moduleFixture.createNestApplication();
     await app.init();
     const user = {
-      email: 'john' + Math.random() * 1000 + '@incubyte.co',
-      password: '123',
+      email: 'utsav.p@incubyte.co',
+      password: 'Incubyte@111',
       eId: 'E00' + Math.random() * 1000,
       role: 'SC',
       clientTeam: 'Learning Planner',
@@ -41,5 +41,33 @@ describe('CourseController (e2e)', () => {
       .get('/tag/1')
       .set('Authorization', `Bearer ${authToken}`);
     expect(response.status).toBe(200);
+  });
+
+  const tag = {
+    name: 'Tag' + Math.random() * 100,
+  };
+
+  it('tag/create (POST) - should create the tag', async () => {
+    const response = await request(app.getHttpServer())
+      .post('/tag/create')
+      .send(tag)
+      .set('Authorization', `Bearer ${authToken}`);
+    expect(response.status).toBe(201);
+  });
+
+  it('tag/updateTag/:id (PATCH) - should update the tag which is Accessible to admin only', async () => {
+    const response = await request(app.getHttpServer())
+      .patch('/tag/update/100')
+      .set('Authorization', `Bearer ${authToken}`);
+    expect(response.status).toBe(400);
+    expect(response.body.message).toEqual('Tag does not exists');
+  });
+
+  it('tag/delete/:id (DELETE) - should delete the tag which is Accessible to admin only', async () => {
+    const response = await request(app.getHttpServer())
+      .delete('/tag/delete/100')
+      .set('Authorization', `Bearer ${authToken}`);
+    expect(response.status).toBe(400);
+    expect(response.body.message).toEqual('Tag does not exists');
   });
 });

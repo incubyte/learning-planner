@@ -1,15 +1,19 @@
+import { Role } from '@/auth/role.enum';
 import { UserDto } from '@Auth/dto/user.dto';
 import { PrismaService } from '@Prisma/prisma.service';
 import { UpdateUserDto } from '@User/dto/updateUser.dto';
 import { UserService } from '@User/user.service';
-import { Test, TestingModule } from '@nestjs/testing';
-import { ProfileCourseDto } from './dto/profileCourse.dto';
+import { MailerService } from '@nestjs-modules/mailer';
 import { BadRequestException, NotFoundException } from '@nestjs/common';
-import { UserCourse } from '@prisma/client';
+import { Test, TestingModule } from '@nestjs/testing';
+import { Course, User, UserCourse } from '@prisma/client';
+import { AddUserDto } from './dto/addUser.dto';
+import { ProfileCourseDto } from './dto/profileCourse.dto';
 
 describe('UserService', () => {
   let service: UserService;
   let prismaService: PrismaService;
+  let mailService: MailerService;
   beforeAll(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
@@ -22,6 +26,8 @@ describe('UserService', () => {
                 findFirst: jest.fn(),
                 update: jest.fn(),
                 findMany: jest.fn(),
+                createMany: jest.fn(),
+                delete: jest.fn(),
               },
               userCourse: {
                 findMany: jest.fn(),
@@ -37,11 +43,18 @@ describe('UserService', () => {
             };
           },
         },
+        {
+          provide: MailerService,
+          useValue: {
+            sendMail: jest.fn(),
+          },
+        },
       ],
     }).compile();
 
     service = module.get<UserService>(UserService);
     prismaService = module.get<PrismaService>(PrismaService);
+    mailService = module.get<MailerService>(MailerService);
   });
 
   afterEach(() => {
@@ -68,6 +81,7 @@ describe('UserService', () => {
         eId: 'E0001',
         role: 'BQA',
         clientTeam: 'abc',
+        roles: Role.Employee,
       };
 
       jest
@@ -258,6 +272,9 @@ describe('UserService', () => {
         role: 'BQAE',
         clientTeam: 'abcd',
         profilePhoto: 'https://profilephoto.com',
+        eId: 'E0010',
+        email: 'john@incubyte.co',
+        roles: Role.Employee,
       };
 
       const mockUpdatedUser = {
@@ -270,6 +287,7 @@ describe('UserService', () => {
         eId: 'E0001',
         role: 'BQAE',
         clientTeam: 'abcd',
+        roles: Role.Employee,
       };
       jest
         .spyOn(prismaService.user, 'update')
@@ -293,6 +311,7 @@ describe('UserService', () => {
             profilePhoto: 'https://profilephoto.com',
             createdAt: Date.prototype,
             updatedAt: Date.prototype,
+            roles: Role.Employee,
           },
           CompletedCourseCount: 4,
         },
@@ -309,6 +328,7 @@ describe('UserService', () => {
               'https://res.cloudinary.com/dxepcudkt/image/upload/v1682573373/cojqoxpcgax1tkq0zi6a.jpg',
             createdAt: Date.prototype,
             updatedAt: Date.prototype,
+            roles: Role.Employee,
           },
           CompletedCourseCount: 2,
         },
@@ -326,6 +346,7 @@ describe('UserService', () => {
           'https://res.cloudinary.com/dxepcudkt/image/upload/v1682573373/cojqoxpcgax1tkq0zi6a.jpg',
         createdAt: Date.prototype,
         updatedAt: Date.prototype,
+        roles: Role.Employee,
       };
 
       const mockUser2 = {
@@ -339,6 +360,7 @@ describe('UserService', () => {
         profilePhoto: 'https://profilephoto.com',
         createdAt: Date.prototype,
         updatedAt: Date.prototype,
+        roles: Role.Employee,
       };
       const mockUsers = [mockUser2, mockUser1];
       const mockUserCourse1 = {
@@ -372,6 +394,24 @@ describe('UserService', () => {
 
     it('should enroll the course for user', async () => {
       const mockUserCourse: UserCourse = null;
+      const mockCourse: Course = {
+        name: 'Day 1 clean code kata',
+        resourseUrls: [
+          'https://web.microsoftstream.com/video/21407c23-bd35-471f-ba4a-548ae215539d',
+        ],
+        testUrls: [''],
+        imageUrl:
+          'https://in.images.search.yahoo.com/images/view;_ylt=Awr1SSiRTy1kb4cLLsq9HAx.;_ylu=c2VjA3NyBHNsawNpbWcEb2lkAzQyZTY0MDk5ZDU4ZTA0NjIxZGIyOTFiMzFhNjU3YmIxBGdwb3MDMjAEaXQDYmluZw--?back=https%3A%2F%2Fin.images.search.yahoo.com%2Fsearch%2Fimages%3Fp%3Dclean%2Bcode%26type%3DE211IN826G0%26fr%3Dmcafee%26fr2%3Dpiv-web%26tab%3Dorganic%26ri%3D20&w=1280&h=720&imgurl=i.ytimg.com%2Fvi%2F4LUNr4AeLZM%2Fmaxresdefault.jpg&rurl=http%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3D4LUNr4AeLZM&size=138.8KB&p=clean+code&oid=42e64099d58e04621db291b31a657bb1&fr2=piv-web&fr=mcafee&tt=Clean+Code%21+-+YouTube&b=0&ni=21&no=20&ts=&tab=organic&sigr=BwBZBBbiDgZS&sigb=N4X2keUrYF9q&sigi=E7Tff6GG25xa&sigt=NZfjbeVtrurr&.crumb=AVdd1qPlDGC&fr=mcafee&fr2=piv-web&type=E211IN826G0',
+        credit: 10,
+        tags: [1],
+        description: 'description',
+        id: '',
+        createdAt: undefined,
+        updatedAt: undefined,
+      };
+      jest
+        .spyOn(prismaService.course, 'findFirst')
+        .mockResolvedValueOnce(mockCourse);
       jest
         .spyOn(prismaService.userCourse, 'findFirst')
         .mockResolvedValueOnce(mockUserCourse);
@@ -415,7 +455,7 @@ describe('UserService', () => {
         .mockResolvedValueOnce(mockUserCourse);
       jest.spyOn(service, 'isUserEnrolledInCourse').mockReturnValue(true);
       await expect(service.enrollCourse('1', 'course1')).rejects.toThrow(
-        BadRequestException,
+        NotFoundException,
       );
       expect(prismaService.userCourse.create).not.toHaveBeenCalled();
     });
@@ -562,6 +602,112 @@ describe('UserService', () => {
         },
       });
       expect(result).toEqual(2);
+    });
+    it('should create user', async () => {
+      const user: AddUserDto[] = [
+        {
+          eId: 'E0001',
+          role: 'SC',
+          email: 'john@incubyte.co',
+          clientTeam: 'SH',
+          roles: Role.Employee,
+        },
+      ];
+
+      const mockResponse = {
+        count: 1,
+      };
+      jest
+        .spyOn(prismaService.user, 'createMany')
+        .mockResolvedValueOnce(mockResponse);
+      jest.spyOn(mailService, 'sendMail').mockResolvedValueOnce('');
+      const result = await service.addUser(user);
+      expect(prismaService.user.createMany).toBeCalledTimes(1);
+
+      expect(result).toEqual(1);
+    });
+    it('should update user', async () => {
+      const updateProfileBody: UpdateUserDto = {
+        role: 'BQAE',
+        clientTeam: 'abcd',
+        profilePhoto: 'https://profilephoto.com',
+        eId: 'E0010',
+        email: 'john@incubyte.co',
+        roles: Role.Employee,
+      };
+
+      const mockUpdatedUser: User = {
+        email: userDTO.email,
+        password: userDTO.password,
+        id: '1',
+        createdAt: Date.prototype,
+        profilePhoto: 'https://profilephoto.com',
+        updatedAt: Date.prototype,
+        eId: 'E0001',
+        role: 'BQAE',
+        clientTeam: 'abcd',
+        roles: Role.Employee,
+      };
+      jest
+        .spyOn(prismaService.user, 'findFirst')
+        .mockResolvedValueOnce(mockUpdatedUser);
+
+      jest
+        .spyOn(prismaService.user, 'update')
+        .mockResolvedValueOnce(mockUpdatedUser);
+      const result = await service.updateUser(updateProfileBody, '1');
+      expect(prismaService.user.update).toBeCalledTimes(1);
+
+      expect(result).toEqual(mockUpdatedUser);
+    });
+    it('should delete user', async () => {
+      const mockResponse: User = {
+        email: userDTO.email,
+        password: userDTO.password,
+        id: '1',
+        createdAt: Date.prototype,
+        profilePhoto: 'https://profilephoto.com',
+        updatedAt: Date.prototype,
+        eId: 'E0001',
+        role: 'BQAE',
+        clientTeam: 'abcd',
+        roles: Role.Employee,
+      };
+      jest
+        .spyOn(prismaService.user, 'findFirst')
+        .mockResolvedValueOnce(mockResponse);
+
+      jest
+        .spyOn(prismaService.user, 'delete')
+        .mockResolvedValueOnce(mockResponse);
+      const result = await service.deleteUser('1');
+      expect(prismaService.user.delete).toBeCalledTimes(1);
+
+      expect(result).toEqual(mockResponse);
+    });
+
+    it('should return all user', async () => {
+      const mockResponse: User[] = [
+        {
+          email: userDTO.email,
+          password: userDTO.password,
+          id: '1',
+          createdAt: Date.prototype,
+          profilePhoto: 'https://profilephoto.com',
+          updatedAt: Date.prototype,
+          eId: 'E0001',
+          role: 'BQA',
+          clientTeam: 'abc',
+          roles: Role.Employee,
+        },
+      ];
+
+      jest
+        .spyOn(prismaService.user, 'findMany')
+        .mockResolvedValue(mockResponse);
+      const result = await service.getAll();
+      expect(prismaService.user.findMany).toBeCalledTimes(1);
+      expect(result).toMatchObject(mockResponse);
     });
   });
 });

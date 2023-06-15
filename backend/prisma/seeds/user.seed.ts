@@ -75,6 +75,25 @@ export async function insertUser(prisma: PrismaClient) {
         role: 'SC',
         clientTeam: 'Employee Feedback',
       },
+      {
+        email: 'shilpi@incubyte.co',
+        password:
+          '$2b$10$haH0h/Y7vvHGe4z0z2zJK.4gQvWHrYSTqGMGVdkquPENXfUpWSG7K',
+        profilePhoto: 'https://profilephoto.com',
+        eId: 'E0001',
+        role: 'PST',
+        roles: 'Admin',
+      },
+      {
+        email: 'utsav.p@incubyte.co',
+        password:
+          '$2b$10$haH0h/Y7vvHGe4z0z2zJK.4gQvWHrYSTqGMGVdkquPENXfUpWSG7K',
+        profilePhoto: 'https://profilephoto.com',
+        eId: 'E0002',
+        role: 'SC',
+        clientTeam: 'SH',
+        roles: 'Admin',
+      },
     ],
   });
 }

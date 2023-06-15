@@ -24,6 +24,7 @@
     "prisma:seedUserCourse": "ts-node prisma/seeds/seedUserCourse.ts"
   },
   "dependencies": {
+    "@nestjs-modules/mailer": "^1.8.1",
     "@nestjs/common": "^9.0.0",
     "@nestjs/config": "^2.3.1",
     "@nestjs/core": "^9.0.0",
@@ -36,6 +37,7 @@
     "class-validator": "^0.14.0",
     "dotenv": "^16.0.3",
     "jest-mock-extended": "^3.0.4",
+    "nodemailer": "^6.9.2",
     "passport": "^0.6.0",
     "passport-jwt": "^4.0.1",
     "passport-local": "^1.0.0",

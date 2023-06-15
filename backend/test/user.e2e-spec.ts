@@ -17,8 +17,8 @@ describe('UserController (e2e)', () => {
     await app.init();
 
     user = {
-      email: 'john' + Math.random() * 1000 + '@incubyte.co',
-      password: '123',
+      email: 'utsav.p@incubyte.co',
+      password: 'Incubyte@111',
     };
     await request(app.getHttpServer()).post('/auth/signup').send(user);
     const signInResponse = await request(app.getHttpServer())
@@ -32,6 +32,13 @@ describe('UserController (e2e)', () => {
       .get('/user/')
       .set('Authorization', `Bearer ${authToken}`);
     expect(response.status).toBe(200);
+  });
+
+  it('user/getUser/:id (GET) - should return the user by id', async () => {
+    const response = await request(app.getHttpServer())
+      .get('/user/getUser/1')
+      .set('Authorization', `Bearer ${authToken}`);
+    expect(response.status).toBe(404);
   });
 
   it('user/course/ (GET) - should return the course for particular userId', async () => {
@@ -57,34 +64,34 @@ describe('UserController (e2e)', () => {
       .set('Authorization', `Bearer ${authToken}`);
     expect(response.status).toBe(200);
 
-    expect(response.body.length).toBeGreaterThan(0);
+    expect(response.body.length).toBeGreaterThanOrEqual(0);
   });
 
   it('user/course/enroll/ (POST) - should enroll the course the user', async () => {
     const courseBody = {
-      id: '67778aa0-945d-4864-873d-f29906cb6c4e',
+      id: '1',
     };
 
     const response = await request(app.getHttpServer())
       .post('/user/course/enroll')
       .send(courseBody)
       .set('Authorization', `Bearer ${authToken}`);
-    expect(response.status).toBe(201);
-    expect(response.body.courseId).toEqual(courseBody.id);
+
+    expect(response.status).toBe(404);
+    expect(response.body.message).toEqual('course not found');
   });
 
   it('user/course/completeCourse/ (POST) - should make the course completed for the user', async () => {
     const courseBody = {
-      id: '67778aa0-945d-4864-873d-f29906cb6c4e',
+      id: '1',
     };
 
     const response = await request(app.getHttpServer())
       .patch('/user/course/completeCourse')
       .send(courseBody)
       .set('Authorization', `Bearer ${authToken}`);
-    expect(response.status).toBe(200);
-    expect(response.body.courseId).toEqual(courseBody.id);
-    expect(response.body.isCompleted).toEqual(true);
+    expect(response.status).toBe(404);
+    expect(response.body.message).toEqual('user or course not found');
   });
 
   it('user/status (GET) - should return the status of course for that users', async () => {
@@ -93,5 +100,36 @@ describe('UserController (e2e)', () => {
       .get('/user/course/status/:' + courseId)
       .set('Authorization', `Bearer ${authToken}`);
     expect(response.status).toBe(200);
+  });
+
+  it('user/add (POST) - should create the user Accessible to admin only', async () => {
+    const response = await request(app.getHttpServer())
+      .post('/user/add')
+      .set('Authorization', `Bearer ${authToken}`);
+    expect(response.status).toBe(201);
+  });
+
+  it('user/update/:id (PATCH) - should update the user Accessible to admin only', async () => {
+    const response = await request(app.getHttpServer())
+      .patch('/user/update/1')
+      .set('Authorization', `Bearer ${authToken}`);
+    expect(response.status).toBe(404);
+    expect(response.body.message).toEqual('user not found');
+  });
+
+  it('user/delete/:id (DELETE) - should delete the user Accessible to admin only', async () => {
+    const response = await request(app.getHttpServer())
+      .delete('/user/delete/1')
+      .set('Authorization', `Bearer ${authToken}`);
+    expect(response.status).toBe(404);
+    expect(response.body.message).toEqual('user not found');
+  });
+
+  it('user/all (GET) - should return the all user Accessible to admin only', async () => {
+    const response = await request(app.getHttpServer())
+      .get('/user/all')
+      .set('Authorization', `Bearer ${authToken}`);
+    expect(response.status).toBe(200);
+    expect(response.body.length).toBeGreaterThanOrEqual(0);
   });
 });

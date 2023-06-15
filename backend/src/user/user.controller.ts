@@ -1,3 +1,6 @@
+import { Role } from '@/auth/role.enum';
+import { RolesGuard } from '@/auth/role.guard';
+import { Roles } from '@/decorator/role.decorator';
 import { UserDecorator } from '@/decorator/user.decorator';
 import { JwtAuthGuard } from '@Auth/jwt-auth-guard/jwt-auth.guard';
 import { jwtPayload } from '@Auth/jwtpayload/jwt.payload';
@@ -6,6 +9,7 @@ import { UserService } from '@User/user.service';
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   Patch,
@@ -14,11 +18,12 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { User, UserCourse } from '@prisma/client';
+import { AddUserBodyDto } from './dto/addUserBody.dto';
+import { courseIdBodyDto } from './dto/courseIdBody.dto';
 import { LeaderboardDto } from './dto/leaderboard.dto';
 import { ProfileCourseDto } from './dto/profileCourse.dto';
-import { courseIdBodyDto } from './dto/courseIdBody.dto';
 
-@UseGuards(JwtAuthGuard)
+@UseGuards(JwtAuthGuard, RolesGuard)
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
@@ -26,6 +31,12 @@ export class UserController {
   @Get('/')
   async getUserById(@UserDecorator() user: jwtPayload): Promise<User> {
     return await this.userService.getUserById(user.id);
+  }
+
+  @Roles(Role.Admin)
+  @Get('/getUser/:id')
+  async getUserByUserId(@Param('id') id: string): Promise<User> {
+    return await this.userService.getUserById(id);
   }
 
   @Get('/course')
@@ -71,5 +82,32 @@ export class UserController {
     @Param('courseId') courseId: string,
   ): Promise<number> {
     return await this.userService.getStatusOfCourse(user.id, courseId);
+  }
+
+  @Roles(Role.Admin)
+  @Post('/add')
+  async addUser(@Body() users: AddUserBodyDto): Promise<number> {
+    return await this.userService.addUser(users.users);
+  }
+
+  @Roles(Role.Admin)
+  @Patch('/update/:id')
+  async updateUser(
+    @Body() user: UpdateUserDto,
+    @Param('id') id: string,
+  ): Promise<User> {
+    return await this.userService.updateUser(user, id);
+  }
+
+  @Roles(Role.Admin)
+  @Delete('/delete/:id')
+  async deleteUser(@Param('id') id: string): Promise<User> {
+    return await this.userService.deleteUser(id);
+  }
+
+  @Roles(Role.Admin)
+  @Get('/all')
+  async getAll(): Promise<User[]> {
+    return await this.userService.getAll();
   }
 }

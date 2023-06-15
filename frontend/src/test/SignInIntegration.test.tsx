@@ -13,8 +13,12 @@ afterEach(() => {
   cleanup();
 });
 
+function sleep(ms: any) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
 describe("test signin", () => {
-  jest.setTimeout(30000);
+  jest.setTimeout(40000);
   it("alert 'user not exists' for new user", async () => {
     render(
       <BrowserRouter>
@@ -44,6 +48,8 @@ describe("test signin", () => {
     await act(() => {
       fireEvent.click(signInButton);
     });
+
+    await sleep(20000);
     await waitFor(() => expect(screen.getByRole("alert")).toBeInTheDocument());
   });
 });

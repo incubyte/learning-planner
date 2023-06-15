@@ -3,6 +3,7 @@ import { AuthService } from '@Auth/auth.service';
 import { UserDto } from '@Auth/dto/user.dto';
 import { Test, TestingModule } from '@nestjs/testing';
 import { mock } from 'jest-mock-extended';
+import { Role } from './role.enum';
 describe('AuthController', () => {
   let controller: AuthController;
   let service: AuthService;
@@ -20,6 +21,10 @@ describe('AuthController', () => {
 
     controller = module.get<AuthController>(AuthController);
     service = module.get<AuthService>(AuthService);
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
   });
 
   it('should be defined', () => {
@@ -41,6 +46,7 @@ describe('AuthController', () => {
       eId: 'E0001',
       role: 'BQA',
       clientTeam: 'abc',
+      roles: Role.Employee,
     });
     const result = await controller.signup(user);
     expect(service.signup).toBeCalledTimes(1);
@@ -68,6 +74,23 @@ describe('AuthController', () => {
       );
     const result = await controller.signin(user);
     expect(service.signin).toBeCalledTimes(1);
+    expect(result).toBe(
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjgzYjdlNjQ5LTFlMzctNDNiZS04MjI5LTAyYWIwNmM5YmE5YSIsImVtYWlsIjoiam9obkBpbmN1Ynl0ZS5jbyJ9.6P194HePv2AaSgB1jvyb_lM5EOKyMMu0cWkx_p0O2cc',
+    );
+  });
+
+  it('should be able to return the token for logged in admin', async () => {
+    const user: UserDto = {
+      email: 'john@incubyte.co',
+      password: '123',
+    };
+    jest
+      .spyOn(service, 'signinAdmin')
+      .mockResolvedValueOnce(
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjgzYjdlNjQ5LTFlMzctNDNiZS04MjI5LTAyYWIwNmM5YmE5YSIsImVtYWlsIjoiam9obkBpbmN1Ynl0ZS5jbyJ9.6P194HePv2AaSgB1jvyb_lM5EOKyMMu0cWkx_p0O2cc',
+      );
+    const result = await controller.signinAdmin(user);
+    expect(service.signinAdmin).toBeCalledTimes(1);
     expect(result).toBe(
       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjgzYjdlNjQ5LTFlMzctNDNiZS04MjI5LTAyYWIwNmM5YmE5YSIsImVtYWlsIjoiam9obkBpbmN1Ynl0ZS5jbyJ9.6P194HePv2AaSgB1jvyb_lM5EOKyMMu0cWkx_p0O2cc',
     );

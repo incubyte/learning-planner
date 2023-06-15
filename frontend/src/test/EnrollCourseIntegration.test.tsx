@@ -41,12 +41,12 @@ describe("test course detail", () => {
 
     await act(() => {
       fireEvent.change(signInEmail, {
-        target: { value: "aman.r@incubyte.co" },
+        target: { value: "shreyas@incubyte.co" },
       });
     });
 
     await act(() => {
-      fireEvent.change(signInPassword, { target: { value: "Aman@111" } });
+      fireEvent.change(signInPassword, { target: { value: "Shreyas@111" } });
     });
 
     await act(() => {
