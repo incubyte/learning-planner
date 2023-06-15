@@ -21,7 +21,6 @@ const AddUser = (props: addUserProps) => {
       }
     );
 
-    console.log(response);
     if (response.ok) {
       toast.success("users added", {
         autoClose: 2500,

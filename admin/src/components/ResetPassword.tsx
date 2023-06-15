@@ -19,7 +19,6 @@ const ResetPassword = () => {
   const navigator = useNavigate();
 
   const handleFormSubmit = async (data: any) => {
-    console.log(data);
     const response = await fetch(
       "https://backend-mu-plum.vercel.app/auth/resetPassword/" +
         urlParams.token,
