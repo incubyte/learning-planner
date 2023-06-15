@@ -9,7 +9,6 @@ const UpdateCourse = () => {
   const navigator = useNavigate();
   const [showModal, setShowModal] = useState(false);
   const [avatar, setAvatar] = useState("");
-  const blob = new Blob([avatar]);
   const [createCourse, setCreateCourse] = useState();
   const [courseName, setCourseName] = useState("");
   const [description, setDescription] = useState("");
@@ -28,7 +27,7 @@ const UpdateCourse = () => {
     setAvatar(file);
   };
 
-  useEffect(() => {
+  const setData = () => {
     setResourseUrls(courseData.resourseUrls);
     setTestUrls(courseData.testUrls);
     setCourseName(courseData.name);
@@ -36,6 +35,10 @@ const UpdateCourse = () => {
     setCredit(courseData.credit);
     setTags(courseData.tags);
     setImageUrl(courseData.imageUrl);
+  };
+
+  useEffect(() => {
+    setData();
   }, [courseData]);
 
   const handleImageUrl = async () => {

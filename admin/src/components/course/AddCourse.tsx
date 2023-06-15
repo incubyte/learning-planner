@@ -11,7 +11,6 @@ const AddCourse = () => {
   const [showModal, setShowModal] = useState(false);
   const [showAddTagModel, setShowAddTagModal] = useState(false);
   const [avatar, setAvatar] = useState("");
-  const blob = new Blob([avatar]);
   const [createCourse, setCreateCourse] = useState();
   const [courseName, setCourseName] = useState("");
   const [description, setDescription] = useState("");
