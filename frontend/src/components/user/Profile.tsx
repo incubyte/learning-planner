@@ -6,13 +6,11 @@ import Carousel from "../utilities/Carousel";
 import Navbar from "../utilities/Navbar";
 import { imageUpload } from "./ImageUpload";
 import { userType } from "./user";
-import LoadingScreen from "../utilities/LoadingScreen";
 
 const Profile = () => {
   const [activeCourse, setActiveCourse] = useState<courseType[]>([]);
   const [completedCourseCount, setCompletedCourseCount] = useState<number>(0);
   const [user, setUser] = useState<userType>();
-  const [isLoading, setIsLoading] = useState(true);
 
   const navigator = useNavigate();
 
@@ -83,19 +81,10 @@ const Profile = () => {
 
   const authToken = localStorage.getItem("authToken");
   useEffect(() => {
-    const fetchData = async () => {
-      setIsLoading(true);
-
-      await Promise.all([fetchUser(), fetchCourse()]);
-
-      setIsLoading(false);
-    };
-
-    fetchData();
+    fetchUser();
+    fetchCourse();
   }, []);
-  return isLoading ? (
-    <LoadingScreen />
-  ) : (
+  return (
     <>
       {showModal ? (
         <>

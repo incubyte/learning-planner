@@ -2,12 +2,10 @@ import { useEffect, useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import "./App.css";
 import Footer from "./components/utilities/Footer";
-import LoadingScreen from "./components/utilities/LoadingScreen";
 
 function App() {
   const navigator = useNavigate();
   const [page, setPage] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
 
   const fetchPage = async () => {
     const response = await fetch("https://backend-mu-plum.vercel.app/", {
@@ -21,19 +19,9 @@ function App() {
   };
   const authToken = localStorage.getItem("authToken");
   useEffect(() => {
-    const fetchData = async () => {
-      setIsLoading(true);
-
-      await Promise.all([fetchPage()]);
-
-      setIsLoading(false);
-    };
-
-    fetchData();
+    fetchPage();
   }, page);
-  return isLoading ? (
-    <LoadingScreen />
-  ) : (
+  return (
     <div className="App" data-testid="App">
       <Outlet></Outlet>
       <Footer />

@@ -4,7 +4,6 @@ import { ToastContainer, toast } from "react-toastify";
 import "../../css/courseDetails/courseDetails.css";
 import { courseType } from "../courses/Courses";
 import Navbar from "../utilities/Navbar";
-import LoadingScreen from "../utilities/LoadingScreen";
 
 const CourseDetails = () => {
   const { id } = useParams();
@@ -12,7 +11,6 @@ const CourseDetails = () => {
   const [tags, setTags] = useState([{ id: "1", name: "Java" }]);
   const [isEnrolled, setIsEnrolled] = useState(false);
   const [isCompleted, setIsCompleted] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
 
   const fetchCourse = async () => {
     const response = await fetch(
@@ -122,18 +120,12 @@ const CourseDetails = () => {
 
   const authToken = localStorage.getItem("authToken");
   useEffect(() => {
-    const fetchData = async () => {
-      setIsLoading(true);
-
-      await Promise.all([fetchCourse(), fetchTags(), fetchCourseStatus()]);
-      setIsLoading(false);
-    };
-    fetchData();
+    fetchCourse();
+    fetchTags();
+    fetchCourseStatus();
   }, []);
 
-  return isLoading ? (
-    <LoadingScreen />
-  ) : (
+  return (
     <>
       <Navbar
         isCourse={true}
