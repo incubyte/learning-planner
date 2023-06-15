@@ -20,9 +20,9 @@ export interface courseType {
 
 const CoursePage = () => {
   const [query, setQuery] = useState("");
-  const navigator = useNavigate();
   const [availableCourses, setAvailableCourses] = useState<courseType[]>([]);
   const [popularCourses, setPopularCourses] = useState<courseType[]>([]);
+
   const [courseUrl, setCourseUrl] = useState<string>(
     "https://backend-mu-plum.vercel.app/course"
   );

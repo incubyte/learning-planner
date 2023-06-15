@@ -1,8 +1,10 @@
 import { UserDto } from '@Auth/dto/user.dto';
 import { PrismaService } from '@Prisma/prisma.service';
+import { MailerService } from '@nestjs-modules/mailer';
 import { BadRequestException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { Test, TestingModule } from '@nestjs/testing';
+import { User } from '@prisma/client';
 import { genSalt, hash } from 'bcrypt';
 import { AuthService } from './auth.service';
 import { Role } from './role.enum';
@@ -11,6 +13,7 @@ describe('AuthService', () => {
   let service: AuthService;
   let prismaService: PrismaService;
   let jwtService: JwtService;
+  let mailService: MailerService;
 
   beforeAll(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -24,6 +27,12 @@ describe('AuthService', () => {
                 create: jest.fn(),
                 delete: jest.fn(),
                 findFirst: jest.fn(),
+                update: jest.fn(),
+              },
+              forgotPassword: {
+                create: jest.fn(),
+                deleteMany: jest.fn(),
+                findFirst: jest.fn(),
               },
             };
           },
@@ -36,11 +45,18 @@ describe('AuthService', () => {
             };
           },
         },
+        {
+          provide: MailerService,
+          useValue: {
+            sendMail: jest.fn(),
+          },
+        },
       ],
     }).compile();
     service = module.get<AuthService>(AuthService);
     prismaService = module.get<PrismaService>(PrismaService);
     jwtService = module.get<JwtService>(JwtService);
+    mailService = module.get<MailerService>(MailerService);
   });
 
   afterEach(() => {
@@ -201,6 +217,100 @@ describe('AuthService', () => {
       expect(accessToken).toBe(
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjgzYjdlNjQ5LTFlMzctNDNiZS04MjI5LTAyYWIwNmM5YmE5YSIsImVtYWlsIjoiam9obkBpbmN1Ynl0ZS5jbyJ9.6P194HePv2AaSgB1jvyb_lM5EOKyMMu0cWkx_p0O2cc',
       );
+    });
+
+    it('should be able to return response', async () => {
+      jest.spyOn(prismaService.user, 'findFirst').mockResolvedValueOnce({
+        email: 'john@incubyte.co',
+        password: await hash(userDTO.password, await genSalt(10)),
+        id: '83b7e649-1e37-43be-8229-02ab06c9ba9a',
+        createdAt: Date.prototype,
+        profilePhoto: 'https://profilephoto.com',
+        updatedAt: Date.prototype,
+        eId: 'E0001',
+        role: 'BQA',
+        clientTeam: 'abc',
+        roles: Role.Employee,
+      });
+
+      const mockResponse = {
+        id: 1,
+        email: 'john@incubyte.co',
+        token: 'abc',
+      };
+      jest.spyOn(mailService, 'sendMail').mockResolvedValueOnce('');
+      jest
+        .spyOn(prismaService.forgotPassword, 'create')
+        .mockResolvedValueOnce(mockResponse);
+
+      const result = await service.forgotPassword('john@incubyte.co');
+      expect(prismaService.user.findFirst).toBeCalledTimes(1);
+      expect(mailService.sendMail).toBeCalledTimes(1);
+      expect(prismaService.forgotPassword.create).toBeCalledTimes(1);
+
+      expect(result).toEqual('email sent');
+    });
+    it('should be able to return response( Admin)', async () => {
+      jest.spyOn(prismaService.user, 'findFirst').mockResolvedValueOnce({
+        email: 'john@incubyte.co',
+        password: await hash(userDTO.password, await genSalt(10)),
+        id: '83b7e649-1e37-43be-8229-02ab06c9ba9a',
+        createdAt: Date.prototype,
+        profilePhoto: 'https://profilephoto.com',
+        updatedAt: Date.prototype,
+        eId: 'E0001',
+        role: 'BQA',
+        clientTeam: 'abc',
+        roles: Role.Employee,
+      });
+
+      const mockResponse = {
+        id: 1,
+        email: 'john@incubyte.co',
+        token: 'abc',
+      };
+      jest.spyOn(mailService, 'sendMail').mockResolvedValueOnce('');
+      jest
+        .spyOn(prismaService.forgotPassword, 'create')
+        .mockResolvedValueOnce(mockResponse);
+
+      const result = await service.forgotPasswordAdmin('john@incubyte.co');
+      expect(prismaService.user.findFirst).toBeCalledTimes(1);
+      expect(mailService.sendMail).toBeCalledTimes(1);
+      expect(prismaService.forgotPassword.create).toBeCalledTimes(1);
+
+      expect(result).toEqual('email sent');
+    });
+
+    it('should be able to reset the password (Admin)', async () => {
+      jest
+        .spyOn(prismaService.forgotPassword, 'findFirst')
+        .mockResolvedValueOnce({
+          id: 1,
+          email: 'john@incubyte.co',
+          token: '1',
+        });
+
+      const mockUser: User = {
+        email: 'john@incubyte.co',
+        password: '123',
+        id: '1',
+        createdAt: Date.prototype,
+        profilePhoto: 'https://profilephoto.com',
+        updatedAt: Date.prototype,
+        eId: 'E0001',
+        role: 'BQA',
+        clientTeam: 'abc',
+        roles: Role.Employee,
+      };
+
+      jest.spyOn(prismaService.user, 'update').mockResolvedValueOnce(mockUser);
+
+      const result = await service.resetPassword('1', '123');
+      expect(prismaService.forgotPassword.findFirst).toBeCalledTimes(1);
+      expect(prismaService.user.update).toBeCalledTimes(1);
+      expect(prismaService.forgotPassword.deleteMany).toBeCalledTimes(1);
+      expect(result).toEqual('password changed');
     });
 
     it('should throw BadRequestException if user not found', async () => {

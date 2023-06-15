@@ -51,4 +51,34 @@ describe('AuthController (e2e)', () => {
       .send(admin);
     expect(response.status).toBe(201);
   });
+
+  it('/forgotPasswordAdmin (POST) - should send email to admin', async () => {
+    const user = {
+      email: 'john@incubyte.co',
+    };
+    const response = await request(app.getHttpServer())
+      .post('/auth/admin/forgotPassword')
+      .send(user);
+    expect(response.status).toBe(400);
+  });
+
+  it('/resetPassword/:token (POST) - should reset password', async () => {
+    const userPassword = {
+      password: 'Incubyte@111',
+    };
+    const response = await request(app.getHttpServer())
+      .post('/auth/resetPassword/1')
+      .send(userPassword);
+    expect(response.status).toBe(400);
+  });
+
+  it('/forgotPassword (POST) - should send email to user', async () => {
+    const user = {
+      email: 'john@incubyte.co',
+    };
+    const response = await request(app.getHttpServer())
+      .post('/auth/forgotPassword')
+      .send(user);
+    expect(response.status).toBe(400);
+  });
 });

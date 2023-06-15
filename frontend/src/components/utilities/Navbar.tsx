@@ -21,7 +21,7 @@ const Navbar = (props: NavbarProps) => {
 
   const logout = async () => {
     await localStorage.removeItem("authToken");
-    await navigator("/auth/signin");
+    await navigator("/auth/sign_in");
   };
 
   return (

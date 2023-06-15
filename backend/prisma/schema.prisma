@@ -29,6 +29,12 @@ model User {
   UserCourse   UserCourse[]
 }
 
+model ForgotPassword {
+  id    Int    @id @default(autoincrement())
+  email String
+  token String
+}
+
 model Course {
   id           String       @id @default(uuid())
   name         String       @unique()

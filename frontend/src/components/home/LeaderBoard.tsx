@@ -15,7 +15,6 @@ const LeaderBoard = () => {
   const [currentUser, setCurrentUser] = useState<userType>();
 
   const authToken = localStorage.getItem("authToken");
-
   const fetchCurrentUserCredit = async () => {
     const response = await fetch(
       "https://backend-mu-plum.vercel.app/user/course?status=completed",

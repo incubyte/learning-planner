@@ -11,6 +11,7 @@ const Profile = () => {
   const [activeCourse, setActiveCourse] = useState<courseType[]>([]);
   const [completedCourseCount, setCompletedCourseCount] = useState<number>(0);
   const [user, setUser] = useState<userType>();
+
   const navigator = useNavigate();
 
   const handleSubmit = async () => {

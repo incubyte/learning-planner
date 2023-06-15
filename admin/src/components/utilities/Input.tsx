@@ -1,6 +1,6 @@
 import { useState } from "react";
 import ShowPasswordButton from "./ShowPasswordButton";
-import "../../css/SignIn.css";
+import "../../css/auth/SignIn.css";
 
 interface InputProp {
   icon?: any;

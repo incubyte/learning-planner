@@ -4,10 +4,10 @@ import "tippy.js/dist/tippy.css";
 import loginImage from "../../assets/login-image.jpg";
 import "../../css/auth/SignIn.css";
 import SignInForm from "../utilities/SignInForm";
+import { useState } from "react";
 
 const SignIn = () => {
   const navigator = useNavigate();
-
   const handleFormSubmit = async (data: any) => {
     const response = await fetch(
       "https://backend-mu-plum.vercel.app/auth/signin",
@@ -19,7 +19,6 @@ const SignIn = () => {
         body: JSON.stringify({ email: data.email, password: data.password }),
       }
     );
-    console.log(response);
     if (response.ok) {
       const authToken = await response.text();
       localStorage.setItem("authToken", authToken);

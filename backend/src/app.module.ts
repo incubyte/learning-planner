@@ -22,7 +22,7 @@ import { ConfigModule } from '@nestjs/config';
     MailerModule.forRoot({
       transport: {
         host: 'smtp.gmail.com',
-        auth: { user: 'a.learningplanner@gmail.com', pass: 'rffotizjxjjazvsy' },
+        auth: { user: 'a.learningplanner@gmail.com', pass: 'fgdpattjfsekaurx' },
       },
     }),
   ],

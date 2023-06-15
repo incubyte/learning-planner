@@ -3,6 +3,8 @@ import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import SignIn from "./components/auth/SignIn";
 
+import ForgotPassword from "./components/ForgotPassword";
+import ResetPassword from "./components/ResetPassword";
 import LoadingScreen from "./components/utilities/LoadingScreen";
 import "./index.css";
 
@@ -65,6 +67,14 @@ const router = createBrowserRouter([
       {
         path: "sign_in",
         element: <SignIn></SignIn>,
+      },
+      {
+        path: "forgot_password",
+        element: <ForgotPassword />,
+      },
+      {
+        path: "reset_password/:token",
+        element: <ResetPassword />,
       },
     ],
   },

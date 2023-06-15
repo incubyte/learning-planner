@@ -6,6 +6,7 @@ import Footer from "./components/utilities/Footer";
 function App() {
   const navigator = useNavigate();
   const [page, setPage] = useState([]);
+
   const fetchPage = async () => {
     const response = await fetch("https://backend-mu-plum.vercel.app/", {
       headers: {

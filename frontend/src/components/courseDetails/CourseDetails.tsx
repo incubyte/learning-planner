@@ -11,6 +11,7 @@ const CourseDetails = () => {
   const [tags, setTags] = useState([{ id: "1", name: "Java" }]);
   const [isEnrolled, setIsEnrolled] = useState(false);
   const [isCompleted, setIsCompleted] = useState(false);
+
   const fetchCourse = async () => {
     const response = await fetch(
       "https://backend-mu-plum.vercel.app/course/getCourseById/" + id,

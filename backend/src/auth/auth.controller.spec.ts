@@ -95,4 +95,29 @@ describe('AuthController', () => {
       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjgzYjdlNjQ5LTFlMzctNDNiZS04MjI5LTAyYWIwNmM5YmE5YSIsImVtYWlsIjoiam9obkBpbmN1Ynl0ZS5jbyJ9.6P194HePv2AaSgB1jvyb_lM5EOKyMMu0cWkx_p0O2cc',
     );
   });
+
+  it('should be able to return the response', async () => {
+    jest
+      .spyOn(service, 'forgotPasswordAdmin')
+      .mockResolvedValueOnce('email sent');
+    const result = await controller.forgotPasswordAdmin('john@incubyte.co');
+    expect(service.forgotPasswordAdmin).toBeCalledTimes(1);
+    expect(result).toBe('email sent');
+  });
+
+  it('should be able to change the password', async () => {
+    jest
+      .spyOn(service, 'resetPassword')
+      .mockResolvedValueOnce('password changed');
+    const result = await controller.resetPassword('1', '123');
+    expect(service.resetPassword).toBeCalledTimes(1);
+    expect(result).toBe('password changed');
+  });
+
+  it('should be able to return the response', async () => {
+    jest.spyOn(service, 'forgotPassword').mockResolvedValueOnce('email sent');
+    const result = await controller.forgotPassword('john@incubyte.co');
+    expect(service.forgotPassword).toBeCalledTimes(1);
+    expect(result).toBe('email sent');
+  });
 });
