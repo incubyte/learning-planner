@@ -13,7 +13,6 @@ const Filter = ({ getCourseByFilter }: FilterProps) => {
   const [courses, setCourses] = useState([]);
   const [tags, setTags] = useState([{ id: "1", name: "Java" }]);
   const [isLoading, setIsLoading] = useState(true);
-
   const [selectTagId, setSelectTagId] = useState<string[]>([]);
   const authToken = localStorage.getItem("authToken");
 

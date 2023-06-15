@@ -1,6 +1,12 @@
 import { PrismaService } from '@Prisma/prisma.service';
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { Course } from '@prisma/client';
+import { CourseDto } from './dto/course.dto';
+import { updateCourseDto } from './dto/updateCourse.dto';
 
 @Injectable()
 export class CourseService {
@@ -59,5 +65,59 @@ export class CourseService {
     });
 
     return courses;
+  }
+
+  async createCourse(course: CourseDto): Promise<Course> {
+    try {
+      const responseCourse = await this.prismaService.course.create({
+        data: {
+          name: course.name,
+          resourseUrls: course.resourseUrls,
+          testUrls: course.testUrls,
+          description: course.description,
+          imageUrl: course.imageUrl,
+          tags: course.tags,
+          credit: 10,
+        },
+      });
+      return responseCourse;
+    } catch (e) {
+      throw new BadRequestException('Course already present');
+    }
+  }
+
+  async updateCourse(
+    id: string,
+    updateCourse: updateCourseDto,
+  ): Promise<Course> {
+    const prismaUpdateCourse = await this.prismaService.course.findFirst({
+      where: { id: id },
+    });
+    if (!prismaUpdateCourse) {
+      throw new NotFoundException('Course does not exists');
+    }
+    const updateCourseResponse = await this.prismaService.course.update({
+      where: { id: id },
+      data: { ...updateCourse },
+    });
+    return updateCourseResponse;
+  }
+
+  async deleteCourse(id: string): Promise<string> {
+    const prismadeleteCourse = await this.prismaService.course.findFirst({
+      where: { id: id },
+    });
+
+    if (!prismadeleteCourse) {
+      throw new NotFoundException('Course does not exists');
+    }
+
+    const deleteCourseResponse = await this.prismaService.course.delete({
+      where: { id: id },
+    });
+    if (!deleteCourseResponse) {
+      throw new BadRequestException('Some problem occured');
+    }
+    return 'Course deleted Successfully';
   }
 }

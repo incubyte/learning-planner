@@ -11,7 +11,13 @@ describe("Navbar", () => {
   test("Navbar is present", () => {
     render(
       <BrowserRouter>
-        <Navbar isCourse={true} isHome={true} isProfile={true} isUser={true} />
+        <Navbar
+          isCourse={true}
+          isHome={true}
+          isProfile={true}
+          isUser={true}
+          isTag={true}
+        />
       </BrowserRouter>
     );
 
@@ -25,7 +31,13 @@ describe("Navbar", () => {
   test("Logout is present in navbar", () => {
     render(
       <BrowserRouter>
-        <Navbar isCourse={true} isHome={true} isProfile={true} isUser={true} />
+        <Navbar
+          isCourse={true}
+          isHome={true}
+          isProfile={true}
+          isUser={true}
+          isTag={true}
+        />
       </BrowserRouter>
     );
 
@@ -33,20 +45,49 @@ describe("Navbar", () => {
     expect(navbarLogout).toBeInTheDocument();
   });
 
-  test("course button is present in navbar", () => {
+  test("tag button is present in navbar", () => {
     render(
       <BrowserRouter>
-        <Navbar isCourse={true} isHome={true} isProfile={true} isUser={true} />
+        <Navbar
+          isCourse={true}
+          isHome={true}
+          isProfile={true}
+          isUser={true}
+          isTag={true}
+        />
       </BrowserRouter>
     );
 
     const navbarCourse = screen.getByTestId("navbarHeaderCourseLink");
     expect(navbarCourse).toBeInTheDocument();
   });
+
+  test("course button is present in navbar", () => {
+    render(
+      <BrowserRouter>
+        <Navbar
+          isCourse={true}
+          isHome={true}
+          isProfile={true}
+          isUser={true}
+          isTag={false}
+        />
+      </BrowserRouter>
+    );
+
+    const navbarTag = screen.getByTestId("navbarHeaderTagLink");
+    expect(navbarTag).toBeInTheDocument();
+  });
   test("Home button is present in navbar", () => {
     render(
       <BrowserRouter>
-        <Navbar isCourse={true} isHome={true} isProfile={true} isUser={true} />
+        <Navbar
+          isCourse={true}
+          isHome={true}
+          isProfile={true}
+          isUser={true}
+          isTag={true}
+        />
       </BrowserRouter>
     );
 
@@ -56,7 +97,13 @@ describe("Navbar", () => {
   test("User button is present in navbar", () => {
     render(
       <BrowserRouter>
-        <Navbar isCourse={true} isHome={true} isProfile={true} isUser={true} />
+        <Navbar
+          isCourse={true}
+          isHome={true}
+          isProfile={true}
+          isUser={true}
+          isTag={true}
+        />
       </BrowserRouter>
     );
 
@@ -66,7 +113,13 @@ describe("Navbar", () => {
   test("AddUser button is present in navbar", () => {
     render(
       <BrowserRouter>
-        <Navbar isCourse={true} isHome={true} isProfile={true} isUser={false} />
+        <Navbar
+          isCourse={true}
+          isHome={true}
+          isProfile={true}
+          isUser={false}
+          isTag={true}
+        />
       </BrowserRouter>
     );
 

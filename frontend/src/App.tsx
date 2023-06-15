@@ -9,6 +9,7 @@ function App() {
   const [page, setPage] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
+
   const fetchPage = async () => {
     const response = await fetch("https://backend-mu-plum.vercel.app/", {
       headers: {

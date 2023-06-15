@@ -4,6 +4,7 @@ import HomeCard from "./utilities/HomeCard";
 import Navbar from "./utilities/Navbar";
 import LoadingScreen from "./utilities/LoadingScreen";
 import { ToastContainer, toast } from "react-toastify";
+import "../css/home/Home.css";
 
 const HomePage = () => {
   const [allUsers, setAllUsers] = useState<userType[]>();
@@ -74,12 +75,11 @@ const HomePage = () => {
         isHome={false}
         isProfile={false}
         isUser={true}
+        isTag={false}
       ></Navbar>
-      <div className="justify-center mt-8 lg:mt-16 md:mt-16">
-        <p className="text-gray-800 whitespace-normal text-3xl font-bold">
-          Welcome, Admin!
-        </p>
-        <div className="flex flex-col lg:flex-row md:flex-row gap-10 lg:gap-44 mad:gap-44 justify-center items-center mt-16">
+      <div className="HomeContainer">
+        <p className="HomeHeader">Welcome, Admin!</p>
+        <div className="HomeBody">
           <HomeCard
             dataTestId="userCard"
             count={allUsers?.length}

@@ -15,9 +15,9 @@ const LeaderBoard = () => {
   );
   const [currentUserCredit, setCurrentUserCredit] = useState<number>(0);
   const [currentUser, setCurrentUser] = useState<userType>();
+  const [isLoading, setIsLoading] = useState(true);
 
   const authToken = localStorage.getItem("authToken");
-  const [isLoading, setIsLoading] = useState(true);
   const fetchCurrentUserCredit = async () => {
     try {
       const response = await fetch(

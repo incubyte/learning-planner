@@ -7,6 +7,10 @@ import SignIn from "./components/SignIn";
 import UserDetail from "./components/user/UserDetail";
 import Users from "./components/user/Users";
 import "./index.css";
+import Courses from "./components/course/Courses";
+import AddCourse from "./components/course/AddCourse";
+import UpdateCourse from "./components/course/UpdateCourse";
+import Tags from "./components/tag/Tags";
 import ResetPassword from "./components/ResetPassword";
 import ForgotPassword from "./components/ForgotPassword";
 
@@ -29,6 +33,22 @@ const router = createBrowserRouter([
       {
         path: "/user/:id",
         element: <UserDetail />,
+      },
+      {
+        path: "/courses",
+        element: <Courses></Courses>,
+      },
+      {
+        path: "/addCourse",
+        element: <AddCourse></AddCourse>,
+      },
+      {
+        path: "/updateCourse",
+        element: <UpdateCourse></UpdateCourse>,
+      },
+      {
+        path: "/tags",
+        element: <Tags></Tags>,
       },
     ],
   },

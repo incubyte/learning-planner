@@ -1,7 +1,10 @@
 import { CourseService } from '@Course/course.service';
 import { CourseDto } from '@Course/dto/course.dto';
 import { PrismaService } from '@Prisma/prisma.service';
+import { BadRequestException, NotFoundException } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
+import { updateCourseDto } from './dto/updateCourse.dto';
+import { Course } from '@prisma/client';
 
 describe('CourseService', () => {
   let service: CourseService;
@@ -18,6 +21,9 @@ describe('CourseService', () => {
               course: {
                 findMany: jest.fn(),
                 findFirst: jest.fn(),
+                create: jest.fn(),
+                update: jest.fn(),
+                delete: jest.fn(),
               },
               userCourse: {
                 groupBy: jest.fn(),
@@ -30,7 +36,9 @@ describe('CourseService', () => {
     service = module.get<CourseService>(CourseService);
     prismaService = module.get<PrismaService>(PrismaService);
   });
-
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
   it('should be defined', () => {
     expect(service).toBeDefined();
   });
@@ -179,7 +187,7 @@ describe('CourseService', () => {
         .spyOn(prismaService.course, 'findMany')
         .mockResolvedValue(mockResponse);
       const result = await service.filterByTags(tags);
-      expect(prismaService.course.findMany).toBeCalledTimes(2);
+      expect(prismaService.course.findMany).toBeCalledTimes(1);
       expect(result).toMatchObject(mockResponse);
     });
 
@@ -263,6 +271,194 @@ describe('CourseService', () => {
 
       expect(prismaService.userCourse.groupBy).toBeCalledTimes(1);
       expect(course).toEqual(mockResponse);
+    });
+
+    it('should create a new course if it is not present', async () => {
+      const course: CourseDto = {
+        name: 'Course1',
+        resourseUrls: ['resourceUrl1'],
+        testUrls: ['testurl1'],
+        imageUrl: 'image1',
+        credit: 10,
+        description: 'description',
+        tags: [1, 3],
+      };
+      const responseCourse: Course = {
+        id: '7e67a826-636f-4fa7-a7a8-f1d57573f95f',
+        name: 'Course1',
+        resourseUrls: ['resourceUrl1'],
+        testUrls: ['testurl1'],
+        imageUrl: 'image1',
+        credit: 10,
+        tags: [1, 3],
+        description: 'description',
+        createdAt: Date.prototype,
+        updatedAt: Date.prototype,
+      };
+      jest.spyOn(prismaService.course, 'findFirst').mockResolvedValue(null);
+      jest
+        .spyOn(prismaService.course, 'create')
+        .mockResolvedValueOnce(responseCourse);
+      const result = await service.createCourse(course);
+      expect(prismaService.course.create).toHaveBeenCalledWith({
+        data: {
+          name: course.name,
+          resourseUrls: course.resourseUrls,
+          testUrls: course.testUrls,
+          imageUrl: course.imageUrl,
+          credit: course.credit,
+          description: course.description,
+          tags: course.tags,
+        },
+      });
+      expect(prismaService.course.create).toHaveBeenCalledTimes(1);
+      expect(result).toEqual(responseCourse);
+    });
+
+    it('should throw BadRequestExecption if course is already present', async () => {
+      const course: CourseDto = {
+        name: 'Course1',
+        resourseUrls: ['resourceUrl1'],
+        testUrls: ['testurl1'],
+        imageUrl: 'image1',
+        credit: 10,
+        description: 'description',
+        tags: [1, 3],
+      };
+      const responseCourse: Course = {
+        id: '7e67a826-636f-4fa7-a7a8-f1d57573f95f',
+        name: 'Course1',
+        resourseUrls: ['resourceUrl1'],
+        testUrls: ['testurl1'],
+        imageUrl: 'image1',
+        credit: 10,
+        tags: [1, 3],
+        description: 'description',
+        createdAt: Date.prototype,
+        updatedAt: Date.prototype,
+      };
+      jest
+        .spyOn(prismaService.course, 'findFirst')
+        .mockResolvedValue(responseCourse);
+      const response = new BadRequestException('Course already present');
+      jest.spyOn(prismaService.course, 'create').mockRejectedValue(response);
+      await expect(service.createCourse(course)).rejects.toThrow(
+        new BadRequestException('Course already present'),
+      );
+    });
+
+    it('should update course', async () => {
+      const course: updateCourseDto = {
+        resourseUrls: ['resourceUrl1'],
+        testUrls: ['testurl2'],
+        imageUrl: 'image1',
+        credit: 10,
+        description: 'description',
+        tags: [2],
+      };
+      const responseCourse = {
+        id: '1',
+        name: 'Course1',
+        resourseUrls: ['resourceUrl1'],
+        testUrls: ['testurl2'],
+        imageUrl: 'image1',
+        credit: 10,
+        tags: [2],
+        description: 'description',
+        createdAt: Date.prototype,
+        updatedAt: Date.prototype,
+      };
+      jest
+        .spyOn(prismaService.course, 'findFirst')
+        .mockResolvedValueOnce(responseCourse);
+      jest
+        .spyOn(prismaService.course, 'update')
+        .mockResolvedValueOnce(responseCourse);
+      const result = await service.updateCourse('1', course);
+      expect(prismaService.course.update).toBeCalledTimes(1);
+
+      expect(result).toEqual(responseCourse);
+    });
+
+    it('should throw NotFoundException if the course is not found in the update', async () => {
+      const course: updateCourseDto = {
+        resourseUrls: ['resourceUrl1'],
+        testUrls: ['testurl2'],
+        imageUrl: 'image1',
+        credit: 10,
+        description: 'description',
+        tags: [2],
+      };
+
+      jest.spyOn(prismaService.course, 'findFirst').mockResolvedValueOnce(null);
+
+      await expect(service.updateCourse('1', course)).rejects.toThrow(
+        new NotFoundException('Course does not exists'),
+      );
+      expect(prismaService.course.update).not.toBeCalled();
+    });
+
+    it('should delete course if it is present', async () => {
+      const responseCourse: Course = {
+        id: '1',
+        name: 'Course1',
+        resourseUrls: ['resourceUrl1'],
+        testUrls: ['testurl2'],
+        imageUrl: 'image1',
+        credit: 10,
+        tags: [2],
+        description: 'description',
+        createdAt: Date.prototype,
+        updatedAt: Date.prototype,
+      };
+      const response = 'Course deleted Successfully';
+      jest
+        .spyOn(prismaService.course, 'findFirst')
+        .mockResolvedValue(responseCourse);
+      jest
+        .spyOn(prismaService.course, 'delete')
+        .mockResolvedValue(responseCourse);
+      const result = await service.deleteCourse('1');
+      expect(prismaService.course.delete).toHaveBeenCalledTimes(1);
+      expect(result).toEqual(response);
+    });
+
+    it('should throw NotFoundException if the course is not found in the delete', async () => {
+      const response: Course = null;
+
+      jest
+        .spyOn(prismaService.course, 'findFirst')
+        .mockResolvedValueOnce(response);
+
+      await expect(service.deleteCourse('1')).rejects.toThrow(
+        new NotFoundException('Course does not exists'),
+      );
+      expect(prismaService.course.delete).not.toBeCalled();
+    });
+
+    it('should throw badRequest if prisma delete course method returns null ', async () => {
+      const responseCourse: Course = {
+        id: '1',
+        name: 'Course1',
+        resourseUrls: ['resourceUrl1'],
+        testUrls: ['testurl2'],
+        imageUrl: 'image1',
+        credit: 10,
+        tags: [2],
+        description: 'description',
+        createdAt: Date.prototype,
+        updatedAt: Date.prototype,
+      };
+
+      jest
+        .spyOn(prismaService.course, 'findFirst')
+        .mockResolvedValueOnce(responseCourse);
+
+      jest.spyOn(prismaService.course, 'delete').mockResolvedValueOnce(null);
+
+      await expect(service.deleteCourse('1')).rejects.toThrow(
+        new BadRequestException('Some problem occured'),
+      );
     });
   });
 });
