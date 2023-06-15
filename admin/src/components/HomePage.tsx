@@ -45,9 +45,10 @@ const HomePage = () => {
         isHome={false}
         isProfile={false}
         isUser={true}
+        isTag={false}
       ></Navbar>
       <div className="justify-center mt-16">
-        <p className="text-gray-800 whitespace-normal text-3xl font-bold">
+        <p className="text-gray-800 whitespace-normal text-3xl font-bold text-center">
           Welcome, Admin!
         </p>
         <div className="flex flex-row gap-44 justify-center mt-16">
@@ -62,7 +63,7 @@ const HomePage = () => {
             dataTestId="courseCard"
             count={allCourse?.length}
             header="Total Courses"
-            link="/"
+            link="/courses"
             linkText="See All Course"
           ></HomeCard>
         </div>

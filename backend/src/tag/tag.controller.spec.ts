@@ -72,4 +72,43 @@ describe('TagController', () => {
     expect(service.getById).toBeCalledTimes(1);
     expect(result).toMatchObject(mockResponse);
   });
+
+  it('should create tags', async () => {
+    const tags: TagDto = {
+      name: 'clean-code',
+    };
+    const mockResponse = {
+      id: 1,
+      name: 'clean-code',
+    };
+    jest.spyOn(service, 'createTag').mockResolvedValueOnce(mockResponse);
+    const result = await controller.create(tags);
+    expect(service.createTag).toBeCalledTimes(1);
+    expect(result).toMatchObject(mockResponse);
+  });
+
+  it('should update user', async () => {
+    const tags: TagDto = {
+      name: 'clean-code',
+    };
+    const mockResponse = {
+      id: 1,
+      name: 'clean-code',
+    };
+
+    jest.spyOn(service, 'updateTag').mockResolvedValueOnce(mockResponse);
+    const result = await controller.updateTag('1', tags);
+    expect(service.updateTag).toHaveBeenCalledWith(1, tags);
+    expect(service.updateTag).toHaveBeenCalledTimes(1);
+    expect(result).toEqual(mockResponse);
+  });
+
+  it('should delete course', async () => {
+    const response = 'Tag is deleted Successfully';
+    jest.spyOn(service, 'deleteTag').mockResolvedValueOnce(response);
+    const result = await controller.deleteTag('1');
+    expect(service.deleteTag).toHaveBeenCalledWith(1);
+    expect(service.deleteTag).toHaveBeenCalledTimes(1);
+    expect(result).toEqual('Tag is deleted Successfully');
+  });
 });

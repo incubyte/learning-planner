@@ -13,6 +13,7 @@ interface NavbarProps {
   isProfile: boolean;
   isUser: boolean;
   isCourse: boolean;
+  isTag: boolean;
   getQuery?: (query: string) => void;
 }
 
@@ -62,16 +63,25 @@ const Navbar = (props: NavbarProps) => {
                       Home
                     </Link>
                   )}
-
                   {props.isCourse && (
                     <Link
-                      to="/course"
+                      to="/courses"
                       className="navbarHeaderItems"
                       data-testid="navbarHeaderCourseLink"
                     >
                       Courses
                     </Link>
                   )}
+                  {!props.isCourse && (
+                    <Link
+                      to="/addCourse"
+                      className="navbarHeaderItems"
+                      data-testid="navbarHeaderCourseLink"
+                    >
+                      Add Course
+                    </Link>
+                  )}
+
                   {props.isUser && (
                     <Link
                       to="/users"
@@ -89,6 +99,15 @@ const Navbar = (props: NavbarProps) => {
                     >
                       Add User
                     </button>
+                  )}
+                  {!props.isTag && (
+                    <Link
+                      to="/tags"
+                      className="navbarHeaderItems"
+                      data-testid="navbarHeaderTagLink"
+                    >
+                      Tags
+                    </Link>
                   )}
                   <button
                     className="navbarHeaderItems"
@@ -140,6 +159,16 @@ const Navbar = (props: NavbarProps) => {
                     Courses
                   </Link>
                 )}
+                {!props.isCourse && (
+                  <Link
+                    to="/addCourse"
+                    className="navbarHeaderItems"
+                    data-testid="navbarHeaderCourseLink"
+                  >
+                    Add Courses
+                  </Link>
+                )}
+
                 {!props.isUser && (
                   <button
                     className="navbarHeaderItems"
