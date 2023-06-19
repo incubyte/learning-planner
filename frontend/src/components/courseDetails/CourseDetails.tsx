@@ -9,7 +9,7 @@ import Navbar from "../utilities/Navbar";
 const CourseDetails = () => {
   const { id } = useParams();
   const [course, setCourse] = useState<courseType>();
-  const [tags, setTags] = useState([{ id: "1", name: "Java" }]);
+  const [tags, setTags] = useState([{ id: 1, name: "Java" }]);
   const [isEnrolled, setIsEnrolled] = useState(false);
   const [isCompleted, setIsCompleted] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -26,6 +26,7 @@ const CourseDetails = () => {
       );
       if (response && response.ok) {
         const jsonResnponse = await response.json();
+        console.log(jsonResnponse);
         await setCourse(jsonResnponse);
       }
     } catch (error) {
@@ -147,6 +148,7 @@ const CourseDetails = () => {
       });
       if (response.ok) {
         const tagsResponse = await response.json();
+        console.log(tagsResponse);
         setTags(tagsResponse);
       }
     } catch (error) {
@@ -155,6 +157,16 @@ const CourseDetails = () => {
         closeButton: false,
       });
     }
+  };
+
+  const findTag = (id: number) => {
+    let name;
+    tags.forEach((tag) => {
+      if (tag.id == id) {
+        name = tag.name;
+      }
+    });
+    return name;
   };
   const fetchData = async () => {
     setIsLoading(true);
@@ -195,7 +207,7 @@ const CourseDetails = () => {
           <div data-testid="courseTags" className="courseTagsDiv">
             {course?.tags.map((tag, index) => (
               <button key={index} className="courseTags">
-                {tags[tag - 1]?.name}
+                {findTag(tag)}
               </button>
             ))}
           </div>
