@@ -66,25 +66,6 @@ const Navbar = (props: NavbarProps) => {
                       Home
                     </Link>
                   )}
-                  {props.isCourse && (
-                    <Link
-                      to="/courses"
-                      className="navbarHeaderItems"
-                      data-testid="navbarHeaderCourseLink"
-                    >
-                      Courses
-                    </Link>
-                  )}
-                  {!props.isCourse && (
-                    <Link
-                      to="/addCourse"
-                      className="navbarHeaderItems"
-                      data-testid="navbarHeaderCourseLink"
-                    >
-                      Add Course
-                    </Link>
-                  )}
-
                   {props.isUser && (
                     <Link
                       to="/users"
@@ -102,6 +83,24 @@ const Navbar = (props: NavbarProps) => {
                     >
                       Add User
                     </button>
+                  )}
+                  {props.isCourse && (
+                    <Link
+                      to="/courses"
+                      className="navbarHeaderItems"
+                      data-testid="navbarHeaderCourseLink"
+                    >
+                      Courses
+                    </Link>
+                  )}
+                  {!props.isCourse && (
+                    <Link
+                      to="/addCourse"
+                      className="navbarHeaderItems"
+                      data-testid="navbarHeaderCourseLink"
+                    >
+                      Add Course
+                    </Link>
                   )}
                   {!props.isTag && (
                     <Link

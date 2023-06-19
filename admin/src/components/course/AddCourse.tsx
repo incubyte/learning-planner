@@ -310,9 +310,9 @@ const AddCourse = () => {
 
       <Navbar
         isCourse={true}
-        isHome={true}
-        isProfile={true}
-        isUser={false}
+        isHome={false}
+        isProfile={false}
+        isUser={true}
         isTag={false}
       ></Navbar>
       <div>
