@@ -226,7 +226,7 @@ const UpdateCourse = () => {
             data-testid="updateCourseHeading"
             className="text-center pt-10 text-3xl font-bold"
           >
-            Update Courses
+            Update Course
           </h1>
         </div>
       </div>

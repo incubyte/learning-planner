@@ -320,7 +320,7 @@ const AddCourse = () => {
           className="text-center pt-10 text-3xl font-bold"
           data-testid="addCourseHeading"
         >
-          Add Courses
+          Add Course
         </h1>
       </div>
       <div className="flex justify-center">
