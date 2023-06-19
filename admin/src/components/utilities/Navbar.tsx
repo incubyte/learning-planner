@@ -158,7 +158,7 @@ const Navbar = (props: NavbarProps) => {
                   </Link>
                 )}
                 {props.isCourse && (
-                  <Link to="/course" className="navbarHeaderItems">
+                  <Link to="/courses" className="navbarHeaderItems">
                     Courses
                   </Link>
                 )}
