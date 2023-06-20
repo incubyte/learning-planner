@@ -33,7 +33,7 @@ const UpdateCourse = () => {
     setCourseName(courseData.name);
     setDescription(courseData.description);
     setCredit(courseData.credit);
-    setTags(courseData.tags);
+    // setTags(courseData.tags);
     setImageUrl(courseData.imageUrl);
   }, [courseData]);
 
@@ -82,6 +82,7 @@ const UpdateCourse = () => {
         }),
       }
     );
+    console.log(tags);
     if (response.ok) {
       const jsonResnponse = await response.json();
       setCreateCourse(jsonResnponse);
@@ -151,10 +152,7 @@ const UpdateCourse = () => {
     <>
       {showModal ? (
         <>
-          <div
-            data-testid="courseImageModel"
-            className="CourseImageModel"
-          >
+          <div data-testid="courseImageModel" className="CourseImageModel">
             <div className="relative w-auto my-6 mx-auto">
               <div className="CourseImageModalContainer">
                 <div className="CourseModelUploadContainer">
