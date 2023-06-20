@@ -59,9 +59,9 @@ model Tag {
 model CourseTag {
   id       Int    @id @default(autoincrement())
   courseId String
-  course   Course @relation(fields: [courseId], references: [id])
+  course   Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
   tagId    Int
-  tag      Tag    @relation(fields: [tagId], references: [id])
+  tag      Tag    @relation(fields: [tagId], references: [id], onDelete: Cascade)
 }
 
 model UserCourse {
