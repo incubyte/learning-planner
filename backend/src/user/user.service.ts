@@ -218,7 +218,6 @@ export class UserService {
         data: userData,
       });
       for (let i = 0; i < userMails.length; i++) {
-        console.log(userMails[i]);
         this.mailerService.sendMail({
           to: userMails[i].email,
           from: 'a.learningplanner@gmail.com',

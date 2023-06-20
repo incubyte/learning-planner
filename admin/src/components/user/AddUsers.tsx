@@ -76,7 +76,6 @@ const AddUser = (props: addUserProps) => {
         var workbook = XLSX.read(bstr, { type: "binary" });
         var first_sheet_name = workbook.SheetNames[0];
         var worksheet = workbook.Sheets[first_sheet_name];
-        console.log(XLSX.utils.sheet_to_json(worksheet, { raw: true }));
         arraylist = XLSX.utils.sheet_to_json(worksheet, { raw: true });
         if (arraylist.length > 0) handleSubmit();
       };

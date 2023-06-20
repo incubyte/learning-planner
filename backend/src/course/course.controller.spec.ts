@@ -109,7 +109,6 @@ describe('CourseController', () => {
       testUrls: courses.testUrls,
       imageUrl: courses.imageUrl,
       credit: courses.credit,
-      tags: courses.tags,
       description: courses.description,
       createdAt: Date.prototype,
       updatedAt: Date.prototype,
@@ -245,7 +244,6 @@ describe('CourseController', () => {
       testUrls: ['testurl1'],
       imageUrl: 'image1',
       credit: 10,
-      tags: [1, 3],
       description: 'description',
       createdAt: Date.prototype,
       updatedAt: Date.prototype,
@@ -266,6 +264,7 @@ describe('CourseController', () => {
       credit: 10,
       description: 'description',
       tags: [2],
+      name: '',
     };
     const responseCourse: Course = {
       id: '1',
@@ -274,7 +273,6 @@ describe('CourseController', () => {
       testUrls: ['testurl2'],
       imageUrl: 'image1',
       credit: 10,
-      tags: [2],
       description: 'description',
       createdAt: Date.prototype,
       updatedAt: Date.prototype,

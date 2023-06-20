@@ -3,8 +3,8 @@ import { CourseDto } from '@Course/dto/course.dto';
 import { PrismaService } from '@Prisma/prisma.service';
 import { BadRequestException, NotFoundException } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
-import { updateCourseDto } from './dto/updateCourse.dto';
 import { Course } from '@prisma/client';
+import { updateCourseDto } from './dto/updateCourse.dto';
 
 describe('CourseService', () => {
   let service: CourseService;
@@ -27,6 +27,11 @@ describe('CourseService', () => {
               },
               userCourse: {
                 groupBy: jest.fn(),
+              },
+              courseTag: {
+                groupBy: jest.fn(),
+                createMany: jest.fn(),
+                deleteMany: jest.fn(),
               },
             };
           },
@@ -168,7 +173,7 @@ describe('CourseService', () => {
           description: 'description',
         },
       ];
-      const mockResponse = [];
+      const mockResponse: any[] = [];
       mockResponse.push({
         id: '2',
         name: courses[1].name,
@@ -182,11 +187,26 @@ describe('CourseService', () => {
         updatedAt: Date.prototype,
       });
       const tags = [];
+      const mockTagCourse: any = [
+        {
+          courseId: '1',
+        },
+        {
+          courseId: '2',
+        },
+      ];
       tags.push('refactoring', 'clean-code');
       jest
         .spyOn(prismaService.course, 'findMany')
         .mockResolvedValue(mockResponse);
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      //@ts-ignore
+
+      jest
+        .spyOn(prismaService.courseTag, 'groupBy')
+        .mockResolvedValue(mockTagCourse);
       const result = await service.filterByTags(tags);
+      expect(prismaService.courseTag.groupBy).toBeCalledTimes(1);
       expect(prismaService.course.findMany).toBeCalledTimes(1);
       expect(result).toMatchObject(mockResponse);
     });
@@ -290,7 +310,6 @@ describe('CourseService', () => {
         testUrls: ['testurl1'],
         imageUrl: 'image1',
         credit: 10,
-        tags: [1, 3],
         description: 'description',
         createdAt: Date.prototype,
         updatedAt: Date.prototype,
@@ -299,6 +318,8 @@ describe('CourseService', () => {
       jest
         .spyOn(prismaService.course, 'create')
         .mockResolvedValueOnce(responseCourse);
+
+      jest.spyOn(prismaService.courseTag, 'createMany').mockResolvedValue(null);
       const result = await service.createCourse(course);
       expect(prismaService.course.create).toHaveBeenCalledWith({
         data: {
@@ -308,10 +329,10 @@ describe('CourseService', () => {
           imageUrl: course.imageUrl,
           credit: course.credit,
           description: course.description,
-          tags: course.tags,
         },
       });
       expect(prismaService.course.create).toHaveBeenCalledTimes(1);
+      expect(prismaService.courseTag.createMany).toHaveBeenCalledTimes(2);
       expect(result).toEqual(responseCourse);
     });
 
@@ -332,7 +353,6 @@ describe('CourseService', () => {
         testUrls: ['testurl1'],
         imageUrl: 'image1',
         credit: 10,
-        tags: [1, 3],
         description: 'description',
         createdAt: Date.prototype,
         updatedAt: Date.prototype,
@@ -355,6 +375,7 @@ describe('CourseService', () => {
         credit: 10,
         description: 'description',
         tags: [2],
+        name: '',
       };
       const responseCourse = {
         id: '1',
@@ -374,8 +395,16 @@ describe('CourseService', () => {
       jest
         .spyOn(prismaService.course, 'update')
         .mockResolvedValueOnce(responseCourse);
+      jest
+        .spyOn(prismaService.courseTag, 'deleteMany')
+        .mockResolvedValueOnce(null);
+      jest
+        .spyOn(prismaService.courseTag, 'createMany')
+        .mockResolvedValueOnce(null);
       const result = await service.updateCourse('1', course);
       expect(prismaService.course.update).toBeCalledTimes(1);
+      expect(prismaService.courseTag.deleteMany).toBeCalledTimes(1);
+      expect(prismaService.courseTag.createMany).toBeCalledTimes(1);
 
       expect(result).toEqual(responseCourse);
     });
@@ -388,6 +417,7 @@ describe('CourseService', () => {
         credit: 10,
         description: 'description',
         tags: [2],
+        name: '',
       };
 
       jest.spyOn(prismaService.course, 'findFirst').mockResolvedValueOnce(null);
@@ -406,7 +436,6 @@ describe('CourseService', () => {
         testUrls: ['testurl2'],
         imageUrl: 'image1',
         credit: 10,
-        tags: [2],
         description: 'description',
         createdAt: Date.prototype,
         updatedAt: Date.prototype,
@@ -444,7 +473,6 @@ describe('CourseService', () => {
         testUrls: ['testurl2'],
         imageUrl: 'image1',
         credit: 10,
-        tags: [2],
         description: 'description',
         createdAt: Date.prototype,
         updatedAt: Date.prototype,

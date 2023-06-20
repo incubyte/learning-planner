@@ -14,6 +14,27 @@ const CourseDetails = () => {
   const [isCompleted, setIsCompleted] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
+  const fetchCourseTag = async () => {
+    try {
+      const response = await fetch(
+        "https://backend-mu-plum.vercel.app/course/getTagsByCourseId/" + id,
+        {
+          headers: {
+            Authorization: `Bearer ${authToken}`,
+          },
+        }
+      );
+      if (response && response.ok) {
+        const jsonResnponse = await response.json();
+        await setTags(jsonResnponse);
+      }
+    } catch (error) {
+      toast.error("An error occurred" + error, {
+        autoClose: 2500,
+        closeButton: false,
+      });
+    }
+  };
   const fetchCourse = async () => {
     try {
       const response = await fetch(
@@ -26,7 +47,6 @@ const CourseDetails = () => {
       );
       if (response && response.ok) {
         const jsonResnponse = await response.json();
-        console.log(jsonResnponse);
         await setCourse(jsonResnponse);
       }
     } catch (error) {
@@ -148,7 +168,6 @@ const CourseDetails = () => {
       });
       if (response.ok) {
         const tagsResponse = await response.json();
-        console.log(tagsResponse);
         setTags(tagsResponse);
       }
     } catch (error) {
@@ -159,15 +178,6 @@ const CourseDetails = () => {
     }
   };
 
-  const findTag = (id: number) => {
-    let name;
-    tags.forEach((tag) => {
-      if (tag.id == id) {
-        name = tag.name;
-      }
-    });
-    return name;
-  };
   const fetchData = async () => {
     setIsLoading(true);
 
@@ -205,10 +215,8 @@ const CourseDetails = () => {
             {course?.name}
           </div>
           <div data-testid="courseTags" className="courseTagsDiv">
-            {course?.tags.map((tag, index) => (
-              <button key={index} className="courseTags">
-                {findTag(tag)}
-              </button>
+            {tags.map((tag, index) => (
+              <button key={index} className="courseTags"></button>
             ))}
           </div>
           <div className="courseDescriptionContainer">
