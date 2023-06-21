@@ -169,14 +169,13 @@ export class CourseService {
         },
       });
 
-      await updateCourse.tags?.map(async (tag) => {
-        await this.prismaService.courseTag.createMany({
-          data: {
-            courseId: id,
-            tagId: tag,
-          },
-        });
+      const tagData = [];
+
+      updateCourse.tags.map(async (tag) => {
+        tagData.push({ courseId: id, tagId: tag });
       });
+
+      await this.prismaService.courseTag.createMany({ data: tagData });
     }
     return updateCourseResponse;
   }
