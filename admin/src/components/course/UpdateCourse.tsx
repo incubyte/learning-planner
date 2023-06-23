@@ -36,10 +36,8 @@ const UpdateCourse = () => {
     if (response && response.ok) {
       const tagsResponse = await response.json();
       setDisplaySelectedTags(tagsResponse);
-      console.log("tagResponse", tagsResponse);
       const tagIds = tagsResponse.map((tag: any) => tag.id);
       setTags(tagIds);
-      console.log(tags);
     }
   };
 
