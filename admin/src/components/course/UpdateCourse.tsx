@@ -17,10 +17,35 @@ const UpdateCourse = () => {
   const [defaultTags, setDefaultTags] = useState([]);
   const [resourseUrls, setResourseUrls] = useState<string[]>([]);
   const [testUrls, setTestUrls] = useState<string[]>([]);
+  const [displaySelectedTags, setDisplaySelectedTags] = useState();
   const [imageUrl, setImageUrl] = useState("");
   const authToken = localStorage.getItem("authToken");
   const location = useLocation();
   const courseData = location.state;
+  const courseId = courseData.id;
+
+  const fetchSelectedTags = async () => {
+    const response = await fetch(
+      `https://backend-mu-plum.vercel.app/course/getTagsByCourseId/${courseId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+      }
+    );
+    if (response && response.ok) {
+      const tagsResponse = await response.json();
+      setDisplaySelectedTags(tagsResponse);
+      console.log("tagResponse", tagsResponse);
+      const tagIds = tagsResponse.map((tag: any) => tag.id);
+      setTags(tagIds);
+      console.log(tags);
+    }
+  };
+
+  useEffect(() => {
+    fetchSelectedTags();
+  }, []);
 
   const changeAvatar = (e: any) => {
     const file = e.target.files[0];
@@ -33,7 +58,6 @@ const UpdateCourse = () => {
     setCourseName(courseData.name);
     setDescription(courseData.description);
     setCredit(courseData.credit);
-    // setTags(courseData.tags);
     setImageUrl(courseData.imageUrl);
   }, [courseData]);
 
@@ -82,7 +106,7 @@ const UpdateCourse = () => {
         }),
       }
     );
-    console.log(tags);
+
     if (response.ok) {
       const jsonResnponse = await response.json();
       setCreateCourse(jsonResnponse);
@@ -275,10 +299,12 @@ const UpdateCourse = () => {
             <label className="text-md font-bold">Tags</label>
             <Multiselect
               options={data.options}
+              selectedValues={displaySelectedTags}
+              data-testid="multiSelectInput"
               className="mt-2"
               displayValue="name"
               onSelect={(selectedOptions) => {
-                const updatedTagsIds: any = [...tags];
+                const updatedTagsIds: any = tags;
                 selectedOptions.forEach((option: any) => {
                   if (!updatedTagsIds.includes(option.id)) {
                     updatedTagsIds.push(option.id);
@@ -288,17 +314,11 @@ const UpdateCourse = () => {
               }}
               onRemove={(removedOptions) => {
                 const removedTagsIds = removedOptions.map(
-                  (removedTag: { id: any }) => removedTag.id
+                  (removedTag: { id: number }) => removedTag.id
                 );
-                const updatedTags = tags.filter((tag) =>
-                  removedTagsIds.includes(tag)
-                );
-                setTags(updatedTags);
+                setTags(removedTagsIds);
               }}
             />
-            <p className="text-xsm text-red-600">
-              NOTE: Please Select all the tags dedicated to the course.
-            </p>
           </div>
           <div className="form-group mt-3 justify-between">
             <label className="text-md font-bold">Resource URLs</label>
