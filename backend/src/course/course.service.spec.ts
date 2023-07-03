@@ -3,8 +3,8 @@ import { CourseDto } from '@Course/dto/course.dto';
 import { PrismaService } from '@Prisma/prisma.service';
 import { BadRequestException, NotFoundException } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
-import { updateCourseDto } from './dto/updateCourse.dto';
 import { Course } from '@prisma/client';
+import { updateCourseDto } from './dto/updateCourse.dto';
 
 describe('CourseService', () => {
   let service: CourseService;
@@ -27,6 +27,11 @@ describe('CourseService', () => {
               },
               userCourse: {
                 groupBy: jest.fn(),
+              },
+              courseTag: {
+                groupBy: jest.fn(),
+                createMany: jest.fn(),
+                deleteMany: jest.fn(),
               },
             };
           },
@@ -55,7 +60,6 @@ describe('CourseService', () => {
           imageUrl:
             'https://in.images.search.yahoo.com/images/view;_ylt=Awr1SSiRTy1kb4cLLsq9HAx.;_ylu=c2VjA3NyBHNsawNpbWcEb2lkAzQyZTY0MDk5ZDU4ZTA0NjIxZGIyOTFiMzFhNjU3YmIxBGdwb3MDMjAEaXQDYmluZw--?back=https%3A%2F%2Fin.images.search.yahoo.com%2Fsearch%2Fimages%3Fp%3Dclean%2Bcode%26type%3DE211IN826G0%26fr%3Dmcafee%26fr2%3Dpiv-web%26tab%3Dorganic%26ri%3D20&w=1280&h=720&imgurl=i.ytimg.com%2Fvi%2F4LUNr4AeLZM%2Fmaxresdefault.jpg&rurl=http%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3D4LUNr4AeLZM&size=138.8KB&p=clean+code&oid=42e64099d58e04621db291b31a657bb1&fr2=piv-web&fr=mcafee&tt=Clean+Code%21+-+YouTube&b=0&ni=21&no=20&ts=&tab=organic&sigr=BwBZBBbiDgZS&sigb=N4X2keUrYF9q&sigi=E7Tff6GG25xa&sigt=NZfjbeVtrurr&.crumb=AVdd1qPlDGC&fr=mcafee&fr2=piv-web&type=E211IN826G0',
           credit: 10,
-          tags: [1],
           description: 'description',
         },
         {
@@ -67,7 +71,6 @@ describe('CourseService', () => {
           imageUrl:
             'https://in.images.search.yahoo.com/images/view;_ylt=Awr1SSiRTy1kb4cLLsq9HAx.;_ylu=c2VjA3NyBHNsawNpbWcEb2lkAzQyZTY0MDk5ZDU4ZTA0NjIxZGIyOTFiMzFhNjU3YmIxBGdwb3MDMjAEaXQDYmluZw--?back=https%3A%2F%2Fin.images.search.yahoo.com%2Fsearch%2Fimages%3Fp%3Dclean%2Bcode%26type%3DE211IN826G0%26fr%3Dmcafee%26fr2%3Dpiv-web%26tab%3Dorganic%26ri%3D20&w=1280&h=720&imgurl=i.ytimg.com%2Fvi%2F4LUNr4AeLZM%2Fmaxresdefault.jpg&rurl=http%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3D4LUNr4AeLZM&size=138.8KB&p=clean+code&oid=42e64099d58e04621db291b31a657bb1&fr2=piv-web&fr=mcafee&tt=Clean+Code%21+-+YouTube&b=0&ni=21&no=20&ts=&tab=organic&sigr=BwBZBBbiDgZS&sigb=N4X2keUrYF9q&sigi=E7Tff6GG25xa&sigt=NZfjbeVtrurr&.crumb=AVdd1qPlDGC&fr=mcafee&fr2=piv-web&type=E211IN826G0',
           credit: 10,
-          tags: [1, 2],
           description: 'description',
         },
       ];
@@ -80,7 +83,6 @@ describe('CourseService', () => {
           testUrls: courses[0].testUrls,
           imageUrl: courses[0].imageUrl,
           credit: courses[0].credit,
-          tags: courses[0].tags,
           description: courses[0].description,
           createdAt: Date.prototype,
           updatedAt: Date.prototype,
@@ -92,7 +94,6 @@ describe('CourseService', () => {
           testUrls: courses[1].testUrls,
           imageUrl: courses[1].imageUrl,
           credit: courses[1].credit,
-          tags: courses[1].tags,
           description: courses[1].description,
           createdAt: Date.prototype,
           updatedAt: Date.prototype,
@@ -117,7 +118,6 @@ describe('CourseService', () => {
         imageUrl:
           'https://in.images.search.yahoo.com/images/view;_ylt=Awr1SSiRTy1kb4cLLsq9HAx.;_ylu=c2VjA3NyBHNsawNpbWcEb2lkAzQyZTY0MDk5ZDU4ZTA0NjIxZGIyOTFiMzFhNjU3YmIxBGdwb3MDMjAEaXQDYmluZw--?back=https%3A%2F%2Fin.images.search.yahoo.com%2Fsearch%2Fimages%3Fp%3Dclean%2Bcode%26type%3DE211IN826G0%26fr%3Dmcafee%26fr2%3Dpiv-web%26tab%3Dorganic%26ri%3D20&w=1280&h=720&imgurl=i.ytimg.com%2Fvi%2F4LUNr4AeLZM%2Fmaxresdefault.jpg&rurl=http%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3D4LUNr4AeLZM&size=138.8KB&p=clean+code&oid=42e64099d58e04621db291b31a657bb1&fr2=piv-web&fr=mcafee&tt=Clean+Code%21+-+YouTube&b=0&ni=21&no=20&ts=&tab=organic&sigr=BwBZBBbiDgZS&sigb=N4X2keUrYF9q&sigi=E7Tff6GG25xa&sigt=NZfjbeVtrurr&.crumb=AVdd1qPlDGC&fr=mcafee&fr2=piv-web&type=E211IN826G0',
         credit: 10,
-        tags: [1],
         description: 'description',
       };
       const mockResponse = {
@@ -127,7 +127,6 @@ describe('CourseService', () => {
         testUrls: courses.testUrls,
         imageUrl: courses.imageUrl,
         credit: courses.credit,
-        tags: courses.tags,
         description: courses.description,
         createdAt: Date.prototype,
         updatedAt: Date.prototype,
@@ -152,7 +151,6 @@ describe('CourseService', () => {
           imageUrl:
             'https://in.images.search.yahoo.com/images/view;_ylt=Awr1SSiRTy1kb4cLLsq9HAx.;_ylu=c2VjA3NyBHNsawNpbWcEb2lkAzQyZTY0MDk5ZDU4ZTA0NjIxZGIyOTFiMzFhNjU3YmIxBGdwb3MDMjAEaXQDYmluZw--?back=https%3A%2F%2Fin.images.search.yahoo.com%2Fsearch%2Fimages%3Fp%3Dclean%2Bcode%26type%3DE211IN826G0%26fr%3Dmcafee%26fr2%3Dpiv-web%26tab%3Dorganic%26ri%3D20&w=1280&h=720&imgurl=i.ytimg.com%2Fvi%2F4LUNr4AeLZM%2Fmaxresdefault.jpg&rurl=http%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3D4LUNr4AeLZM&size=138.8KB&p=clean+code&oid=42e64099d58e04621db291b31a657bb1&fr2=piv-web&fr=mcafee&tt=Clean+Code%21+-+YouTube&b=0&ni=21&no=20&ts=&tab=organic&sigr=BwBZBBbiDgZS&sigb=N4X2keUrYF9q&sigi=E7Tff6GG25xa&sigt=NZfjbeVtrurr&.crumb=AVdd1qPlDGC&fr=mcafee&fr2=piv-web&type=E211IN826G0',
           credit: 10,
-          tags: [1],
           description: 'description',
         },
         {
@@ -164,11 +162,10 @@ describe('CourseService', () => {
           imageUrl:
             'https://in.images.search.yahoo.com/images/view;_ylt=Awr1SSiRTy1kb4cLLsq9HAx.;_ylu=c2VjA3NyBHNsawNpbWcEb2lkAzQyZTY0MDk5ZDU4ZTA0NjIxZGIyOTFiMzFhNjU3YmIxBGdwb3MDMjAEaXQDYmluZw--?back=https%3A%2F%2Fin.images.search.yahoo.com%2Fsearch%2Fimages%3Fp%3Dclean%2Bcode%26type%3DE211IN826G0%26fr%3Dmcafee%26fr2%3Dpiv-web%26tab%3Dorganic%26ri%3D20&w=1280&h=720&imgurl=i.ytimg.com%2Fvi%2F4LUNr4AeLZM%2Fmaxresdefault.jpg&rurl=http%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3D4LUNr4AeLZM&size=138.8KB&p=clean+code&oid=42e64099d58e04621db291b31a657bb1&fr2=piv-web&fr=mcafee&tt=Clean+Code%21+-+YouTube&b=0&ni=21&no=20&ts=&tab=organic&sigr=BwBZBBbiDgZS&sigb=N4X2keUrYF9q&sigi=E7Tff6GG25xa&sigt=NZfjbeVtrurr&.crumb=AVdd1qPlDGC&fr=mcafee&fr2=piv-web&type=E211IN826G0',
           credit: 10,
-          tags: [1, 2],
           description: 'description',
         },
       ];
-      const mockResponse = [];
+      const mockResponse: any[] = [];
       mockResponse.push({
         id: '2',
         name: courses[1].name,
@@ -176,17 +173,31 @@ describe('CourseService', () => {
         testUrls: courses[1].testUrls,
         imageUrl: courses[1].imageUrl,
         credit: courses[1].credit,
-        tags: courses[1].tags,
         description: courses[1].description,
         createdAt: Date.prototype,
         updatedAt: Date.prototype,
       });
       const tags = [];
+      const mockTagCourse: any = [
+        {
+          courseId: '1',
+        },
+        {
+          courseId: '2',
+        },
+      ];
       tags.push('refactoring', 'clean-code');
       jest
         .spyOn(prismaService.course, 'findMany')
         .mockResolvedValue(mockResponse);
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      //@ts-ignore
+
+      jest
+        .spyOn(prismaService.courseTag, 'groupBy')
+        .mockResolvedValue(mockTagCourse);
       const result = await service.filterByTags(tags);
+      expect(prismaService.courseTag.groupBy).toBeCalledTimes(1);
       expect(prismaService.course.findMany).toBeCalledTimes(1);
       expect(result).toMatchObject(mockResponse);
     });
@@ -202,7 +213,6 @@ describe('CourseService', () => {
           imageUrl:
             'https://in.images.search.yahoo.com/images/view;_ylt=Awr1SSiRTy1kb4cLLsq9HAx.;_ylu=c2VjA3NyBHNsawNpbWcEb2lkAzQyZTY0MDk5ZDU4ZTA0NjIxZGIyOTFiMzFhNjU3YmIxBGdwb3MDMjAEaXQDYmluZw--?back=https%3A%2F%2Fin.images.search.yahoo.com%2Fsearch%2Fimages%3Fp%3Dclean%2Bcode%26type%3DE211IN826G0%26fr%3Dmcafee%26fr2%3Dpiv-web%26tab%3Dorganic%26ri%3D20&w=1280&h=720&imgurl=i.ytimg.com%2Fvi%2F4LUNr4AeLZM%2Fmaxresdefault.jpg&rurl=http%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3D4LUNr4AeLZM&size=138.8KB&p=clean+code&oid=42e64099d58e04621db291b31a657bb1&fr2=piv-web&fr=mcafee&tt=Clean+Code%21+-+YouTube&b=0&ni=21&no=20&ts=&tab=organic&sigr=BwBZBBbiDgZS&sigb=N4X2keUrYF9q&sigi=E7Tff6GG25xa&sigt=NZfjbeVtrurr&.crumb=AVdd1qPlDGC&fr=mcafee&fr2=piv-web&type=E211IN826G0',
           credit: 10,
-          tags: [1],
           description: 'description',
         },
         {
@@ -214,7 +224,6 @@ describe('CourseService', () => {
           imageUrl:
             'https://in.images.search.yahoo.com/images/view;_ylt=Awr1SSiRTy1kb4cLLsq9HAx.;_ylu=c2VjA3NyBHNsawNpbWcEb2lkAzQyZTY0MDk5ZDU4ZTA0NjIxZGIyOTFiMzFhNjU3YmIxBGdwb3MDMjAEaXQDYmluZw--?back=https%3A%2F%2Fin.images.search.yahoo.com%2Fsearch%2Fimages%3Fp%3Dclean%2Bcode%26type%3DE211IN826G0%26fr%3Dmcafee%26fr2%3Dpiv-web%26tab%3Dorganic%26ri%3D20&w=1280&h=720&imgurl=i.ytimg.com%2Fvi%2F4LUNr4AeLZM%2Fmaxresdefault.jpg&rurl=http%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3D4LUNr4AeLZM&size=138.8KB&p=clean+code&oid=42e64099d58e04621db291b31a657bb1&fr2=piv-web&fr=mcafee&tt=Clean+Code%21+-+YouTube&b=0&ni=21&no=20&ts=&tab=organic&sigr=BwBZBBbiDgZS&sigb=N4X2keUrYF9q&sigi=E7Tff6GG25xa&sigt=NZfjbeVtrurr&.crumb=AVdd1qPlDGC&fr=mcafee&fr2=piv-web&type=E211IN826G0',
           credit: 10,
-          tags: [1],
           description: 'description',
         },
       ];
@@ -228,7 +237,6 @@ describe('CourseService', () => {
           testUrls: courses[0].testUrls,
           imageUrl: courses[0].imageUrl,
           credit: courses[0].credit,
-          tags: courses[0].tags,
           description: courses[0].description,
           createdAt: Date.prototype,
           updatedAt: Date.prototype,
@@ -240,7 +248,6 @@ describe('CourseService', () => {
           testUrls: courses[1].testUrls,
           imageUrl: courses[1].imageUrl,
           credit: courses[1].credit,
-          tags: courses[1].tags,
           description: courses[1].description,
           createdAt: Date.prototype,
           updatedAt: Date.prototype,
@@ -280,8 +287,8 @@ describe('CourseService', () => {
         testUrls: ['testurl1'],
         imageUrl: 'image1',
         credit: 10,
+        tags: [1, 2],
         description: 'description',
-        tags: [1, 3],
       };
       const responseCourse: Course = {
         id: '7e67a826-636f-4fa7-a7a8-f1d57573f95f',
@@ -290,7 +297,6 @@ describe('CourseService', () => {
         testUrls: ['testurl1'],
         imageUrl: 'image1',
         credit: 10,
-        tags: [1, 3],
         description: 'description',
         createdAt: Date.prototype,
         updatedAt: Date.prototype,
@@ -299,6 +305,8 @@ describe('CourseService', () => {
       jest
         .spyOn(prismaService.course, 'create')
         .mockResolvedValueOnce(responseCourse);
+
+      jest.spyOn(prismaService.courseTag, 'createMany').mockResolvedValue(null);
       const result = await service.createCourse(course);
       expect(prismaService.course.create).toHaveBeenCalledWith({
         data: {
@@ -308,10 +316,10 @@ describe('CourseService', () => {
           imageUrl: course.imageUrl,
           credit: course.credit,
           description: course.description,
-          tags: course.tags,
         },
       });
       expect(prismaService.course.create).toHaveBeenCalledTimes(1);
+      expect(prismaService.courseTag.createMany).toHaveBeenCalledTimes(2);
       expect(result).toEqual(responseCourse);
     });
 
@@ -323,7 +331,6 @@ describe('CourseService', () => {
         imageUrl: 'image1',
         credit: 10,
         description: 'description',
-        tags: [1, 3],
       };
       const responseCourse: Course = {
         id: '7e67a826-636f-4fa7-a7a8-f1d57573f95f',
@@ -332,7 +339,6 @@ describe('CourseService', () => {
         testUrls: ['testurl1'],
         imageUrl: 'image1',
         credit: 10,
-        tags: [1, 3],
         description: 'description',
         createdAt: Date.prototype,
         updatedAt: Date.prototype,
@@ -353,8 +359,9 @@ describe('CourseService', () => {
         testUrls: ['testurl2'],
         imageUrl: 'image1',
         credit: 10,
+        tags: [1, 2],
         description: 'description',
-        tags: [2],
+        name: '',
       };
       const responseCourse = {
         id: '1',
@@ -363,7 +370,6 @@ describe('CourseService', () => {
         testUrls: ['testurl2'],
         imageUrl: 'image1',
         credit: 10,
-        tags: [2],
         description: 'description',
         createdAt: Date.prototype,
         updatedAt: Date.prototype,
@@ -374,8 +380,16 @@ describe('CourseService', () => {
       jest
         .spyOn(prismaService.course, 'update')
         .mockResolvedValueOnce(responseCourse);
+      jest
+        .spyOn(prismaService.courseTag, 'deleteMany')
+        .mockResolvedValueOnce(null);
+      jest
+        .spyOn(prismaService.courseTag, 'createMany')
+        .mockResolvedValueOnce(null);
       const result = await service.updateCourse('1', course);
       expect(prismaService.course.update).toBeCalledTimes(1);
+      expect(prismaService.courseTag.deleteMany).toBeCalledTimes(1);
+      expect(prismaService.courseTag.createMany).toBeCalledTimes(1);
 
       expect(result).toEqual(responseCourse);
     });
@@ -387,7 +401,7 @@ describe('CourseService', () => {
         imageUrl: 'image1',
         credit: 10,
         description: 'description',
-        tags: [2],
+        name: '',
       };
 
       jest.spyOn(prismaService.course, 'findFirst').mockResolvedValueOnce(null);
@@ -406,7 +420,6 @@ describe('CourseService', () => {
         testUrls: ['testurl2'],
         imageUrl: 'image1',
         credit: 10,
-        tags: [2],
         description: 'description',
         createdAt: Date.prototype,
         updatedAt: Date.prototype,
@@ -444,7 +457,6 @@ describe('CourseService', () => {
         testUrls: ['testurl2'],
         imageUrl: 'image1',
         credit: 10,
-        tags: [2],
         description: 'description',
         createdAt: Date.prototype,
         updatedAt: Date.prototype,

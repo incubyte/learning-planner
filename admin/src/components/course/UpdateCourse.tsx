@@ -33,7 +33,6 @@ const UpdateCourse = () => {
     setCourseName(courseData.name);
     setDescription(courseData.description);
     setCredit(courseData.credit);
-    setTags(courseData.tags);
     setImageUrl(courseData.imageUrl);
   }, [courseData]);
 
@@ -151,10 +150,7 @@ const UpdateCourse = () => {
     <>
       {showModal ? (
         <>
-          <div
-            data-testid="courseImageModel"
-            className="CourseImageModel"
-          >
+          <div data-testid="courseImageModel" className="CourseImageModel">
             <div className="relative w-auto my-6 mx-auto">
               <div className="CourseImageModalContainer">
                 <div className="CourseModelUploadContainer">
@@ -226,7 +222,7 @@ const UpdateCourse = () => {
             data-testid="updateCourseHeading"
             className="text-center pt-10 text-3xl font-bold"
           >
-            Update Courses
+            Update Course
           </h1>
         </div>
       </div>

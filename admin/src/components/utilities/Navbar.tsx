@@ -66,25 +66,6 @@ const Navbar = (props: NavbarProps) => {
                       Home
                     </Link>
                   )}
-                  {props.isCourse && (
-                    <Link
-                      to="/courses"
-                      className="navbarHeaderItems"
-                      data-testid="navbarHeaderCourseLink"
-                    >
-                      Courses
-                    </Link>
-                  )}
-                  {!props.isCourse && (
-                    <Link
-                      to="/addCourse"
-                      className="navbarHeaderItems"
-                      data-testid="navbarHeaderCourseLink"
-                    >
-                      Add Course
-                    </Link>
-                  )}
-
                   {props.isUser && (
                     <Link
                       to="/users"
@@ -102,6 +83,24 @@ const Navbar = (props: NavbarProps) => {
                     >
                       Add User
                     </button>
+                  )}
+                  {props.isCourse && (
+                    <Link
+                      to="/courses"
+                      className="navbarHeaderItems"
+                      data-testid="navbarHeaderCourseLink"
+                    >
+                      Courses
+                    </Link>
+                  )}
+                  {!props.isCourse && (
+                    <Link
+                      to="/addCourse"
+                      className="navbarHeaderItems"
+                      data-testid="navbarHeaderCourseLink"
+                    >
+                      Add Course
+                    </Link>
                   )}
                   {!props.isTag && (
                     <Link
@@ -157,21 +156,6 @@ const Navbar = (props: NavbarProps) => {
                     Home
                   </Link>
                 )}
-                {props.isCourse && (
-                  <Link to="/course" className="navbarHeaderItems">
-                    Courses
-                  </Link>
-                )}
-                {!props.isCourse && (
-                  <Link
-                    to="/addCourse"
-                    className="navbarHeaderItems"
-                    data-testid="navbarHeaderCourseLink"
-                  >
-                    Add Courses
-                  </Link>
-                )}
-
                 {!props.isUser && (
                   <button
                     className="navbarHeaderItems"
@@ -184,6 +168,29 @@ const Navbar = (props: NavbarProps) => {
                 {props.isUser && (
                   <Link to="/users" className="navbarHeaderItems">
                     Users
+                  </Link>
+                )}
+                {props.isCourse && (
+                  <Link to="/courses" className="navbarHeaderItems">
+                    Courses
+                  </Link>
+                )}
+                {!props.isCourse && (
+                  <Link
+                    to="/addCourse"
+                    className="navbarHeaderItems"
+                    data-testid="navbarHeaderCourseLink"
+                  >
+                    Add Courses
+                  </Link>
+                )}
+                {!props.isTag && (
+                  <Link
+                    to="/tags"
+                    className="navbarHeaderItems"
+                    data-testid="navbarHeaderTagLink"
+                  >
+                    Tags
                   </Link>
                 )}
                 <button

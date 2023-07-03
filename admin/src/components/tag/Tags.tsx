@@ -142,7 +142,7 @@ const Tags = () => {
                     className="text-3xl font-semibold"
                     data-testid="modelHeader"
                   >
-                    Update Tags here
+                    Update Tag here
                   </h3>
                   <button
                     className="TagModalUploadButton"

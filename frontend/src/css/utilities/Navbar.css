@@ -31,7 +31,7 @@
 }
 
 .navbarHeaderSearchContainer{
-    @apply flex items-center
+    @apply flex justify-center
 }
 
 .navbarHeaderSearchFlexBorder{

@@ -14,7 +14,7 @@ import {
   Query,
   UseGuards,
 } from '@nestjs/common';
-import { Course } from '@prisma/client';
+import { Course, Tag } from '@prisma/client';
 import { CourseDto } from './dto/course.dto';
 import { updateCourseDto } from './dto/updateCourse.dto';
 
@@ -35,6 +35,11 @@ export class CourseController {
   @Get('/getCourseById/:id')
   async getById(@Param('id') id: string): Promise<Course> {
     return await this.courseService.getById(id);
+  }
+
+  @Get('/getTagsByCourseId/:id')
+  async getTagsByCourseId(@Param('id') id: string): Promise<Tag[]> {
+    return await this.courseService.getTagsByCourseId(id);
   }
   @Get('/filterByTags')
   async filterByTags(@Query('tags') tags: string[]): Promise<Course[]> {

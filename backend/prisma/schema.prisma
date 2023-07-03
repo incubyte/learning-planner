@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -42,7 +39,6 @@ model Course {
   testUrls     String[]
   imageUrl     String
   credit       Float
-  tags         Int[]
   description  String?
   createdAt    DateTime     @default(now())
   updatedAt    DateTime     @updatedAt
@@ -59,9 +55,9 @@ model Tag {
 model CourseTag {
   id       Int    @id @default(autoincrement())
   courseId String
-  course   Course @relation(fields: [courseId], references: [id])
+  course   Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
   tagId    Int
-  tag      Tag    @relation(fields: [tagId], references: [id])
+  tag      Tag    @relation(fields: [tagId], references: [id], onDelete: Cascade)
 }
 
 model UserCourse {
