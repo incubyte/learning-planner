@@ -85,8 +85,34 @@ export class CourseService {
     });
   }
 
-  async filterPopularCourseByTags(tags: string[]):Promise<Course[]>{
-    throw new Error('Method not implemented.');
+  async filterPopularCourseByTags(tags: string[]): Promise<Course[]> {
+    const popularCourses = await this.getPopularCourse();
+    const intTags: number[] = [];
+    for (let i = 0; i < tags.length; i++) {
+      intTags.push(+tags[i]);
+    }
+    const courseTags = await this.prismaService.courseTag.groupBy({
+      by: ['courseId'],
+      where: {
+        tagId: {
+          in: intTags,
+        },
+      },
+      having: {
+        courseId: {
+          _count: {
+            equals: tags.length,
+          },
+        },
+      },
+    });
+    console.log(courseTags);
+    const courseTagIds = courseTags.map((tag) => tag.courseId);
+    console.log(courseTagIds);
+    const filteredPopularCourses = popularCourses.filter((course) =>
+      courseTagIds.includes(course.id),
+    );
+    return filteredPopularCourses;
   }
 
   async getPopularCourse(): Promise<Course[]> {
