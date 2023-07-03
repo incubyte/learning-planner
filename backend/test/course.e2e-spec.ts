@@ -53,6 +53,13 @@ describe('CourseController (e2e)', () => {
     expect(response.status).toBe(200);
   });
 
+  it('course/popular/filterByTags (GET) - should return popular courses which tags is provided', async () => {
+    const response = await request(app.getHttpServer())
+      .get('/course/filterByTags?tags=1')
+      .set('Authorization', `Bearer ${authToken}`);
+    expect(response.status).toBe(200);
+  });
+
   const course = {
     name: 'Course' + Math.random() * 100,
     resourseUrls: ['resourceUrl1'],

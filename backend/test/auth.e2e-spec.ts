@@ -38,7 +38,7 @@ describe('AuthController (e2e)', () => {
   });
 
   const admin = {
-    email: 'testadmin@incubyte.co',
+    email: 'utsav.p@incubyte.co',
     password: 'Incubyte@111',
     eId: 'E0000',
     role: 'SC',
