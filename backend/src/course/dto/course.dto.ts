@@ -16,7 +16,7 @@ export class CourseDto {
   @IsNotEmpty()
   credit: number;
 
-  tags: number[];
+  tags?: number[];
 
   description: string;
 }
