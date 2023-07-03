@@ -159,29 +159,10 @@ const CourseDetails = () => {
     }
   };
 
-  const fetchTags = async () => {
-    try {
-      const response = await fetch("https://backend-mu-plum.vercel.app/tag/", {
-        headers: {
-          Authorization: `Bearer ${authToken}`,
-        },
-      });
-      if (response.ok) {
-        const tagsResponse = await response.json();
-        setTags(tagsResponse);
-      }
-    } catch (error) {
-      toast.error("An error occurred" + error, {
-        autoClose: 2500,
-        closeButton: false,
-      });
-    }
-  };
-
   const fetchData = async () => {
     setIsLoading(true);
 
-    await Promise.all([fetchCourse(), fetchTags(), fetchCourseStatus()]);
+    await Promise.all([fetchCourse(), fetchCourseStatus(), fetchCourseTag()]);
     setIsLoading(false);
   };
 
@@ -216,7 +197,9 @@ const CourseDetails = () => {
           </div>
           <div data-testid="courseTags" className="courseTagsDiv">
             {tags.map((tag, index) => (
-              <button key={index} className="courseTags"></button>
+              <button key={index} className="courseTags">
+                {tag.name}
+              </button>
             ))}
           </div>
           <div className="courseDescriptionContainer">
