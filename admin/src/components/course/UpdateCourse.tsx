@@ -33,7 +33,6 @@ const UpdateCourse = () => {
     setCourseName(courseData.name);
     setDescription(courseData.description);
     setCredit(courseData.credit);
-    // setTags(courseData.tags);
     setImageUrl(courseData.imageUrl);
   }, [courseData]);
 
@@ -82,7 +81,6 @@ const UpdateCourse = () => {
         }),
       }
     );
-    console.log(tags);
     if (response.ok) {
       const jsonResnponse = await response.json();
       setCreateCourse(jsonResnponse);

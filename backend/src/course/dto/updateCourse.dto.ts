@@ -4,6 +4,6 @@ export class updateCourseDto {
   testUrls: string[];
   imageUrl: string;
   credit: number;
-  tags: number[];
+  tags?: number[];
   description: string;
 }

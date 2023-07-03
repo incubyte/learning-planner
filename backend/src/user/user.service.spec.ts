@@ -106,7 +106,6 @@ describe('UserService', () => {
         testUrls: [''],
         imageUrl: 'https://docs.nestjs.com/assets/logo-small.svg',
         credit: 10,
-        tags: [3],
         description: 'description',
         createdAt: Date.prototype,
         updatedAt: Date.prototype,
@@ -120,7 +119,6 @@ describe('UserService', () => {
         testUrls: [''],
         imageUrl: 'https://docs.nestjs.com/assets/logo-small.svg',
         credit: 10,
-        tags: [1, 2],
         description: 'description',
         createdAt: Date.prototype,
         updatedAt: Date.prototype,
@@ -134,7 +132,6 @@ describe('UserService', () => {
         testUrls: [''],
         imageUrl: 'https://docs.nestjs.com/assets/logo-small.svg',
         credit: 10,
-        tags: [7, 6],
         description: 'description',
         createdAt: Date.prototype,
         updatedAt: Date.prototype,
@@ -202,7 +199,6 @@ describe('UserService', () => {
         testUrls: [''],
         imageUrl: 'https://docs.nestjs.com/assets/logo-small.svg',
         credit: 10,
-        tags: [3],
         description: 'description',
         createdAt: Date.prototype,
         updatedAt: Date.prototype,
@@ -216,7 +212,6 @@ describe('UserService', () => {
         testUrls: [''],
         imageUrl: 'https://docs.nestjs.com/assets/logo-small.svg',
         credit: 10,
-        tags: [1, 2],
         description: 'description',
         createdAt: Date.prototype,
         updatedAt: Date.prototype,
@@ -553,7 +548,6 @@ describe('UserService', () => {
     it('should return 0 if the user is not enrolled for course', async () => {
       const mockCourse: Course = {
         id: 'course1',
-
         name: 'name',
         resourseUrls: [],
         testUrls: [],
@@ -582,7 +576,6 @@ describe('UserService', () => {
     it('should return 1 if the user is enrolled for course but not completed the course', async () => {
       const mockCourse: Course = {
         id: 'course1',
-
         name: 'name',
         resourseUrls: [],
         testUrls: [],
@@ -618,7 +611,6 @@ describe('UserService', () => {
     it('should return 2 if the user has completed the course', async () => {
       const mockCourse: Course = {
         id: 'course1',
-
         name: 'name',
         resourseUrls: [],
         testUrls: [],
