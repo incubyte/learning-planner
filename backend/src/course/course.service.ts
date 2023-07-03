@@ -85,6 +85,10 @@ export class CourseService {
     });
   }
 
+  async filterPopularCourseByTags(tags: string[]):Promise<Course[]>{
+    throw new Error('Method not implemented.');
+  }
+
   async getPopularCourse(): Promise<Course[]> {
     const userCourse = await this.prismaService.userCourse.groupBy({
       by: ['courseId'],

@@ -46,6 +46,13 @@ export class CourseController {
     return await this.courseService.filterByTags(tags);
   }
 
+    @Get('popular/filterByTags')
+  async filterPopularCourseByTags(
+    @Query('tags') tags: string[],
+  ): Promise<Course[]> {
+    return await this.courseService.filterPopularCourseByTags(tags);
+  }
+
   @Roles(Role.Admin)
   @Post('/create')
   async createCourse(@Body() course: CourseDto): Promise<Course> {
