@@ -184,6 +184,7 @@ export class CourseService {
     const updateCourseResponse = await this.prismaService.course.update({
       where: { id: id },
       data: {
+        name:updateCourse.name,
         resourseUrls: updateCourse.resourseUrls,
         imageUrl: updateCourse.imageUrl,
         testUrls: updateCourse.testUrls,
