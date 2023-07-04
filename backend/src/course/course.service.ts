@@ -4,7 +4,7 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { Course } from '@prisma/client';
+import { Course, Tag } from '@prisma/client';
 import { CourseDto } from './dto/course.dto';
 import { updateCourseDto } from './dto/updateCourse.dto';
 
@@ -24,15 +24,62 @@ export class CourseService {
     return result;
   }
 
+  async getTagsByCourseId(id: string): Promise<Tag[]> {
+    const result = await this.prismaService.course.findFirst({ where: { id } });
+    if (!result) {
+      throw new NotFoundException('Course Not Found');
+    }
+    const responseCourseTagIds = await this.prismaService.courseTag.findMany({
+      where: {
+        courseId: id,
+      },
+      select: {
+        tagId: true,
+      },
+    });
+
+    const tagIds = responseCourseTagIds.map(
+      (currentCourseTag) => currentCourseTag.tagId,
+    );
+
+    return await this.prismaService.tag.findMany({
+      where: {
+        id: {
+          in: tagIds,
+        },
+      },
+    });
+  }
+
   async filterByTags(tags: string[]): Promise<Course[]> {
     const intTags: number[] = [];
     for (let i = 0; i < tags.length; i++) {
       intTags.push(+tags[i]);
     }
+    const courseTag = await this.prismaService.courseTag.groupBy({
+      by: ['courseId'],
+      where: {
+        tagId: {
+          in: intTags,
+        },
+      },
+      having: {
+        courseId: {
+          _count: {
+            equals: tags.length,
+          },
+        },
+      },
+    });
+
+    const courseIds = courseTag.map(
+      (currentCourseTag) => currentCourseTag.courseId,
+    );
+
     return await this.prismaService.course.findMany({
       where: {
-        tags: {
-          hasEvery: intTags,
+        id: {
+          in: courseIds,
         },
       },
     });
@@ -76,9 +123,17 @@ export class CourseService {
           testUrls: course.testUrls,
           description: course.description,
           imageUrl: course.imageUrl,
-          tags: course.tags,
           credit: 10,
         },
+      });
+
+      await course.tags?.map(async (tag) => {
+        await this.prismaService.courseTag.createMany({
+          data: {
+            courseId: responseCourse.id,
+            tagId: tag,
+          },
+        });
       });
       return responseCourse;
     } catch (e) {
@@ -98,8 +153,30 @@ export class CourseService {
     }
     const updateCourseResponse = await this.prismaService.course.update({
       where: { id: id },
-      data: { ...updateCourse },
+      data: {
+        resourseUrls: updateCourse.resourseUrls,
+        imageUrl: updateCourse.imageUrl,
+        testUrls: updateCourse.testUrls,
+        credit: updateCourse.credit,
+        description: updateCourse.description,
+      },
     });
+
+    if (updateCourse.tags) {
+      await this.prismaService.courseTag.deleteMany({
+        where: {
+          courseId: id,
+        },
+      });
+
+      const tagData = [];
+
+      updateCourse.tags.map(async (tag) => {
+        tagData.push({ courseId: id, tagId: tag });
+      });
+
+      await this.prismaService.courseTag.createMany({ data: tagData });
+    }
     return updateCourseResponse;
   }
 

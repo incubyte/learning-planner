@@ -106,7 +106,6 @@ describe('UserService', () => {
         testUrls: [''],
         imageUrl: 'https://docs.nestjs.com/assets/logo-small.svg',
         credit: 10,
-        tags: [3],
         description: 'description',
         createdAt: Date.prototype,
         updatedAt: Date.prototype,
@@ -120,7 +119,6 @@ describe('UserService', () => {
         testUrls: [''],
         imageUrl: 'https://docs.nestjs.com/assets/logo-small.svg',
         credit: 10,
-        tags: [1, 2],
         description: 'description',
         createdAt: Date.prototype,
         updatedAt: Date.prototype,
@@ -134,7 +132,6 @@ describe('UserService', () => {
         testUrls: [''],
         imageUrl: 'https://docs.nestjs.com/assets/logo-small.svg',
         credit: 10,
-        tags: [7, 6],
         description: 'description',
         createdAt: Date.prototype,
         updatedAt: Date.prototype,
@@ -202,7 +199,6 @@ describe('UserService', () => {
         testUrls: [''],
         imageUrl: 'https://docs.nestjs.com/assets/logo-small.svg',
         credit: 10,
-        tags: [3],
         description: 'description',
         createdAt: Date.prototype,
         updatedAt: Date.prototype,
@@ -216,7 +212,6 @@ describe('UserService', () => {
         testUrls: [''],
         imageUrl: 'https://docs.nestjs.com/assets/logo-small.svg',
         credit: 10,
-        tags: [1, 2],
         description: 'description',
         createdAt: Date.prototype,
         updatedAt: Date.prototype,
@@ -403,7 +398,6 @@ describe('UserService', () => {
         imageUrl:
           'https://in.images.search.yahoo.com/images/view;_ylt=Awr1SSiRTy1kb4cLLsq9HAx.;_ylu=c2VjA3NyBHNsawNpbWcEb2lkAzQyZTY0MDk5ZDU4ZTA0NjIxZGIyOTFiMzFhNjU3YmIxBGdwb3MDMjAEaXQDYmluZw--?back=https%3A%2F%2Fin.images.search.yahoo.com%2Fsearch%2Fimages%3Fp%3Dclean%2Bcode%26type%3DE211IN826G0%26fr%3Dmcafee%26fr2%3Dpiv-web%26tab%3Dorganic%26ri%3D20&w=1280&h=720&imgurl=i.ytimg.com%2Fvi%2F4LUNr4AeLZM%2Fmaxresdefault.jpg&rurl=http%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3D4LUNr4AeLZM&size=138.8KB&p=clean+code&oid=42e64099d58e04621db291b31a657bb1&fr2=piv-web&fr=mcafee&tt=Clean+Code%21+-+YouTube&b=0&ni=21&no=20&ts=&tab=organic&sigr=BwBZBBbiDgZS&sigb=N4X2keUrYF9q&sigi=E7Tff6GG25xa&sigt=NZfjbeVtrurr&.crumb=AVdd1qPlDGC&fr=mcafee&fr2=piv-web&type=E211IN826G0',
         credit: 10,
-        tags: [1],
         description: 'description',
         id: '',
         createdAt: undefined,
@@ -554,13 +548,11 @@ describe('UserService', () => {
     it('should return 0 if the user is not enrolled for course', async () => {
       const mockCourse: Course = {
         id: 'course1',
-
         name: 'name',
         resourseUrls: [],
         testUrls: [],
         imageUrl: 'imageUrl',
         credit: 0,
-        tags: [],
         description: 'description',
         createdAt: Date.prototype,
         updatedAt: Date.prototype,
@@ -584,13 +576,11 @@ describe('UserService', () => {
     it('should return 1 if the user is enrolled for course but not completed the course', async () => {
       const mockCourse: Course = {
         id: 'course1',
-
         name: 'name',
         resourseUrls: [],
         testUrls: [],
         imageUrl: 'imageUrl',
         credit: 0,
-        tags: [],
         description: 'description',
         createdAt: Date.prototype,
         updatedAt: Date.prototype,
@@ -621,13 +611,11 @@ describe('UserService', () => {
     it('should return 2 if the user has completed the course', async () => {
       const mockCourse: Course = {
         id: 'course1',
-
         name: 'name',
         resourseUrls: [],
         testUrls: [],
         imageUrl: 'imageUrl',
         credit: 0,
-        tags: [],
         description: 'description',
         createdAt: Date.prototype,
         updatedAt: Date.prototype,

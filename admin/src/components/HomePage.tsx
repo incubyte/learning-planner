@@ -91,8 +91,8 @@ const HomePage = () => {
             dataTestId="courseCard"
             count={allCourse?.length}
             header="Total Courses"
-            link="/"
-            linkText="See All Course"
+            link="/courses"
+            linkText="See All Courses"
           ></HomeCard>
         </div>
         <ToastContainer />

@@ -27,8 +27,6 @@ const CourseCard = ({ id, courseImage, courseName }: courseCardProps) => {
               </div>
             </div>
             <div className="courseCardButtonContainer">
-              {/* <Button title="Explore" /> */}
-
               <Link to={"/course/" + id}>
                 <button
                   className="buttonContainer"

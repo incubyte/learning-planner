@@ -11,7 +11,6 @@ export async function insertCourse(prisma: PrismaClient) {
         testUrls: [''],
         imageUrl: 'https://docs.nestjs.com/assets/logo-small.svg',
         credit: 10,
-        tags: [1, 2],
         description: 'description',
       },
       {
@@ -22,7 +21,7 @@ export async function insertCourse(prisma: PrismaClient) {
         testUrls: [''],
         imageUrl: 'https://docs.nestjs.com/assets/logo-small.svg',
         credit: 10,
-        tags: [1, 2, 4],
+
         description: 'description',
       },
       {
@@ -33,7 +32,6 @@ export async function insertCourse(prisma: PrismaClient) {
         testUrls: [''],
         imageUrl: 'https://docs.nestjs.com/assets/logo-small.svg',
         credit: 10,
-        tags: [5, 2],
         description: 'description',
       },
       {
@@ -44,7 +42,6 @@ export async function insertCourse(prisma: PrismaClient) {
         testUrls: [''],
         imageUrl: 'https://docs.nestjs.com/assets/logo-small.svg',
         credit: 10,
-        tags: [3],
         description: 'description',
       },
       {
@@ -55,7 +52,6 @@ export async function insertCourse(prisma: PrismaClient) {
         testUrls: [''],
         imageUrl: 'https://docs.nestjs.com/assets/logo-small.svg',
         credit: 10,
-        tags: [3],
         description: 'description',
       },
       {
@@ -66,7 +62,6 @@ export async function insertCourse(prisma: PrismaClient) {
         testUrls: [''],
         imageUrl: 'https://docs.nestjs.com/assets/logo-small.svg',
         credit: 10,
-        tags: [7, 6],
         description: 'description',
       },
       {
@@ -77,7 +72,6 @@ export async function insertCourse(prisma: PrismaClient) {
         testUrls: [''],
         imageUrl: 'https://docs.nestjs.com/assets/logo-small.svg',
         credit: 10,
-        tags: [4],
         description: 'description',
       },
       {
@@ -88,7 +82,6 @@ export async function insertCourse(prisma: PrismaClient) {
         testUrls: [''],
         imageUrl: 'https://docs.nestjs.com/assets/logo-small.svg',
         credit: 10,
-        tags: [3],
         description: 'description',
       },
       {
@@ -99,7 +92,6 @@ export async function insertCourse(prisma: PrismaClient) {
         testUrls: [''],
         imageUrl: 'https://docs.nestjs.com/assets/logo-small.svg',
         credit: 10,
-        tags: [3],
         description: 'description',
       },
     ],
