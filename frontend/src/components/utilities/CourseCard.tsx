@@ -28,12 +28,15 @@ const CourseCard = ({ id, courseImage, courseName }: courseCardProps) => {
             </div>
             <div className="courseCardButtonContainer">
               {/* <Button title="Explore" /> */}
-              <button
-                className="buttonContainer"
-                data-testid="courseCardButton"
-              >
-                <Link to={"/course/" + id}>Explore</Link>
-              </button>
+
+              <Link to={"/course/" + id}>
+                <button
+                  className="buttonContainer"
+                  data-testid="courseCardButton"
+                >
+                  Explore
+                </button>
+              </Link>
             </div>
           </div>
         </div>

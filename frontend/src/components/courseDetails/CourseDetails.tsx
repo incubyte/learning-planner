@@ -9,11 +9,32 @@ import Navbar from "../utilities/Navbar";
 const CourseDetails = () => {
   const { id } = useParams();
   const [course, setCourse] = useState<courseType>();
-  const [tags, setTags] = useState([{ id: "1", name: "Java" }]);
+  const [tags, setTags] = useState([{ id: 1, name: "Java" }]);
   const [isEnrolled, setIsEnrolled] = useState(false);
   const [isCompleted, setIsCompleted] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
+  const fetchCourseTag = async () => {
+    try {
+      const response = await fetch(
+        "https://backend-mu-plum.vercel.app/course/getTagsByCourseId/" + id,
+        {
+          headers: {
+            Authorization: `Bearer ${authToken}`,
+          },
+        }
+      );
+      if (response && response.ok) {
+        const jsonResnponse = await response.json();
+        await setTags(jsonResnponse);
+      }
+    } catch (error) {
+      toast.error("An error occurred" + error, {
+        autoClose: 2500,
+        closeButton: false,
+      });
+    }
+  };
   const fetchCourse = async () => {
     try {
       const response = await fetch(
@@ -138,28 +159,10 @@ const CourseDetails = () => {
     }
   };
 
-  const fetchTags = async () => {
-    try {
-      const response = await fetch("https://backend-mu-plum.vercel.app/tag/", {
-        headers: {
-          Authorization: `Bearer ${authToken}`,
-        },
-      });
-      if (response.ok) {
-        const tagsResponse = await response.json();
-        setTags(tagsResponse);
-      }
-    } catch (error) {
-      toast.error("An error occurred" + error, {
-        autoClose: 2500,
-        closeButton: false,
-      });
-    }
-  };
   const fetchData = async () => {
     setIsLoading(true);
 
-    await Promise.all([fetchCourse(), fetchTags(), fetchCourseStatus()]);
+    await Promise.all([fetchCourse(), fetchCourseStatus(), fetchCourseTag()]);
     setIsLoading(false);
   };
 
@@ -193,9 +196,9 @@ const CourseDetails = () => {
             {course?.name}
           </div>
           <div data-testid="courseTags" className="courseTagsDiv">
-            {course?.tags.map((tag, index) => (
+            {tags.map((tag, index) => (
               <button key={index} className="courseTags">
-                {tags[tag - 1]?.name}
+                {tag.name}
               </button>
             ))}
           </div>
