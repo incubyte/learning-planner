@@ -6,11 +6,16 @@ import { ToastContainer, toast } from "react-toastify";
 
 interface FilterProps {
   getCourseByFilter: (courses: courseType[]) => void;
+  getPopularCourseByFilter: (courses: courseType[]) => void;
 }
 
-const Filter = ({ getCourseByFilter }: FilterProps) => {
+const Filter = ({
+  getCourseByFilter,
+  getPopularCourseByFilter,
+}: FilterProps) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [courses, setCourses] = useState([]);
+  const [popularCourses, setPopularCourses] = useState([]);
   const [tags, setTags] = useState([{ id: "1", name: "Java" }]);
   const [isLoading, setIsLoading] = useState(true);
   const [selectTagId, setSelectTagId] = useState<string[]>([]);
@@ -34,6 +39,46 @@ const Filter = ({ getCourseByFilter }: FilterProps) => {
       });
     }
   };
+
+  const fetchPopularCourses = async (url: string) => {
+    try {
+      const response = await fetch(url, {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+      });
+      if (response && response.ok) {
+        const coursesResponse = await response.json();
+        console.log(coursesResponse);
+        setPopularCourses(coursesResponse);
+      }
+    } catch (error) {
+      toast.error("An error occurred" + error, {
+        autoClose: 2500,
+        closeButton: false,
+      });
+    }
+  };
+
+  useEffect(() => {
+    setIsLoading(true);
+    try {
+      if (selectTagId.length > 0) {
+        const filterByTagUrl =
+          "http://localhost:5000/course/popular/filterByTags?" +
+          selectTagId.map((tagId) => `tags=${tagId}`).join("&&");
+        fetchPopularCourses(filterByTagUrl);
+      } else {
+        fetchPopularCourses("http://localhost:5000/course/popular/");
+      }
+    } catch (error) {
+      toast.error("An error occurred" + error, {
+        autoClose: 2500,
+        closeButton: false,
+      });
+    }
+    setIsLoading(false);
+  }, [selectTagId, popularCourses.length]);
 
   const fetchTags = async () => {
     try {
@@ -89,7 +134,10 @@ const Filter = ({ getCourseByFilter }: FilterProps) => {
   const fetchData = async (courses: any) => {
     setIsLoading(true);
 
-    await Promise.all([getCourseByFilter(courses)]);
+    await Promise.all([
+      getCourseByFilter(courses),
+      getPopularCourseByFilter(popularCourses),
+    ]);
 
     setIsLoading(false);
   };

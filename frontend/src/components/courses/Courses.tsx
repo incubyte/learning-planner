@@ -37,6 +37,10 @@ const CoursePage = () => {
     setAvailableCourses(courses);
   };
 
+  const getPopularCourseByFilter = (courses: courseType[]) => {
+    setPopularCourses(courses);
+  };
+
   const authToken = localStorage.getItem("authToken");
   const fetchCourses = async (url: string) => {
     try {
@@ -121,7 +125,10 @@ const CoursePage = () => {
       />
       <CoursePageIndex />
       <hr className="mt-10" />
-      <Filter getCourseByFilter={getCourseByFilter} />
+      <Filter
+        getCourseByFilter={getCourseByFilter}
+        getPopularCourseByFilter={getPopularCourseByFilter}
+      />
       <hr className="mt-10" />
       <Carousel
         titleName="Popular courses"
