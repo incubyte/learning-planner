@@ -1,26 +1,35 @@
+import { useIsAuthenticated, useMsal } from "@azure/msal-react";
 import { useEffect, useState } from "react";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import "./App.css";
 import Footer from "./components/utilities/Footer";
 import LoadingScreen from "./components/utilities/LoadingScreen";
-
 function App() {
-  const navigator = useNavigate();
   const [page, setPage] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const { instance } = useMsal();
 
-
-  const fetchPage = async () => {
-    const response = await fetch("https://backend-mu-plum.vercel.app/", {
-      headers: {
-        Authorization: `Bearer ${authToken}`,
-      },
-    });
-    if (response && !response.ok) {
-      navigator("/auth/sign_in");
+  const handleSignIn = async () => {
+    const tokenResponse = await instance.handleRedirectPromise();
+    const accounts = instance.getAllAccounts();
+    console.log(tokenResponse?.accessToken);
+    localStorage.setItem("authToken", tokenResponse?.accessToken || "not");
+    if (accounts.length === 0) {
+      instance.loginRedirect({
+        scopes: ["user.read"],
+      });
     }
   };
-  const authToken = localStorage.getItem("authToken");
+
+  const isAuthenticated = useIsAuthenticated();
+  const handleSignOut = async () => {
+    await instance.logoutRedirect({});
+  };
+  const fetchPage = async () => {
+    if (!isAuthenticated) {
+      handleSignIn();
+    }
+  };
   const fetchData = async () => {
     setIsLoading(true);
 
@@ -35,6 +44,9 @@ function App() {
     <LoadingScreen />
   ) : (
     <div className="App" data-testid="App">
+      <button onClick={handleSignIn}>Sign In</button>
+      <button onClick={handleSignOut}>Sign Out</button>
+
       <Outlet></Outlet>
       <Footer />
     </div>

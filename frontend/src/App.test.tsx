@@ -1,6 +1,6 @@
 import { render, screen, waitFor } from "@testing-library/react";
-import App from "./App";
 import { BrowserRouter } from "react-router-dom";
+import App from "./App";
 const mockUser = {
   email: "john@incubyte.co",
   password: "123123123",

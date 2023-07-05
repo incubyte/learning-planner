@@ -1,12 +1,11 @@
-import Carousel from "../utilities/Carousel";
-import "../../css/home/LeaderBoard.css";
-import { useEffect, useState } from "react";
-import { courseType } from "../courses/Courses";
-import { LeaderBoardType } from "./LeaderBoardType";
-import React from "react";
-import { userType } from "../user/user";
-import LoadingScreen from "../utilities/LoadingScreen";
+import React, { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
+import "../../css/home/LeaderBoard.css";
+import { courseType } from "../courses/Courses";
+import { userType } from "../user/user";
+import Carousel from "../utilities/Carousel";
+import LoadingScreen from "../utilities/LoadingScreen";
+import { LeaderBoardType } from "./LeaderBoardType";
 
 const LeaderBoard = () => {
   const [activeCourses, setActiveCourses] = useState<courseType[]>([]);
@@ -21,7 +20,7 @@ const LeaderBoard = () => {
   const fetchCurrentUserCredit = async () => {
     try {
       const response = await fetch(
-        "https://backend-mu-plum.vercel.app/user/course?status=completed",
+        "http://localhost:5000/user/course?status=completed",
         {
           headers: {
             Authorization: `Bearer ${authToken}`,
@@ -44,7 +43,7 @@ const LeaderBoard = () => {
   const fetchActiveCourses = async () => {
     try {
       const response = await fetch(
-        "https://backend-mu-plum.vercel.app/user/course?status=active",
+        "http://localhost:5000/user/course?status=active",
         {
           headers: {
             Authorization: `Bearer ${authToken}`,
@@ -67,7 +66,7 @@ const LeaderBoard = () => {
   const fetchLeaderBoardUsers = async () => {
     try {
       const response = await fetch(
-        "https://backend-mu-plum.vercel.app/user/leaderboard",
+        "http://localhost:5000/user/leaderboard",
         {
           headers: {
             Authorization: `Bearer ${authToken}`,
@@ -89,7 +88,7 @@ const LeaderBoard = () => {
 
   const fetchCurrentUser = async () => {
     try {
-      const response = await fetch("https://backend-mu-plum.vercel.app/user", {
+      const response = await fetch("http://localhost:5000/user", {
         headers: {
           Authorization: `Bearer ${authToken}`,
         },
@@ -122,6 +121,7 @@ const LeaderBoard = () => {
 
   useEffect(() => {
     fetchData();
+    console.log(authToken);
   }, []);
 
   return isLoading ? (
