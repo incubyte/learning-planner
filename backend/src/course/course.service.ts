@@ -106,9 +106,7 @@ export class CourseService {
         },
       },
     });
-    console.log(courseTags);
     const courseTagIds = courseTags.map((tag) => tag.courseId);
-    console.log(courseTagIds);
     const filteredPopularCourses = popularCourses.filter((course) =>
       courseTagIds.includes(course.id),
     );
@@ -184,7 +182,7 @@ export class CourseService {
     const updateCourseResponse = await this.prismaService.course.update({
       where: { id: id },
       data: {
-        name:updateCourse.name,
+        name: updateCourse.name,
         resourseUrls: updateCourse.resourseUrls,
         imageUrl: updateCourse.imageUrl,
         testUrls: updateCourse.testUrls,

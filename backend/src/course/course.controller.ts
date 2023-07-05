@@ -46,7 +46,7 @@ export class CourseController {
     return await this.courseService.filterByTags(tags);
   }
 
-    @Get('popular/filterByTags')
+  @Get('popular/filterByTags')
   async filterPopularCourseByTags(
     @Query('tags') tags: string[],
   ): Promise<Course[]> {
