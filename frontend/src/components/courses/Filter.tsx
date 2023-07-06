@@ -49,7 +49,6 @@ const Filter = ({
       });
       if (response && response.ok) {
         const coursesResponse = await response.json();
-        console.log(coursesResponse);
         setPopularCourses(coursesResponse);
       }
     } catch (error) {
@@ -65,11 +64,13 @@ const Filter = ({
     try {
       if (selectTagId.length > 0) {
         const filterByTagUrl =
-          "http://localhost:5000/course/popular/filterByTags?" +
+          "https://backend-mu-plum.vercel.app/course/popular/filterByTags?" +
           selectTagId.map((tagId) => `tags=${tagId}`).join("&&");
         fetchPopularCourses(filterByTagUrl);
       } else {
-        fetchPopularCourses("http://localhost:5000/course/popular/");
+        fetchPopularCourses(
+          "https://backend-mu-plum.vercel.app/course/popular/"
+        );
       }
     } catch (error) {
       toast.error("An error occurred" + error, {
