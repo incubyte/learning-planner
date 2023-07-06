@@ -3,8 +3,8 @@ import { useParams } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "../../css/courseDetails/courseDetails.css";
 import { courseType } from "../courses/Courses";
-import LoadingScreen from "../utilities/LoadingScreen";
 import Navbar from "../utilities/Navbar";
+import ContentLoader from "react-content-loader";
 
 const CourseDetails = () => {
   const { id } = useParams();
@@ -173,7 +173,26 @@ const CourseDetails = () => {
   }, []);
 
   return isLoading ? (
-    <LoadingScreen />
+    <>
+      <Navbar
+        isCourse={true}
+        isHome={true}
+        isProfile={true}
+        isSearch={false}
+      ></Navbar>
+      <div className="hidden lg:block md:block">
+        <ContentLoader viewBox="0 0 350 260">
+          <rect x="12" y="12" rx="2" ry="2" width="330" height="136" />
+          <rect x="90" y="160" rx="2" ry="2" width="180" height="100" />
+        </ContentLoader>
+      </div>
+      <div className="lg:hidden md:hidden sm:block xsm:block">
+        <ContentLoader viewBox="0 0 350 600">
+          <rect x="35" y="35" rx="5" ry="5" width="280" height="336" />
+          <rect x="30" y="400" rx="5" ry="5" width="290" height="200" />
+        </ContentLoader>
+      </div>
+    </>
   ) : (
     <>
       <Navbar
@@ -204,7 +223,22 @@ const CourseDetails = () => {
           </div>
           <div className="courseDescriptionContainer">
             <div data-testid="courseDescription" className="m-12">
-              <p>{course?.description}</p>
+              {/* <p>{course?.description}</p> */}
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cumque
+                voluptas consequatur impedit vitae unde accusantium at odit iste
+                molestiae dicta? Quibusdam quisquam veniam perspiciatis!
+                Officiis aliquid aspernatur, cumque necessitatibus vitae
+                doloribus a pariatur maxime mollitia at eveniet itaque
+                architecto consequuntur quisquam ullam magni quae exercitationem
+                atque maiores et iste reiciendis? Minima, optio. Eos molestiae
+                veniam ut itaque quibusdam aliquam numquam excepturi et velit,
+                totam ab, aut sapiente minus, modi a! Molestias praesentium aut
+                debitis ut magnam dolor cupiditate tempore. Eligendi ab quod
+                iste hic. Vero laudantium ex quod exercitationem, distinctio
+                culpa sint quas repellat possimus provident assumenda iste
+                veritatis voluptas?
+              </p>
             </div>
           </div>
           {!isCompleted && (

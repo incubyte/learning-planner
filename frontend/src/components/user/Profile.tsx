@@ -6,8 +6,8 @@ import Carousel from "../utilities/Carousel";
 import Navbar from "../utilities/Navbar";
 import { imageUpload } from "./ImageUpload";
 import { userType } from "./user";
-import LoadingScreen from "../utilities/LoadingScreen";
 import { ToastContainer, toast } from "react-toastify";
+import ContentLoader from "react-content-loader";
 
 const Profile = () => {
   const [activeCourse, setActiveCourse] = useState<courseType[]>([]);
@@ -117,7 +117,46 @@ const Profile = () => {
     fetchData();
   }, []);
   return isLoading ? (
-    <LoadingScreen />
+    <>
+      <Navbar
+        isCourse={true}
+        isHome={true}
+        isProfile={true}
+        isSearch={false}
+      ></Navbar>
+      <div className="hidden lg:block md:block">
+        <ContentLoader viewBox="0 0 350 240">
+          <rect x="150" y="10" rx="2" ry="2" width="50" height="13" />
+          <circle cx="115" cy="75" r="35" />
+          <rect x="200" y="35" rx="5" ry="5" width="80" height="11" />
+          <rect x="200" y="50" rx="5" ry="5" width="80" height="11" />
+          <rect x="200" y="65" rx="5" ry="5" width="80" height="11" />
+          <rect x="200" y="80" rx="5" ry="5" width="80" height="11" />
+          <rect x="200" y="95" rx="5" ry="5" width="80" height="11" />
+          <rect x="200" y="110" rx="5" ry="5" width="80" height="11" />
+          <rect x="150" y="130" rx="2" ry="2" width="50" height="10" />
+          <rect x="12" y="150" width="100" height="70" />
+          <rect x="120" y="150" width="100" height="70" />
+          <rect x="228" y="150" width="100" height="70" />
+          <rect x="336" y="150" width="100" height="70" />
+        </ContentLoader>
+      </div>
+      <div className="lg:hidden md:hidden sm:block xsm:block">
+        <ContentLoader viewBox="0 0 350 800">
+          <rect x="110" y="30" rx="2" ry="2" width="150" height="35" />
+          <circle cx="180" cy="160" r="80" />
+          <rect x="65" y="260" rx="5" ry="5" width="230" height="40" />
+          <rect x="65" y="310" rx="5" ry="5" width="230" height="40" />
+          <rect x="65" y="360" rx="5" ry="5" width="230" height="40" />
+          <rect x="65" y="410" rx="5" ry="5" width="230" height="40" />
+          <rect x="65" y="460" rx="5" ry="5" width="230" height="40" />
+          <rect x="65" y="510" rx="5" ry="5" width="230" height="40" />
+          <rect x="110" y="580" rx="2" ry="2" width="150" height="30" />
+          <rect x="20" y="630" width="250" height="200" />
+          <rect x="300" y="630" width="250" height="200" />
+        </ContentLoader>
+      </div>
+    </>
   ) : (
     <>
       {showModal ? (

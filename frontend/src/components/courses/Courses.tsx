@@ -4,8 +4,8 @@ import Carousel from "../utilities/Carousel";
 import Navbar from "../utilities/Navbar";
 import CoursePageIndex from "./CoursePageIndex";
 import Filter from "./Filter";
-import LoadingScreen from "../utilities/LoadingScreen";
 import { ToastContainer, toast } from "react-toastify";
+import ContentLoader from "react-content-loader";
 
 export interface courseType {
   id: string;
@@ -113,7 +113,68 @@ const CoursePage = () => {
   };
 
   return isLoading ? (
-    <LoadingScreen />
+    <>
+      <Navbar
+        getQuery={getQuery}
+        isCourse={false}
+        isHome={true}
+        isProfile={true}
+        isSearch={true}
+      />
+      <CoursePageIndex />
+      <hr className="mt-10" />
+      <div className="hidden lg:block md:block">
+        <ContentLoader viewBox="0 0 380 50">
+          <rect x="160" y="10" rx="2" ry="2" width="70" height="10" />
+          <rect x="30" y="40" rx="5" ry="5" width="40" height="10" />
+          <rect x="75" y="40" rx="5" ry="5" width="40" height="10" />
+          <rect x="120" y="40" rx="5" ry="5" width="40" height="10" />
+          <rect x="165" y="40" rx="5" ry="5" width="40" height="10" />
+          <rect x="210" y="40" rx="5" ry="5" width="40" height="10" />
+          <rect x="255" y="40" rx="5" ry="5" width="40" height="10" />
+          <rect x="300" y="40" rx="5" ry="5" width="40" height="10" />
+        </ContentLoader>
+        <hr className="mt-10" />
+        <ContentLoader viewBox="0 0 380 120">
+          <rect x="160" y="10" rx="2" ry="2" width="70" height="10" />
+          <rect x="12" y="35" rx="5" ry="5" width="100" height="80" />
+          <rect x="122" y="35" rx="5" ry="5" width="100" height="80" />
+          <rect x="232" y="35" rx="5" ry="5" width="100" height="80" />
+          <rect x="342" y="35" rx="5" ry="5" width="100" height="80" />
+        </ContentLoader>
+        <hr className="mt-10" />
+        <ContentLoader viewBox="0 0 380 120">
+          <rect x="160" y="10" rx="2" ry="2" width="70" height="10" />
+          <rect x="12" y="35" rx="5" ry="5" width="100" height="80" />
+          <rect x="122" y="35" rx="5" ry="5" width="100" height="80" />
+          <rect x="232" y="35" rx="5" ry="5" width="100" height="80" />
+          <rect x="342" y="35" rx="5" ry="5" width="100" height="80" />
+        </ContentLoader>
+      </div>
+      <div className="lg:hidden md:hidden sm:block xsm:block">
+        <ContentLoader viewBox="0 0 180 90">
+          <rect x="50" y="10" rx="2" ry="2" width="80" height="15" />
+          <rect x="25" y="40" rx="5" ry="5" width="60" height="12" />
+          <rect x="95" y="40" rx="5" ry="5" width="60" height="12" />
+          <rect x="25" y="56" rx="5" ry="5" width="60" height="12" />
+          <rect x="95" y="56" rx="5" ry="5" width="60" height="12" />
+          <rect x="25" y="72" rx="5" ry="5" width="60" height="12" />
+          <rect x="95" y="72" rx="5" ry="5" width="60" height="12" />
+        </ContentLoader>
+        <hr className="mt-10" />
+        <ContentLoader viewBox="0 0 180 155">
+          <rect x="50" y="15" rx="2" ry="2" width="80" height="15" />
+          <rect x="12" y="45" rx="5" ry="5" width="130" height="110" />
+          <rect x="150" y="45" rx="5" ry="5" width="130" height="110" />
+        </ContentLoader>
+        <hr className="mt-10" />
+        <ContentLoader viewBox="0 0 180 165">
+          <rect x="50" y="15" rx="2" ry="2" width="80" height="15" />
+          <rect x="12" y="45" rx="5" ry="5" width="130" height="110" />
+          <rect x="150" y="45" rx="5" ry="5" width="130" height="110" />
+        </ContentLoader>
+      </div>
+    </>
   ) : (
     <>
       <Navbar
