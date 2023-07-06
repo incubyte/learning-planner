@@ -55,7 +55,7 @@ describe('CourseController (e2e)', () => {
 
   it('course/popular/filterByTags (GET) - should return popular courses which tags is provided', async () => {
     const response = await request(app.getHttpServer())
-      .get('/course/filterByTags?tags=1')
+      .get('/course/popular/filterByTags?tags=1')
       .set('Authorization', `Bearer ${authToken}`);
     expect(response.status).toBe(200);
   });

@@ -17,7 +17,7 @@ describe('UserController (e2e)', () => {
     await app.init();
 
     user = {
-      email: 'utsav.p@incubyte.co',
+      email: 'testadmin@incubyte.co',
       password: 'Incubyte@111',
     };
     await request(app.getHttpServer()).post('/auth/signup').send(user);
