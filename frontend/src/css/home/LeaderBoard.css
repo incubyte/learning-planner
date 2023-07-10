@@ -19,7 +19,7 @@
 }
 
 .LeaderBoardInnerFirstImageContainer {
-    @apply rounded-full border border-gray-100 shadow-sm ml-5 mt-5 w-[150px] h-[150px]
+    @apply rounded-full border border-gray-100 shadow-sm ml-5 mt-5 w-[150px] h-[150px] object-cover
 }
 
 .LeaderBoardUserInfoContainer {

@@ -5,7 +5,7 @@
     @apply container grid justify-items-center content-center object-contain bg-slate-100 rounded-lg max-w-full
 }
 .courseImage{
-    @apply rounded-full lg:h-40 md:h-36 sm:h-24 xsm:h-24 lg:w-40 md:w-36 sm:w-24 xsm:w-24 block
+    @apply rounded-full lg:h-40 md:h-36 sm:h-24 xsm:h-24 lg:w-40 md:w-36 sm:w-24 xsm:w-24 block object-cover
 }
 .courseImageDiv{
     @apply relative mt-5
