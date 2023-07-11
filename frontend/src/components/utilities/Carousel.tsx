@@ -2,6 +2,8 @@ import { useRef } from "react";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import "../../css/courses/Carousel.css";
 import CourseCard from "./CourseCard";
+import LoadingScreen from "./LoadingScreen";
+import ContentLoader from "react-content-loader";
 interface carouselProps {
   titleName?: string;
   dataTestId?: string;
@@ -73,7 +75,12 @@ const Carousel = ({
           </div>
         </>
       ) : (
-        <div className="text-center text-2xl p-10">Nothing to Show</div>
+        <ContentLoader viewBox="0 0 380 100">
+          <rect x="12" y="10" rx="5" ry="5" width="80" height="80" />
+          <rect x="102" y="10" rx="5" ry="5" width="80" height="80" />
+          <rect x="192" y="10" rx="5" ry="5" width="80" height="80" />
+          <rect x="282" y="10" rx="5" ry="5" width="80" height="80" />
+        </ContentLoader>
       )}
     </div>
   );
