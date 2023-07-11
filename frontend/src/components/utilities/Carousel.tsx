@@ -2,7 +2,6 @@ import { useRef } from "react";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import "../../css/courses/Carousel.css";
 import CourseCard from "./CourseCard";
-import LoadingScreen from "./LoadingScreen";
 import ContentLoader from "react-content-loader";
 interface carouselProps {
   titleName?: string;
