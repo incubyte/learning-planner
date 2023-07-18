@@ -1,3 +1,4 @@
+import { useIsAuthenticated } from "@azure/msal-react";
 import React, { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "../../css/home/LeaderBoard.css";
@@ -12,15 +13,16 @@ const LeaderBoard = () => {
   const [leaderBoardUsers, setLeaderBoardUsers] = useState<LeaderBoardType[]>(
     []
   );
+  const isAuthenticated = useIsAuthenticated();
   const [currentUserCredit, setCurrentUserCredit] = useState<number>(0);
   const [currentUser, setCurrentUser] = useState<userType>();
   const [isLoading, setIsLoading] = useState(true);
 
-  const authToken = localStorage.getItem("authToken");
   const fetchCurrentUserCredit = async () => {
+    const authToken = localStorage.getItem("authToken");
     try {
       const response = await fetch(
-        "http://localhost:5000/user/course?status=completed",
+        "https://backend-mu-plum.vercel.app/user/course?status=completed",
         {
           headers: {
             Authorization: `Bearer ${authToken}`,
@@ -41,9 +43,11 @@ const LeaderBoard = () => {
   };
 
   const fetchActiveCourses = async () => {
+    const authToken = localStorage.getItem("authToken");
+
     try {
       const response = await fetch(
-        "http://localhost:5000/user/course?status=active",
+        "https://backend-mu-plum.vercel.app/user/course?status=active",
         {
           headers: {
             Authorization: `Bearer ${authToken}`,
@@ -64,16 +68,16 @@ const LeaderBoard = () => {
   };
 
   const fetchLeaderBoardUsers = async () => {
+    const authToken = localStorage.getItem("authToken");
     try {
       const response = await fetch(
-        "http://localhost:5000/user/leaderboard",
+        "https://backend-mu-plum.vercel.app/user/leaderboard",
         {
           headers: {
             Authorization: `Bearer ${authToken}`,
           },
         }
       );
-
       if (response && response.ok) {
         const leaderBoardUsersResponse = await response.json();
         setLeaderBoardUsers(leaderBoardUsersResponse);
@@ -87,8 +91,10 @@ const LeaderBoard = () => {
   };
 
   const fetchCurrentUser = async () => {
+    const authToken = localStorage.getItem("authToken");
+
     try {
-      const response = await fetch("http://localhost:5000/user", {
+      const response = await fetch("https://backend-mu-plum.vercel.app/user", {
         headers: {
           Authorization: `Bearer ${authToken}`,
         },
@@ -121,7 +127,6 @@ const LeaderBoard = () => {
 
   useEffect(() => {
     fetchData();
-    console.log(authToken);
   }, []);
 
   return isLoading ? (

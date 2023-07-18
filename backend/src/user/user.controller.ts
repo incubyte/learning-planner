@@ -1,5 +1,6 @@
 import { JwtAuthGuard } from '@/auth/jwt-auth-guard/jwt-auth.guard';
 import { Role } from '@/auth/role.enum';
+import { RolesGuard } from '@/auth/role.guard';
 import { Roles } from '@/decorator/role.decorator';
 import { UserDecorator } from '@/decorator/user.decorator';
 import { jwtPayload } from '@Auth/jwtpayload/jwt.payload';
@@ -22,8 +23,7 @@ import { courseIdBodyDto } from './dto/courseIdBody.dto';
 import { LeaderboardDto } from './dto/leaderboard.dto';
 import { ProfileCourseDto } from './dto/profileCourse.dto';
 
-// @UseGuards(JwtAuthGuard, RolesGuard)
-@UseGuards(JwtAuthGuard)
+@UseGuards(JwtAuthGuard, RolesGuard)
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
