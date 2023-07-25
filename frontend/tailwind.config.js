@@ -20,7 +20,22 @@ module.exports = {
         mdl: "900px",
         lg: "1024px",
         xl: "1280px",
-        "2xl": "1536px",
+      },
+      keyframes: {
+        "skeleton-loading": {
+          "0%": { backgroundPosition: "100% 50%" },
+          "100%": { backgroundPosition: "0 50%" },
+        },
+      },
+      animation: {
+        "skeleton-loading": "skeleton-loading 1.5s ease-in-out infinite",
+      },
+      backgroundColor: {
+        "skeleton-loading":
+          "linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%)",
+      },
+      backgroundSize: {
+        "s-size": "200% 100%",
       },
     },
   },

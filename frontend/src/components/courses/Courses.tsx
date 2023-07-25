@@ -27,7 +27,7 @@ const CoursePage = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   const [courseUrl, setCourseUrl] = useState<string>(
-    "https://backend-mu-plum.vercel.app/course"
+    "http://localhost:5000/course"
   );
   const getQuery = (query: string) => {
     setQuery(query);
@@ -63,14 +63,11 @@ const CoursePage = () => {
   };
   const fetchPopularCourses = async () => {
     try {
-      const response = await fetch(
-        "https://backend-mu-plum.vercel.app/course/popular",
-        {
-          headers: {
-            Authorization: `Bearer ${authToken}`,
-          },
-        }
-      );
+      const response = await fetch("http://localhost:5000/course/popular", {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+      });
       if (response && response.ok) {
         const courses = await response.json();
         setPopularCourses(courses);
@@ -85,10 +82,10 @@ const CoursePage = () => {
 
   const fetchData = async (courseUrl: string) => {
     setIsLoading(true);
-
-    await Promise.all([fetchCourses(courseUrl), fetchPopularCourses()]);
-
-    setIsLoading(false);
+    await setTimeout(async () => {
+      await Promise.all([fetchCourses(courseUrl), fetchPopularCourses()]);
+      setIsLoading(false);
+    }, 5000);
   };
 
   useEffect(() => {
@@ -112,70 +109,7 @@ const CoursePage = () => {
     return filteredList;
   };
 
-  return isLoading ? (
-    <>
-      <Navbar
-        getQuery={getQuery}
-        isCourse={false}
-        isHome={true}
-        isProfile={true}
-        isSearch={true}
-      />
-      <CoursePageIndex />
-      <hr className="mt-10" />
-      <div className="hidden lg:block md:block">
-        <ContentLoader viewBox="0 0 380 50">
-          <rect x="160" y="10" rx="2" ry="2" width="70" height="10" />
-          <rect x="30" y="40" rx="5" ry="5" width="40" height="10" />
-          <rect x="75" y="40" rx="5" ry="5" width="40" height="10" />
-          <rect x="120" y="40" rx="5" ry="5" width="40" height="10" />
-          <rect x="165" y="40" rx="5" ry="5" width="40" height="10" />
-          <rect x="210" y="40" rx="5" ry="5" width="40" height="10" />
-          <rect x="255" y="40" rx="5" ry="5" width="40" height="10" />
-          <rect x="300" y="40" rx="5" ry="5" width="40" height="10" />
-        </ContentLoader>
-        <hr className="mt-10" />
-        <ContentLoader viewBox="0 0 380 120">
-          <rect x="160" y="10" rx="2" ry="2" width="70" height="10" />
-          <rect x="12" y="35" rx="5" ry="5" width="100" height="80" />
-          <rect x="122" y="35" rx="5" ry="5" width="100" height="80" />
-          <rect x="232" y="35" rx="5" ry="5" width="100" height="80" />
-          <rect x="342" y="35" rx="5" ry="5" width="100" height="80" />
-        </ContentLoader>
-        <hr className="mt-10" />
-        <ContentLoader viewBox="0 0 380 120">
-          <rect x="160" y="10" rx="2" ry="2" width="70" height="10" />
-          <rect x="12" y="35" rx="5" ry="5" width="100" height="80" />
-          <rect x="122" y="35" rx="5" ry="5" width="100" height="80" />
-          <rect x="232" y="35" rx="5" ry="5" width="100" height="80" />
-          <rect x="342" y="35" rx="5" ry="5" width="100" height="80" />
-        </ContentLoader>
-      </div>
-      <div className="lg:hidden md:hidden sm:block xsm:block">
-        <ContentLoader viewBox="0 0 180 90">
-          <rect x="50" y="10" rx="2" ry="2" width="80" height="15" />
-          <rect x="25" y="40" rx="5" ry="5" width="60" height="12" />
-          <rect x="95" y="40" rx="5" ry="5" width="60" height="12" />
-          <rect x="25" y="56" rx="5" ry="5" width="60" height="12" />
-          <rect x="95" y="56" rx="5" ry="5" width="60" height="12" />
-          <rect x="25" y="72" rx="5" ry="5" width="60" height="12" />
-          <rect x="95" y="72" rx="5" ry="5" width="60" height="12" />
-        </ContentLoader>
-        <hr className="mt-10" />
-        <ContentLoader viewBox="0 0 180 155">
-          <rect x="50" y="15" rx="2" ry="2" width="80" height="15" />
-          <rect x="12" y="45" rx="5" ry="5" width="130" height="110" />
-          <rect x="150" y="45" rx="5" ry="5" width="130" height="110" />
-        </ContentLoader>
-        <hr className="mt-10" />
-        <ContentLoader viewBox="0 0 180 165">
-          <rect x="50" y="15" rx="2" ry="2" width="80" height="15" />
-          <rect x="12" y="45" rx="5" ry="5" width="130" height="110" />
-          <rect x="150" y="45" rx="5" ry="5" width="130" height="110" />
-        </ContentLoader>
-      </div>
-    </>
-  ) : (
+  return (
     <>
       <Navbar
         getQuery={getQuery}
@@ -195,12 +129,14 @@ const CoursePage = () => {
         titleName="Popular courses"
         courses={search(popularCourses)}
         contentId="popContent"
+        isLoading={isLoading}
       />
       <hr className="mt-10" />
       <Carousel
         titleName="Available courses"
         courses={search(availableCourses)}
         contentId="availContent"
+        isLoading={isLoading}
       />
       <ToastContainer />
     </>

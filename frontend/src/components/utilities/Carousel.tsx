@@ -3,6 +3,9 @@ import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import "../../css/courses/Carousel.css";
 import CourseCard from "./CourseCard";
 import ContentLoader from "react-content-loader";
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
+
 interface carouselProps {
   titleName?: string;
   dataTestId?: string;
@@ -12,6 +15,7 @@ interface carouselProps {
     imageUrl: string;
     name: string;
   }[];
+  isLoading?: boolean;
 }
 
 const Carousel = ({
@@ -19,6 +23,7 @@ const Carousel = ({
   dataTestId,
   courses,
   contentId,
+  isLoading,
 }: carouselProps) => {
   const contentRef = useRef<HTMLDivElement>(null);
   const scrollLeft = () => {
@@ -37,7 +42,7 @@ const Carousel = ({
       <div className="carouselTitleName" data-testid="carouselTitleName">
         {titleName}
       </div>
-      {courses.length > 0 ? (
+      {courses.length > 0 && isLoading == false ? (
         <>
           <div className="buttons">
             <button
@@ -74,12 +79,15 @@ const Carousel = ({
           </div>
         </>
       ) : (
-        <ContentLoader viewBox="0 0 380 100">
-          <rect x="12" y="10" rx="5" ry="5" width="80" height="80" />
-          <rect x="102" y="10" rx="5" ry="5" width="80" height="80" />
-          <rect x="192" y="10" rx="5" ry="5" width="80" height="80" />
-          <rect x="282" y="10" rx="5" ry="5" width="80" height="80" />
-        </ContentLoader>
+        <SkeletonTheme inline={true}>
+          <div className="flex flex-row flex-nowrap overflow-hidden ml-7">
+            <Skeleton className="mr-8" height={280} width={250} />
+            <Skeleton className="mr-8" height={280} width={250} />
+            <Skeleton className="mr-8" height={280} width={250} />
+            <Skeleton className="mr-8" height={280} width={250} />
+            <Skeleton className="mr-8" height={280} width={250} />
+          </div>
+        </SkeletonTheme>
       )}
     </div>
   );

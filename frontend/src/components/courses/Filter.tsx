@@ -64,12 +64,12 @@ const Filter = ({
     try {
       if (selectTagId.length > 0) {
         const filterByTagUrl =
-          "https://backend-mu-plum.vercel.app/course/popular/filterByTags?" +
+          "http://localhost:5000/course/popular/filterByTags?" +
           selectTagId.map((tagId) => `tags=${tagId}`).join("&&");
         fetchPopularCourses(filterByTagUrl);
       } else {
         fetchPopularCourses(
-          "https://backend-mu-plum.vercel.app/course/popular/"
+          "http://localhost:5000/course/popular/"
         );
       }
     } catch (error) {
@@ -83,7 +83,7 @@ const Filter = ({
 
   const fetchTags = async () => {
     try {
-      const response = await fetch("https://backend-mu-plum.vercel.app/tag/", {
+      const response = await fetch("http://localhost:5000/tag/", {
         headers: {
           Authorization: `Bearer ${authToken}`,
         },
@@ -117,11 +117,11 @@ const Filter = ({
     try {
       if (selectTagId.length > 0) {
         const filterByTagUrl =
-          "https://backend-mu-plum.vercel.app/course/filterByTags?" +
+          "http://localhost:5000/course/filterByTags?" +
           selectTagId.map((tagId) => `tags=${tagId}`).join("&&");
         fetchCourses(filterByTagUrl);
       } else {
-        fetchCourses("https://backend-mu-plum.vercel.app/course/");
+        fetchCourses("http://localhost:5000/course/");
       }
     } catch (error) {
       toast.error("An error occurred" + error, {
@@ -134,13 +134,13 @@ const Filter = ({
 
   const fetchData = async (courses: any) => {
     setIsLoading(true);
-
-    await Promise.all([
-      getCourseByFilter(courses),
-      getPopularCourseByFilter(popularCourses),
-    ]);
-
-    setIsLoading(false);
+    await setTimeout(async () => {
+      await Promise.all([
+        getCourseByFilter(courses),
+        getPopularCourseByFilter(popularCourses),
+      ]);
+      setIsLoading(false);
+    }, 5000);
   };
   useEffect(() => {
     fetchTags();
@@ -151,9 +151,7 @@ const Filter = ({
   }, [courses]);
 
   const Tags = isExpanded ? tags : tags.slice(0, 7);
-  return isLoading ? (
-    <LoadingScreen />
-  ) : (
+  return (
     <div className="filterTagsContainer" role="filterByTags">
       <h4 className="filterTagsHeading">Explore By Tags</h4>
 

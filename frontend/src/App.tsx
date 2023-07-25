@@ -11,7 +11,7 @@ function App() {
 
 
   const fetchPage = async () => {
-    const response = await fetch("https://backend-mu-plum.vercel.app/", {
+    const response = await fetch("http://localhost:5000", {
       headers: {
         Authorization: `Bearer ${authToken}`,
       },

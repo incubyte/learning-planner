@@ -5,6 +5,8 @@ import "../../css/courseDetails/courseDetails.css";
 import { courseType } from "../courses/Courses";
 import Navbar from "../utilities/Navbar";
 import ContentLoader from "react-content-loader";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 const CourseDetails = () => {
   const { id } = useParams();
@@ -17,7 +19,7 @@ const CourseDetails = () => {
   const fetchCourseTag = async () => {
     try {
       const response = await fetch(
-        "https://backend-mu-plum.vercel.app/course/getTagsByCourseId/" + id,
+        "http://localhost:5000/course/getTagsByCourseId/" + id,
         {
           headers: {
             Authorization: `Bearer ${authToken}`,
@@ -38,7 +40,7 @@ const CourseDetails = () => {
   const fetchCourse = async () => {
     try {
       const response = await fetch(
-        "https://backend-mu-plum.vercel.app/course/getCourseById/" + id,
+        "http://localhost:5000/course/getCourseById/" + id,
         {
           headers: {
             Authorization: `Bearer ${authToken}`,
@@ -59,17 +61,14 @@ const CourseDetails = () => {
 
   const enrollCourse = async () => {
     try {
-      const response = await fetch(
-        "https://backend-mu-plum.vercel.app/user/course/enroll",
-        {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${authToken}`,
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ id: id }),
-        }
-      );
+      const response = await fetch("http://localhost:5000/user/course/enroll", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ id: id }),
+      });
 
       if (response && response.ok) {
         toast.success("Course Enrolled!!", {
@@ -95,7 +94,7 @@ const CourseDetails = () => {
   const completeCourse = async () => {
     try {
       const response = await fetch(
-        "https://backend-mu-plum.vercel.app/user/course/completeCourse",
+        "http://localhost:5000/user/course/completeCourse",
         {
           method: "PATCH",
           headers: {
@@ -130,7 +129,7 @@ const CourseDetails = () => {
   const fetchCourseStatus = async () => {
     try {
       const response = await fetch(
-        "https://backend-mu-plum.vercel.app/user/course/status/" + id,
+        "http://localhost:5000/user/course/status/" + id,
         {
           headers: {
             Authorization: `Bearer ${authToken}`,
@@ -161,9 +160,10 @@ const CourseDetails = () => {
 
   const fetchData = async () => {
     setIsLoading(true);
-
-    await Promise.all([fetchCourse(), fetchCourseStatus(), fetchCourseTag()]);
-    setIsLoading(false);
+    await setTimeout(async () => {
+      await Promise.all([fetchCourse(), fetchCourseStatus(), fetchCourseTag()]);
+      setIsLoading(false);
+    }, 5000);
   };
 
   const authToken = localStorage.getItem("authToken");
@@ -172,28 +172,7 @@ const CourseDetails = () => {
     fetchData();
   }, []);
 
-  return isLoading ? (
-    <>
-      <Navbar
-        isCourse={true}
-        isHome={true}
-        isProfile={true}
-        isSearch={false}
-      ></Navbar>
-      <div className="hidden lg:block md:block">
-        <ContentLoader viewBox="0 0 350 260">
-          <rect x="12" y="12" rx="2" ry="2" width="330" height="136" />
-          <rect x="90" y="160" rx="2" ry="2" width="180" height="100" />
-        </ContentLoader>
-      </div>
-      <div className="lg:hidden md:hidden sm:block xsm:block">
-        <ContentLoader viewBox="0 0 350 600">
-          <rect x="35" y="35" rx="5" ry="5" width="280" height="336" />
-          <rect x="30" y="400" rx="5" ry="5" width="290" height="200" />
-        </ContentLoader>
-      </div>
-    </>
-  ) : (
+  return (
     <>
       <Navbar
         isCourse={true}
@@ -205,52 +184,138 @@ const CourseDetails = () => {
       <div className="courseDetailsMainPage">
         <div className="courseDetailsContainer">
           <div className="courseImageDiv">
-            <img
-              data-testid="courseImage"
-              className="courseImage"
-              src={course?.imageUrl}
-            ></img>
+            {isLoading ? (
+              <>
+                <div className="block lg:block md:hidden sm:hidden xsm:hidden">
+                  <Skeleton
+                    baseColor="#E5E4E2"
+                    highlightColor="#ebebeb"
+                    circle={true}
+                    height={180}
+                    width={180}
+                  />
+                </div>
+                <div className="hidden md:block lg:hidden sm:hidden xsm:hidden">
+                  <Skeleton
+                    baseColor="#E5E4E2"
+                    highlightColor="#ebebeb"
+                    circle={true}
+                    height={150}
+                    width={150}
+                  />
+                </div>
+                <div className="hidden sm:block lg:hidden md:hidden xsm:block">
+                  <Skeleton
+                    baseColor="#E5E4E2"
+                    highlightColor="#ebebeb"
+                    circle={true}
+                    height={100}
+                    width={100}
+                  />
+                </div>
+              </>
+            ) : (
+              <>
+                <img
+                  data-testid="courseImage"
+                  className="courseImage"
+                  src={course?.imageUrl}
+                ></img>
+              </>
+            )}
           </div>
           <div data-testid="courseName" className="courseHeader">
-            {course?.name}
+            {isLoading ? (
+              <>
+                <div className="block lg:block md:block sm:hidden xsm:hidden">
+                  <Skeleton
+                    baseColor="#E5E4E2"
+                    highlightColor="#ebebeb"
+                    height={50}
+                    width={350}
+                  />
+                </div>
+                <div className="hidden sm:block lg:hidden md:hidden xsm:block">
+                  <Skeleton
+                    baseColor="#E5E4E2"
+                    highlightColor="#ebebeb"
+                    height={70}
+                    width={200}
+                  />
+                </div>
+              </>
+            ) : (
+              <>{course?.name}</>
+            )}
           </div>
           <div data-testid="courseTags" className="courseTagsDiv">
-            {tags.map((tag, index) => (
-              <button key={index} className="courseTags">
-                {tag.name}
-              </button>
-            ))}
+            {isLoading ? (
+              <>
+                <div className="block lg:block md:block sm:hidden xsm:hidden">
+                  <Skeleton
+                    baseColor="#E5E4E2"
+                    highlightColor="#ebebeb"
+                    height={40}
+                    width={150}
+                  />
+                </div>
+                <div className="hidden sm:block lg:hidden md:hidden xsm:block">
+                  <Skeleton
+                    baseColor="#E5E4E2"
+                    highlightColor="#ebebeb"
+                    height={30}
+                    width={100}
+                  />
+                </div>
+              </>
+            ) : (
+              <>
+                {tags.map((tag, index) => (
+                  <button key={index} className="courseTags">
+                    {tag.name}
+                  </button>
+                ))}
+              </>
+            )}
           </div>
           <div className="courseDescriptionContainer">
             <div data-testid="courseDescription" className="m-12">
-              {/* <p>{course?.description}</p> */}
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cumque
-                voluptas consequatur impedit vitae unde accusantium at odit iste
-                molestiae dicta? Quibusdam quisquam veniam perspiciatis!
-                Officiis aliquid aspernatur, cumque necessitatibus vitae
-                doloribus a pariatur maxime mollitia at eveniet itaque
-                architecto consequuntur quisquam ullam magni quae exercitationem
-                atque maiores et iste reiciendis? Minima, optio. Eos molestiae
-                veniam ut itaque quibusdam aliquam numquam excepturi et velit,
-                totam ab, aut sapiente minus, modi a! Molestias praesentium aut
-                debitis ut magnam dolor cupiditate tempore. Eligendi ab quod
-                iste hic. Vero laudantium ex quod exercitationem, distinctio
-                culpa sint quas repellat possimus provident assumenda iste
-                veritatis voluptas?
-              </p>
+              {isLoading ? (
+                <Skeleton
+                  baseColor="#f5f5f5"
+                  highlightColor="#ebebeb"
+                  height={200}
+                />
+              ) : (
+                <>
+                  <p>{course?.description}</p>
+                </>
+              )}
             </div>
           </div>
           {!isCompleted && (
             <div data-testid="courseButton" className="mb-4 mt-2">
               {!isEnrolled && (
-                <button
-                  data-testid="courseEnroll"
-                  className="courseButtons"
-                  onClick={enrollCourse}
-                >
-                  Enroll
-                </button>
+                <>
+                  {isLoading ? (
+                    <Skeleton
+                      baseColor="f5f5f5"
+                      highlightColor="#ebebeb"
+                      height={50}
+                      width={100}
+                    />
+                  ) : (
+                    <>
+                      <button
+                        data-testid="courseEnroll"
+                        className="courseButtons"
+                        onClick={enrollCourse}
+                      >
+                        Enroll
+                      </button>
+                    </>
+                  )}
+                </>
               )}
               {isEnrolled && (
                 <button
