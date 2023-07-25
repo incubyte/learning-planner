@@ -4,7 +4,6 @@ import { ToastContainer, toast } from "react-toastify";
 import "../../css/courseDetails/courseDetails.css";
 import { courseType } from "../courses/Courses";
 import Navbar from "../utilities/Navbar";
-import ContentLoader from "react-content-loader";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 
@@ -19,7 +18,7 @@ const CourseDetails = () => {
   const fetchCourseTag = async () => {
     try {
       const response = await fetch(
-        "http://localhost:5000/course/getTagsByCourseId/" + id,
+        "https://backend-mu-plum.vercel.app/course/getTagsByCourseId/" + id,
         {
           headers: {
             Authorization: `Bearer ${authToken}`,
@@ -40,7 +39,7 @@ const CourseDetails = () => {
   const fetchCourse = async () => {
     try {
       const response = await fetch(
-        "http://localhost:5000/course/getCourseById/" + id,
+        "https://backend-mu-plum.vercel.app/course/getCourseById/" + id,
         {
           headers: {
             Authorization: `Bearer ${authToken}`,
@@ -61,14 +60,17 @@ const CourseDetails = () => {
 
   const enrollCourse = async () => {
     try {
-      const response = await fetch("http://localhost:5000/user/course/enroll", {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${authToken}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ id: id }),
-      });
+      const response = await fetch(
+        "https://backend-mu-plum.vercel.app/user/course/enroll",
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${authToken}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ id: id }),
+        }
+      );
 
       if (response && response.ok) {
         toast.success("Course Enrolled!!", {
@@ -94,7 +96,7 @@ const CourseDetails = () => {
   const completeCourse = async () => {
     try {
       const response = await fetch(
-        "http://localhost:5000/user/course/completeCourse",
+        "https://backend-mu-plum.vercel.app/user/course/completeCourse",
         {
           method: "PATCH",
           headers: {
@@ -129,7 +131,7 @@ const CourseDetails = () => {
   const fetchCourseStatus = async () => {
     try {
       const response = await fetch(
-        "http://localhost:5000/user/course/status/" + id,
+        "https://backend-mu-plum.vercel.app/user/course/status/" + id,
         {
           headers: {
             Authorization: `Bearer ${authToken}`,
@@ -160,10 +162,8 @@ const CourseDetails = () => {
 
   const fetchData = async () => {
     setIsLoading(true);
-    await setTimeout(async () => {
-      await Promise.all([fetchCourse(), fetchCourseStatus(), fetchCourseTag()]);
-      setIsLoading(false);
-    }, 5000);
+    await Promise.all([fetchCourse(), fetchCourseStatus(), fetchCourseTag()]);
+    setIsLoading(false);
   };
 
   const authToken = localStorage.getItem("authToken");

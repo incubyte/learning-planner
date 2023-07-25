@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import "../../css/courses/Filter.css";
 import { courseType } from "./Courses";
-import LoadingScreen from "../utilities/LoadingScreen";
 import { ToastContainer, toast } from "react-toastify";
 
 interface FilterProps {
@@ -64,12 +63,12 @@ const Filter = ({
     try {
       if (selectTagId.length > 0) {
         const filterByTagUrl =
-          "http://localhost:5000/course/popular/filterByTags?" +
+          "https://backend-mu-plum.vercel.app/course/popular/filterByTags?" +
           selectTagId.map((tagId) => `tags=${tagId}`).join("&&");
         fetchPopularCourses(filterByTagUrl);
       } else {
         fetchPopularCourses(
-          "http://localhost:5000/course/popular/"
+          "https://backend-mu-plum.vercel.app/course/popular/"
         );
       }
     } catch (error) {
@@ -83,7 +82,7 @@ const Filter = ({
 
   const fetchTags = async () => {
     try {
-      const response = await fetch("http://localhost:5000/tag/", {
+      const response = await fetch("https://backend-mu-plum.vercel.app/tag/", {
         headers: {
           Authorization: `Bearer ${authToken}`,
         },
@@ -117,11 +116,11 @@ const Filter = ({
     try {
       if (selectTagId.length > 0) {
         const filterByTagUrl =
-          "http://localhost:5000/course/filterByTags?" +
+          "https://backend-mu-plum.vercel.app/course/filterByTags?" +
           selectTagId.map((tagId) => `tags=${tagId}`).join("&&");
         fetchCourses(filterByTagUrl);
       } else {
-        fetchCourses("http://localhost:5000/course/");
+        fetchCourses("https://backend-mu-plum.vercel.app/course/");
       }
     } catch (error) {
       toast.error("An error occurred" + error, {
@@ -134,13 +133,11 @@ const Filter = ({
 
   const fetchData = async (courses: any) => {
     setIsLoading(true);
-    await setTimeout(async () => {
-      await Promise.all([
-        getCourseByFilter(courses),
-        getPopularCourseByFilter(popularCourses),
-      ]);
-      setIsLoading(false);
-    }, 5000);
+    await Promise.all([
+      getCourseByFilter(courses),
+      getPopularCourseByFilter(popularCourses),
+    ]);
+    setIsLoading(false);
   };
   useEffect(() => {
     fetchTags();

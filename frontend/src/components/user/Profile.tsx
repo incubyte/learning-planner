@@ -7,7 +7,6 @@ import Navbar from "../utilities/Navbar";
 import { imageUpload } from "./ImageUpload";
 import { userType } from "./user";
 import { ToastContainer, toast } from "react-toastify";
-import ContentLoader from "react-content-loader";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 
@@ -25,7 +24,7 @@ const Profile = () => {
       media = await imageUpload([avatar]);
       try {
         const response = await fetch(
-          "http://localhost:5000/user/updateProfile",
+          "https://backend-mu-plum.vercel.app/user/updateProfile",
           {
             headers: {
               Authorization: `Bearer ${authToken}`,
@@ -53,7 +52,7 @@ const Profile = () => {
 
   const fetchUser = async () => {
     try {
-      const response = await fetch("http://localhost:5000/user", {
+      const response = await fetch("https://backend-mu-plum.vercel.app/user", {
         headers: {
           Authorization: `Bearer ${authToken}`,
         },
@@ -74,11 +73,14 @@ const Profile = () => {
 
   const fetchCourse = async () => {
     try {
-      const response = await fetch("http://localhost:5000/user/course", {
-        headers: {
-          Authorization: `Bearer ${authToken}`,
-        },
-      });
+      const response = await fetch(
+        "https://backend-mu-plum.vercel.app/user/course",
+        {
+          headers: {
+            Authorization: `Bearer ${authToken}`,
+          },
+        }
+      );
       if (response && response.ok) {
         const responseCourse = await response.json();
         setActiveCourse(responseCourse.courses);
@@ -106,10 +108,8 @@ const Profile = () => {
 
   const fetchData = async () => {
     setIsLoading(true);
-    await setTimeout(async () => {
-      await Promise.all([fetchUser(), fetchCourse()]);
-      setIsLoading(false);
-    }, 5000);
+    await Promise.all([fetchUser(), fetchCourse()]);
+    setIsLoading(false);
   };
 
   useEffect(() => {

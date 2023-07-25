@@ -1,11 +1,9 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import Carousel from "../utilities/Carousel";
 import Navbar from "../utilities/Navbar";
 import CoursePageIndex from "./CoursePageIndex";
 import Filter from "./Filter";
 import { ToastContainer, toast } from "react-toastify";
-import ContentLoader from "react-content-loader";
 
 export interface courseType {
   id: string;
@@ -27,7 +25,7 @@ const CoursePage = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   const [courseUrl, setCourseUrl] = useState<string>(
-    "http://localhost:5000/course"
+    "https://backend-mu-plum.vercel.app/course"
   );
   const getQuery = (query: string) => {
     setQuery(query);
@@ -63,11 +61,14 @@ const CoursePage = () => {
   };
   const fetchPopularCourses = async () => {
     try {
-      const response = await fetch("http://localhost:5000/course/popular", {
-        headers: {
-          Authorization: `Bearer ${authToken}`,
-        },
-      });
+      const response = await fetch(
+        "https://backend-mu-plum.vercel.app/course/popular",
+        {
+          headers: {
+            Authorization: `Bearer ${authToken}`,
+          },
+        }
+      );
       if (response && response.ok) {
         const courses = await response.json();
         setPopularCourses(courses);
@@ -82,10 +83,8 @@ const CoursePage = () => {
 
   const fetchData = async (courseUrl: string) => {
     setIsLoading(true);
-    await setTimeout(async () => {
-      await Promise.all([fetchCourses(courseUrl), fetchPopularCourses()]);
-      setIsLoading(false);
-    }, 5000);
+    await Promise.all([fetchCourses(courseUrl), fetchPopularCourses()]);
+    setIsLoading(false);
   };
 
   useEffect(() => {
