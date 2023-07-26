@@ -12,7 +12,10 @@ import "./index.css";
 
 const pca = new PublicClientApplication({
   auth: {
+    // client id for localhost
     // clientId: "e7b861be-ba37-4cef-9d07-c0c184cb681f",
+
+    //client id for hosted version
     clientId: "e5c0e31e-e487-470b-a1af-828cd6a92ad6",
     authority:
       "https://login.microsoftonline.com/05b07524-f2af-411a-b5a9-a5fee6228712",
