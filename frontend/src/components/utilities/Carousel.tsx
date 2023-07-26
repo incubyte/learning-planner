@@ -41,41 +41,47 @@ const Carousel = ({
       <div className="carouselTitleName" data-testid="carouselTitleName">
         {titleName}
       </div>
-      {courses.length > 0 && isLoading == false ? (
+      {isLoading == false ? (
         <>
-          <div className="buttons">
-            <button
-              onClick={scrollLeft}
-              className="button"
-              data-testid="scrollLeft"
-            >
-              <FiChevronLeft />
-            </button>
-            <button
-              onClick={scrollRight}
-              className="button"
-              data-testid="scrollRight"
-            >
-              <FiChevronRight />
-            </button>
-          </div>
-          <div
-            ref={contentRef}
-            id={contentId}
-            className="carouselListContent"
-            data-testid="carouselContent"
-          >
-            {courses.map((course, index) => {
-              return (
-                <CourseCard
-                  key={index}
-                  id={course.id}
-                  courseImage={course.imageUrl}
-                  courseName={course.name}
-                />
-              );
-            })}
-          </div>
+          {courses.length == 0 ? (
+            <div>No Courses</div>
+          ) : (
+            <>
+              <div className="buttons">
+                <button
+                  onClick={scrollLeft}
+                  className="button"
+                  data-testid="scrollLeft"
+                >
+                  <FiChevronLeft />
+                </button>
+                <button
+                  onClick={scrollRight}
+                  className="button"
+                  data-testid="scrollRight"
+                >
+                  <FiChevronRight />
+                </button>
+              </div>
+              <div
+                ref={contentRef}
+                id={contentId}
+                className="carouselListContent"
+                data-testid="carouselContent"
+              >
+                {courses.map((course, index) => {
+                  return (
+                    <CourseCard
+                      key={index}
+                      id={course.id}
+                      courseImage={course.imageUrl}
+                      courseName={course.name}
+                    />
+                  );
+                })}
+              </div>
+            </>
+          )}
         </>
       ) : (
         <SkeletonTheme inline={true}>
