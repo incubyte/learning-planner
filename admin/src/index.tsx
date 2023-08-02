@@ -19,7 +19,11 @@ import "./index.css";
 
 const pca = new PublicClientApplication({
   auth: {
-    clientId: "a423badd-7501-4057-a0e1-b9479dce0ed5",
+    // client id for localhost
+    // clientId: "a423badd-7501-4057-a0e1-b9479dce0ed5",
+
+    //client id for hosted version
+    clientId: "4e1d9379-d4c4-49d1-be76-20b13d0af0b4",
     authority:
       "https://login.microsoftonline.com/05b07524-f2af-411a-b5a9-a5fee6228712",
     redirectUri: "/",
