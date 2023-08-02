@@ -211,4 +211,15 @@ describe("should render the leaderBoard component", () => {
       expect(activeCoursesCarousel).toBeInTheDocument();
     });
   });
+  test("should render the carousel for completed courses", async () => {
+    render(
+      <BrowserRouter>
+        <LeaderBoard />
+      </BrowserRouter>
+    );
+    await waitFor(() => {
+      const completeCoursesCarousel = screen.getByRole("completeContent");
+      expect(completeCoursesCarousel).toBeInTheDocument();
+    });
+  });
 });
