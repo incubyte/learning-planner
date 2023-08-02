@@ -21,8 +21,8 @@ const Profile = () => {
   const handleSubmit = async () => {
     let media: any = [];
     if (avatar) {
-      media = await imageUpload([avatar]);
       try {
+        media = await imageUpload([avatar]);
         const response = await fetch(
           "https://backend-mu-plum.vercel.app/user/updateProfile",
           {
@@ -42,7 +42,7 @@ const Profile = () => {
         }
         setShowModal(false);
       } catch (error) {
-        toast.error("An error occurred" + error, {
+        toast.error("" + error, {
           autoClose: 2500,
           closeButton: false,
         });
