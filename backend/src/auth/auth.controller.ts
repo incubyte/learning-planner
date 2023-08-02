@@ -23,7 +23,7 @@ export class AuthController {
 
   @UseGuards(AzureADAuthGuard)
   @Post('/admin/signin')
-  async signinAdmin(@Body() user: UserDto): Promise<string> {
+  async signinAdmin(@UserDecorator() user: any): Promise<string> {
     return await this.authService.signinAdmin(user);
   }
 
