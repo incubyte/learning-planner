@@ -5,7 +5,7 @@ import {
   useMsalAuthentication,
 } from "@azure/msal-react";
 import { useEffect, useState } from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "./App.css";
 import Footer from "./components/utilities/Footer";
@@ -16,6 +16,7 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [isSignInCompleted, setIsSignInCompleted] = useState(false);
   const { instance, inProgress } = useMsal();
+  const navigator = useNavigate();
 
   const makeJWTRequest = async (result: any) => {
     try {
@@ -32,6 +33,8 @@ function App() {
         const authToken = await response.text();
         await localStorage.setItem("authToken", authToken);
         setIsSignInCompleted(true);
+      } else {
+        navigator("/auth/error");
       }
     } catch (error) {
       toast.error("An error occurred during login" + error, {
