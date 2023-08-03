@@ -1,17 +1,24 @@
-.coursePageFooterContainer{
-   @apply bg-white rounded-lg shadow dark:bg-white m-4 w-auto border-solid border-2 border-slate-100
+.FooterContainer{
+   @apply mx-auto w-full max-w-screen-xl
 }
 
-.coursePageFooterContent{
-    @apply w-auto mx-auto p-4 md:py-8
+.FooterContent{
+    @apply px-4 py-6 bg-gray-100 md:flex md:items-center md:justify-between
 }
 
-.coursePageFooterContentText{
-    @apply block text-sm text-black sm:text-center dark:text-black
+.FooterContentText{
+    @apply text-sm text-gray-500 sm:text-center
 }
 
-.coursePageFooterLink{
-    @apply hover:underline
+.FooterLink{
+    @apply text-gray-400 hover:text-gray-900
 }
+.FooterIcons{
+    @apply w-7 h-7
+}
+.FooterIconLinkSection{
+    @apply flex mt-4 space-x-5 sm:justify-center xsm:justify-center md:mt-0
+}
+
 
 

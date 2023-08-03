@@ -78,13 +78,15 @@ function App() {
   return isLoading ? (
     <LoadingScreen />
   ) : isSignInCompleted ? (
-    <div className="App" data-testid="App">
-      <button onClick={handleSignIn}>Sign In</button>
-      <button onClick={handleSignOut}>Sign Out</button>
+    <>
+      <div className="App" data-testid="App">
+        <button onClick={handleSignIn}>Sign In</button>
+        <button onClick={handleSignOut}>Sign Out</button>
 
-      <Outlet></Outlet>
+        <Outlet></Outlet>
+      </div>
       <Footer />
-    </div>
+    </>
   ) : null;
 }
 

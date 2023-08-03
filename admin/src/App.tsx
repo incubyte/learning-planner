@@ -96,8 +96,8 @@ function App() {
           <div className="App" data-testid="App">
             <button onClick={handleSignOut}>Sign Out</button>
             <Outlet></Outlet>
-            <Footer></Footer>
           </div>
+          <Footer></Footer>
         </>
       </AuthenticatedTemplate>
     </>

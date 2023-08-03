@@ -9,6 +9,9 @@
     animation: App-logo-spin infinite 20s linear;
   }
 }
+.App{
+  @apply min-h-[91vh]
+}
 
 .App-header {
   background-color: #282c34;

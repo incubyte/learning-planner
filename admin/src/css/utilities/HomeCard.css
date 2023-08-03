@@ -1,5 +1,5 @@
-.HomeContainer{
-   @apply grid grid-cols-1 justify-items-center content-center mt-8 lg:mt-16 md:mt-16
+.HomeCardContainer{
+   @apply max-w-sm bg-gray-100 border border-gray-200 rounded-lg shadow hover:shadow-lg p-10
 }
 .HomeBody{
    @apply flex flex-col lg:flex-row md:flex-row gap-10 lg:gap-44 md:gap-44 justify-center justify-items-center items-center mt-16
