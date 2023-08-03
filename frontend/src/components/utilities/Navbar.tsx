@@ -5,6 +5,7 @@ import IncubyteLogo from "../../assets/IncubyteLogo.png";
 import "../../css/utilities/Navbar.css";
 import CloseMenu from "./icons/CloseMenu";
 import OpenMenu from "./icons/OpenMenu";
+import { useMsal } from "@azure/msal-react";
 
 interface NavbarProps {
   isHome: boolean;
@@ -19,9 +20,14 @@ const Navbar = (props: NavbarProps) => {
 
   const [isOpen, setIsOpen] = useState(false);
 
+  const { instance } = useMsal();
+
   const logout = async () => {
     await localStorage.removeItem("authToken");
-    await navigator("/auth/sign_in");
+    const accounts = instance.getAllAccounts();
+    if (accounts.length !== 0) {
+      await instance.logoutRedirect({});
+    }
   };
 
   return (

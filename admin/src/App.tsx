@@ -15,7 +15,6 @@ function App() {
   const [page, setPage] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isSignInCompleted, setIsSignInCompleted] = useState(false);
-  const { instance, inProgress } = useMsal();
   const navigator = useNavigate();
 
   const makeJWTRequest = async (result: any) => {
@@ -59,13 +58,6 @@ function App() {
     makeJWTRequest(result);
   }
 
-  const handleSignOut = async () => {
-    await localStorage.removeItem("authToken");
-    const accounts = instance.getAllAccounts();
-    if (accounts.length !== 0) {
-      await instance.logoutRedirect({});
-    }
-  };
   const fetchPage = async () => {
     const accessToken = localStorage.getItem("authToken");
     const response = await fetch("https://backend-mu-plum.vercel.app/", {
@@ -94,7 +86,6 @@ function App() {
       <AuthenticatedTemplate>
         <>
           <div className="App" data-testid="App">
-            <button onClick={handleSignOut}>Sign Out</button>
             <Outlet></Outlet>
           </div>
           <Footer></Footer>
