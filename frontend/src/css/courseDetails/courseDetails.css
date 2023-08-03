@@ -26,7 +26,7 @@
     @apply text-white font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg mr-1 mb-1 ease-linear transition-all duration-150 bg-emerald-500 active:bg-emerald-600
 }
 .resourceContainer{
-    @apply grid grid-cols-1 justify-items-center content-center
+    @apply flex flex-col items-center gap-7 content-center
 }
 .courseResources{
     @apply container grid justify-items-center content-center relative lg:h-96 md:h-80 sm:h-72 h-60 sm:w-10/12 xsm:w-10/12 max-w-full overflow-hidden
