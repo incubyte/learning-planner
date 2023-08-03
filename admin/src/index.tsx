@@ -14,6 +14,7 @@ import UpdateCourse from "./components/course/UpdateCourse";
 import Tags from "./components/tag/Tags";
 import UserDetail from "./components/user/UserDetail";
 import Users from "./components/user/Users";
+import ErrorPage from "./components/utilities/ErrorPage";
 import LoadingScreen from "./components/utilities/LoadingScreen";
 import "./index.css";
 
@@ -82,6 +83,10 @@ const router = createBrowserRouter([
       {
         path: "sign_in",
         element: <SignIn></SignIn>,
+      },
+      {
+        path: "error",
+        element: <ErrorPage></ErrorPage>,
       },
       {
         path: "forgot_password",
