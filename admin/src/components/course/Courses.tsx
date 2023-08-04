@@ -80,7 +80,7 @@ const Course = () => {
           <thead className="courseTableHead" data-testid="tableHeading">
             <tr>
               <th scope="col" className="courseTableHeadCols">
-                SrNo.
+                Sr No.
               </th>
               <th scope="col" className="courseTableHeadCols">
                 Name

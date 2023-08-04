@@ -1,70 +1,69 @@
 .UserDetailsModal{
     @apply justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none
 }
-.UserDetailsModalContainer{
-    @apply border-0 rounded-lg shadow-lg relative flex flex-col w-80 bg-white outline-none focus:outline-none
+.UserDetailsModalContainer {
+  @apply border-0 rounded-lg shadow-lg relative flex flex-col w-80 bg-white outline-none focus:outline-none;
 }
-.UserDetailsModelUploadContainer{
-    @apply flex items-start justify-between p-5 xsm:p-3 border-b border-solid border-slate-200 rounded-t
+.UserDetailsModelUploadContainer {
+  @apply flex items-start justify-between p-5 xsm:p-3 border-b border-solid border-slate-200 rounded-t;
 }
-.UserDetailsModalUploadButton{
-    @apply p-1 ml-auto border-0 text-black float-right text-3xl font-semibold outline-none
+.UserDetailsModalUploadButton {
+  @apply p-1 ml-auto border-0 text-black float-right text-3xl font-semibold outline-none;
 }
-.UserDetailsModelUploadFileLabel{
-    @apply block mb-2 text-sm font-medium text-gray-900 dark:text-white
+.UserDetailsModelUploadFileLabel {
+  @apply block mb-2 text-sm font-medium text-gray-900 dark:text-white;
 }
-.UserDetailsModalUploadInput{
-    @apply relative m-0 block w-auto xsm:w-72 min-w-0 flex-auto rounded border 
+.UserDetailsModalUploadInput {
+  @apply relative m-0 block w-auto xsm:w-72 min-w-0 flex-auto rounded border 
     border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] text-base font-normal 
     text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] 
     file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit 
     file:bg-neutral-100 file:px-3 file:py-[0.32rem] file:text-neutral-700 file:transition 
     file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] 
-    hover:file:bg-neutral-200
+    hover:file:bg-neutral-200;
 }
-.UserDetailsModalFooter{
-    @apply flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b
+.UserDetailsModalFooter {
+  @apply flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b;
 }
-.UserDetailsModalCloseButton{
-    @apply text-red-500 font-bold uppercase px-6 py-2 text-sm outline-none mr-1 mb-1 transition-all duration-150
+.UserDetailsModalCloseButton {
+  @apply text-red-500 font-bold  px-6 py-2 text-base outline-none mr-1 mb-1 transition-all duration-150;
 }
-.UserDetailsModalSaveButton{
-    @apply text-white font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg mr-1 mb-1 ease-linear transition-all duration-150
+.UserDetailsModalSaveButton {
+  @apply text-white font-bold  text-base px-6 py-3 rounded shadow hover:shadow-lg mr-1 mb-1 ease-linear transition-all duration-150;
 }
-
-.UserDetailsHeader{
-    @apply text-5xl lg:text-4xl md:text-4xl xsm:text-4xl mt-8 mb-5 grid grid-cols-1 justify-items-center content-center
+.UserDetailsHeader {
+  @apply text-5xl lg:text-4xl md:text-4xl xsm:text-4xl mt-8 mb-5 grid grid-cols-1 justify-items-center content-center;
 }
-.UserDetailsDiv{
-    @apply grid justify-items-center content-center h-screen
+.UserDetailsDiv {
+  @apply grid justify-items-center content-center h-screen;
 }
-.UserDetailsPhotoDiv{
-    @apply grid grid-cols-1 justify-items-center content-center relative
+.UserDetailsPhotoDiv {
+  @apply grid grid-cols-1 justify-items-center content-center relative;
 }
-.UserDetailsPhoto{
-    @apply rounded-full lg:h-60 lg:w-60 sm:h-48 sm:w-48 xsm:w-40 xsm:h-40 md:h-52 md:w-52 object-cover
+.UserDetailsPhoto {
+  @apply rounded-full lg:h-60 lg:w-60 sm:h-48 sm:w-48 xsm:w-40 xsm:h-40 md:h-52 md:w-52 object-cover;
 }
-.UserDetailsImageUpdateIcon{
-    @apply h-7 w-7 absolute lg:bottom-12 md:bottom-12 bottom-3 lg:right-3 right-4 bg-white rounded-md hover:cursor-pointer hover:h-8 hover:w-8
+.UserDetailsImageUpdateIcon {
+  @apply h-7 w-7 absolute lg:bottom-12 md:bottom-12 bottom-3 lg:right-3 right-4 bg-white rounded-md hover:cursor-pointer hover:h-8 hover:w-8;
 }
-.UserDetailsContainer{
-    @apply container lg:w-8/12 mdl:w-9/12 md:w-10/12 max-w-full grid lg:grid-cols-2 md:grid-cols-2 smd:grid-cols-1 grid-cols-1 justify-items-center content-center
+.UserDetailsContainer {
+  @apply container lg:w-8/12 mdl:w-9/12 md:w-10/12 max-w-full grid lg:grid-cols-2 md:grid-cols-2 smd:grid-cols-1 grid-cols-1 justify-items-center content-center;
 }
-.UserDetailsContentContainer{
-    @apply grid grid-cols-1 p-4 md:pl-0 md:pr-0
+.UserDetailsContentContainer {
+  @apply grid grid-cols-1 p-4 md:pl-0 md:pr-0;
 }
-.UserDetailsContentGridContainer{
-    @apply grid grid-cols-1 justify-items-center content-center gap-3
+.UserDetailsContentGridContainer {
+  @apply grid grid-cols-1 justify-items-center content-center gap-3;
 }
 .UserDetailsInput {
-    @apply text-center w-36 lg:w-44 mdl:w-44 md:w-40 smd:w-36 sm:w-40 bg-gray-100 border border-gray-300 text-gray-900 text-sm lg:text-base md:text-base smd:text-sm rounded-lg block lg:max-w-fit p-2
+  @apply text-center w-36 lg:w-44 mdl:w-44 md:w-40 smd:w-36 sm:w-40 bg-gray-100 border border-gray-300 text-gray-900 text-sm lg:text-base md:text-base smd:text-sm rounded-lg block lg:max-w-fit p-2;
 }
-.UserDetailsLabel{
-    @apply grid justify-items-center content-center text-gray-700 text-sm lg:text-base md:text-base font-bold
+.UserDetailsLabel {
+  @apply grid justify-items-center content-center text-gray-700 text-sm lg:text-base md:text-base font-bold;
 }
-.UserDetailsLabelCheckbox{
-    @apply grid justify-items-center content-center text-blue-800 text-base lg:text-xl md:text-xl font-bold mt-11
+.UserDetailsLabelCheckbox {
+  @apply grid justify-items-center content-center text-blue-800 text-base lg:text-xl md:text-xl font-bold mt-11;
 }
-.UserDetailsGridContent{
-    @apply grid grid-cols-2 justify-items-center content-center
+.UserDetailsGridContent {
+  @apply grid grid-cols-2 justify-items-center content-center;
 }

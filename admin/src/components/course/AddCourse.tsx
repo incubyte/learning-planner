@@ -259,14 +259,11 @@ const AddCourse = () => {
 
       {showAddTagModel ? (
         <>
-          <div
-            data-testid="profileImageModel"
-            className="CourseImageModel"
-          >
+          <div data-testid="profileImageModel" className="CourseImageModel">
             <div className="relative w-auto my-6 mx-auto">
               <div className="CourseImageModalContainer">
                 <div className="CourseModelUploadContainer">
-                  <h3 className="text-3xl font-semibold">Add Tags here</h3>
+                  <h3 className="text-3xl font-semibold">Add Tag</h3>
                   <button
                     className="CourseModalUploadButton"
                     onClick={() => setShowAddTagModal(false)}
@@ -338,9 +335,7 @@ const AddCourse = () => {
           className="AddCourseContainer"
         >
           <div className="form-group mt-3" data-testid="courseTitle">
-            <label className="AddCourseTextLabel text-md">
-              Title
-            </label>
+            <label className="AddCourseTextLabel text-md">Title</label>
             <input
               className="AddCourseTextInput"
               type="text"
@@ -352,9 +347,7 @@ const AddCourse = () => {
             />
           </div>
           <div className="form-group mt-3" data-testid="courseDescription">
-            <label className="AddCourseTextLabel text-md">
-              Description
-            </label>
+            <label className="AddCourseTextLabel text-md">Description</label>
             <textarea
               className="AddCourseTextInput"
               placeholder="Enter course description"
@@ -365,9 +358,7 @@ const AddCourse = () => {
             ></textarea>
           </div>
           <div className="form-group mt-3" data-testid="courseCredit">
-            <label className="AddCourseTextLabel text-md">
-              Credit
-            </label>
+            <label className="AddCourseTextLabel text-md">Credit</label>
             <input
               className="AddCourseTextInput"
               type="number"
@@ -379,9 +370,7 @@ const AddCourse = () => {
             />
           </div>
           <div className="form-group mt-3" data-testid="multiselect">
-            <label className="AddCourseTextLabel text-md">
-              Tags
-            </label>
+            <label className="AddCourseTextLabel text-md">Tags</label>
             <Multiselect
               options={data.options}
               data-testid="multiSelectInput"
@@ -408,10 +397,10 @@ const AddCourse = () => {
             />
             <button
               type="button"
-              className="AddCourseAddTagButton"
+              className="AddCourseAddTagButton bg-green-500"
               onClick={() => setShowAddTagModal(true)}
             >
-              Add Tags
+              Add
             </button>
           </div>
           <div className="form-group mt-3 justify-between">
@@ -431,7 +420,7 @@ const AddCourse = () => {
                   <button
                     type="button"
                     data-testid="RemoveButton"
-                    className="AddCourseRemoveUrlButton"
+                    className="AddCourseRemoveUrlButton bg-red-500"
                     onClick={() => handleRemoveResourceUrl(index)}
                   >
                     Remove
@@ -442,7 +431,7 @@ const AddCourse = () => {
             <button
               type="button"
               data-testid="Add Resource Url"
-              className="AddCourseAddUrlButton"
+              className="AddCourseAddUrlButton bg-green-500"
               onClick={handleAddResourceUrl}
             >
               Add
@@ -466,7 +455,7 @@ const AddCourse = () => {
                   <button
                     type="button"
                     data-testid="RemoveTestButton"
-                    className="AddCourseRemoveUrlButton"
+                    className="AddCourseRemoveUrlButton bg-red-500"
                     onClick={() => handleRemoveTestUrl(index)}
                   >
                     Remove
@@ -477,7 +466,7 @@ const AddCourse = () => {
             <button
               type="button"
               data-testid="Add Test Url"
-              className="AddCourseAddUrlButton"
+              className="AddCourseAddUrlButton bg-green-500"
               onClick={handleAddTestUrl}
             >
               Add
@@ -503,7 +492,7 @@ const AddCourse = () => {
           <div className="flex justify-center">
             <button
               data-testid="submitButton"
-              className="AddCourseSubmitButton"
+              className="AddCourseSubmitButton bg-blue-500"
               type="submit"
             >
               Add Course
