@@ -87,7 +87,7 @@ const ResetPassword = () => {
           src="https://res.cloudinary.com/dxepcudkt/image/upload/v1685686631/change-password_zsunue.svg"
         ></img>
         <p data-testid="resetHeader" className="PasswordFormHeader">
-          Reset Password
+          Reset password
         </p>
         <label data-testid="resetForm" className="PasswordFormItems">
           <Input

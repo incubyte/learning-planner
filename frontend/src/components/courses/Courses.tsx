@@ -125,14 +125,14 @@ const CoursePage = () => {
       />
       <hr className="mt-10" />
       <Carousel
-        titleName="Popular courses"
+        titleName="Popular Courses"
         courses={search(popularCourses)}
         contentId="popContent"
         isLoading={isLoading}
       />
       <hr className="mt-10" />
       <Carousel
-        titleName="Available courses"
+        titleName="Available Courses"
         courses={search(availableCourses)}
         contentId="availContent"
         isLoading={isLoading}

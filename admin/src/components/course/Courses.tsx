@@ -6,7 +6,7 @@ import "tippy.js/dist/tippy.css";
 import "../../css/course/courses.css";
 import LoadingScreen from "../utilities/LoadingScreen";
 import Navbar from "../utilities/Navbar";
-import { courseType } from "./course";
+import { courseType } from "./courseType";
 
 const Course = () => {
   const authToken = localStorage.getItem("authToken");
