@@ -430,7 +430,7 @@ const UserDetail = () => {
             type="button"
             onClick={deleteUser}
           >
-            delete
+            Delete
           </button>
         </div>
       </div>

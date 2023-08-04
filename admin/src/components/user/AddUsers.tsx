@@ -89,7 +89,7 @@ const AddUser = (props: addUserProps) => {
             <div className="relative w-auto my-6 mx-auto">
               <div className="AddUserModalContainer">
                 <div className="AddUserModelUploadContainer">
-                  <h3 className="text-3xl font-semibold">Upload Excel</h3>
+                  <h3 className="text-3xl font-semibold">Upload File</h3>
                   <button
                     className="AddUserModalUploadButton"
                     onClick={() => props.setShowModal(false)}

@@ -163,7 +163,7 @@ const LeaderBoard = () => {
             className="LeaderBoardTitleContainer"
             data-testid="leaderBoardTitle"
           >
-            The Leader Board
+            Leader Board
           </h2>
         </div>
         <div className="LeaderBoardContainers" data-testid="container1">
