@@ -5,7 +5,6 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { User } from '@prisma/client';
 import * as bcrypt from 'bcrypt';
-import { compareSync } from 'bcrypt';
 import { uid } from 'uid';
 import { Role } from './role.enum';
 
@@ -43,19 +42,19 @@ export class AuthService {
     return responseuser;
   }
 
-  async signin(user: UserDto): Promise<string> {
+  async signin(user: any): Promise<string> {
     const prismaUser = await this.prismaService.user.findFirst({
-      where: { email: user.email },
+      where: { email: user },
     });
     if (!this.checkUserExist(prismaUser)) {
       throw new BadRequestException('User not found');
     }
-    if (!compareSync(user.password, prismaUser.password)) {
-      throw new BadRequestException('Invalid password');
-    }
+    // if (!compareSync(user.password, prismaUser.password)) {
+    //   throw new BadRequestException('Invalid password');
+    // }
     const accessToken = this.jwtService.sign({
       id: prismaUser.id,
-      email: user.email,
+      email: user,
       roles: prismaUser.roles,
     });
     return accessToken;
@@ -68,9 +67,9 @@ export class AuthService {
     if (!this.checkUserExist(prismaUser)) {
       throw new BadRequestException('Not an Admin');
     }
-    if (!compareSync(user.password, prismaUser.password)) {
-      throw new BadRequestException('Invalid password');
-    }
+    // if (!compareSync(user.password, prismaUser.password)) {
+    //   throw new BadRequestException('Invalid password');
+    // }
     const accessToken = this.jwtService.sign({
       id: prismaUser.id,
       email: user.email,

@@ -212,8 +212,3 @@ describe("should render the leaderBoard component", () => {
     });
   });
 });
-function realUseState(
-  stubInitialState: any
-): [unknown, React.Dispatch<unknown>] {
-  throw new Error("Function not implemented.");
-}

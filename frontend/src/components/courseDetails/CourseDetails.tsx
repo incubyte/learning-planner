@@ -3,8 +3,9 @@ import { useParams } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "../../css/courseDetails/courseDetails.css";
 import { courseType } from "../courses/Courses";
-import LoadingScreen from "../utilities/LoadingScreen";
 import Navbar from "../utilities/Navbar";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 const CourseDetails = () => {
   const { id } = useParams();
@@ -161,7 +162,6 @@ const CourseDetails = () => {
 
   const fetchData = async () => {
     setIsLoading(true);
-
     await Promise.all([fetchCourse(), fetchCourseStatus(), fetchCourseTag()]);
     setIsLoading(false);
   };
@@ -172,9 +172,7 @@ const CourseDetails = () => {
     fetchData();
   }, []);
 
-  return isLoading ? (
-    <LoadingScreen />
-  ) : (
+  return (
     <>
       <Navbar
         isCourse={true}
@@ -186,37 +184,138 @@ const CourseDetails = () => {
       <div className="courseDetailsMainPage">
         <div className="courseDetailsContainer">
           <div className="courseImageDiv">
-            <img
-              data-testid="courseImage"
-              className="courseImage"
-              src={course?.imageUrl}
-            ></img>
+            {isLoading ? (
+              <>
+                <div className="block lg:block md:hidden sm:hidden xsm:hidden">
+                  <Skeleton
+                    baseColor="#E5E4E2"
+                    highlightColor="#ebebeb"
+                    circle={true}
+                    height={180}
+                    width={180}
+                  />
+                </div>
+                <div className="hidden md:block lg:hidden sm:hidden xsm:hidden">
+                  <Skeleton
+                    baseColor="#E5E4E2"
+                    highlightColor="#ebebeb"
+                    circle={true}
+                    height={150}
+                    width={150}
+                  />
+                </div>
+                <div className="hidden sm:block lg:hidden md:hidden xsm:block">
+                  <Skeleton
+                    baseColor="#E5E4E2"
+                    highlightColor="#ebebeb"
+                    circle={true}
+                    height={100}
+                    width={100}
+                  />
+                </div>
+              </>
+            ) : (
+              <>
+                <img
+                  data-testid="courseImage"
+                  className="courseImage"
+                  src={course?.imageUrl}
+                ></img>
+              </>
+            )}
           </div>
           <div data-testid="courseName" className="courseHeader">
-            {course?.name}
+            {isLoading ? (
+              <>
+                <div className="block lg:block md:block sm:hidden xsm:hidden">
+                  <Skeleton
+                    baseColor="#E5E4E2"
+                    highlightColor="#ebebeb"
+                    height={50}
+                    width={350}
+                  />
+                </div>
+                <div className="hidden sm:block lg:hidden md:hidden xsm:block">
+                  <Skeleton
+                    baseColor="#E5E4E2"
+                    highlightColor="#ebebeb"
+                    height={70}
+                    width={200}
+                  />
+                </div>
+              </>
+            ) : (
+              <>{course?.name}</>
+            )}
           </div>
           <div data-testid="courseTags" className="courseTagsDiv">
-            {tags.map((tag, index) => (
-              <button key={index} className="courseTags">
-                {tag.name}
-              </button>
-            ))}
+            {isLoading ? (
+              <>
+                <div className="block lg:block md:block sm:hidden xsm:hidden">
+                  <Skeleton
+                    baseColor="#E5E4E2"
+                    highlightColor="#ebebeb"
+                    height={40}
+                    width={150}
+                  />
+                </div>
+                <div className="hidden sm:block lg:hidden md:hidden xsm:block">
+                  <Skeleton
+                    baseColor="#E5E4E2"
+                    highlightColor="#ebebeb"
+                    height={30}
+                    width={100}
+                  />
+                </div>
+              </>
+            ) : (
+              <>
+                {tags.map((tag, index) => (
+                  <button key={index} className="courseTags">
+                    {tag.name}
+                  </button>
+                ))}
+              </>
+            )}
           </div>
           <div className="courseDescriptionContainer">
             <div data-testid="courseDescription" className="m-12">
-              <p>{course?.description}</p>
+              {isLoading ? (
+                <Skeleton
+                  baseColor="#f5f5f5"
+                  highlightColor="#ebebeb"
+                  height={200}
+                />
+              ) : (
+                <>
+                  <p>{course?.description}</p>
+                </>
+              )}
             </div>
           </div>
           {!isCompleted && (
             <div data-testid="courseButton" className="mb-4 mt-2">
               {!isEnrolled && (
-                <button
-                  data-testid="courseEnroll"
-                  className="courseButtons"
-                  onClick={enrollCourse}
-                >
-                  Enroll
-                </button>
+                <>
+                  {isLoading ? (
+                    <Skeleton
+                      baseColor="f5f5f5"
+                      highlightColor="#ebebeb"
+                      height={50}
+                      width={100}
+                    />
+                  ) : (
+                    <>
+                      <button
+                        data-testid="courseEnroll"
+                        className="courseButtons"
+                        onClick={enrollCourse}
+                      >
+                        Enroll
+                      </button>
+                    </>
+                  )}
+                </>
               )}
               {isEnrolled && (
                 <button

@@ -1,24 +1,80 @@
+import { InteractionType, RedirectRequest } from "@azure/msal-browser";
+import {
+  AuthenticatedTemplate,
+  useMsal,
+  useMsalAuthentication,
+} from "@azure/msal-react";
 import { useEffect, useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import "./App.css";
-import LoadingScreen from "./components/utilities/LoadingScreen";
 import Footer from "./components/utilities/Footer";
+import LoadingScreen from "./components/utilities/LoadingScreen";
 
 function App() {
-  const navigator = useNavigate();
-
   const [page, setPage] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [isSignInCompleted, setIsSignInCompleted] = useState(false);
+  const { instance, inProgress } = useMsal();
+  const navigator = useNavigate();
 
-  const authToken = localStorage.getItem("authToken");
+  const makeJWTRequest = async (result: any) => {
+    try {
+      const response = await fetch(
+        "https://backend-mu-plum.vercel.app/auth/admin/signin",
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${result.accessToken}`,
+          },
+        }
+      );
+      if (response.ok) {
+        const authToken = await response.text();
+        await localStorage.setItem("authToken", authToken);
+        setIsSignInCompleted(true);
+      } else {
+        navigator("/auth/error");
+      }
+    } catch (error) {
+      toast.error("An error occurred during login" + error, {
+        autoClose: 2500,
+        closeButton: false,
+      });
+    }
+  };
+  const loginRequest: RedirectRequest = {
+    scopes: ["User.Read"],
+  };
+  const { login, result, error } = useMsalAuthentication(
+    InteractionType.Redirect,
+    loginRequest
+  );
+
+  if (error) {
+    // handle error...
+  }
+
+  if (result) {
+    makeJWTRequest(result);
+  }
+
+  const handleSignOut = async () => {
+    await localStorage.removeItem("authToken");
+    const accounts = instance.getAllAccounts();
+    if (accounts.length !== 0) {
+      await instance.logoutRedirect({});
+    }
+  };
   const fetchPage = async () => {
+    const accessToken = localStorage.getItem("authToken");
     const response = await fetch("https://backend-mu-plum.vercel.app/", {
       headers: {
-        Authorization: `Bearer ${authToken}`,
+        Authorization: `Bearer ${accessToken}`,
       },
     });
-    if (response && !response.ok) {
-      navigator("/auth/sign_in");
+    if (response.ok) {
+      setIsSignInCompleted(true);
     }
   };
   const fetchData = async () => {
@@ -30,15 +86,20 @@ function App() {
   };
   useEffect(() => {
     fetchData();
-  }, page);
+  }, [page, isSignInCompleted]);
   return isLoading ? (
     <LoadingScreen />
   ) : (
     <>
-      <div className="App" data-testid="App">
-        <Outlet></Outlet>
-        <Footer></Footer>
-      </div>
+      <AuthenticatedTemplate>
+        <>
+          <div className="App" data-testid="App">
+            <button onClick={handleSignOut}>Sign Out</button>
+            <Outlet></Outlet>
+            <Footer></Footer>
+          </div>
+        </>
+      </AuthenticatedTemplate>
     </>
   );
 }
