@@ -153,7 +153,7 @@ const LeaderBoard = () => {
 
   return (
     <>
-      <div>
+      <div className="leaderBoard">
         <div className="flex flex-col mx-3 sm:mx-10 my-1 sm:my-2 shadow-md rounded-lg bg-home-page bg-[length:100%_25vh] h-[25vh] lg:bg-[length:100%_50vh] md:bg-[length:100%_30vh] lg:h-[50vh] md:h-[30vh] justify-center">
           <div className="inset-0 flex flex-col justify-center items-center text-white text-center p-4">
             <p className="text-base md:text-2xl lg:text-3xl font-bold">
@@ -162,10 +162,10 @@ const LeaderBoard = () => {
             </p>
           </div>
         </div>
-        <h1 data-testid="CourseHeading" className="courseHeading">
+        <h1 data-testid="leaderBoardTitle" className="courseHeading">
           Leader Board
         </h1>
-        <div className="courseContainer">
+        <div className="courseContainer" data-testid="container2">
           <table data-testid="container2 table" className="courseTable">
             <thead className="courseTableHead" data-testid="tableHeading">
               <tr>
