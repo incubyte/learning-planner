@@ -1,13 +1,11 @@
-import { useIsAuthenticated } from "@azure/msal-react";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "../../css/home/LeaderBoard.css";
 import { courseType } from "../courses/Courses";
 import { userType } from "../user/user";
 import Carousel from "../utilities/Carousel";
 import { LeaderBoardType } from "./LeaderBoardType";
-import Skeleton from "react-loading-skeleton";
-import "react-loading-skeleton/dist/skeleton.css";
+import HomePage from "../../assets/HomePage.png";
 
 const LeaderBoard = () => {
   const [activeCourses, setActiveCourses] = useState<courseType[]>([]);
@@ -15,11 +13,9 @@ const LeaderBoard = () => {
   const [leaderBoardUsers, setLeaderBoardUsers] = useState<LeaderBoardType[]>(
     []
   );
-  const isAuthenticated = useIsAuthenticated();
   const [currentUserCredit, setCurrentUserCredit] = useState<number>(0);
   const [currentUser, setCurrentUser] = useState<userType>();
   const [isLoading, setIsLoading] = useState(true);
-
   const fetchCurrentUserCredit = async () => {
     const authToken = localStorage.getItem("authToken");
     try {
@@ -157,127 +153,80 @@ const LeaderBoard = () => {
 
   return (
     <>
-      <div className="LeaderBoardContainer " role="leaderBoard">
-        <div className="w-full text-center mb-8">
-          <h2
-            className="LeaderBoardTitleContainer"
-            data-testid="leaderBoardTitle"
-          >
-            Leader Board
-          </h2>
+      <div>
+        <div className="flex flex-col mx-3 sm:mx-10 my-1 sm:my-2 shadow-md rounded-lg bg-home-page bg-[length:100%_25vh] h-[25vh] lg:bg-[length:100%_50vh] md:bg-[length:100%_30vh] lg:h-[50vh] md:h-[30vh] justify-center">
+          <div className="inset-0 flex flex-col justify-center items-center text-white text-center p-4">
+            <p className="text-base md:text-2xl lg:text-3xl font-bold">
+              Learning is a never-ending journey, and the more you explore, the
+              more you discover.
+            </p>
+          </div>
         </div>
-        <div className="LeaderBoardContainers" data-testid="container1">
-          {isLoading ? (
-            <Skeleton className="lg:max-w-[580px] h-[450px]" />
-          ) : (
-            <>
-              <div className="LeaderBoardInnerContainer">
-                <div>
-                  <img
-                    className="LeaderBoardInnerFirstImageContainer"
-                    src={currentUser?.profilePhoto}
-                    alt="user image"
-                    data-testid="container1 Image"
-                  />
-                </div>
-                <div
-                  className="LeaderBoardUserInfoContainer"
-                  data-testid="container1 user Info"
-                >
-                  <div className="LeaderBoardUserInnerInfoContainer">
-                    <p className="LeaderBoardUserInnerInfo">
-                      Email: {currentUser?.email}
-                    </p>
-                    <p className="LeaderBoardUserInnerInfo">
-                      Credits: {currentUserCredit}
-                    </p>
-                    <p className="LeaderBoardUserInnerInfo">
-                      Role: {currentUser?.role}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </>
-          )}
-        </div>
-        <div className="LeaderBoardContainers" data-testid="container2">
-          {isLoading ? (
-            <Skeleton className="lg:max-w-[480px] h-[450px]" />
-          ) : (
-            <>
-              <div className="LeaderBoardContainerTwoTableContainer">
-                <div className="LeaderBoardInnerContainerScrollbar">
-                  <table
-                    className="LeaderBoardContainerTwoTable"
-                    data-testid="container2 table"
+        <h1 data-testid="CourseHeading" className="courseHeading">
+          Leader Board
+        </h1>
+        <div className="courseContainer">
+          <table data-testid="container2 table" className="courseTable">
+            <thead className="courseTableHead" data-testid="tableHeading">
+              <tr>
+                <th scope="col" className="courseTableHeadCols">
+                  SrNo.
+                </th>
+                <th scope="col" className="courseTableHeadCols">
+                  Email
+                </th>
+                <th scope="col" className="courseTableHeadCols">
+                  Role
+                </th>
+                <th scope="col" className="courseTableHeadCols">
+                  Credits
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {leaderBoardUsers?.map((leaderBoardUser, index) => {
+                return (
+                  <tr
+                    key={index}
+                    className={`${
+                      index % 2 === 1 ? "bg-gray-100" : "bg-white"
+                    }`}
+                    role="row"
                   >
-                    <thead>
-                      <tr role="row">
-                        <th className="rounded-tl LeaderBoardContainerTwoTableBorder">
-                          Rank
-                        </th>
-                        <th className="LeaderBoardContainerTwoTableBorder">
-                          Email
-                        </th>
-                        <th className="LeaderBoardContainerTwoTableBorder">
-                          Role
-                        </th>
-                        <th className="LeaderBoardContainerTwoTableBorder">
-                          Credits
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {leaderBoardUsers.map((leaderBoardUser, index) => {
-                        return (
-                          <React.Fragment key={index}>
-                            {
-                              <tr
-                                className={`${
-                                  index % 2 === 0 ? "bg-gray-100" : "bg-white"
-                                }`}
-                                role="row"
-                              >
-                                <td className="LeaderBoardContainerTwoTableBorder">
-                                  {index + 1}
-                                </td>
-                                <td className="LeaderBoardContainerTwoTableBorder">
-                                  {leaderBoardUser?.user?.email}
-                                </td>
-                                <td className="LeaderBoardContainerTwoTableBorder">
-                                  {leaderBoardUser?.user?.role}
-                                </td>
-                                <td className="LeaderBoardContainerTwoTableBorder">
-                                  {leaderBoardUser?.CompletedCourseCount * 10}
-                                </td>
-                              </tr>
-                            }
-                          </React.Fragment>
-                        );
-                      })}
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </>
-          )}
+                    <td className="courseTableRows">{index + 1}</td>
+                    <td className="courseTableRows">
+                      {leaderBoardUser?.user?.email}
+                    </td>
+                    <td className="courseTableRows">
+                      {leaderBoardUser?.user?.role}
+                    </td>
+                    <td className="courseTableRows">
+                      {leaderBoardUser?.CompletedCourseCount * 10}
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
         </div>
+        <br />
+        <hr className="mt-10" />
+        <Carousel
+          titleName="Active Courses"
+          contentId={"activeContent"}
+          courses={activeCourses}
+          isLoading={isLoading}
+        />
+        <hr className="mt-10" />
+        <Carousel
+          titleName="Completed Courses"
+          contentId={"completeContent"}
+          courses={completeCourses}
+          isLoading={isLoading}
+        />
+
+        <ToastContainer />
       </div>
-      <br />
-      <Carousel
-        titleName="Active Courses"
-        contentId={"activeContent"}
-        courses={activeCourses}
-        isLoading={isLoading}
-      />
-      <hr className="mt-10" />
-      <Carousel
-        titleName="Completed Courses"
-        contentId={"completeContent"}
-        courses={completeCourses}
-        isLoading={isLoading}
-      />
-      <ToastContainer />
     </>
   );
 };

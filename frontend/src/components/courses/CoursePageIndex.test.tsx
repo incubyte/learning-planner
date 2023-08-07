@@ -16,8 +16,6 @@ describe("Welcome Image", () => {
     );
 
     const indexImage = screen.getByRole("coursePageIndexImage");
-    expect(indexImage).toHaveAttribute("src", Symbol);
-    expect(indexImage).toHaveAttribute("alt", "Course Page Image");
     expect(indexImage).toBeInTheDocument();
   });
 });

@@ -5,6 +5,10 @@ module.exports = {
       backgroundImage: {
         "sign-in":
           "url('https://res.cloudinary.com/dxepcudkt/image/upload/v1684157784/login-image-md_ijdzl7.jpg')",
+        "home-page":
+          "linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),url('https://res.cloudinary.com/dxepcudkt/image/upload/v1691407906/HomePage_wecamc.jpg')",
+        "course-page":
+          "linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),url('https://res.cloudinary.com/dxepcudkt/image/upload/v1691411957/CoursePage_xgzpye.jpg')",
         "sign-in-sm":
           "url('https://res.cloudinary.com/dxepcudkt/image/upload/v1684156403/login-image-sm_ctkol5.jpg')",
       },
