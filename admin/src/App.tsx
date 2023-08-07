@@ -51,10 +51,6 @@ function App() {
     loginRequest
   );
 
-  if (error) {
-    // handle error...
-  }
-
   if (result) {
     makeJWTRequest(result);
   }
