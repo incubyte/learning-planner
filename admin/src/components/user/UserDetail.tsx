@@ -210,7 +210,7 @@ const UserDetail = () => {
                     className="mt-1 text-sm text-gray-500 dark:text-gray-300"
                     id="file_input_help"
                   >
-                    SVG, PNG, JPG or GIF (MAX. 350kb).
+                    SVG, PNG, JPG or GIF (MAX. 6mb).
                   </p>
                 </div>
                 <div className="UserDetailsModalFooter">
@@ -430,7 +430,7 @@ const UserDetail = () => {
             type="button"
             onClick={deleteUser}
           >
-            delete
+            Delete
           </button>
         </div>
       </div>

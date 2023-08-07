@@ -323,7 +323,7 @@ const CourseDetails = () => {
                   className="courseButtons"
                   onClick={completeCourse}
                 >
-                  Complete Course
+                  Complete
                 </button>
               )}
             </div>

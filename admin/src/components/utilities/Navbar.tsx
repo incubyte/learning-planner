@@ -7,6 +7,7 @@ import CloseMenu from "./icons/CloseMenu";
 import OpenMenu from "./icons/OpenMenu";
 import AddUser from "../user/AddUsers";
 import { ToastContainer } from "react-toastify";
+import { useMsal } from "@azure/msal-react";
 
 interface NavbarProps {
   isHome: boolean;
@@ -20,14 +21,18 @@ interface NavbarProps {
 const Navbar = (props: NavbarProps) => {
   const navigator = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
-
-  const logout = async () => {
-    await localStorage.removeItem("authToken");
-    await navigator("/auth/sign_in");
-  };
+  const { instance, inProgress } = useMsal();
 
   const addUser = async () => {
     await setShowModal(true);
+  };
+
+  const logout = async () => {
+    await localStorage.removeItem("authToken");
+    const accounts = instance.getAllAccounts();
+    if (accounts.length !== 0) {
+      await instance.logoutRedirect({});
+    }
   };
 
   const [showModal, setShowModal] = useState(false);

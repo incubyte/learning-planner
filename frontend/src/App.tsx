@@ -43,13 +43,7 @@ function App() {
   };
 
   const isAuthenticated = useIsAuthenticated();
-  const handleSignOut = async () => {
-    await localStorage.removeItem("authToken");
-    const accounts = instance.getAllAccounts();
-    if (accounts.length !== 0) {
-      await instance.logoutRedirect({});
-    }
-  };
+  
   const fetchPage = async () => {
     if (!isAuthenticated) {
       handleSignIn();
@@ -78,13 +72,12 @@ function App() {
   return isLoading ? (
     <LoadingScreen />
   ) : isSignInCompleted ? (
-    <div className="App" data-testid="App">
-      <button onClick={handleSignIn}>Sign In</button>
-      <button onClick={handleSignOut}>Sign Out</button>
-
-      <Outlet></Outlet>
+    <>
+      <div className="App" data-testid="App">
+        <Outlet></Outlet>
+      </div>
       <Footer />
-    </div>
+    </>
   ) : null;
 }
 

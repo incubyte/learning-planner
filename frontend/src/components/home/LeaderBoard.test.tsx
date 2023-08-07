@@ -157,7 +157,7 @@ describe("should render the leaderBoard component", () => {
     );
     await waitFor(() => {
       const title = screen.getByTestId("leaderBoardTitle");
-      expect(title).toHaveTextContent("The Leader Board");
+      expect(title).toHaveTextContent("Leader Board");
       expect(title).toBeInTheDocument();
     });
   });

@@ -8,7 +8,7 @@ import {
 } from "@testing-library/react";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
 import SignIn from "../components/SignIn";
-import { courseType } from "../components/course/course";
+import { courseType } from "../components/course/courseType";
 import UpdateCourse from "./../components/course/UpdateCourse";
 
 afterEach(() => {

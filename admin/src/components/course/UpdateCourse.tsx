@@ -336,7 +336,7 @@ const UpdateCourse = () => {
                   <button
                     type="button"
                     data-testid="RemoveButton"
-                    className="UpdateCourseRemoveUrlButton"
+                    className="UpdateCourseRemoveUrlButton bg-red-500"
                     onClick={() => handleRemoveResourceUrl(index)}
                   >
                     Remove
@@ -347,7 +347,7 @@ const UpdateCourse = () => {
             <button
               type="button"
               data-testid="Add Resource Url"
-              className="UpdateCourseAddUrlButton"
+              className="UpdateCourseAddUrlButton bg-green-500"
               onClick={handleAddResourceUrl}
             >
               Add
@@ -370,7 +370,7 @@ const UpdateCourse = () => {
                   <button
                     type="button"
                     data-testid="RemoveTestButton"
-                    className="UpdateCourseRemoveUrlButton"
+                    className="UpdateCourseRemoveUrlButton bg-red-500"
                     onClick={() => {
                       handleRemoveTestUrl(index);
                     }}
@@ -383,7 +383,7 @@ const UpdateCourse = () => {
             <button
               type="button"
               data-testid="Add Test Url"
-              className="UpdateCourseAddUrlButton"
+              className="UpdateCourseAddUrlButton bg-green-500"
               onClick={handleAddTestUrl}
             >
               Add
@@ -409,7 +409,7 @@ const UpdateCourse = () => {
           <div className="flex justify-center">
             <button
               data-testid="submitButton"
-              className="UpdateCourseSubmitButton"
+              className="UpdateCourseSubmitButton bg-blue-500"
               type="submit"
             >
               Update Course
