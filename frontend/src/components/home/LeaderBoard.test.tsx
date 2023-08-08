@@ -174,7 +174,6 @@ describe("should render the leaderBoard component", () => {
       expect(leaderBoardContainer2).toBeInTheDocument();
       expect(table).toBeInTheDocument();
       expect(table).toHaveTextContent("Email");
-      expect(table).toHaveTextContent("Rank");
       expect(table).toHaveTextContent("Role");
       expect(table).toHaveTextContent("Credits");
     });

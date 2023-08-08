@@ -165,7 +165,7 @@ const LeaderBoard = () => {
         <h1 data-testid="leaderBoardTitle" className="courseHeading">
           Leader Board
         </h1>
-        <div className="courseContainer" data-testid="container2">
+        <div className="courseContainer" data-testid="container2" role="leaderBoard">
           <table data-testid="container2 table" className="courseTable">
             <thead className="courseTableHead" data-testid="tableHeading">
               <tr>
@@ -188,9 +188,8 @@ const LeaderBoard = () => {
                 return (
                   <tr
                     key={index}
-                    className={`${
-                      index % 2 === 1 ? "bg-gray-100" : "bg-white"
-                    }`}
+                    className={`${index % 2 === 1 ? "bg-gray-100" : "bg-white"
+                      }`}
                     role="row"
                   >
                     <td className="courseTableRows">{index + 1}</td>
