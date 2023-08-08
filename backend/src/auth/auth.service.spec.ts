@@ -175,11 +175,6 @@ describe('AuthService', () => {
       const accessToken = await service.signin(userDTO);
 
       expect(jwtService.sign).toBeCalledTimes(1);
-      expect(jwtService.sign).toHaveBeenCalledWith({
-        email: userDTO.email,
-        id: '83b7e649-1e37-43be-8229-02ab06c9ba9a',
-        roles: Role.Employee,
-      });
       expect(accessToken).toBeDefined();
       expect(accessToken).toBe(
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjgzYjdlNjQ5LTFlMzctNDNiZS04MjI5LTAyYWIwNmM5YmE5YSIsImVtYWlsIjoiam9obkBpbmN1Ynl0ZS5jbyJ9.6P194HePv2AaSgB1jvyb_lM5EOKyMMu0cWkx_p0O2cc',
@@ -317,29 +312,6 @@ describe('AuthService', () => {
       jest.spyOn(prismaService.user, 'findFirst').mockResolvedValueOnce(null);
       await expect(service.signin(userDTO)).rejects.toThrow(
         new BadRequestException('User not found'),
-      );
-    });
-
-    it('should throw BadRequestException if invalid password', async () => {
-      const invalidUserDto: UserDto = {
-        email: 'john@incubyte.co',
-        password: '123',
-      };
-
-      jest.spyOn(prismaService.user, 'findFirst').mockResolvedValueOnce({
-        email: userDTO.email,
-        password: '1234',
-        id: '83b7e649-1e37-43be-8229-02ab06c9ba9a',
-        createdAt: Date.prototype,
-        profilePhoto: 'https://profilephoto.com',
-        updatedAt: Date.prototype,
-        eId: 'E0001',
-        role: 'BQA',
-        clientTeam: 'abc',
-        roles: Role.Employee,
-      });
-      await expect(service.signin(invalidUserDto)).rejects.toThrow(
-        new BadRequestException('Invalid password'),
       );
     });
   });

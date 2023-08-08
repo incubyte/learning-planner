@@ -7,9 +7,9 @@ import {
   waitFor,
 } from "@testing-library/react";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
-import UpdateCourse from "./../components/course/UpdateCourse";
-import { courseType } from "../components/course/course";
 import SignIn from "../components/SignIn";
+import { courseType } from "../components/course/course";
+import UpdateCourse from "./../components/course/UpdateCourse";
 
 afterEach(() => {
   cleanup();
@@ -17,20 +17,9 @@ afterEach(() => {
 let courseData: courseType[];
 
 beforeAll(async () => {
-  const signInResponse = await fetch(
-    "https://backend-mu-plum.vercel.app/auth/admin/signin",
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email: "utsav.p@incubyte.co",
-        password: "Incubyte@111",
-      }),
-    }
-  );
-  const authToken = await signInResponse.text();
+  const authToken =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjdjYzU0NjBhLTcwNDItNGQzNS05ZmI2LTE3Y2I1NzQxODBmMSIsImVtYWlsIjoiYW1hbi5yQGluY3VieXRlLmNvIiwicm9sZXMiOiJBZG1pbiIsImlhdCI6MTY5MDM0NTA2NSwiZXhwIjoxNjkwMzU1ODY1fQ.ApZbgRhovY_8YVSAHxmcGGL_Tjb_sdC5i8k0FzHvW1Q";
+  localStorage.setItem("authToken", authToken);
   const courseResponse = await fetch(
     "https://backend-mu-plum.vercel.app/course/",
     {

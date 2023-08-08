@@ -1,8 +1,8 @@
+import { JwtAuthGuard } from '@/auth/jwt-auth-guard/jwt-auth.guard';
 import { Role } from '@/auth/role.enum';
 import { RolesGuard } from '@/auth/role.guard';
 import { Roles } from '@/decorator/role.decorator';
 import { UserDecorator } from '@/decorator/user.decorator';
-import { JwtAuthGuard } from '@Auth/jwt-auth-guard/jwt-auth.guard';
 import { jwtPayload } from '@Auth/jwtpayload/jwt.payload';
 import { UpdateUserDto } from '@User/dto/updateUser.dto';
 import { UserService } from '@User/user.service';

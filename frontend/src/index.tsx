@@ -3,10 +3,25 @@ import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import SignIn from "./components/auth/SignIn";
 
+import { PublicClientApplication } from "@azure/msal-browser";
+import { MsalProvider } from "@azure/msal-react";
 import ForgotPassword from "./components/ForgotPassword";
 import ResetPassword from "./components/ResetPassword";
 import LoadingScreen from "./components/utilities/LoadingScreen";
 import "./index.css";
+
+const pca = new PublicClientApplication({
+  auth: {
+    // client id for localhost
+    // clientId: "e7b861be-ba37-4cef-9d07-c0c184cb681f",
+
+    //client id for hosted version
+    clientId: "e5c0e31e-e487-470b-a1af-828cd6a92ad6",
+    authority:
+      "https://login.microsoftonline.com/05b07524-f2af-411a-b5a9-a5fee6228712",
+    redirectUri: "/",
+  },
+});
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -82,6 +97,8 @@ const router = createBrowserRouter([
 
 root.render(
   <React.StrictMode>
-    <RouterProvider router={router}></RouterProvider>
+    <MsalProvider instance={pca}>
+      <RouterProvider router={router}></RouterProvider>
+    </MsalProvider>
   </React.StrictMode>
 );
