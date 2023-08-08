@@ -1,3 +1,15 @@
-.coursePageIndexImage{
-    @apply h-auto border-solid border-black
+.ImageContainer {
+  @apply flex mx-3 sm:mx-10 my-1 sm:my-2 shadow-md rounded-lg bg-course-page bg-[length:100%_25vh] h-[25vh] lg:bg-[length:100%_50vh] md:bg-[length:100%_30vh] lg:h-[50vh] md:h-[30vh] justify-center;
+}
+
+.ContentContainer {
+  @apply flex flex-col justify-evenly items-center text-white text-center p-4;
+}
+
+.ContentHeading {
+  @apply text-sm xsm:text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mt-4 mb-2;
+}
+
+.ContentParagraph {
+  @apply text-xs xsm:text-base sm:text-lg md:text-xl lg:text-2xl mb-4;
 }
