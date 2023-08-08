@@ -6,6 +6,7 @@ import { userType } from "../user/user";
 import Carousel from "../utilities/Carousel";
 import { LeaderBoardType } from "./LeaderBoardType";
 import HomePage from "../../assets/HomePage.png";
+import Skeleton from "react-loading-skeleton";
 
 const LeaderBoard = () => {
   const [activeCourses, setActiveCourses] = useState<courseType[]>([]);
@@ -165,48 +166,57 @@ const LeaderBoard = () => {
         <h1 data-testid="leaderBoardTitle" className="courseHeading">
           Leader Board
         </h1>
-        <div className="courseContainer" data-testid="container2" role="leaderBoard">
-          <table data-testid="container2 table" className="courseTable">
-            <thead className="courseTableHead" data-testid="tableHeading">
-              <tr>
-                <th scope="col" className="courseTableHeadCols">
-                  SrNo.
-                </th>
-                <th scope="col" className="courseTableHeadCols">
-                  Email
-                </th>
-                <th scope="col" className="courseTableHeadCols">
-                  Role
-                </th>
-                <th scope="col" className="courseTableHeadCols">
-                  Credits
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {leaderBoardUsers?.map((leaderBoardUser, index) => {
-                return (
-                  <tr
-                    key={index}
-                    className={`${index % 2 === 1 ? "bg-gray-100" : "bg-white"
+        <div
+          className="courseContainer"
+          data-testid="container2"
+          role="leaderBoard"
+        >
+          {isLoading ? (
+            <Skeleton height={360} />
+          ) : (
+            <table data-testid="container2 table" className="courseTable">
+              <thead className="courseTableHead" data-testid="tableHeading">
+                <tr>
+                  <th scope="col" className="courseTableHeadCols">
+                    SrNo.
+                  </th>
+                  <th scope="col" className="courseTableHeadCols">
+                    Email
+                  </th>
+                  <th scope="col" className="courseTableHeadCols">
+                    Role
+                  </th>
+                  <th scope="col" className="courseTableHeadCols">
+                    Credits
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {leaderBoardUsers?.map((leaderBoardUser, index) => {
+                  return (
+                    <tr
+                      key={index}
+                      className={`${
+                        index % 2 === 1 ? "bg-gray-100" : "bg-white"
                       }`}
-                    role="row"
-                  >
-                    <td className="courseTableRows">{index + 1}</td>
-                    <td className="courseTableRows">
-                      {leaderBoardUser?.user?.email}
-                    </td>
-                    <td className="courseTableRows">
-                      {leaderBoardUser?.user?.role}
-                    </td>
-                    <td className="courseTableRows">
-                      {leaderBoardUser?.CompletedCourseCount * 10}
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
+                      role="row"
+                    >
+                      <td className="courseTableRows">{index + 1}</td>
+                      <td className="courseTableRows">
+                        {leaderBoardUser?.user?.email}
+                      </td>
+                      <td className="courseTableRows">
+                        {leaderBoardUser?.user?.role}
+                      </td>
+                      <td className="courseTableRows">
+                        {leaderBoardUser?.CompletedCourseCount * 10}
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          )}
         </div>
         <br />
         <hr className="mt-10" />
