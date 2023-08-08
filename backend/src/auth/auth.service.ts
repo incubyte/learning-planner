@@ -49,9 +49,6 @@ export class AuthService {
     if (!this.checkUserExist(prismaUser)) {
       throw new BadRequestException('User not found');
     }
-    // if (!compareSync(user.password, prismaUser.password)) {
-    //   throw new BadRequestException('Invalid password');
-    // }
     const accessToken = this.jwtService.sign({
       id: prismaUser.id,
       email: user,
@@ -67,9 +64,6 @@ export class AuthService {
     if (!this.checkUserExist(prismaUser)) {
       throw new BadRequestException('Not an Admin');
     }
-    // if (!compareSync(user.password, prismaUser.password)) {
-    //   throw new BadRequestException('Invalid password');
-    // }
     const accessToken = this.jwtService.sign({
       id: prismaUser.id,
       email: user.email,

@@ -30,7 +30,6 @@ const pca = new PublicClientApplication({
     redirectUri: "/",
   },
   cache: {
-    // cacheLocation: "localStorage",
     storeAuthStateInCookie: true,
   },
 });
