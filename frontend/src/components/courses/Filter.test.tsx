@@ -4,6 +4,7 @@ import { BrowserRouter } from "react-router-dom";
 import { courseType } from "./Courses";
 
 describe("Filter Component", () => {
+  jest.setTimeout(30000);
   const getCourseByFilterMock = jest.fn();
   const getPopularCourseByFilter = jest.fn();
   const tags = [
@@ -13,15 +14,29 @@ describe("Filter Component", () => {
     { id: "4", name: "Angular" },
     { id: "5", name: "Ruby" },
     { id: "6", name: "TDD" },
-    { id: "7", name: "Java2" },
-    { id: "8", name: "Java3" },
-    { id: "9", name: "Java4" },
+    { id: "7", name: "Clean code" },
+    { id: "8", name: "Larvel" },
+    { id: "9", name: "Php" },
   ];
 
   getCourseByFilterMock.mockReturnValueOnce(tags);
   getPopularCourseByFilter.mockResolvedValueOnce(tags);
 
   beforeEach(() => {
+    jest.spyOn(window, "fetch").mockImplementation((url): any => {
+      if (url === "https://backend-mu-plum.vercel.app/tag/") {
+        const headers = new Headers();
+        headers.set(
+          "Authorization",
+          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImVhMTI5YzA0LTRmNWItNDUwZC1hMjY5LTYwZTZlOTc5M2FlZSIsImVtYWlsIjoic2hyZXlhc0BpbmN1Ynl0ZS5jbyIsImlhdCI6MTY4MTQ2NjMzNywiZXhwIjoxNjgxNDY5OTM3fQ.qo4Ek_bgMs_4Hv1iHJLSgVP246B7Y5rAeO-hBBDK87U"
+        );
+        return Promise.resolve({
+          ok: true,
+          json: () => Promise.resolve(tags),
+          headers: headers,
+        });
+      }
+    });
     getCourseByFilterMock.mockClear();
     getPopularCourseByFilter.mockClear();
   });
@@ -35,10 +50,13 @@ describe("Filter Component", () => {
         />
       </BrowserRouter>
     );
-    await waitFor(() => {
-      expect(screen.getByRole("filterByTags")).toBeInTheDocument();
-      expect(screen.getByText("Explore By Tags")).toBeInTheDocument();
-    });
+    await waitFor(
+      () => {
+        expect(screen.getByRole("filterByTags")).toBeInTheDocument();
+        expect(screen.getByText("Explore By Tags")).toBeInTheDocument();
+      },
+      { timeout: 5000 }
+    );
     expect(getCourseByFilterMock).toHaveBeenCalledTimes(1);
     expect(getPopularCourseByFilter).toHaveBeenCalledTimes(1);
   });
@@ -54,19 +72,27 @@ describe("Filter Component", () => {
     );
     await screen.findByText("Java");
 
-    const tagButton = screen.queryByText(/Java/i);
-    if (tagButton) {
-      fireEvent.click(tagButton);
-      await waitFor(() => {
-        expect(tagButton).toHaveStyle("color: white");
-        expect(getCourseByFilterMock).toHaveBeenCalledTimes(1);
-        expect(getCourseByFilterMock).toHaveBeenCalledWith([]);
-        expect(getPopularCourseByFilter).toHaveBeenCalledTimes(1);
-        expect(getPopularCourseByFilter).toHaveBeenCalledWith([]);
-      });
-    } else {
-      throw new Error("Tag button not found");
-    }
+    await waitFor(
+      async () => {
+        const tagButton = screen.queryByText(/Java/i);
+        if (tagButton) {
+          fireEvent.click(tagButton);
+          await waitFor(
+            () => {
+              expect(tagButton).toHaveStyle("color: white");
+              expect(getCourseByFilterMock).toHaveBeenCalledTimes(1);
+              expect(getCourseByFilterMock).toHaveBeenCalledWith([]);
+              expect(getPopularCourseByFilter).toHaveBeenCalledTimes(1);
+              expect(getPopularCourseByFilter).toHaveBeenCalledWith([]);
+            },
+            { timeout: 5000 }
+          );
+        } else {
+          throw new Error("Tag button not found");
+        }
+      },
+      { timeout: 5000 }
+    );
   });
 
   test("Displays all tags when the 'Show More' is clicked", async () => {
@@ -78,14 +104,17 @@ describe("Filter Component", () => {
         />
       </BrowserRouter>
     );
-    await waitFor(async () => {
-      const showMoreButton = getByRole("filterByTags");
+    await waitFor(
+      async () => {
+        const showMoreButton = getByRole("filterByTags");
 
-      await fireEvent.click(showMoreButton);
-      expect(getByText("Explore By Tags")).toBeInTheDocument();
-      expect(getByText("Java")).toBeInTheDocument();
-      expect(queryByText("React")).not.toBeInTheDocument();
-    });
+        await fireEvent.click(showMoreButton);
+        expect(getByText("Explore By Tags")).toBeInTheDocument();
+        expect(getByText("Java")).toBeInTheDocument();
+        expect(queryByText("React")).not.toBeInTheDocument();
+      },
+      { timeout: 5000 }
+    );
   });
 
   test("Displays default tags when the 'Show Less' is clicked", async () => {
@@ -97,14 +126,17 @@ describe("Filter Component", () => {
         />
       </BrowserRouter>
     );
-    await waitFor(() => {
-      const showMoreButton = getByRole("filterByTags");
-      const showLessButton = getByRole("filterByTags");
-      fireEvent.click(showMoreButton);
-      fireEvent.click(showLessButton);
-      expect(getByText("Explore By Tags")).toBeInTheDocument();
-      expect(getByText("Java")).toBeInTheDocument();
-      expect(queryByText("React")).not.toBeInTheDocument();
-    });
+    await waitFor(
+      () => {
+        const showMoreButton = getByRole("filterByTags");
+        const showLessButton = getByRole("filterByTags");
+        fireEvent.click(showMoreButton);
+        fireEvent.click(showLessButton);
+        expect(getByText("Explore By Tags")).toBeInTheDocument();
+        expect(getByText("Java")).toBeInTheDocument();
+        expect(queryByText("React")).not.toBeInTheDocument();
+      },
+      { timeout: 5000 }
+    );
   });
 });

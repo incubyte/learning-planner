@@ -19,7 +19,6 @@ function App() {
         scopes: ["user.read"],
       });
     }
-    console.log(tokenResponse?.accessToken);
     try {
       const response = await fetch(
         "https://backend-mu-plum.vercel.app/auth/signin",
