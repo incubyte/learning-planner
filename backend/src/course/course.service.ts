@@ -85,6 +85,34 @@ export class CourseService {
     });
   }
 
+  async filterPopularCourseByTags(tags: string[]): Promise<Course[]> {
+    const popularCourses = await this.getPopularCourse();
+    const intTags: number[] = [];
+    for (let i = 0; i < tags.length; i++) {
+      intTags.push(+tags[i]);
+    }
+    const courseTags = await this.prismaService.courseTag.groupBy({
+      by: ['courseId'],
+      where: {
+        tagId: {
+          in: intTags,
+        },
+      },
+      having: {
+        courseId: {
+          _count: {
+            equals: tags.length,
+          },
+        },
+      },
+    });
+    const courseTagIds = courseTags.map((tag) => tag.courseId);
+    const filteredPopularCourses = popularCourses.filter((course) =>
+      courseTagIds.includes(course.id),
+    );
+    return filteredPopularCourses;
+  }
+
   async getPopularCourse(): Promise<Course[]> {
     const userCourse = await this.prismaService.userCourse.groupBy({
       by: ['courseId'],
@@ -154,6 +182,7 @@ export class CourseService {
     const updateCourseResponse = await this.prismaService.course.update({
       where: { id: id },
       data: {
+        name: updateCourse.name,
         resourseUrls: updateCourse.resourseUrls,
         imageUrl: updateCourse.imageUrl,
         testUrls: updateCourse.testUrls,

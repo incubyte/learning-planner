@@ -1,17 +1,26 @@
 import { useEffect, useState } from "react";
 import "../../css/courses/Filter.css";
 import { courseType } from "./Courses";
-import LoadingScreen from "../utilities/LoadingScreen";
 import { ToastContainer, toast } from "react-toastify";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 interface FilterProps {
   getCourseByFilter: (courses: courseType[]) => void;
+  getPopularCourseByFilter: (courses: courseType[]) => void;
 }
-
-const Filter = ({ getCourseByFilter }: FilterProps) => {
+interface TagType {
+  id: string;
+  name: string;
+}
+const Filter = ({
+  getCourseByFilter,
+  getPopularCourseByFilter,
+}: FilterProps) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [courses, setCourses] = useState([]);
-  const [tags, setTags] = useState([{ id: "1", name: "Java" }]);
+  const [popularCourses, setPopularCourses] = useState([]);
+  const [tags, setTags] = useState<TagType[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [selectTagId, setSelectTagId] = useState<string[]>([]);
   const authToken = localStorage.getItem("authToken");
@@ -34,6 +43,45 @@ const Filter = ({ getCourseByFilter }: FilterProps) => {
       });
     }
   };
+
+  const fetchPopularCourses = async (url: string) => {
+    try {
+      const response = await fetch(url, {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+      });
+      if (response && response.ok) {
+        const coursesResponse = await response.json();
+        setPopularCourses(coursesResponse);
+      }
+    } catch (error) {
+      toast.error("An error occurred" + error, {
+        autoClose: 2500,
+        closeButton: false,
+      });
+    }
+  };
+
+  useEffect(() => {
+    try {
+      if (selectTagId.length > 0) {
+        const filterByTagUrl =
+          "https://backend-mu-plum.vercel.app/course/popular/filterByTags?" +
+          selectTagId.map((tagId) => `tags=${tagId}`).join("&&");
+        fetchPopularCourses(filterByTagUrl);
+      } else {
+        fetchPopularCourses(
+          "https://backend-mu-plum.vercel.app/course/popular/"
+        );
+      }
+    } catch (error) {
+      toast.error("An error occurred" + error, {
+        autoClose: 2500,
+        closeButton: false,
+      });
+    }
+  }, [selectTagId, popularCourses.length]);
 
   const fetchTags = async () => {
     try {
@@ -67,7 +115,6 @@ const Filter = ({ getCourseByFilter }: FilterProps) => {
   };
 
   useEffect(() => {
-    setIsLoading(true);
     try {
       if (selectTagId.length > 0) {
         const filterByTagUrl =
@@ -83,18 +130,19 @@ const Filter = ({ getCourseByFilter }: FilterProps) => {
         closeButton: false,
       });
     }
-    setIsLoading(false);
   }, [selectTagId, courses.length]);
 
   const fetchData = async (courses: any) => {
+    getCourseByFilter(courses);
+    getPopularCourseByFilter(popularCourses);
+  };
+  const fetchTagData = async () => {
     setIsLoading(true);
-
-    await Promise.all([getCourseByFilter(courses)]);
-
+    await Promise.all([fetchTags()]);
     setIsLoading(false);
   };
   useEffect(() => {
-    fetchTags();
+    fetchTagData();
   }, []);
 
   useEffect(() => {
@@ -102,40 +150,52 @@ const Filter = ({ getCourseByFilter }: FilterProps) => {
   }, [courses]);
 
   const Tags = isExpanded ? tags : tags.slice(0, 7);
-  return isLoading ? (
-    <LoadingScreen />
-  ) : (
+  return (
     <div className="filterTagsContainer" role="filterByTags">
       <h4 className="filterTagsHeading">Explore By Tags</h4>
-
-      <div className="filterTagsList">
-        {Tags.map((tag, index) => (
-          <button
-            key={index}
-            className="filterTags"
-            onClick={() => toggleSelect(tag.id)}
-            style={{
-              color: selectTagId.includes(tag.id) ? "white" : "black",
-            }}
-          >
-            {tag.name}
-          </button>
-        ))}
-      </div>
-
-      {tags.length > 7 && (
+      {isLoading ? (
         <>
-          <button className="toggleButton" onClick={toggleExpand}>
-            {isExpanded ? (
-              <>
-                <span className="toggleText">Show Less</span>
-              </>
-            ) : (
-              <>
-                <span>Show More</span>
-              </>
-            )}
-          </button>
+          <Skeleton
+            inline={true}
+            borderRadius={50}
+            width={140}
+            height={32}
+            count={3}
+            className="mr-4 ml-4"
+          />
+        </>
+      ) : (
+        <>
+          <div className="filterTagsList">
+            {Tags.map((tag, index) => (
+              <button
+                key={index}
+                className="filterTags"
+                onClick={() => toggleSelect(tag.id)}
+                style={{
+                  color: selectTagId.includes(tag.id) ? "white" : "black",
+                }}
+              >
+                {tag.name}
+              </button>
+            ))}
+          </div>
+
+          {tags.length > 7 && (
+            <>
+              <button className="toggleButton" onClick={toggleExpand}>
+                {isExpanded ? (
+                  <>
+                    <span className="toggleText">Show Less</span>
+                  </>
+                ) : (
+                  <>
+                    <span>Show More</span>
+                  </>
+                )}
+              </button>
+            </>
+          )}
         </>
       )}
       <ToastContainer />

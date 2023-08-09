@@ -1,10 +1,8 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import Carousel from "../utilities/Carousel";
 import Navbar from "../utilities/Navbar";
 import CoursePageIndex from "./CoursePageIndex";
 import Filter from "./Filter";
-import LoadingScreen from "../utilities/LoadingScreen";
 import { ToastContainer, toast } from "react-toastify";
 
 export interface courseType {
@@ -35,6 +33,10 @@ const CoursePage = () => {
 
   const getCourseByFilter = (courses: courseType[]) => {
     setAvailableCourses(courses);
+  };
+
+  const getPopularCourseByFilter = (courses: courseType[]) => {
+    setPopularCourses(courses);
   };
 
   const authToken = localStorage.getItem("authToken");
@@ -81,9 +83,7 @@ const CoursePage = () => {
 
   const fetchData = async (courseUrl: string) => {
     setIsLoading(true);
-
     await Promise.all([fetchCourses(courseUrl), fetchPopularCourses()]);
-
     setIsLoading(false);
   };
 
@@ -108,9 +108,7 @@ const CoursePage = () => {
     return filteredList;
   };
 
-  return isLoading ? (
-    <LoadingScreen />
-  ) : (
+  return (
     <>
       <Navbar
         getQuery={getQuery}
@@ -121,18 +119,23 @@ const CoursePage = () => {
       />
       <CoursePageIndex />
       <hr className="mt-10" />
-      <Filter getCourseByFilter={getCourseByFilter} />
+      <Filter
+        getCourseByFilter={getCourseByFilter}
+        getPopularCourseByFilter={getPopularCourseByFilter}
+      />
       <hr className="mt-10" />
       <Carousel
         titleName="Popular courses"
         courses={search(popularCourses)}
         contentId="popContent"
+        isLoading={isLoading}
       />
       <hr className="mt-10" />
       <Carousel
         titleName="Available courses"
         courses={search(availableCourses)}
         contentId="availContent"
+        isLoading={isLoading}
       />
       <ToastContainer />
     </>

@@ -1,5 +1,11 @@
 import { BrowserRouter } from "react-router-dom";
-import { cleanup, fireEvent, render, screen } from "@testing-library/react";
+import {
+  cleanup,
+  fireEvent,
+  render,
+  screen,
+  waitFor,
+} from "@testing-library/react";
 import Carousel from "./Carousel";
 
 afterEach(() => {
@@ -7,11 +13,13 @@ afterEach(() => {
 });
 
 describe("Carousel", () => {
-  test("Carousel consists of titleName and coursesLists", () => {
+  jest.setTimeout(20000);
+  test("Carousel consists of titleName and coursesLists", async () => {
     render(
       <BrowserRouter>
         <Carousel
           titleName="Popular Courses"
+          isLoading={false}
           contentId={"popContent"}
           courses={[
             {
@@ -35,17 +43,28 @@ describe("Carousel", () => {
     expect(carouselTitleName).toBeInTheDocument();
     expect(carouselTitleName.textContent).toEqual("Popular Courses");
 
-    const course1 = screen.getByText("Java");
-    const course2 = screen.getByText("Python");
-    expect(course1).toBeInTheDocument();
-    expect(course2).toBeInTheDocument();
+    await waitFor(
+      () => {
+        const course1 = screen.getByText("Java");
+        expect(course1).toBeInTheDocument();
+      },
+      { timeout: 5000 }
+    );
+    await waitFor(
+      () => {
+        const course2 = screen.getByText("Python");
+        expect(course2).toBeInTheDocument();
+      },
+      { timeout: 5000 }
+    );
   });
 
-  test("On clickling left button it should scroll left ", () => {
+  test("On clickling left button it should scroll left ", async () => {
     render(
       <BrowserRouter>
         <Carousel
           titleName="Popular Courses"
+          isLoading={false}
           contentId={"popContent"}
           courses={[
             {
@@ -83,18 +102,24 @@ describe("Carousel", () => {
       </BrowserRouter>
     );
 
-    const contentElement = screen.getByTestId("carouselContent");
-    const leftButton = screen.getByTestId("scrollLeft");
-    const initialScrollLeft = contentElement.scrollLeft;
-    fireEvent.click(leftButton);
-    expect(contentElement.scrollLeft).toBeLessThan(initialScrollLeft);
+    await waitFor(
+      () => {
+        const contentElement = screen.getByTestId("carouselContent");
+        const initialScrollLeft = contentElement.scrollLeft;
+        const leftButton = screen.getByTestId("scrollLeft");
+        fireEvent.click(leftButton);
+        expect(contentElement.scrollLeft).toBeLessThan(initialScrollLeft);
+      },
+      { timeout: 5000 }
+    );
   });
 
-  test("On clickling Right button it should scroll right ", () => {
+  test("On clickling Right button it should scroll right ", async () => {
     render(
       <BrowserRouter>
         <Carousel
           titleName="Popular Courses"
+          isLoading={false}
           contentId={"popContent"}
           courses={[
             {
@@ -131,11 +156,15 @@ describe("Carousel", () => {
         />
       </BrowserRouter>
     );
-
-    const contentElement = screen.getByTestId("carouselContent");
-    const rightButton = screen.getByTestId("scrollRight");
-    const initialScrollLeft = contentElement.scrollLeft;
-    fireEvent.click(rightButton);
-    expect(contentElement.scrollLeft).toBeGreaterThan(initialScrollLeft);
+    await waitFor(
+      () => {
+        const contentElement = screen.getByTestId("carouselContent");
+        const rightButton = screen.getByTestId("scrollRight");
+        const initialScrollLeft = contentElement.scrollLeft;
+        fireEvent.click(rightButton);
+        expect(contentElement.scrollLeft).toBeGreaterThan(initialScrollLeft);
+      },
+      { timeout: 5000 }
+    );
   });
 });

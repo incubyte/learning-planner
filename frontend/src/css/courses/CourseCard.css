@@ -1,17 +1,17 @@
 .carouselCardContainer {
-    @apply px-4 pr-4 flex flex-shrink relative w-auto sm:w-auto
+    @apply px-3 flex relative w-auto sm:w-auto
 }
 
 .carouselCardInnerContainer {
-    @apply h-auto w-auto
+    @apply h-auto w-auto shadow-table
 }
 
 .courseCardImageContainer {
-    @apply max-w-sm rounded overflow-hidden shadow-lg md:h-auto md:w-auto sm:h-auto sm:w-auto
+    @apply max-w-[260px] rounded overflow-hidden md:h-auto md:w-auto sm:h-auto sm:w-auto
 }
 
 .courseCardImage {
-    @apply w-full h-40 rounded-lg border-b-2 pb-2 overflow-hidden
+    @apply min-w-[260px] relative h-44 rounded border-b-2 overflow-hidden
 }
 
 .courseCardCourseNameContainer {
@@ -19,9 +19,9 @@
 }
 
 .courseCardCourseName {
-    @apply font-bold text-lg ml-1
+    @apply font-bold text-lg ml-1 truncate whitespace-nowrap overflow-hidden
 }
 
 .courseCardButtonContainer {
-    @apply px-20 pt-4 pb-2 justify-center items-center
+    @apply pt-4 pb-2 justify-center items-center
 }

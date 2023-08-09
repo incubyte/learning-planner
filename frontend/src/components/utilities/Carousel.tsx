@@ -2,6 +2,9 @@ import { useRef } from "react";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import "../../css/courses/Carousel.css";
 import CourseCard from "./CourseCard";
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
+
 interface carouselProps {
   titleName?: string;
   dataTestId?: string;
@@ -11,6 +14,7 @@ interface carouselProps {
     imageUrl: string;
     name: string;
   }[];
+  isLoading?: boolean;
 }
 
 const Carousel = ({
@@ -18,6 +22,7 @@ const Carousel = ({
   dataTestId,
   courses,
   contentId,
+  isLoading,
 }: carouselProps) => {
   const contentRef = useRef<HTMLDivElement>(null);
   const scrollLeft = () => {
@@ -36,44 +41,58 @@ const Carousel = ({
       <div className="carouselTitleName" data-testid="carouselTitleName">
         {titleName}
       </div>
-      {courses.length > 0 ? (
+      {isLoading == false ? (
         <>
-          <div className="buttons">
-            <button
-              onClick={scrollLeft}
-              className="button"
-              data-testid="scrollLeft"
-            >
-              <FiChevronLeft />
-            </button>
-            <button
-              onClick={scrollRight}
-              className="button"
-              data-testid="scrollRight"
-            >
-              <FiChevronRight />
-            </button>
-          </div>
-          <div
-            ref={contentRef}
-            id={contentId}
-            className="carouselListContent"
-            data-testid="carouselContent"
-          >
-            {courses.map((course, index) => {
-              return (
-                <CourseCard
-                  key={index}
-                  id={course.id}
-                  courseImage={course.imageUrl}
-                  courseName={course.name}
-                />
-              );
-            })}
-          </div>
+          {courses.length == 0 ? (
+            <div>No Courses</div>
+          ) : (
+            <>
+              <div className="buttons">
+                <button
+                  onClick={scrollLeft}
+                  className="button"
+                  data-testid="scrollLeft"
+                >
+                  <FiChevronLeft />
+                </button>
+                <button
+                  onClick={scrollRight}
+                  className="button"
+                  data-testid="scrollRight"
+                >
+                  <FiChevronRight />
+                </button>
+              </div>
+              <div
+                ref={contentRef}
+                id={contentId}
+                className="carouselListContent"
+                data-testid="carouselContent"
+              >
+                {courses.map((course, index) => {
+                  return (
+                    <CourseCard
+                      key={index}
+                      id={course.id}
+                      courseImage={course.imageUrl}
+                      courseName={course.name}
+                    />
+                  );
+                })}
+              </div>
+            </>
+          )}
         </>
       ) : (
-        <div className="text-center text-2xl p-10">Nothing to Show</div>
+        <SkeletonTheme inline={true}>
+          <div className="flex flex-row flex-nowrap overflow-hidden ml-7">
+            <Skeleton className="mr-8" height={280} width={250} />
+            <Skeleton className="mr-8" height={280} width={250} />
+            <Skeleton className="mr-8" height={280} width={250} />
+            <Skeleton className="mr-8" height={280} width={250} />
+            <Skeleton className="mr-8" height={280} width={250} />
+          </div>
+        </SkeletonTheme>
       )}
     </div>
   );

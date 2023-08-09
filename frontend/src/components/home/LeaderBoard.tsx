@@ -5,8 +5,9 @@ import "../../css/home/LeaderBoard.css";
 import { courseType } from "../courses/Courses";
 import { userType } from "../user/user";
 import Carousel from "../utilities/Carousel";
-import LoadingScreen from "../utilities/LoadingScreen";
 import { LeaderBoardType } from "./LeaderBoardType";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 const LeaderBoard = () => {
   const [activeCourses, setActiveCourses] = useState<courseType[]>([]);
@@ -114,14 +115,12 @@ const LeaderBoard = () => {
 
   const fetchData = async () => {
     setIsLoading(true);
-
     await Promise.all([
       fetchCurrentUserCredit(),
       fetchActiveCourses(),
       fetchLeaderBoardUsers(),
       fetchCurrentUser(),
     ]);
-
     setIsLoading(false);
   };
 
@@ -129,9 +128,7 @@ const LeaderBoard = () => {
     fetchData();
   }, []);
 
-  return isLoading ? (
-    <LoadingScreen />
-  ) : (
+  return (
     <>
       <div className="LeaderBoardContainer " role="leaderBoard">
         <div className="w-full text-center mb-8">
@@ -143,86 +140,100 @@ const LeaderBoard = () => {
           </h2>
         </div>
         <div className="LeaderBoardContainers" data-testid="container1">
-          <div className="LeaderBoardInnerContainer">
-            <div>
-              <img
-                className="LeaderBoardInnerFirstImageContainer"
-                src={currentUser?.profilePhoto}
-                alt="user image"
-                data-testid="container1 Image"
-              />
-            </div>
-            <div
-              className="LeaderBoardUserInfoContainer"
-              data-testid="container1 user Info"
-            >
-              <div className="LeaderBoardUserInnerInfoContainer">
-                <p className="LeaderBoardUserInnerInfo">
-                  Email: {currentUser?.email}
-                </p>
-                <p className="LeaderBoardUserInnerInfo">
-                  Credits: {currentUserCredit}
-                </p>
-                <p className="LeaderBoardUserInnerInfo">
-                  Role: {currentUser?.role}
-                </p>
+          {isLoading ? (
+            <Skeleton className="lg:max-w-[580px] h-[450px]" />
+          ) : (
+            <>
+              <div className="LeaderBoardInnerContainer">
+                <div>
+                  <img
+                    className="LeaderBoardInnerFirstImageContainer"
+                    src={currentUser?.profilePhoto}
+                    alt="user image"
+                    data-testid="container1 Image"
+                  />
+                </div>
+                <div
+                  className="LeaderBoardUserInfoContainer"
+                  data-testid="container1 user Info"
+                >
+                  <div className="LeaderBoardUserInnerInfoContainer">
+                    <p className="LeaderBoardUserInnerInfo">
+                      Email: {currentUser?.email}
+                    </p>
+                    <p className="LeaderBoardUserInnerInfo">
+                      Credits: {currentUserCredit}
+                    </p>
+                    <p className="LeaderBoardUserInnerInfo">
+                      Role: {currentUser?.role}
+                    </p>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
+            </>
+          )}
         </div>
         <div className="LeaderBoardContainers" data-testid="container2">
-          <div className="LeaderBoardContainerTwoTableContainer">
-            <div className="LeaderBoardInnerContainerScrollbar">
-              <table
-                className="LeaderBoardContainerTwoTable "
-                data-testid="container2 table"
-              >
-                <thead>
-                  <tr role="row">
-                    <th className="rounded-tl LeaderBoardContainerTwoTableBorder">
-                      Rank
-                    </th>
-                    <th className="LeaderBoardContainerTwoTableBorder">
-                      Email
-                    </th>
-                    <th className="LeaderBoardContainerTwoTableBorder">Role</th>
-                    <th className="LeaderBoardContainerTwoTableBorder">
-                      Credits
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {leaderBoardUsers.map((leaderBoardUser, index) => {
-                    return (
-                      <React.Fragment key={index}>
-                        {
-                          <tr
-                            className={`${
-                              index % 2 === 0 ? "bg-gray-100" : "bg-white"
-                            }`}
-                            role="row"
-                          >
-                            <td className="LeaderBoardContainerTwoTableBorder">
-                              {index + 1}
-                            </td>
-                            <td className="LeaderBoardContainerTwoTableBorder">
-                              {leaderBoardUser?.user?.email}
-                            </td>
-                            <td className="LeaderBoardContainerTwoTableBorder">
-                              {leaderBoardUser?.user?.role}
-                            </td>
-                            <td className="LeaderBoardContainerTwoTableBorder">
-                              {leaderBoardUser?.CompletedCourseCount * 10}
-                            </td>
-                          </tr>
-                        }
-                      </React.Fragment>
-                    );
-                  })}
-                </tbody>
-              </table>
-            </div>
-          </div>
+          {isLoading ? (
+            <Skeleton className="lg:max-w-[480px] h-[450px]" />
+          ) : (
+            <>
+              <div className="LeaderBoardContainerTwoTableContainer">
+                <div className="LeaderBoardInnerContainerScrollbar">
+                  <table
+                    className="LeaderBoardContainerTwoTable"
+                    data-testid="container2 table"
+                  >
+                    <thead>
+                      <tr role="row">
+                        <th className="rounded-tl LeaderBoardContainerTwoTableBorder">
+                          Rank
+                        </th>
+                        <th className="LeaderBoardContainerTwoTableBorder">
+                          Email
+                        </th>
+                        <th className="LeaderBoardContainerTwoTableBorder">
+                          Role
+                        </th>
+                        <th className="LeaderBoardContainerTwoTableBorder">
+                          Credits
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {leaderBoardUsers.map((leaderBoardUser, index) => {
+                        return (
+                          <React.Fragment key={index}>
+                            {
+                              <tr
+                                className={`${
+                                  index % 2 === 0 ? "bg-gray-100" : "bg-white"
+                                }`}
+                                role="row"
+                              >
+                                <td className="LeaderBoardContainerTwoTableBorder">
+                                  {index + 1}
+                                </td>
+                                <td className="LeaderBoardContainerTwoTableBorder">
+                                  {leaderBoardUser?.user?.email}
+                                </td>
+                                <td className="LeaderBoardContainerTwoTableBorder">
+                                  {leaderBoardUser?.user?.role}
+                                </td>
+                                <td className="LeaderBoardContainerTwoTableBorder">
+                                  {leaderBoardUser?.CompletedCourseCount * 10}
+                                </td>
+                              </tr>
+                            }
+                          </React.Fragment>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </>
+          )}
         </div>
       </div>
       <br />
@@ -230,6 +241,7 @@ const LeaderBoard = () => {
         titleName="Active Courses"
         contentId={"activeContent"}
         courses={activeCourses}
+        isLoading={isLoading}
       />
       <ToastContainer />
     </>
