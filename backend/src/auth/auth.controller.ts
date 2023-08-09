@@ -1,7 +1,9 @@
+import { UserDecorator } from '@/decorator/user.decorator';
 import { AuthService } from '@Auth/auth.service';
 import { UserDto } from '@Auth/dto/user.dto';
-import { Body, Controller, Param, Post } from '@nestjs/common';
+import { Body, Controller, Param, Post, UseGuards } from '@nestjs/common';
 import { User } from '@prisma/client';
+import { AzureADAuthGuard } from './azure-ad/aad-auth.guard';
 
 @Controller('/auth')
 export class AuthController {
@@ -13,13 +15,15 @@ export class AuthController {
     return res;
   }
 
+  @UseGuards(AzureADAuthGuard)
   @Post('/signin')
-  async signin(@Body() user: UserDto): Promise<string> {
+  async signin(@UserDecorator() user: any): Promise<string> {
     return await this.authService.signin(user);
   }
 
+  @UseGuards(AzureADAuthGuard)
   @Post('/admin/signin')
-  async signinAdmin(@Body() user: UserDto): Promise<string> {
+  async signinAdmin(@UserDecorator() user: any): Promise<string> {
     return await this.authService.signinAdmin(user);
   }
 
