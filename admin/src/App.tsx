@@ -52,6 +52,8 @@ function App() {
 
   if (result) {
     makeJWTRequest(result);
+  } else {
+    //cmnt
   }
 
   const fetchPage = async () => {
