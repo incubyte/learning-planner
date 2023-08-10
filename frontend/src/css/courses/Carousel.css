@@ -11,5 +11,5 @@
 }
  
 .carouselListContent{
-    @apply p-4 flex items-center justify-center overflow-x-auto scroll-smooth scrollbar-hide
+    @apply p-4 flex items-center justify-start overflow-x-auto scroll-smooth scrollbar-hide
 }
