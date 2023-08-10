@@ -25,14 +25,14 @@ describe("reset Paassword Component", () => {
     const resetHeader = screen.getByTestId("resetHeader") as HTMLInputElement;
     expect(resetHeader).toBeInTheDocument();
   });
-  test("reset Header text is 'Reset Password'", () => {
+  test("reset Header text is 'Reset password'", () => {
     render(
       <BrowserRouter>
         <ResetPassword />
       </BrowserRouter>
     );
     const resetHeader = screen.getByTestId("resetHeader") as HTMLInputElement;
-    expect(resetHeader.innerHTML).toEqual("Reset Password");
+    expect(resetHeader.innerHTML).toEqual("Reset password");
   });
 
   test("reset Form is present in reset", () => {

@@ -11,6 +11,7 @@ import "react-loading-skeleton/dist/skeleton.css";
 
 const LeaderBoard = () => {
   const [activeCourses, setActiveCourses] = useState<courseType[]>([]);
+  const [completeCourses, setCompleteCourses] = useState<courseType[]>([]);
   const [leaderBoardUsers, setLeaderBoardUsers] = useState<LeaderBoardType[]>(
     []
   );
@@ -59,6 +60,31 @@ const LeaderBoard = () => {
       if (response && response.ok) {
         const fetchCourses = await response.json();
         setActiveCourses(fetchCourses.courses);
+      }
+    } catch (error) {
+      toast.error("An error occurred" + error, {
+        autoClose: 2500,
+        closeButton: false,
+      });
+    }
+  };
+
+  const fetchCompleteCourses = async () => {
+    const authToken = localStorage.getItem("authToken");
+
+    try {
+      const response = await fetch(
+        "https://backend-mu-plum.vercel.app/user/course?status=completed",
+        {
+          headers: {
+            Authorization: `Bearer ${authToken}`,
+          },
+        }
+      );
+
+      if (response && response.ok) {
+        const fetchCourses = await response.json();
+        setCompleteCourses(fetchCourses.courses);
       }
     } catch (error) {
       toast.error("An error occurred" + error, {
@@ -120,6 +146,7 @@ const LeaderBoard = () => {
       fetchActiveCourses(),
       fetchLeaderBoardUsers(),
       fetchCurrentUser(),
+      fetchCompleteCourses(),
     ]);
     setIsLoading(false);
   };
@@ -136,7 +163,7 @@ const LeaderBoard = () => {
             className="LeaderBoardTitleContainer"
             data-testid="leaderBoardTitle"
           >
-            The Leader Board
+            Leader Board
           </h2>
         </div>
         <div className="LeaderBoardContainers" data-testid="container1">
@@ -241,6 +268,13 @@ const LeaderBoard = () => {
         titleName="Active Courses"
         contentId={"activeContent"}
         courses={activeCourses}
+        isLoading={isLoading}
+      />
+      <hr className="mt-10" />
+      <Carousel
+        titleName="Completed Courses"
+        contentId={"completeContent"}
+        courses={completeCourses}
         isLoading={isLoading}
       />
       <ToastContainer />

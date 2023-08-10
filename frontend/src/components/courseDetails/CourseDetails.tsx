@@ -323,7 +323,7 @@ const CourseDetails = () => {
                   className="courseButtons"
                   onClick={completeCourse}
                 >
-                  Complete Course
+                  Complete
                 </button>
               )}
             </div>
@@ -333,15 +333,19 @@ const CourseDetails = () => {
       </div>
       {(isEnrolled || isCompleted) && (
         <div className="resourceContainer">
-          <div className="courseResources">
-            <iframe
-              width="640"
-              height="360"
-              src={course?.resourseUrls[0]}
-              allowFullScreen
-              className="resourceFrame"
-            ></iframe>
-          </div>
+          {course?.resourseUrls.map((url, index) => {
+            return (
+              <div key={index} className="courseResources">
+                <iframe
+                  width="640"
+                  height="360"
+                  src={url}
+                  allowFullScreen
+                  className="resourceFrame"
+                ></iframe>
+              </div>
+            );
+          })}
         </div>
       )}
     </>

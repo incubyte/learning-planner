@@ -66,7 +66,7 @@ const ForgotPassword = () => {
           src="https://res.cloudinary.com/dxepcudkt/image/upload/v1685686631/change-password_zsunue.svg"
         ></img>
         <p data-testid="forgotHeader" className="PasswordFormHeader">
-          Forget Password
+          Forget password
         </p>
         <label data-testid="forgotForm" className="PasswordFormItems">
           <Input

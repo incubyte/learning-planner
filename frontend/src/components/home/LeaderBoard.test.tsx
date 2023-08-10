@@ -157,7 +157,7 @@ describe("should render the leaderBoard component", () => {
     );
     await waitFor(() => {
       const title = screen.getByTestId("leaderBoardTitle");
-      expect(title).toHaveTextContent("The Leader Board");
+      expect(title).toHaveTextContent("Leader Board");
       expect(title).toBeInTheDocument();
     });
   });
@@ -209,6 +209,17 @@ describe("should render the leaderBoard component", () => {
     await waitFor(() => {
       const activeCoursesCarousel = screen.getByRole("activeContent");
       expect(activeCoursesCarousel).toBeInTheDocument();
+    });
+  });
+  test("should render the carousel for completed courses", async () => {
+    render(
+      <BrowserRouter>
+        <LeaderBoard />
+      </BrowserRouter>
+    );
+    await waitFor(() => {
+      const completeCoursesCarousel = screen.getByRole("completeContent");
+      expect(completeCoursesCarousel).toBeInTheDocument();
     });
   });
 });

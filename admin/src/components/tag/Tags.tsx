@@ -131,10 +131,7 @@ const Tags = () => {
     <>
       {showupdateTagModel.isModalOpen ? (
         <>
-          <div
-            data-testid="profileImageModel"
-            className="TagImageModel"
-          >
+          <div data-testid="profileImageModel" className="TagImageModel">
             <div className="relative w-auto my-6 mx-auto">
               <div className="TagImageModalContainer">
                 <div className="TagModelUploadContainer">
@@ -142,7 +139,7 @@ const Tags = () => {
                     className="text-3xl font-semibold"
                     data-testid="modelHeader"
                   >
-                    Update Tag here
+                    Update Tag
                   </h3>
                   <button
                     className="TagModalUploadButton"
@@ -208,14 +205,11 @@ const Tags = () => {
 
       {showAddTagModel ? (
         <>
-          <div
-            data-testid="profileImageModel"
-            className="TagImageModel"
-          >
+          <div data-testid="profileImageModel" className="TagImageModel">
             <div className="relative w-auto my-6 mx-auto">
               <div className="TagImageModalContainer">
                 <div className="TagModelUploadContainer">
-                  <h3 className="text-2xl font-semibold">Add Tag here</h3>
+                  <h3 className="text-2xl font-semibold">Add Tag</h3>
                   <button
                     className="TagModalUploadButton"
                     onClick={() => setShowAddTagModal(false)}
@@ -279,7 +273,7 @@ const Tags = () => {
         <button
           data-testid="AddTagButton"
           type="button"
-          className="AddTagButton"
+          className="AddTagButton bg-emerald-500"
           onClick={() => setShowAddTagModal(true)}
         >
           Add Tag
@@ -291,7 +285,7 @@ const Tags = () => {
           <thead className="tagTableHead" data-testid="tableHeading">
             <tr>
               <th scope="col" className="tagTableHeadCols">
-                SrNo.
+                Sr No.
               </th>
               <th scope="col" className="tagTableHeadCols">
                 Name

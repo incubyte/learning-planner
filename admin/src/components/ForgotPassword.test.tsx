@@ -32,7 +32,7 @@ describe("Forgot Paassword Component", () => {
       </BrowserRouter>
     );
     const forgotHeader = screen.getByTestId("forgotHeader") as HTMLInputElement;
-    expect(forgotHeader.innerHTML).toEqual("Forget Password");
+    expect(forgotHeader.innerHTML).toEqual("Forget password");
   });
 
   test("Forgot Form is present in forgot", () => {
