@@ -31,8 +31,15 @@ const AddCourse = () => {
   const handleImageUrl = async () => {
     let media: any = [];
     if (avatar) {
-      media = await imageUpload([avatar]);
-      await setImageUrl(media[0].url);
+      try {
+        media = await imageUpload([avatar]);
+        await setImageUrl(media[0].url);
+      } catch (error) {
+        toast.error("" + error, {
+          autoClose: 2500,
+          closeButton: false,
+        });
+      }
     }
     setShowModal(false);
   };

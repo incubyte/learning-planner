@@ -114,20 +114,27 @@ const UserDetail = () => {
   const handleSubmit = async () => {
     let media: any = [];
     if (avatar) {
-      media = await imageUpload([avatar]);
-      setIsUpdated(true);
-      setUser({
-        email: user.email,
-        eId: user.eId,
-        clientTeam: user.clientTeam,
-        role: user.role,
-        roles: user.roles,
-        profilePhoto: media[0].url,
-        updatedAt: user.updatedAt,
-        id: user.id,
-        createdAt: user.createdAt,
-      });
-      setShowModal(false);
+      try {
+        media = await imageUpload([avatar]);
+        setIsUpdated(true);
+        setUser({
+          email: user.email,
+          eId: user.eId,
+          clientTeam: user.clientTeam,
+          role: user.role,
+          roles: user.roles,
+          profilePhoto: media[0].url,
+          updatedAt: user.updatedAt,
+          id: user.id,
+          createdAt: user.createdAt,
+        });
+        setShowModal(false);
+      } catch (error) {
+        toast.error("" + error, {
+          autoClose: 2500,
+          closeButton: false,
+        });
+      }
     }
   };
 
