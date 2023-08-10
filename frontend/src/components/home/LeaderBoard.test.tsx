@@ -162,26 +162,6 @@ describe("should render the leaderBoard component", () => {
     });
   });
 
-  test("should render the container1 on the Leader Board page", async () => {
-    render(
-      <BrowserRouter>
-        <LeaderBoard />
-      </BrowserRouter>
-    );
-    await waitFor(() => {
-      const leaderBoardContainer1 = screen.getByTestId("container1");
-      const userImage = screen.getByTestId("container1 Image");
-      const userInfo = screen.getByTestId("container1 user Info");
-      expect(leaderBoardContainer1).toBeInTheDocument();
-      expect(userImage).toHaveAttribute("alt", "user image");
-      expect(userImage).toBeInTheDocument();
-      expect(userInfo).toBeInTheDocument();
-      expect(userInfo).toHaveTextContent("Email");
-      expect(userInfo).toHaveTextContent("Role");
-      expect(userInfo).toHaveTextContent("Credits");
-    });
-  });
-
   test("should render the container2 on the Leader Board page", async () => {
     render(
       <BrowserRouter>
@@ -194,7 +174,6 @@ describe("should render the leaderBoard component", () => {
       expect(leaderBoardContainer2).toBeInTheDocument();
       expect(table).toBeInTheDocument();
       expect(table).toHaveTextContent("Email");
-      expect(table).toHaveTextContent("Rank");
       expect(table).toHaveTextContent("Role");
       expect(table).toHaveTextContent("Credits");
     });

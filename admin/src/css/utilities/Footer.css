@@ -7,7 +7,7 @@
 }
 
 .FooterContentText {
-  @apply text-sm text-gray-500 sm:text-center;
+  @apply text-sm text-gray-500 xsm:text-center sm:text-center; 
 }
 
 .FooterLink {

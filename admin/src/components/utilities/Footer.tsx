@@ -6,13 +6,13 @@ const Footer = () => {
       <footer data-testid="footer" className="mt-auto" role="footer">
         <div className="FooterContainer">
           <div className="FooterContent">
-            <span className="FooterContentText">
+            <div className="FooterContentText">
               © 2023{" "}
               <a href="https://www.incubyte.co/" data-testid="footerLink">
                 Incubyte
               </a>
               . All Rights Reserved.
-            </span>
+            </div>
             <div className="FooterIconLinkSection">
               <a
                 href="https://www.linkedin.com/company/incubyte"
