@@ -51,12 +51,10 @@ function App() {
     loginRequest
   );
 
-  if (error) {
-    // handle error...
-  }
-
   if (result) {
     makeJWTRequest(result);
+  } else {
+    //cmnt
   }
 
   const handleSignOut = async () => {
@@ -68,13 +66,15 @@ function App() {
   };
   const fetchPage = async () => {
     const accessToken = localStorage.getItem("authToken");
-    const response = await fetch("https://backend-mu-plum.vercel.app/", {
+    const response = await fetch("https://backend-mu-plum.vercel.app/roles", {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
     });
     if (response.ok) {
       setIsSignInCompleted(true);
+    } else {
+      navigator("/auth/error");
     }
   };
   const fetchData = async () => {
