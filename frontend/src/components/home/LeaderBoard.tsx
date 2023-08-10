@@ -181,7 +181,7 @@ const LeaderBoard = () => {
               >
                 <tr>
                   <th scope="col" className="LeaderBoardTableHeadCols">
-                    SrNo.
+                    Sr No.
                   </th>
                   <th scope="col" className="LeaderBoardTableHeadCols">
                     Email
