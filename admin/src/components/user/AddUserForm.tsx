@@ -150,11 +150,16 @@ export const AddUserForm = () => {
               <select
                 name="select role"
                 className="AddUserTextInput"
+                data-testid="roleSelect"
                 required
                 onChange={handleRoleChange}
               >
-                <option value="Employee">Employee</option>
-                <option value="Admin">Admin</option>
+                <option value="Employee" data-testid="roleSelectOption1">
+                  Employee
+                </option>
+                <option value="Admin" data-testid="roleSelectOption2">
+                  Admin
+                </option>
               </select>
             </div>
           </div>
