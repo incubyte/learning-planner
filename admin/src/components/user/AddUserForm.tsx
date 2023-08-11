@@ -100,6 +100,7 @@ export const AddUserForm = () => {
             <label className="AddUserTextLabel text-md">Email</label>
             <input
               className="AddUserTextInput"
+              data-testid="emailInput"
               type="text"
               placeholder="Enter email id"
               required

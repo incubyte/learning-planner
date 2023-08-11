@@ -14,4 +14,17 @@ describe("Display Add User Page", () => {
     const addUserHeading = getByTestId("addUserHeading");
     expect(addUserHeading).toBeInTheDocument();
   });
+
+  test("renders email id input", () => {
+    const { getByTestId, getByPlaceholderText } = render(
+      <BrowserRouter>
+        <AddUserForm />
+      </BrowserRouter>
+    );
+    const emailInput = getByTestId("emailInput");
+    expect(emailInput).toBeInTheDocument();
+
+    const emailInputPlaceholder = getByPlaceholderText("Enter email id");
+    expect(emailInputPlaceholder).toBeInTheDocument();
+  });
 });
