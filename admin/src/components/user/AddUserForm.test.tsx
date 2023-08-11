@@ -1,4 +1,4 @@
-import { render } from "@testing-library/react";
+import { fireEvent, render, waitFor } from "@testing-library/react";
 import { AddUserForm } from "./AddUserForm";
 import { BrowserRouter } from "react-router-dom";
 
@@ -82,5 +82,25 @@ describe("Display Add User Page", () => {
     expect(roleSelectOption1).toBeInTheDocument();
     const roleSelectOption2 = getByTestId("roleSelectOption2");
     expect(roleSelectOption2).toBeInTheDocument();
+  });
+
+  test("submits the form", async () => {
+    const { getByTestId, getAllByText } = render(
+      <BrowserRouter>
+        <AddUserForm />
+      </BrowserRouter>
+    );
+
+    global.fetch = jest.fn().mockResolvedValueOnce({
+      ok: true,
+      json: () => Promise.resolve({}),
+    });
+    const submitButton = getByTestId("submitButton");
+    fireEvent.click(submitButton);
+
+    await waitFor(() => {
+      const successMessage = getAllByText("User added");
+      expect(successMessage[0]).toBeInTheDocument();
+    });
   });
 });
