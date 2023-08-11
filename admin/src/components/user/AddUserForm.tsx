@@ -113,6 +113,7 @@ export const AddUserForm = () => {
             <input
               className="AddUserTextInput"
               type="text"
+              data-testid="employeeIdInput"
               placeholder="Enter employee id"
               required
               value={employeeId}
