@@ -88,7 +88,9 @@ function App() {
           <div className="App" data-testid="App">
             <Outlet></Outlet>
           </div>
-          <Footer></Footer>
+          <div className="mt-7">
+            <Footer></Footer>
+          </div>
         </>
       </AuthenticatedTemplate>
     </>

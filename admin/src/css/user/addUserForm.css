@@ -1,12 +1,21 @@
 .AddUserContainer {
-  @apply w-full sm:w-full md:w-4/5 lg:w-4/5 xl:w-4/5 2xl:w-4/5 mt-10 p-6;
+  @apply w-full sm:w-full md:w-4/5 lg:w-4/5 xl:w-4/5 2xl:w-4/5 mt-7;
 }
 .AddUserTextInput {
   @apply w-full border mt-2 border-gray-300 rounded-md p-2;
 }
 .AddUserTextLabel {
-  @apply font-bold inline-block w-28 align-middle;
+  @apply font-bold text-base inline-block w-28 align-middle;
 }
 .AddUserSubmitButton {
-  @apply mt-10 text-white font-semibold px-4 py-2 rounded-md w-[200px];
+  @apply mt-7 text-white font-semibold px-4 py-2 rounded-md w-[200px];
+}
+.FormGroup{
+  @apply mt-3
+}
+.FormContainer{
+  @apply flex justify-center
+}
+.AddUserHeading{
+ @apply text-center pt-10 text-3xl font-bold
 }

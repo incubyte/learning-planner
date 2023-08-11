@@ -43,7 +43,7 @@ describe("test add user", () => {
 
     const emailInput = screen.getByTestId("emailInput") as HTMLInputElement;
     await act(() => {
-      fireEvent.change(emailInput, { target: { value: "test1@incubyte.co" } });
+      fireEvent.change(emailInput, { target: { value: "test1" } });
     });
 
     const employeeIdInput = screen.getByTestId(
@@ -69,7 +69,7 @@ describe("test add user", () => {
 
     const roleSelect = screen.getByTestId("roleSelect") as HTMLInputElement;
     await act(() => {
-      fireEvent.change(roleSelect, { target: { value: "Employee" } });
+      fireEvent.select(roleSelect, { target: { value: "Employee" } });
     });
 
     const submitButton = screen.getByTestId("submitButton");

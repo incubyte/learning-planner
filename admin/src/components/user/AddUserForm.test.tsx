@@ -11,8 +11,10 @@ describe("Display Add User Page", () => {
     );
     const formContainer = getByTestId("formContainer");
     expect(formContainer).toBeInTheDocument();
-    const addUserHeading = getByTestId("addUserHeading");
-    expect(addUserHeading).toBeInTheDocument();
+    const addSingleUserHeading = getByTestId("addSingleUserHeading");
+    expect(addSingleUserHeading).toBeInTheDocument();
+    const addMultipleUsersHeading = getByTestId("addMultipleUsersHeading");
+    expect(addMultipleUsersHeading).toBeInTheDocument();
   });
 
   test("renders email id input", () => {

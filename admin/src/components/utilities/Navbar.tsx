@@ -23,9 +23,6 @@ const Navbar = (props: NavbarProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const { instance, inProgress } = useMsal();
 
-  const addUser = async () => {
-    await setShowModal(true);
-  };
 
   const logout = async () => {
     await localStorage.removeItem("authToken");
@@ -35,16 +32,8 @@ const Navbar = (props: NavbarProps) => {
     }
   };
 
-  const [showModal, setShowModal] = useState(false);
-
   return (
     <>
-      {showModal ? (
-        <>
-          <AddUser setShowModal={setShowModal} showModal={showModal} />
-        </>
-      ) : null}
-
       <div className="sticky top-0 z-50">
         <nav className="NavbarContainer" role="navigation">
           <div className="NavbarInnerContainer">
@@ -81,13 +70,13 @@ const Navbar = (props: NavbarProps) => {
                     </Link>
                   )}
                   {!props.isUser && (
-                    <button
+                    <Link
+                      to="/addUser"
                       className="navbarHeaderItems"
                       data-testid="navbarHeaderAddUserLink"
-                      onClick={addUser}
                     >
                       Add User
-                    </button>
+                    </Link>
                   )}
                   {props.isCourse && (
                     <Link
@@ -162,13 +151,13 @@ const Navbar = (props: NavbarProps) => {
                   </Link>
                 )}
                 {!props.isUser && (
-                  <button
+                  <Link
+                    to="/addUser"
                     className="navbarHeaderItems"
                     data-testid="navbarHeaderAddUserLink"
-                    onClick={addUser}
                   >
                     Add User
-                  </button>
+                  </Link>
                 )}
                 {props.isUser && (
                   <Link to="/users" className="navbarHeaderItems">

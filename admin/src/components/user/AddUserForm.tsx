@@ -3,6 +3,7 @@ import Navbar from "../utilities/Navbar";
 import { ToastContainer, toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import "../../css/user/addUserForm.css";
+import AddUser from "./AddUsers";
 
 export const AddUserForm = () => {
   const [email, setEmail] = useState("");
@@ -73,6 +74,11 @@ export const AddUserForm = () => {
     handleCreateUser();
     event.preventDefault();
   };
+  const addUser = async () => {
+    await setShowModal(true);
+  };
+  const [showModal, setShowModal] = useState(false);
+
   return (
     <>
       <Navbar
@@ -82,22 +88,39 @@ export const AddUserForm = () => {
         isUser={true}
         isTag={false}
       ></Navbar>
+      {showModal ? (
+        <>
+          <AddUser setShowModal={setShowModal} showModal={showModal} />
+        </>
+      ) : null}
       <div>
-        <h1
-          className="text-center pt-10 text-3xl font-bold"
-          data-testid="addUserHeading"
-        >
-          Add User
+        <h1 className="AddUserHeading" data-testid="addMultipleUsersHeading">
+          Add Multiple Users
         </h1>
       </div>
-      <div className="flex justify-center">
+      <div className="FormContainer">
+        <button
+          data-testid="addMultipleUserBtn"
+          className="AddUserSubmitButton bg-blue-500"
+          type="submit"
+          onClick={addUser}
+        >
+          Add Multiple Users
+        </button>
+      </div>
+      <div>
+        <h1 className="AddUserHeading" data-testid="addSingleUserHeading">
+          Add Single User
+        </h1>
+      </div>
+      <div className="FormContainer">
         <form
           data-testid="formContainer"
           onSubmit={handleSubmit}
           className="AddUserContainer"
         >
-          <div className="form-group mt-3">
-            <label className="AddUserTextLabel text-md">Email</label>
+          <div className="FormGroup">
+            <label className="AddUserTextLabel">Email</label>
             <input
               className="AddUserTextInput"
               data-testid="emailInput"
@@ -108,8 +131,8 @@ export const AddUserForm = () => {
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>
-          <div className="form-group mt-3">
-            <label className="AddUserTextLabel text-md">Employee ID</label>
+          <div className="FormGroup">
+            <label className="AddUserTextLabel">Employee ID</label>
             <input
               className="AddUserTextInput"
               type="text"
@@ -120,8 +143,8 @@ export const AddUserForm = () => {
               onChange={(e) => setEmployeeId(e.target.value)}
             />
           </div>
-          <div className="form-group mt-3">
-            <label className="AddUserTextLabel text-md">Designation</label>
+          <div className="FormGroup">
+            <label className="AddUserTextLabel">Designation</label>
             <input
               className="AddUserTextInput"
               type="text"
@@ -132,8 +155,8 @@ export const AddUserForm = () => {
               onChange={(e) => setDesignation(e.target.value)}
             />
           </div>
-          <div className="form-group mt-3">
-            <label className="AddUserTextLabel text-md">Client Team</label>
+          <div className="FormGroup">
+            <label className="AddUserTextLabel">Client Team</label>
             <input
               className="AddUserTextInput"
               type="text"
@@ -144,8 +167,8 @@ export const AddUserForm = () => {
               onChange={(e) => setclientTeam(e.target.value)}
             />
           </div>
-          <div className="form-group mt-3">
-            <label className="AddUserTextLabel text-md">Role</label>
+          <div className="FormGroup">
+            <label className="AddUserTextLabel">Role</label>
             <div>
               <select
                 name="select role"
