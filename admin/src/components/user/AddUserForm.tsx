@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Navbar from "../utilities/Navbar";
-import { toast } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import "../../css/user/addUserForm.css";
 
@@ -164,6 +164,7 @@ export const AddUserForm = () => {
             </button>
           </div>
         </form>
+        <ToastContainer></ToastContainer>
       </div>
     </>
   );
