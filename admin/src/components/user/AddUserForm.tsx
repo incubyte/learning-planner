@@ -137,6 +137,7 @@ export const AddUserForm = () => {
             <input
               className="AddUserTextInput"
               type="text"
+              data-testid="clientTeamInput"
               placeholder="Enter client team"
               required
               value={clientTeam}

@@ -55,4 +55,18 @@ describe("Display Add User Page", () => {
       getByPlaceholderText("Enter designation");
     expect(designationInputPlaceholder).toBeInTheDocument();
   });
+
+  test("renders client team input", () => {
+    const { getByTestId, getByPlaceholderText } = render(
+      <BrowserRouter>
+        <AddUserForm />
+      </BrowserRouter>
+    );
+    const clientTeamInput = getByTestId("clientTeamInput");
+    expect(clientTeamInput).toBeInTheDocument();
+
+    const clientTeamInputPlaceholder =
+      getByPlaceholderText("Enter client team");
+    expect(clientTeamInputPlaceholder).toBeInTheDocument();
+  });
 });
