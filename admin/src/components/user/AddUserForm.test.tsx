@@ -41,4 +41,18 @@ describe("Display Add User Page", () => {
       getByPlaceholderText("Enter employee id");
     expect(employeeIdInputPlaceholder).toBeInTheDocument();
   });
+
+  test("renders designation input", () => {
+    const { getByTestId, getByPlaceholderText } = render(
+      <BrowserRouter>
+        <AddUserForm />
+      </BrowserRouter>
+    );
+    const designationInput = getByTestId("designationInput");
+    expect(designationInput).toBeInTheDocument();
+
+    const designationInputPlaceholder =
+      getByPlaceholderText("Enter designation");
+    expect(designationInputPlaceholder).toBeInTheDocument();
+  });
 });

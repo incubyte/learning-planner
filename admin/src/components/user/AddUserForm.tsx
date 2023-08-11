@@ -125,6 +125,7 @@ export const AddUserForm = () => {
             <input
               className="AddUserTextInput"
               type="text"
+              data-testid="designationInput"
               placeholder="Enter designation"
               required
               value={designation}
