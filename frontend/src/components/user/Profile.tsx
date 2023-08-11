@@ -385,6 +385,7 @@ const Profile = () => {
           </div>
         </div>
       </div>
+      <hr className="my-10" />
       <Carousel
         titleName="My Courses"
         dataTestId="profileCourses"
