@@ -1,87 +1,30 @@
-.LeaderBoardContainer {
-    @apply flex flex-wrap justify-between items-center border p-5 border-gray-200 rounded-lg
+.HomePageImageBgSection{
+  @apply flex flex-col mx-3 sm:mx-10 my-1 sm:my-2 shadow-md rounded-lg bg-home-page bg-[length:100%_25vh] h-[25vh] lg:bg-[length:100%_50vh] md:bg-[length:100%_30vh] lg:h-[50vh] md:h-[30vh] justify-center
 }
-
-.LeaderBoardTitleContainer {
-    @apply w-full text-center mb-8 text-3xl font-semibold
+.HomePageQuateContainer{
+  @apply flex flex-col justify-center items-center text-white text-center p-4
 }
-
-.LeaderBoardTitle {
-    @apply text-3xl font-semibold text-center
+.HomePageQuate{
+  @apply text-base md:text-2xl lg:text-3xl font-bold
 }
-
-.LeaderBoardContainers {
-    @apply w-full md:w-1/2 p-2
-}
-
-.LeaderBoardInnerContainer {
-    @apply bg-gray-100 h-[450px] flex flex-col items-center justify-center border border-black border-solid rounded-lg lg:ml-2
-}
-
-.LeaderBoardInnerFirstImageContainer {
-    @apply rounded-full border border-gray-100 shadow-sm ml-5 mt-5 w-[150px] h-[150px] object-cover
-}
-
-.LeaderBoardUserInfoContainer {
-    @apply mt-5
-}
-
-.LeaderBoardUserInnerInfoContainer {
-    @apply text-xl font-semibold xsm:text-lg xsm:font-medium
-}
-
-.LeaderBoardUserInnerInfo {
-    @apply m-8 sm:m-2 md:m-3
-}
-
-.LeaderBoardInnerContainerScrollbar {
-    @apply overflow-x-auto scrollbar-hide
-}
-
-.LeaderBoardContainerTwoTableContainer {
-    @apply h-[450px] flex justify-center rounded-lg
-}
-
-.LeaderBoardContainerTwoTable {
-    @apply h-[450px] text-center text-lg md:text-xl rounded-lg border border-black border-separate
-}
-
 .LeaderBoardContainerTwoTableBorder {
     @apply p-4 rounded-lg
 }
-
-.courseContainer {
+.LeaderBoardTableContainer {
   @apply relative overflow-x-auto shadow-md sm:rounded-lg m-10;
 }
-
-.courseHeading {
+.LeaderBoardTableHeading {
   @apply text-center pt-10 text-3xl font-bold;
 }
-
-.courseTable {
+.LeaderBoardTable {
   @apply w-full table text-center text-base bg-white rounded-b-lg rounded-lg justify-center align-middle p-5;
 }
-
-.courseTableHead {
+.LeaderBoardTableHead {
   @apply text-gray-700  bg-gray-200;
 }
-
-.courseTableHeadCols {
+.LeaderBoardTableHeadCols {
   @apply border border-gray-100 p-5 m-5;
 }
-
-.courseTableRows {
+.LeaderBoardTableRows {
   @apply border border-gray-100 p-5 justify-start text-base;
-}
-
-.courseTableUpdateCol {
-  @apply flex justify-center;
-}
-
-.courseUpdateButton {
-  @apply w-[100px] m-5 p-2 pl-1 pr-1 rounded-lg bg-emerald-500 hover:bg-emerald-400 active:bg-emerald-600 text-white  font-bold;
-}
-
-.courseDeleteButton {
-  @apply bg-red-600 w-[100px] m-5 p-2 pl-1 pr-1 rounded-lg text-white hover:bg-red-500 sm:w-20  font-bold;
 }

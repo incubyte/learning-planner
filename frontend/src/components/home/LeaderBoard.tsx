@@ -155,38 +155,41 @@ const LeaderBoard = () => {
   return (
     <>
       <div className="leaderBoard">
-        <div className="flex flex-col mx-3 sm:mx-10 my-1 sm:my-2 shadow-md rounded-lg bg-home-page bg-[length:100%_25vh] h-[25vh] lg:bg-[length:100%_50vh] md:bg-[length:100%_30vh] lg:h-[50vh] md:h-[30vh] justify-center">
-          <div className="inset-0 flex flex-col justify-center items-center text-white text-center p-4">
-            <p className="text-base md:text-2xl lg:text-3xl font-bold">
+        <div className="HomePageImageBgSection">
+          <div className="HomePageQuateContainer">
+            <p className="HomePageQuate">
               Learning is a never-ending journey, and the more you explore, the
               more you discover.
             </p>
           </div>
         </div>
-        <h1 data-testid="leaderBoardTitle" className="courseHeading">
+        <h1 data-testid="leaderBoardTitle" className="LeaderBoardTableHeading">
           Leader Board
         </h1>
         <div
-          className="courseContainer"
+          className="LeaderBoardTableContainer"
           data-testid="container2"
           role="leaderBoard"
         >
           {isLoading ? (
             <Skeleton height={360} />
           ) : (
-            <table data-testid="container2 table" className="courseTable">
-              <thead className="courseTableHead" data-testid="tableHeading">
+            <table data-testid="container2 table" className="LeaderBoardTable">
+              <thead
+                className="LeaderBoardTableHead"
+                data-testid="tableHeading"
+              >
                 <tr>
-                  <th scope="col" className="courseTableHeadCols">
-                    SrNo.
+                  <th scope="col" className="LeaderBoardTableHeadCols">
+                    Sr No.
                   </th>
-                  <th scope="col" className="courseTableHeadCols">
+                  <th scope="col" className="LeaderBoardTableHeadCols">
                     Email
                   </th>
-                  <th scope="col" className="courseTableHeadCols">
+                  <th scope="col" className="LeaderBoardTableHeadCols">
                     Role
                   </th>
-                  <th scope="col" className="courseTableHeadCols">
+                  <th scope="col" className="LeaderBoardTableHeadCols">
                     Credits
                   </th>
                 </tr>
@@ -201,14 +204,14 @@ const LeaderBoard = () => {
                       }`}
                       role="row"
                     >
-                      <td className="courseTableRows">{index + 1}</td>
-                      <td className="courseTableRows">
+                      <td className="LeaderBoardTableRows">{index + 1}</td>
+                      <td className="LeaderBoardTableRows">
                         {leaderBoardUser?.user?.email}
                       </td>
-                      <td className="courseTableRows">
+                      <td className="LeaderBoardTableRows">
                         {leaderBoardUser?.user?.role}
                       </td>
-                      <td className="courseTableRows">
+                      <td className="LeaderBoardTableRows">
                         {leaderBoardUser?.CompletedCourseCount * 10}
                       </td>
                     </tr>
