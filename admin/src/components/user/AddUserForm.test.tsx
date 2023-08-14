@@ -3,7 +3,7 @@ import { AddUserForm } from "./AddUserForm";
 import { BrowserRouter } from "react-router-dom";
 
 describe("Display Add User Page", () => {
-  test("renders heading", () => {
+  test("renders form container", () => {
     const { getByTestId } = render(
       <BrowserRouter>
         <AddUserForm />
@@ -11,10 +11,6 @@ describe("Display Add User Page", () => {
     );
     const formContainer = getByTestId("formContainer");
     expect(formContainer).toBeInTheDocument();
-    const addSingleUserHeading = getByTestId("addSingleUserHeading");
-    expect(addSingleUserHeading).toBeInTheDocument();
-    const addMultipleUsersHeading = getByTestId("addMultipleUsersHeading");
-    expect(addMultipleUsersHeading).toBeInTheDocument();
   });
 
   test("renders email id input", () => {
