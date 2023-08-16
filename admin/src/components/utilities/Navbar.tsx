@@ -5,7 +5,6 @@ import IncubyteLogo from "../../assets/IncubyteLogo.png";
 import "../../css/utilities/Navbar.css";
 import CloseMenu from "./icons/CloseMenu";
 import OpenMenu from "./icons/OpenMenu";
-import AddUser from "../user/AddUsers";
 import { ToastContainer } from "react-toastify";
 import { useMsal } from "@azure/msal-react";
 
@@ -22,7 +21,6 @@ const Navbar = (props: NavbarProps) => {
   const navigator = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const { instance, inProgress } = useMsal();
-
 
   const logout = async () => {
     await localStorage.removeItem("authToken");
