@@ -221,8 +221,8 @@ export class UserService {
           subject: 'Account created LearningPlanner@Incubyte',
           html:
             userData[i].roles === Role.Employee
-              ? `<b>welcome to Learning Planner</b> <p>https://incubyte-learningplanner.netlify.app </p> `
-              : ` <b>welcome to Learning Planner You are an Admin</b>  <p>Admin: https://admin-incubyte-learningplanner.netlify.app </p><br/><br/><p>Employee: https://incubyte-learningplanner.netlify.app </p>`,
+              ? `<b>welcome to Learning Planner</b> <a>https://incubyte-learningplanner.netlify.app </a> `
+              : ` <b>welcome to Learning Planner You are an Admin</b>  <a>Admin: https://admin-incubyte-learningplanner.netlify.app </a><br/><br/><a>Employee: https://incubyte-learningplanner.netlify.app </a>`,
         });
       }
       return result.count;
