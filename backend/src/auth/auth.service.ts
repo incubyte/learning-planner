@@ -59,7 +59,7 @@ export class AuthService {
 
   async signinAdmin(user: UserDto): Promise<string> {
     const prismaUser = await this.prismaService.user.findFirst({
-      where: { email: user.email, roles: Role.Admin },
+      where: { email: user.email },
     });
     if (!this.checkUserExist(prismaUser)) {
       throw new BadRequestException('Not an Admin');
