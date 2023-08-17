@@ -1,0 +1,16 @@
+.FileUploadFormContainer{
+  @apply flex h-full justify-items-center p-7 lg:p-20 md:p-20
+}
+
+.FileUploadForm{
+  @apply flex items-center justify-center w-full
+}
+.FileUploadFormLable{
+  @apply flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100
+}
+.FileUploadTextAndSvgContainer{
+  @apply flex flex-col items-center justify-center text-center pt-5 pb-6
+}
+.FileUploadSvg{
+  @apply w-8 h-8 mb-4 text-gray-500
+}

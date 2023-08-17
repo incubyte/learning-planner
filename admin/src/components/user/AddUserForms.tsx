@@ -1,8 +1,8 @@
 import { useState } from "react";
 import Navbar from "../utilities/Navbar";
-import "../../css/user/addUserForm.css";
 import AddSingleUserForm from "./AddSingleUserForm";
 import AddMultipleUsersForm from "./AddMultipleUsersForm";
+import "../../css/user/addUserForms.css";
 
 export const AddUserForms = () => {
   const [selectedOption, setSelectedOption] = useState("option2");
@@ -19,35 +19,35 @@ export const AddUserForms = () => {
         isUser={true}
         isTag={false}
       ></Navbar>
-      <div className="flex flex-col lg:flex-row md:flex-row justify-center text-center pt-10 text-xl lg:text-2xl md:text-2xl font-bold gap-5">
-        <label className="mx-3 cursor-pointer" data-testid="multipleUserText">
+      <div className="SelectionContainer">
+        <label className="SelectionLable" data-testid="multipleUserText">
           <input
             type="radio"
             value="option1"
             data-testid="radio1"
             checked={selectedOption === "option1"}
             onChange={handleRadioButtonChange}
-            className="mx-1 h-4 w-4 lg:h-5 lg:w-5 md:h-5 md:w-5"
+            className="SelectionRadioButton"
           />
           Add Multiple User
         </label>
-        <label className="mx-3 cursor-pointer" data-testid="singleUserText">
+        <label className="SelectionLable" data-testid="singleUserText">
           <input
             type="radio"
             data-testid="radio2"
             value="option2"
             checked={selectedOption === "option2"}
             onChange={handleRadioButtonChange}
-            className="mx-1 h-4 w-4 lg:h-5 lg:w-5 md:h-5 md:w-5"
+            className="SelectionRadioButton"
           />
           Add Single User
         </label>
       </div>
 
       {selectedOption === "option1" && (
-        <>
+        <div className="lg:px-10 md:px-10">
           <AddMultipleUsersForm />
-        </>
+        </div>
       )}
       {selectedOption === "option2" && (
         <div className="px-10">

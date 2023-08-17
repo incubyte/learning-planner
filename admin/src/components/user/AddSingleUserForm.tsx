@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
+import "../../css/user/addSingleUserForm.css";
 
 const AddSingleUserForm = () => {
   const [email, setEmail] = useState("");
