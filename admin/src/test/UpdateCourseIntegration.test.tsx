@@ -94,9 +94,6 @@ describe("test update course", () => {
       fireEvent.change(credit, { target: { value: "10" } });
     });
 
-    const ResourceUrlPlaceholder =
-      screen.getByPlaceholderText("Enter resource URL");
-
     const addResourceUrlButton = screen.getByTestId("Add Resource Url");
     fireEvent.click(addResourceUrlButton);
 
@@ -107,7 +104,6 @@ describe("test update course", () => {
       });
     });
 
-    const TestUrlPlaceholder = screen.getByPlaceholderText("Enter Test URL");
     const addTestUrlButton = screen.getByTestId("Add Test Url");
     fireEvent.click(addTestUrlButton);
 
