@@ -17,6 +17,7 @@ model User {
   eId          String?      @unique
   role         String?
   clientTeam   String?
+  projectTeam  String?
   email        String       @unique
   password     String
   profilePhoto String
