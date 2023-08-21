@@ -334,8 +334,8 @@ const AddCourse = () => {
           onSubmit={handleSubmit}
           className="AddCourseContainer"
         >
-          <div className="form-group mt-3" data-testid="courseTitle">
-            <label className="AddCourseTextLabel text-md">Title</label>
+          <div className=" mt-3" data-testid="courseTitle">
+            <label className="AddCourseTextLabel ">Title</label>
             <input
               className="AddCourseTextInput"
               type="text"
@@ -346,8 +346,8 @@ const AddCourse = () => {
               onChange={(e) => setCourseName(e.target.value)}
             />
           </div>
-          <div className="form-group mt-3" data-testid="courseDescription">
-            <label className="AddCourseTextLabel text-md">Description</label>
+          <div className=" mt-3" data-testid="courseDescription">
+            <label className="AddCourseTextLabel ">Description</label>
             <textarea
               className="AddCourseTextInput"
               placeholder="Enter course description"
@@ -357,8 +357,8 @@ const AddCourse = () => {
               onChange={(e) => setDescription(e.target.value)}
             ></textarea>
           </div>
-          <div className="form-group mt-3" data-testid="courseCredit">
-            <label className="AddCourseTextLabel text-md">Credit</label>
+          <div className=" mt-3" data-testid="courseCredit">
+            <label className="AddCourseTextLabel ">Credit</label>
             <input
               className="AddCourseTextInput"
               type="number"
@@ -369,8 +369,8 @@ const AddCourse = () => {
               onChange={(e) => setCredit(e.target.value)}
             />
           </div>
-          <div className="form-group mt-3" data-testid="multiselect">
-            <label className="AddCourseTextLabel text-md">Tags</label>
+          <div className=" mt-3" data-testid="multiselect">
+            <label className="AddCourseTextLabel ">Tags</label>
             <Multiselect
               options={data.options}
               data-testid="multiSelectInput"
@@ -403,8 +403,8 @@ const AddCourse = () => {
               Add
             </button>
           </div>
-          <div className="form-group mt-3 justify-between">
-            <label className="text-md font-bold">Resource URLs</label>
+          <div className=" mt-3 justify-between">
+            <label className=" font-bold">Resource URLs</label>
             {resourseUrls.map((url, index) => (
               <div key={index} className="flex mt-2">
                 <input
@@ -438,8 +438,8 @@ const AddCourse = () => {
             </button>
           </div>
 
-          <div className="form-group mt-3 justify-between">
-            <label className="text-md font-bold">Test URLs</label>
+          <div className=" mt-3 justify-between">
+            <label className=" font-bold">Test URLs</label>
             {testUrls.map((url, index) => (
               <div key={index} className="flex mt-2">
                 <input
@@ -473,10 +473,10 @@ const AddCourse = () => {
             </button>
           </div>
           <div
-            className="AddCourseImageContainer form-group"
+            className="AddCourseImageContainer"
             data-testid="CourseImageContainer"
           >
-            <label className="text-md  font-bold">Image</label>
+            <label className="  font-bold">Image</label>
             <div className="h-10 w-10">
               <svg
                 xmlns="http://www.w3.org/2000/svg"

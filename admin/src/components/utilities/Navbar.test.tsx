@@ -7,7 +7,6 @@ afterEach(() => {
 });
 
 describe("Navbar", () => {
-  const mockGetQuery = jest.fn();
   test("Navbar is present", () => {
     render(
       <BrowserRouter>

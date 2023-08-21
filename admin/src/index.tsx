@@ -17,6 +17,7 @@ import Users from "./components/user/Users";
 import ErrorPage from "./components/utilities/ErrorPage";
 import LoadingScreen from "./components/utilities/LoadingScreen";
 import "./index.css";
+import { AddUserForms } from "./components/user/AddUserForms";
 
 const pca = new PublicClientApplication({
   auth: {
@@ -57,6 +58,10 @@ const router = createBrowserRouter([
       {
         path: "/user/:id",
         element: <UserDetail />,
+      },
+      {
+        path: "/addUser",
+        element: <AddUserForms />,
       },
       {
         path: "/courses",
