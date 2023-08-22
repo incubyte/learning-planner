@@ -41,6 +41,10 @@ module.exports = {
       backgroundSize: {
         "s-size": "200% 100%",
       },
+      fontFamily: {
+        inter: ["inter", "sans-serif"],
+        nunito: ["nunito", "sans-serif"],
+      },
     },
   },
   plugins: [require("tailwind-scrollbar-hide")],

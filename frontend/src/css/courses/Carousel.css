@@ -1,15 +1,15 @@
-.carouselTitleName{
-    @apply text-center py-4 text-xl font-bold
+.carouselTitleName {
+  @apply text-center py-8 text-3xl font-bold tracking-[.06px];
 }
- 
-.buttons{
-    @apply absolute right-0 top-5
+
+.buttons {
+  @apply absolute right-0 top-5;
 }
- 
+
 .button {
-    @apply p-2 m-2 rounded-full bg-white
+  @apply p-2 m-2 rounded-full bg-white;
 }
- 
-.carouselListContent{
-    @apply p-4 flex items-center justify-start overflow-x-auto scroll-smooth scrollbar-hide
+
+.carouselListContent {
+  @apply p-4 flex items-center justify-start overflow-x-auto scroll-smooth scrollbar-hide;
 }

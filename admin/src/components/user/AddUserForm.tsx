@@ -130,7 +130,7 @@ export const AddUserForm = () => {
               type="submit"
               onClick={addUser}
             >
-              Add Multiple Users
+              Upload Excel File
             </button>
           </div>
         </>

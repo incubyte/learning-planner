@@ -43,7 +43,7 @@ function App() {
   };
 
   const isAuthenticated = useIsAuthenticated();
-  
+
   const fetchPage = async () => {
     if (!isAuthenticated) {
       handleSignIn();
@@ -73,7 +73,7 @@ function App() {
     <LoadingScreen />
   ) : isSignInCompleted ? (
     <>
-      <div className="App" data-testid="App">
+      <div className="App font-nunito" data-testid="App">
         <Outlet></Outlet>
       </div>
       <div className="mt-7">

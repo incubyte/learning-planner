@@ -7,11 +7,11 @@
 }
 
 .FooterContentText {
-  @apply text-sm text-gray-500 xsm:text-center sm:text-center; 
+  @apply text-sm text-gray-500 xsm:text-center sm:text-center tracking-[.06px];
 }
 
 .FooterLink {
-  @apply text-gray-400 hover:text-gray-900;
+  @apply text-gray-400 hover:text-gray-900 tracking-[.06px];
 }
 .FooterIcons {
   @apply w-7 h-7;

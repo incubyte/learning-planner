@@ -1,30 +1,30 @@
-.HomePageImageBgSection{
-  @apply flex flex-col mx-3 sm:mx-10 my-1 sm:my-2 shadow-md rounded-lg bg-home-page bg-[length:100%_25vh] h-[25vh] lg:bg-[length:100%_50vh] md:bg-[length:100%_30vh] lg:h-[50vh] md:h-[30vh] justify-center
+.HomePageImageBgSection {
+  @apply flex flex-col mx-3 sm:mx-10 my-1 sm:my-2 shadow-md rounded-lg bg-home-page bg-[length:100%_25vh] h-[25vh] lg:bg-[length:100%_50vh] md:bg-[length:100%_30vh] lg:h-[50vh] md:h-[30vh] justify-center;
 }
-.HomePageQuateContainer{
-  @apply flex flex-col justify-center items-center text-white text-center p-4
+.HomePageQuateContainer {
+  @apply flex flex-col justify-center items-center text-white text-center p-4 tracking-[.06px];
 }
-.HomePageQuate{
-  @apply text-base md:text-2xl lg:text-3xl font-bold
+.HomePageQuate {
+  @apply text-base md:text-2xl lg:text-3xl font-bold tracking-[.06px];
 }
 .LeaderBoardContainerTwoTableBorder {
-    @apply p-4 rounded-lg
+  @apply p-4 rounded-lg;
 }
 .LeaderBoardTableContainer {
   @apply relative overflow-x-auto shadow-md sm:rounded-lg m-10;
 }
 .LeaderBoardTableHeading {
-  @apply text-center pt-10 text-3xl font-bold;
+  @apply text-center pt-10 text-3xl font-bold tracking-[.06px];
 }
 .LeaderBoardTable {
-  @apply w-full table text-center text-base bg-white rounded-b-lg rounded-lg justify-center align-middle p-5;
+  @apply w-full table text-center text-base bg-white rounded-b-lg rounded-lg justify-center align-middle p-5 tracking-[.06px];
 }
 .LeaderBoardTableHead {
-  @apply text-gray-700  bg-gray-200;
+  @apply text-gray-700  bg-gray-200 tracking-[.06px];
 }
 .LeaderBoardTableHeadCols {
   @apply border border-gray-100 p-5 m-5;
 }
 .LeaderBoardTableRows {
-  @apply border border-gray-100 p-5 justify-start text-base;
+  @apply border border-gray-100 p-5 justify-start text-base tracking-[.06px];
 }

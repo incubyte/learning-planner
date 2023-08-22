@@ -147,10 +147,10 @@ const Profile = () => {
                     onChange={changeAvatar}
                   />
                   <p
-                    className="mt-1 text-sm text-gray-500 dark:text-gray-300"
+                    className="mt-1 text-sm text-gray-600"
                     id="file_input_help"
                   >
-                    SVG, PNG, JPG or GIF (MAX. 6mb).
+                    SVG, PNG or JPG (MAX. 6MB)
                   </p>
                 </div>
                 <div className="ProfileModalFooter">
@@ -164,7 +164,7 @@ const Profile = () => {
                   </button>
                   <button
                     data-testid="profileImageSave"
-                    className="ProfileModalSaveButton bg-emerald-500 active:bg-emerald-600"
+                    className="ProfileModalSaveButton"
                     type="button"
                     onClick={handleSubmit}
                   >
@@ -385,6 +385,7 @@ const Profile = () => {
           </div>
         </div>
       </div>
+      <hr className="mt-10" />
       <Carousel
         titleName="My Courses"
         dataTestId="profileCourses"

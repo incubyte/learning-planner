@@ -1,27 +1,27 @@
 .carouselCardContainer {
-    @apply px-3 flex relative w-auto sm:w-auto
+  @apply px-3 flex relative w-auto sm:w-auto;
 }
 
 .carouselCardInnerContainer {
-    @apply h-auto w-auto shadow-table
+  @apply h-auto w-auto shadow-table;
 }
 
 .courseCardImageContainer {
-    @apply max-w-[260px] rounded overflow-hidden md:h-auto md:w-auto sm:h-auto sm:w-auto
+  @apply max-w-[260px] rounded overflow-hidden md:h-auto md:w-auto sm:h-auto sm:w-auto;
 }
 
 .courseCardImage {
-    @apply min-w-[260px] relative h-44 rounded border-b-2 overflow-hidden
+  @apply min-w-[260px] relative h-44 rounded border-b-2 overflow-hidden;
 }
 
 .courseCardCourseNameContainer {
-    @apply px-6 py-4
+  @apply px-6 py-4;
 }
 
 .courseCardCourseName {
-    @apply font-bold text-lg ml-1 truncate whitespace-nowrap overflow-hidden
+  @apply font-bold text-lg ml-1 truncate whitespace-nowrap overflow-hidden tracking-[.06px];
 }
 
 .courseCardButtonContainer {
-    @apply pt-4 pb-2 justify-center items-center
+  @apply pt-4 pb-2 justify-center items-center;
 }

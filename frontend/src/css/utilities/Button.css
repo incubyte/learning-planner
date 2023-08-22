@@ -1,3 +1,3 @@
-.buttonContainer{
-    @apply bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-9 mx-12 my-2 rounded
+.buttonContainer {
+  @apply bg-[#0e3252] hover:bg-[#05243f] text-white font-bold py-3 px-9 mx-12 my-2 rounded tracking-[.06px];
 }
