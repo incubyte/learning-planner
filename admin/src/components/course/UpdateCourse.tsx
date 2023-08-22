@@ -240,15 +240,13 @@ const UpdateCourse = () => {
         isUser={true}
         isTag={false}
       ></Navbar>
-      <div className="container">
-        <div>
-          <h1
-            data-testid="updateCourseHeading"
-            className="text-center pt-10 text-3xl font-bold"
-          >
-            Update Course
-          </h1>
-        </div>
+      <div>
+        <h1
+          data-testid="updateCourseHeading"
+          className="text-center pt-10 text-3xl font-bold w-full"
+        >
+          Update Course
+        </h1>
       </div>
       <div className="flex justify-center">
         <ToastContainer />
@@ -257,10 +255,10 @@ const UpdateCourse = () => {
           onSubmit={handleSubmit}
           className="UpdateCourseContainer"
         >
-          <div className="form-group mt-3" data-testid="courseTitle">
-            <label className="text-md font-bold">Course Name</label>
+          <div className=" mt-3" data-testid="courseTitle">
+            <label className=" font-bold">Course Name</label>
             <input
-              className="form-control UpdateCourseTextInput"
+              className="UpdateCourseTextInput"
               type="text"
               id="courseName"
               data-testid="courseTitleInput"
@@ -270,20 +268,20 @@ const UpdateCourse = () => {
               }}
             />
           </div>
-          <div className="form-group mt-3" data-testid="courseDescription">
-            <label className="text-md font-bold">Description</label>
+          <div className=" mt-3" data-testid="courseDescription">
+            <label className=" font-bold">Description</label>
             <textarea
               id="description"
               data-testid="courseDescriptionInput"
               value={description}
               rows={4}
-              className="form-control UpdateCourseTextInput"
+              className="UpdateCourseTextInput"
               placeholder="Enter course description"
               onChange={(e) => setDescription(e.target.value)}
             ></textarea>
           </div>
-          <div className="form-group mt-3" data-testid="courseCredit">
-            <label className="form-control text-md font-bold">Credit</label>
+          <div className=" mt-3" data-testid="courseCredit">
+            <label className="font-bold">Credit</label>
             <input
               className="UpdateCourseTextInput"
               type="number"
@@ -293,8 +291,8 @@ const UpdateCourse = () => {
               onChange={(e) => setCredit(e.target.value)}
             />
           </div>
-          <div className="form-group mt-3" data-testid="multiselect">
-            <label className="text-md font-bold">Tags</label>
+          <div className=" mt-3" data-testid="multiselect">
+            <label className=" font-bold">Tags</label>
             <Multiselect
               options={data.options}
               selectedValues={displaySelectedTags}
@@ -318,8 +316,8 @@ const UpdateCourse = () => {
               }}
             />
           </div>
-          <div className="form-group mt-3 justify-between">
-            <label className="text-md font-bold">Resource URLs</label>
+          <div className=" mt-3 justify-between">
+            <label className=" font-bold">Resource URLs</label>
             {resourseUrls.map((url, index) => (
               <div key={index} className="flex mt-2">
                 <input
@@ -354,8 +352,8 @@ const UpdateCourse = () => {
             </button>
           </div>
 
-          <div className="form-group mt-3 justify-between">
-            <label className="text-md font-bold">Test URLs</label>
+          <div className=" mt-3 justify-between">
+            <label className=" font-bold">Test URLs</label>
             {testUrls.map((url, index) => (
               <div key={index} className="flex mt-2">
                 <input
@@ -390,10 +388,10 @@ const UpdateCourse = () => {
             </button>
           </div>
           <div
-            className="form-group UpdateCourseImageContainer"
+            className=" UpdateCourseImageContainer"
             data-testid="CourseImageContainer"
           >
-            <label className="text-md  font-bold">Image</label>
+            <label className="  font-bold">Image</label>
             <div className="h-10 w-10">
               <svg
                 xmlns={imageUrl}
