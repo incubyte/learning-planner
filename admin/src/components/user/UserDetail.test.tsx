@@ -18,6 +18,7 @@ const mockUser = {
   eId: "E0001",
   role: "BQA",
   clientTeam: "abc",
+  projectTeam: "abc",
   Role: "Employee",
 };
 beforeEach(() => {
@@ -173,6 +174,11 @@ describe("UserDetail Component", () => {
           "UserDetailClientTeamLabel"
         );
         expect(userDetailClientTeamLabel).toBeInTheDocument();
+
+        const userDetailProjectTeamLabel = screen.getByTestId(
+          "UserDetailProjectTeamLabel"
+        );
+        expect(userDetailProjectTeamLabel).toBeInTheDocument();
       });
     });
   });
@@ -203,6 +209,11 @@ describe("UserDetail Component", () => {
           "UserDetailClientTeamInput"
         );
         expect(userDetailClientTeamInput).toBeInTheDocument();
+
+        const userDetailProjectTeamInput = screen.getByTestId(
+          "UserDetailProjectTeamInput"
+        );
+        expect(userDetailProjectTeamInput).toBeInTheDocument();
       });
     });
   });
