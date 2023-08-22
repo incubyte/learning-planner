@@ -88,7 +88,7 @@ function App() {
     <>
       <AuthenticatedTemplate>
         <>
-          <div className="App" data-testid="App">
+          <div className="App font-nunito" data-testid="App">
             <Outlet></Outlet>
           </div>
           <div className="mt-7">

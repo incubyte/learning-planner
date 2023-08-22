@@ -136,7 +136,7 @@ const Tags = () => {
               <div className="TagImageModalContainer">
                 <div className="TagModelUploadContainer">
                   <h3
-                    className="text-3xl font-semibold"
+                    className="text-3xl font-semibold tracking-[.08px]"
                     data-testid="modelHeader"
                   >
                     Update Tag
@@ -151,7 +151,7 @@ const Tags = () => {
                       })
                     }
                   >
-                    <span className="text-black h-6 w-6 text-2xl block outline-none">
+                    <span className="text-black h-6 w-6 text-2xl block outline-none tracking-[.08px]">
                       x
                     </span>
                   </button>
@@ -182,7 +182,7 @@ const Tags = () => {
                   </button>
                   <button
                     data-testid="modelUpdateTagButton"
-                    className="TagModalSaveButton bg-emerald-500 active:bg-emerald-600"
+                    className="TagModalSaveButton bg-[#0e3252] hover:bg-[#05243f]"
                     type="button"
                     onClick={() => {
                       const id = showupdateTagModel.tagId;
@@ -209,12 +209,14 @@ const Tags = () => {
             <div className="relative w-auto my-6 mx-auto">
               <div className="TagImageModalContainer">
                 <div className="TagModelUploadContainer">
-                  <h3 className="text-2xl font-semibold">Add Tag</h3>
+                  <h3 className="text-2xl font-semibold tracking-[.08px]">
+                    Add Tag
+                  </h3>
                   <button
                     className="TagModalUploadButton"
                     onClick={() => setShowAddTagModal(false)}
                   >
-                    <span className="text-black h-6 w-6 text-2xl block outline-none">
+                    <span className="text-black h-6 w-6 text-2xl block outline-none tracking-[.08px]">
                       x
                     </span>
                   </button>
@@ -241,7 +243,7 @@ const Tags = () => {
                   </button>
                   <button
                     data-testid="AddTagButtonModal"
-                    className="TagModalSaveButton bg-emerald-500 hover:bg-emerald-400 active:bg-emerald-600"
+                    className="TagModalSaveButton bg-[#0e3252] hover:bg-[#05243f]"
                     type="button"
                     onClick={() => {
                       handelTagSubmit();
@@ -273,7 +275,7 @@ const Tags = () => {
         <button
           data-testid="AddTagButton"
           type="button"
-          className="AddTagButton bg-emerald-500"
+          className="AddTagButton bg-[#0e3252] hover:bg-[#05243f]"
           onClick={() => setShowAddTagModal(true)}
         >
           Add Tag
