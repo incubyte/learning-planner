@@ -394,7 +394,7 @@ const UserDetail = () => {
                   data-testid="UserDetailProjectTeamLabel"
                   className="UserDetailsLabel"
                 >
-                  project Team
+                  Project Team
                 </label>
                 <input
                   data-testid="UserDetailProjectTeamInput"
