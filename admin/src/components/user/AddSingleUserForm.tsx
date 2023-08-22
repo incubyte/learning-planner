@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "../../css/user/addSingleUserForm.css";
@@ -8,6 +8,7 @@ const AddSingleUserForm = () => {
   const [employeeId, setEmployeeId] = useState("");
   const [designation, setDesignation] = useState("");
   const [clientTeam, setclientTeam] = useState("");
+  const [projectTeam, setprojectTeam] = useState("");
   const [role, setRole] = useState("Employee");
   const navigator = useNavigate();
   const handleCreateUser = async () => {
@@ -27,6 +28,7 @@ const AddSingleUserForm = () => {
                 eId: employeeId,
                 role: designation,
                 clientTeam: clientTeam,
+                projectTeam: projectTeam,
                 email: email,
                 roles: role,
               },
@@ -126,6 +128,18 @@ const AddSingleUserForm = () => {
               required
               value={clientTeam}
               onChange={(e) => setclientTeam(e.target.value)}
+            />
+          </div>
+          <div className="FormGroup">
+            <label className="AddUserTextLabel">Project Team</label>
+            <input
+              className="AddUserTextInput"
+              type="text"
+              data-testid="projectTeamInput"
+              placeholder="Enter project team"
+              required
+              value={projectTeam}
+              onChange={(e) => setprojectTeam(e.target.value)}
             />
           </div>
           <div className="FormGroup">

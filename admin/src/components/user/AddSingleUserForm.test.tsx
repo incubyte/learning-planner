@@ -67,6 +67,19 @@ describe("Display Add User Page", () => {
       getByPlaceholderText("Enter client team");
     expect(clientTeamInputPlaceholder).toBeInTheDocument();
   });
+  test("renders client team input", () => {
+    const { getByTestId, getByPlaceholderText } = render(
+      <BrowserRouter>
+        <AddSingleUserForm />
+      </BrowserRouter>
+    );
+    const projectTeamInput = getByTestId("projectTeamInput");
+    expect(projectTeamInput).toBeInTheDocument();
+
+    const projectTeamInputPlaceholder =
+      getByPlaceholderText("Enter project team");
+    expect(projectTeamInputPlaceholder).toBeInTheDocument();
+  });
 
   test("renders roles selection", () => {
     const { getByTestId } = render(

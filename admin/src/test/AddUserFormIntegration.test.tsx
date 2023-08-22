@@ -1,4 +1,3 @@
-import { BrowserRouter } from "react-router-dom";
 import {
   act,
   cleanup,
@@ -7,6 +6,7 @@ import {
   screen,
   waitFor,
 } from "@testing-library/react";
+import { BrowserRouter } from "react-router-dom";
 import AddSingleUserForm from "../components/user/AddSingleUserForm";
 
 afterEach(() => {
@@ -65,6 +65,12 @@ describe("test add user", () => {
     ) as HTMLInputElement;
     await act(() => {
       fireEvent.change(clientTeamInput, { target: { value: "Team1" } });
+    });
+    const projectTeamInput = screen.getByTestId(
+      "projectTeamInput"
+    ) as HTMLInputElement;
+    await act(() => {
+      fireEvent.change(projectTeamInput, { target: { value: "Team1" } });
     });
 
     const roleSelect = screen.getByTestId("roleSelect") as HTMLInputElement;
