@@ -1,5 +1,4 @@
 import { BrowserRouter } from "react-router-dom";
-import { AddUserForm } from "../components/user/AddUserForm";
 import {
   act,
   cleanup,
@@ -8,6 +7,7 @@ import {
   screen,
   waitFor,
 } from "@testing-library/react";
+import AddSingleUserForm from "../components/user/AddSingleUserForm";
 
 afterEach(() => {
   cleanup();
@@ -37,7 +37,7 @@ describe("test add user", () => {
   it("alert for add user", async () => {
     render(
       <BrowserRouter>
-        <AddUserForm />
+        <AddSingleUserForm />
       </BrowserRouter>
     );
 

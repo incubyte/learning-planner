@@ -1,3 +1,4 @@
+import { Role } from '@/auth/role.enum';
 import { PrismaService } from '@Prisma/prisma.service';
 import { UpdateUserDto } from '@User/dto/updateUser.dto';
 import { MailerService } from '@nestjs-modules/mailer';
@@ -198,13 +199,9 @@ export class UserService {
   async addUser(users: AddUserDto[]): Promise<number> {
     const userData = [];
 
-    const userMails = [];
     if (users) {
       for (let i = 0; i < users.length; i++) {
-        const password = 'Incubyte' + '@' + Math.floor(Math.random() * 1000);
-        const saltOrRounds = 10;
-        const hash = bcrypt.hashSync(password, saltOrRounds);
-        userMails.push({ email: users[i].email, password: password });
+        const hash = bcrypt.hashSync('password', 10);
         userData.push({
           ...users[i],
           password: hash,
@@ -217,12 +214,15 @@ export class UserService {
       const result = await this.prismaService.user.createMany({
         data: userData,
       });
-      for (let i = 0; i < userMails.length; i++) {
+      for (let i = 0; i < userData.length; i++) {
         this.mailerService.sendMail({
-          to: userMails[i].email,
+          to: userData[i].email,
           from: 'a.learningplanner@gmail.com',
           subject: 'Account created LearningPlanner@Incubyte',
-          html: `<b>welcome to Learning Planner</b> <p>Your password is ${userMails[i].password}</p>`,
+          html:
+            userData[i].roles === Role.Employee
+              ? `<b>welcome to Learning Planner</b> <a>https://incubyte-learningplanner.netlify.app </a> `
+              : ` <b>welcome to Learning Planner You are an Admin</b>  <a>Admin: https://admin-incubyte-learningplanner.netlify.app </a><br/><br/><a>Employee: https://incubyte-learningplanner.netlify.app </a>`,
         });
       }
       return result.count;

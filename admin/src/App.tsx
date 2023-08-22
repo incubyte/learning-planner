@@ -16,6 +16,7 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [isSignInCompleted, setIsSignInCompleted] = useState(false);
   const navigator = useNavigate();
+  const { inProgress } = useMsal();
 
   const makeJWTRequest = async (result: any) => {
     try {
@@ -57,16 +58,18 @@ function App() {
   }
 
   const fetchPage = async () => {
-    const accessToken = localStorage.getItem("authToken");
-    const response = await fetch("https://backend-mu-plum.vercel.app/roles", {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    });
-    if (response.ok) {
-      setIsSignInCompleted(true);
-    } else {
-      navigator("/auth/error");
+    if (inProgress === "none") {
+      const accessToken = localStorage.getItem("authToken");
+      const response = await fetch("https://backend-mu-plum.vercel.app/roles", {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+      if (response.ok) {
+        setIsSignInCompleted(true);
+      } else if (response.status === 403) {
+        navigator("/auth/error");
+      }
     }
   };
   const fetchData = async () => {

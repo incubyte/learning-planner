@@ -1,12 +1,12 @@
 import { fireEvent, render, waitFor } from "@testing-library/react";
-import { AddUserForm } from "./AddUserForm";
 import { BrowserRouter } from "react-router-dom";
+import AddSingleUserForm from "./AddSingleUserForm";
 
 describe("Display Add User Page", () => {
   test("renders form container", () => {
     const { getByTestId } = render(
       <BrowserRouter>
-        <AddUserForm />
+        <AddSingleUserForm />
       </BrowserRouter>
     );
     const formContainer = getByTestId("formContainer");
@@ -16,7 +16,7 @@ describe("Display Add User Page", () => {
   test("renders email id input", () => {
     const { getByTestId, getByPlaceholderText } = render(
       <BrowserRouter>
-        <AddUserForm />
+        <AddSingleUserForm />
       </BrowserRouter>
     );
     const emailInput = getByTestId("emailInput");
@@ -29,7 +29,7 @@ describe("Display Add User Page", () => {
   test("renders employee id input", () => {
     const { getByTestId, getByPlaceholderText } = render(
       <BrowserRouter>
-        <AddUserForm />
+        <AddSingleUserForm />
       </BrowserRouter>
     );
     const employeeIdInput = getByTestId("employeeIdInput");
@@ -43,7 +43,7 @@ describe("Display Add User Page", () => {
   test("renders designation input", () => {
     const { getByTestId, getByPlaceholderText } = render(
       <BrowserRouter>
-        <AddUserForm />
+        <AddSingleUserForm />
       </BrowserRouter>
     );
     const designationInput = getByTestId("designationInput");
@@ -57,7 +57,7 @@ describe("Display Add User Page", () => {
   test("renders client team input", () => {
     const { getByTestId, getByPlaceholderText } = render(
       <BrowserRouter>
-        <AddUserForm />
+        <AddSingleUserForm />
       </BrowserRouter>
     );
     const clientTeamInput = getByTestId("clientTeamInput");
@@ -71,7 +71,7 @@ describe("Display Add User Page", () => {
   test("renders roles selection", () => {
     const { getByTestId } = render(
       <BrowserRouter>
-        <AddUserForm />
+        <AddSingleUserForm />
       </BrowserRouter>
     );
     const roleSelect = getByTestId("roleSelect");
@@ -85,7 +85,7 @@ describe("Display Add User Page", () => {
   test("submits the form", async () => {
     const { getByTestId, getAllByText } = render(
       <BrowserRouter>
-        <AddUserForm />
+        <AddSingleUserForm />
       </BrowserRouter>
     );
 
