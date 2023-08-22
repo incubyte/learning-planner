@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
 import "../../css/user/profile.css";
 import { courseType } from "../courses/Courses";
 import Carousel from "../utilities/Carousel";
 import Navbar from "../utilities/Navbar";
 import { imageUpload } from "./ImageUpload";
 import { userType } from "./user";
-import { ToastContainer, toast } from "react-toastify";
-import Skeleton from "react-loading-skeleton";
-import "react-loading-skeleton/dist/skeleton.css";
 
 const Profile = () => {
   const [activeCourse, setActiveCourse] = useState<courseType[]>([]);
@@ -297,7 +297,36 @@ const Profile = () => {
                     <input
                       disabled
                       data-testid="profileClientTeamInput"
-                      value={user?.clientTeam}
+                      value={user?.clientTeam !== null ? user?.clientTeam : "-"}
+                      className="ProfileInput"
+                    ></input>
+                  </>
+                )}
+              </div>
+              <div className="ProfileGridContent">
+                <label
+                  data-testid="profileprojectTeamLabel"
+                  className="ProfileLabel"
+                >
+                  Project Team
+                </label>
+                {isLoading ? (
+                  <>
+                    <div className="block xsm:hidden sm:hidden md:block lg:block">
+                      <Skeleton height={40} width={176} />
+                    </div>
+                    <div className="hidden lg:hidden md:hidden sm:block xsm:block">
+                      <Skeleton height={40} width={144} />
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <input
+                      disabled
+                      data-testid="profileprojectTeamInput"
+                      value={
+                        user?.projectTeam !== null ? user?.projectTeam : "-"
+                      }
                       className="ProfileInput"
                     ></input>
                   </>
