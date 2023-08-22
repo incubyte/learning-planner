@@ -90,6 +90,7 @@ describe('AuthService', () => {
       jest.spyOn(prismaService.user, 'create').mockResolvedValue({
         email: userDTO.email,
         password: userDTO.password,
+        projectTeam: 'abc',
         id: '1',
         createdAt: Date.prototype,
         profilePhoto: 'https://profilephoto.com',
@@ -134,6 +135,7 @@ describe('AuthService', () => {
         role: 'BQA',
         clientTeam: 'abc',
         roles: Role.Employee,
+        projectTeam: 'abc',
       };
 
       jest
@@ -159,6 +161,7 @@ describe('AuthService', () => {
         id: '83b7e649-1e37-43be-8229-02ab06c9ba9a',
         createdAt: Date.prototype,
         profilePhoto: 'https://profilephoto.com',
+        projectTeam: 'abc',
         updatedAt: Date.prototype,
         eId: 'E0001',
         role: 'BQA',
@@ -184,6 +187,7 @@ describe('AuthService', () => {
       jest.spyOn(prismaService.user, 'findFirst').mockResolvedValueOnce({
         email: userDTO.email,
         password: await hash(userDTO.password, await genSalt(10)),
+        projectTeam: 'abc',
         id: '83b7e649-1e37-43be-8229-02ab06c9ba9a',
         createdAt: Date.prototype,
         profilePhoto: 'https://profilephoto.com',
@@ -226,6 +230,7 @@ describe('AuthService', () => {
         role: 'BQA',
         clientTeam: 'abc',
         roles: Role.Employee,
+        projectTeam: 'abc',
       });
 
       const mockResponse = {
@@ -253,6 +258,7 @@ describe('AuthService', () => {
         createdAt: Date.prototype,
         profilePhoto: 'https://profilephoto.com',
         updatedAt: Date.prototype,
+        projectTeam: 'abc',
         eId: 'E0001',
         role: 'BQA',
         clientTeam: 'abc',
@@ -289,6 +295,7 @@ describe('AuthService', () => {
       const mockUser: User = {
         email: 'john@incubyte.co',
         password: '123',
+        projectTeam: 'abc',
         id: '1',
         createdAt: Date.prototype,
         profilePhoto: 'https://profilephoto.com',

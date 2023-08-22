@@ -58,6 +58,7 @@ describe('UserController', () => {
         eId: 'E0001',
         role: 'BQA',
         clientTeam: 'abc',
+        projectTeam: 'abc',
         roles: Role.Employee,
       };
 
@@ -78,6 +79,7 @@ describe('UserController', () => {
         eId: 'E0001',
         role: 'BQA',
         clientTeam: 'abc',
+        projectTeam: 'abc',
         roles: Role.Employee,
       };
 
@@ -143,6 +145,7 @@ describe('UserController', () => {
     it('should update the user profile', async () => {
       const updateProfileBody: UpdateUserDto = {
         role: 'BQAE',
+        projectTeam: 'abc',
         clientTeam: 'abcd',
         profilePhoto: 'https://profilephoto.com',
         eId: 'E0010',
@@ -155,6 +158,7 @@ describe('UserController', () => {
         password: userDTO.password,
         id: '1',
         createdAt: Date.prototype,
+        projectTeam: 'abc',
         profilePhoto: 'https://profilephoto.com',
         updatedAt: Date.prototype,
         eId: 'E0001',
@@ -183,6 +187,7 @@ describe('UserController', () => {
             eId: 'E0088',
             role: 'SC',
             clientTeam: 'Learning Planner',
+            projectTeam: 'abc',
             email: 'charvit@incubyte.co',
             password:
               '$2b$10$I0vM.YKpDT87ekNAmw8KSe3zdVkQlkpzUZo44.rZ1Od0SeWiqlCJ.',
@@ -200,6 +205,7 @@ describe('UserController', () => {
             role: 'SC',
             clientTeam: 'Learning Planner',
             email: 'shreyas@incubyte.co',
+            projectTeam: 'abc',
             password:
               '$2b$10$K.3VzQM7VVGY6pywSVKywOozqlMfwmMADiF5dXBWWj8Fn.qxG9qQW',
             profilePhoto:
@@ -292,6 +298,7 @@ describe('UserController', () => {
         email: 'john@incubyte.co',
         clientTeam: 'SH',
         roles: Role.Employee,
+        projectTeam: 'abc',
       });
 
       jest.spyOn(service, 'addUser').mockResolvedValue(1);
@@ -302,6 +309,7 @@ describe('UserController', () => {
     });
     it('should update users', async () => {
       const user: UpdateUserDto = {
+        projectTeam: 'abc',
         role: 'BQAE',
         clientTeam: 'abcd',
         profilePhoto: 'https://profilephoto.com',
@@ -320,6 +328,7 @@ describe('UserController', () => {
         eId: 'E0001',
         role: 'BQAE',
         clientTeam: 'abcd',
+        projectTeam: 'abc',
         roles: Role.Employee,
       };
 
@@ -333,6 +342,7 @@ describe('UserController', () => {
       const mockResponse: User = {
         email: userDTO.email,
         password: userDTO.password,
+        projectTeam: 'abc',
         id: '1',
         createdAt: Date.prototype,
         profilePhoto: 'https://profilephoto.com',
@@ -361,6 +371,7 @@ describe('UserController', () => {
           eId: 'E0001',
           role: 'BQA',
           clientTeam: 'abc',
+          projectTeam: 'abc',
           roles: Role.Employee,
         },
       ];
