@@ -19,7 +19,7 @@
 }
 
 .courseCardCourseName {
-  @apply font-bold text-lg ml-1 truncate whitespace-nowrap overflow-hidden tracking-[.06px];
+  @apply font-bold text-lg ml-1 truncate whitespace-nowrap overflow-hidden tracking-[.08px];
 }
 
 .courseCardButtonContainer {

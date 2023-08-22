@@ -11,10 +11,10 @@
   @apply relative mt-5;
 }
 .courseHeader {
-  @apply text-5xl lg:text-4xl md:text-3xl sm:text-3xl xsm:text-2xl mt-4 tracking-[.06px];
+  @apply text-5xl lg:text-4xl md:text-3xl sm:text-3xl xsm:text-2xl mt-4 tracking-[.08px];
 }
 .courseTags {
-  @apply hover:cursor-default rounded-full inline-block whitespace-nowrap bg-gradient-to-r from-sky-300 to-indigo-300 px-[0.20em] pb-[0.25em] pt-[0.35em] text-center align-baseline text-xs md:text-sm lg:text-sm sm:text-sm xsm:text-sm font-bold leading-none my-1 md:my-0 sm:my-0 xsm:my-1 xsm:mx-1 md:mx-1 sm:mx-1 md:mt-3 sm:mt-3 xsm:mt-2 w-[120px] text-black tracking-[.06px];
+  @apply hover:cursor-default rounded-full inline-block whitespace-nowrap bg-gradient-to-r from-sky-300 to-indigo-300 px-[0.20em] pb-[0.25em] pt-[0.35em] text-center align-baseline text-xs md:text-sm lg:text-sm sm:text-sm xsm:text-sm font-bold leading-none my-1 md:my-0 sm:my-0 xsm:my-1 xsm:mx-1 md:mx-1 sm:mx-1 md:mt-3 sm:mt-3 xsm:mt-2 w-[120px] text-black tracking-[.08px];
 }
 .courseTagsDiv {
   @apply my-5 place-items-center;
@@ -23,7 +23,7 @@
   @apply container w-10/12 xsm:max-w-full bg-slate-300 rounded-lg mb-4;
 }
 .courseButtons {
-  @apply text-white font-bold text-base px-6 py-3 rounded shadow hover:shadow-lg mr-1 mb-1 ease-linear transition-all duration-150 bg-[#0e3252] hover:bg-[#05243f] tracking-[.06px];
+  @apply text-white font-bold text-base px-6 py-3 rounded shadow hover:shadow-lg mr-1 mb-1 ease-linear transition-all duration-150 bg-[#0e3252] hover:bg-[#05243f] tracking-[.08px];
 }
 .resourceContainer {
   @apply flex flex-col items-center gap-7 content-center;

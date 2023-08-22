@@ -27,7 +27,7 @@
 }
 
 .navbarHeaderItems {
-  @apply hover:bg-gray-700 text-[#141414] hover:text-white block px-3 py-2 rounded-md text-base font-semibold mx-auto tracking-[.06px];
+  @apply hover:bg-gray-700 text-[#141414] hover:text-white block px-3 py-2 rounded-md text-base font-semibold mx-auto tracking-[.08px];
 }
 
 .navbarHeaderSearchContainer {
@@ -39,11 +39,11 @@
 }
 
 .navbarHeaderSearchInput {
-  @apply block w-full px-4 py-2 text-gray-700 bg-white border rounded-md focus:border-gray-400 focus:ring-gray-300 focus:outline-none focus:ring focus:ring-opacity-40 tracking-[.06px];
+  @apply block w-full px-4 py-2 text-gray-700 bg-white border rounded-md focus:border-gray-400 focus:ring-gray-300 focus:outline-none focus:ring focus:ring-opacity-40 tracking-[.08px];
 }
 
 .navbarHeaderSearchButton {
-  @apply px-4 text-white bg-gray-600 border-l rounded tracking-[.06px];
+  @apply px-4 text-white bg-gray-600 border-l rounded tracking-[.08px];
 }
 
 .navbarHeaderMobileViewContainer {
@@ -51,7 +51,7 @@
 }
 
 .navbarHeaderMobileViewExpandButton {
-  @apply bg-gray-900 inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white tracking-[.06px];
+  @apply bg-gray-900 inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white tracking-[.08px];
 }
 
 .navbarHeaderTransitionHidden {

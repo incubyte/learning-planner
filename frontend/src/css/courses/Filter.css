@@ -1,9 +1,9 @@
 .filterTagsContainer {
-  @apply mx-5 md:mx-10 p-5 md:p-10 text-center flex flex-col w-auto tracking-[.06px];
+  @apply mx-5 md:mx-10 p-5 md:p-10 text-center flex flex-col w-auto tracking-[.08px];
 }
 
 .filterTagsHeading {
-  @apply text-center py-8 text-3xl font-bold tracking-[.06px];
+  @apply text-center py-8 text-3xl font-bold tracking-[.08px];
 }
 
 .filterTagsList {
@@ -11,13 +11,13 @@
 }
 
 .filterTags {
-  @apply rounded-full inline-block whitespace-nowrap bg-gradient-to-r from-sky-300 to-indigo-300 text-white px-[0.20em] pb-[0.25em] pt-[0.35em] text-center align-baseline text-xs md:text-sm font-bold leading-none my-1 md:my-0 md:mr-2 md:mt-3 w-[120px] tracking-[.06px];
+  @apply rounded-full inline-block whitespace-nowrap bg-gradient-to-r from-sky-300 to-indigo-300 text-white px-[0.20em] pb-[0.25em] pt-[0.35em] text-center align-baseline text-xs md:text-sm font-bold leading-none my-1 md:my-0 md:mr-2 md:mt-3 w-[120px] tracking-[.08px];
 }
 
 .toggleButton {
-  @apply text-black font-bold text-sm mt-10 tracking-[.06px];
+  @apply text-black font-bold text-sm mt-10 tracking-[.08px];
 }
 
 .toggleText {
-  @apply text-center justify-center tracking-[.06px];
+  @apply text-center justify-center tracking-[.08px];
 }
