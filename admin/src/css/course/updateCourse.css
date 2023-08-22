@@ -34,7 +34,7 @@
   @apply text-white font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg mr-1 mb-1 ease-linear transition-all duration-150;
 }
 .UpdateCourseContainer {
-  @apply w-full sm:w-full md:w-4/5 lg:w-4/5 xl:w-4/5 2xl:w-4/5 mt-10 p-6;
+  @apply w-full sm:w-full md:w-4/5 lg:w-4/5 xl:w-4/5 2xl:w-4/5 mt-7;
 }
 .UpdateCourseTextInput {
   @apply w-full border mt-2 border-gray-300 rounded-md p-2;
