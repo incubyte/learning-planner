@@ -118,19 +118,19 @@ const CoursePage = () => {
         isSearch={true}
       />
       <CoursePageIndex />
-      <hr className="mt-10" />
+      <hr className="mt-5" />
       <Filter
         getCourseByFilter={getCourseByFilter}
         getPopularCourseByFilter={getPopularCourseByFilter}
       />
-      <hr className="mt-10" />
+      <hr />
       <Carousel
         titleName="Popular Courses"
         courses={search(popularCourses)}
         contentId="popContent"
         isLoading={isLoading}
       />
-      <hr className="mt-10" />
+      <hr className="mt-5" />
       <Carousel
         titleName="Available Courses"
         courses={search(availableCourses)}

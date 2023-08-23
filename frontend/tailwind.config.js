@@ -14,7 +14,7 @@ module.exports = {
       },
       boxShadow: {
         table:
-          "0px 3.2px 7.2px 0px rgba(0, 0, 0, 0.13), 0px 0.6px 1.8px 0px rgba(0, 0, 0, 0.11)",
+          "2px 3.2px 7.2px 2px rgba(0, 0, 0, 0.13), 0px 0.6px 1.8px 0px rgba(0, 0, 0, 0.11)",
       },
       screens: {
         xsm: "200px",

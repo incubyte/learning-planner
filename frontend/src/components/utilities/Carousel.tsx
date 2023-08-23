@@ -47,7 +47,15 @@ const Carousel = ({
             <div>No Courses</div>
           ) : (
             <>
-              <div className="buttons">
+              <div
+                className={
+                  courses.length >= 4
+                    ? "buttons"
+                    : courses.length >= 3
+                    ? "block buttons lg:hidden"
+                    : "block buttons lg:hidden md:hidden"
+                }
+              >
                 <button
                   onClick={scrollLeft}
                   className="button"
@@ -66,7 +74,13 @@ const Carousel = ({
               <div
                 ref={contentRef}
                 id={contentId}
-                className="carouselListContent"
+                className={
+                  courses.length > 4
+                    ? "carouselListContent justify-start"
+                    : courses.length <= 2
+                    ? "carouselListContent justify-start md:justify-center lg:justify-center"
+                    : "carouselListContent justify-start lg:justify-center"
+                }
                 data-testid="carouselContent"
               >
                 {courses.map((course, index) => {

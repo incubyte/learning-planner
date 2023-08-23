@@ -14,7 +14,7 @@
   @apply text-5xl lg:text-4xl md:text-3xl sm:text-3xl xsm:text-2xl mt-4 tracking-[.08px];
 }
 .courseTags {
-  @apply hover:cursor-default rounded-full inline-block whitespace-nowrap bg-gradient-to-r from-sky-300 to-indigo-300 px-[0.20em] pb-[0.25em] pt-[0.35em] text-center align-baseline text-xs md:text-sm lg:text-sm sm:text-sm xsm:text-sm font-bold leading-none my-1 md:my-0 sm:my-0 xsm:my-1 xsm:mx-1 md:mx-1 sm:mx-1 md:mt-3 sm:mt-3 xsm:mt-2 w-[120px] text-black tracking-[.08px];
+  @apply hover:cursor-default lowercase rounded-full inline-block text-[#fff] bg-[#343a40] px-[0.20em] pb-[0.35em] pt-[0.40em] text-center text-xs md:text-sm font-semibold leading-none my-1 md:my-0 md:mr-2 md:mt-3 w-[120px] tracking-[.08px];
 }
 .courseTagsDiv {
   @apply my-5 place-items-center;

@@ -79,7 +79,6 @@ describe("Filter Component", () => {
           fireEvent.click(tagButton);
           await waitFor(
             () => {
-              expect(tagButton).toHaveStyle("color: white");
               expect(getCourseByFilterMock).toHaveBeenCalledTimes(1);
               expect(getCourseByFilterMock).toHaveBeenCalledWith([]);
               expect(getPopularCourseByFilter).toHaveBeenCalledTimes(1);

@@ -7,9 +7,9 @@
 }
 
 .button {
-  @apply p-2 m-2 rounded-full bg-white;
+  @apply p-2 m-2 rounded-full bg-[#343a40] text-white transform transition duration-500 hover:scale-110;
 }
 
 .carouselListContent {
-  @apply p-4 flex items-center justify-start overflow-x-auto scroll-smooth scrollbar-hide;
+  @apply py-7 px-4 flex overflow-x-auto scroll-smooth scrollbar-hide;
 }

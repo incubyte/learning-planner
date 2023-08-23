@@ -1,3 +1,6 @@
 .buttonContainer {
-  @apply bg-[#0e3252] hover:bg-[#05243f] text-white font-bold py-3 px-9 mx-12 my-2 rounded tracking-[.08px];
+  @apply bg-[#0e3252] hover:bg-[#05243f] text-white font-bold py-2 px-5 my-2 rounded tracking-[.08px];
+}
+.buttonCard {
+  @apply text-[#0e3252] border-2 hover:bg-[#05243f] hover:text-white border-[#0e3252] hover:border-[#05243f] font-bold py-2 px-5 my-2 rounded-3xl tracking-[.08px] transition-colors;
 }
