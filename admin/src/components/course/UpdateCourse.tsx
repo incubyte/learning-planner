@@ -336,7 +336,7 @@ const UpdateCourse = () => {
                   <button
                     type="button"
                     data-testid="RemoveButton"
-                    className="UpdateCourseRemoveUrlButton bg-red-500"
+                    className="UpdateCourseRemoveUrlButton bg-[#b31010ca] hover:bg-[#b31010e2]"
                     onClick={() => handleRemoveResourceUrl(index)}
                   >
                     Remove
@@ -347,7 +347,7 @@ const UpdateCourse = () => {
             <button
               type="button"
               data-testid="Add Resource Url"
-              className="UpdateCourseAddUrlButton bg-green-500"
+              className="UpdateCourseAddUrlButton bg-[#0e3252] hover:bg-[#05243f]"
               onClick={handleAddResourceUrl}
             >
               Add
@@ -370,7 +370,7 @@ const UpdateCourse = () => {
                   <button
                     type="button"
                     data-testid="RemoveTestButton"
-                    className="UpdateCourseRemoveUrlButton bg-red-500"
+                    className="UpdateCourseRemoveUrlButton bg-[#b31010ca] hover:bg-[#b31010e2]"
                     onClick={() => {
                       handleRemoveTestUrl(index);
                     }}
@@ -383,7 +383,7 @@ const UpdateCourse = () => {
             <button
               type="button"
               data-testid="Add Test Url"
-              className="UpdateCourseAddUrlButton bg-green-500"
+              className="UpdateCourseAddUrlButton bg-[#0e3252] hover:bg-[#05243f]"
               onClick={handleAddTestUrl}
             >
               Add

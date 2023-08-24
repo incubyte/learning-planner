@@ -401,7 +401,7 @@ const AddCourse = () => {
             />
             <button
               type="button"
-              className="AddCourseAddTagButton bg-green-500"
+              className="AddCourseAddTagButton bg-[#0e3252] hover:bg-[#05243f]"
               onClick={() => setShowAddTagModal(true)}
             >
               Add
@@ -424,7 +424,7 @@ const AddCourse = () => {
                   <button
                     type="button"
                     data-testid="RemoveButton"
-                    className="AddCourseRemoveUrlButton bg-red-500"
+                    className="AddCourseRemoveUrlButton bg-[#b31010ca] hover:bg-[#b31010e2]"
                     onClick={() => handleRemoveResourceUrl(index)}
                   >
                     Remove
@@ -435,7 +435,7 @@ const AddCourse = () => {
             <button
               type="button"
               data-testid="Add Resource Url"
-              className="AddCourseAddUrlButton bg-green-500"
+              className="AddCourseAddUrlButton bg-[#0e3252] hover:bg-[#05243f]"
               onClick={handleAddResourceUrl}
             >
               Add
@@ -459,7 +459,7 @@ const AddCourse = () => {
                   <button
                     type="button"
                     data-testid="RemoveTestButton"
-                    className="AddCourseRemoveUrlButton bg-red-500"
+                    className="AddCourseRemoveUrlButton bg-[#b31010ca] hover:bg-[#b31010e2]"
                     onClick={() => handleRemoveTestUrl(index)}
                   >
                     Remove
@@ -470,7 +470,7 @@ const AddCourse = () => {
             <button
               type="button"
               data-testid="Add Test Url"
-              className="AddCourseAddUrlButton bg-green-500"
+              className="AddCourseAddUrlButton bg-[#0e3252] hover:bg-[#05243f]"
               onClick={handleAddTestUrl}
             >
               Add

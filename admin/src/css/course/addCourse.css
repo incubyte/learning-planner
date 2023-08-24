@@ -28,10 +28,10 @@
   @apply flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b;
 }
 .CourseModalCloseButton {
-  @apply text-red-500 font-bold uppercase px-6 py-2 text-sm outline-none mr-1 mb-1 transition-all duration-150 tracking-[.08px];
+  @apply text-red-500 font-bold uppercase px-4 py-2 text-sm outline-none mr-1 mb-1 transition-all duration-150 tracking-[.08px];
 }
 .CourseModalSaveButton {
-  @apply text-white font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg mr-1 mb-1 ease-linear transition-all duration-150 tracking-[.08px];
+  @apply text-white font-bold uppercase text-sm px-4 py-2 rounded shadow hover:shadow-lg mr-1 mb-1 ease-linear transition-all duration-150 tracking-[.08px];
 }
 .AddCourseContainer {
   @apply w-full sm:w-full md:w-4/5 lg:w-4/5 xl:w-4/5 2xl:w-4/5 mt-7;
@@ -43,17 +43,17 @@
   @apply font-bold inline-block w-28 align-middle;
 }
 .AddCourseSubmitButton {
-  @apply mt-10 text-white font-semibold px-4 py-2 rounded-md w-[200px];
+  @apply mt-10 text-white font-semibold px-4 py-2 rounded-md tracking-[.08px];
 }
 .AddCourseImageContainer {
   @apply flex flex-row justify-between mr-10 mt-5;
 }
 .AddCourseAddUrlButton {
-  @apply mt-2 px-2 py-1  text-white rounded-md tracking-[.08px];
+  @apply mt-2 px-4 py-2  text-white rounded-md tracking-[.08px];
 }
 .AddCourseRemoveUrlButton {
-  @apply ml-2 px-2 py-1  text-white rounded-md tracking-[.08px];
+  @apply ml-2 px-4 py-2  text-white rounded-md tracking-[.08px];
 }
 .AddCourseAddTagButton {
-  @apply px-2 py-1  mt-5 text-white rounded-md tracking-[.08px];
+  @apply px-4 py-2  mt-5 text-white rounded-md tracking-[.08px];
 }

@@ -8,7 +8,7 @@
   @apply font-bold text-base inline-block w-28 align-middle tracking-[.08px];
 }
 .AddUserSubmitButton {
-  @apply mt-7 text-white font-semibold px-4 py-2 rounded-md w-[200px] tracking-[.08px];
+  @apply mt-7 text-white font-semibold px-4 py-2 rounded-md tracking-[.08px];
 }
 .FormGroup {
   @apply mt-3;

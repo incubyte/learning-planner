@@ -419,7 +419,7 @@ const UserDetail = () => {
         <div className="mt-16 grid grid-cols-2 gap-24">
           <button
             data-testid="UserDetailUpdate"
-            className="UserDetailsModalSaveButton bg-emerald-500 hover:bg-emerald-400 active:bg-emerald-600"
+            className="UserUpdateButton bg-[#0e3252] hover:bg-[#05243f]"
             type="button"
             onClick={updateUser}
             disabled={!isUpdated}
@@ -428,7 +428,7 @@ const UserDetail = () => {
           </button>
           <button
             data-testid="UserDetailDelete"
-            className="UserDetailsModalSaveButton bg-red-600 hover:bg-red-500 active:bg-red-700"
+            className="UserDeleteButton bg-[#b31010ca] hover:bg-[#b31010e2]"
             type="button"
             onClick={deleteUser}
           >
