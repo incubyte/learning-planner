@@ -11,6 +11,7 @@ export async function insertUser(prisma: PrismaClient) {
         eId: 'E0088',
         role: 'SC',
         clientTeam: 'Learning Planner',
+        projectTeam: 'Learning Planner',
       },
       {
         email: 'shreyas@incubyte.co',
@@ -20,6 +21,7 @@ export async function insertUser(prisma: PrismaClient) {
         eId: 'E0097',
         role: 'SC',
         clientTeam: 'Learning Planner',
+        projectTeam: 'Learning Planner',
       },
       {
         email: 'aman.r@incubyte.co',
@@ -29,6 +31,7 @@ export async function insertUser(prisma: PrismaClient) {
         eId: 'E0098',
         role: 'SC',
         clientTeam: 'Learning Planner',
+        projectTeam: 'Learning Planner',
       },
       {
         email: 'aayush@incubyte.co',
@@ -38,15 +41,7 @@ export async function insertUser(prisma: PrismaClient) {
         eId: 'E0091',
         role: 'SC',
         clientTeam: 'Learning Planner',
-      },
-      {
-        email: 'jaypal@incubyte.co',
-        password:
-          '$2b$10$haH0h/Y7vvHGe4z0z2zJK.4gQvWHrYSTqGMGVdkquPENXfUpWSG7K',
-        profilePhoto: 'https://profilephoto.com',
-        eId: 'E0050',
-        role: 'SC',
-        clientTeam: 'WIP/retreat',
+        projectTeam: 'Learning Planner',
       },
       {
         email: 'dhaval@incubyte.co',
@@ -56,6 +51,7 @@ export async function insertUser(prisma: PrismaClient) {
         eId: 'E0051',
         role: 'SC',
         clientTeam: 'Employee Feedback',
+        projectTeam: 'Employee Feedback',
       },
       {
         email: 'brijesh@incubyte.co',
@@ -65,6 +61,7 @@ export async function insertUser(prisma: PrismaClient) {
         eId: 'E0052',
         role: 'SC',
         clientTeam: 'WIP/retreat',
+        projectTeam: 'WIP/retreat',
       },
       {
         email: 'mahesh@incubyte.co',
@@ -74,6 +71,7 @@ export async function insertUser(prisma: PrismaClient) {
         eId: 'E0053',
         role: 'SC',
         clientTeam: 'Employee Feedback',
+        projectTeam: 'Employee Feedback',
       },
       {
         email: 'shilpi@incubyte.co',
@@ -92,6 +90,7 @@ export async function insertUser(prisma: PrismaClient) {
         eId: 'E0002',
         role: 'SC',
         clientTeam: 'SH',
+        projectTeam: 'SH',
         roles: 'Admin',
       },
     ],

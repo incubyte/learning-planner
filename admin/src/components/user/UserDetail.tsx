@@ -4,16 +4,17 @@ import { useNavigate, useParams } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../../css/user/userDetails.css";
+import LoadingScreen from "../utilities/LoadingScreen";
 import Navbar from "../utilities/Navbar";
 import { imageUpload } from "./ImageUpload";
 import { userType } from "./user";
-import LoadingScreen from "../utilities/LoadingScreen";
 
 const UserDetail = () => {
   const [user, setUser] = useState<userType>({
     email: "",
     eId: "",
     clientTeam: "",
+    projectTeam: "",
     role: "",
     roles: "",
     profilePhoto: "",
@@ -85,6 +86,7 @@ const UserDetail = () => {
             role: user.role,
             roles: user.roles,
             clientTeam: user.clientTeam,
+            projectTeam: user.projectTeam,
           }),
         }
       );
@@ -121,6 +123,7 @@ const UserDetail = () => {
           email: user.email,
           eId: user.eId,
           clientTeam: user.clientTeam,
+          projectTeam: user.projectTeam,
           role: user.role,
           roles: user.roles,
           profilePhoto: media[0].url,
@@ -284,6 +287,7 @@ const UserDetail = () => {
                       email: e.target.value,
                       eId: user.eId,
                       clientTeam: user.clientTeam,
+                      projectTeam: user.projectTeam,
                       role: user.role,
                       roles: user.roles,
                       profilePhoto: user.profilePhoto,
@@ -314,6 +318,7 @@ const UserDetail = () => {
                       clientTeam: user.clientTeam,
                       role: user.role,
                       roles: user.roles,
+                      projectTeam: user.projectTeam,
                       profilePhoto: user.profilePhoto,
                       updatedAt: user.updatedAt,
                       id: user.id,
@@ -343,6 +348,7 @@ const UserDetail = () => {
                       role: e.target.value,
                       roles: user.roles,
                       profilePhoto: user.profilePhoto,
+                      projectTeam: user.projectTeam,
                       updatedAt: user.updatedAt,
                       id: user.id,
                       createdAt: user.createdAt,
@@ -375,6 +381,39 @@ const UserDetail = () => {
                       roles: user.roles,
                       profilePhoto: user.profilePhoto,
                       updatedAt: user.updatedAt,
+                      projectTeam: user.projectTeam,
+                      id: user.id,
+                      createdAt: user.createdAt,
+                    });
+                  }}
+                ></input>
+              </div>
+
+              <div className="UserDetailsGridContent">
+                <label
+                  data-testid="UserDetailProjectTeamLabel"
+                  className="UserDetailsLabel"
+                >
+                  Project Team
+                </label>
+                <input
+                  data-testid="UserDetailProjectTeamInput"
+                  defaultValue={
+                    user.projectTeam !== null ? user.projectTeam : "-"
+                  }
+                  className="UserDetailsInput"
+                  onChange={(e) => {
+                    e.target.style.borderColor = "green";
+                    setIsUpdated(true);
+                    setUser({
+                      email: user.email,
+                      eId: user.eId,
+                      clientTeam: user.clientTeam,
+                      role: user.role,
+                      roles: user.roles,
+                      profilePhoto: user.profilePhoto,
+                      updatedAt: user.updatedAt,
+                      projectTeam: e.target.value,
                       id: user.id,
                       createdAt: user.createdAt,
                     });
@@ -406,6 +445,7 @@ const UserDetail = () => {
                 clientTeam: user.clientTeam,
                 role: user.role,
                 roles: e.target.checked === true ? "Admin" : "Employee",
+                projectTeam: user.projectTeam,
                 profilePhoto: user.profilePhoto,
                 updatedAt: user.updatedAt,
                 id: user.id,

@@ -47,6 +47,7 @@ describe('AuthController', () => {
       role: 'BQA',
       clientTeam: 'abc',
       roles: Role.Employee,
+      projectTeam: 'abc',
     });
     const result = await controller.signup(user);
     expect(service.signup).toBeCalledTimes(1);

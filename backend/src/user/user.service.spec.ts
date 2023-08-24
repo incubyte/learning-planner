@@ -77,6 +77,7 @@ describe('UserService', () => {
         id: '1',
         createdAt: Date.prototype,
         profilePhoto: 'https://profilephoto.com',
+        projectTeam: 'abc',
         updatedAt: Date.prototype,
         eId: 'E0001',
         role: 'BQA',
@@ -264,6 +265,7 @@ describe('UserService', () => {
     });
     it('should return the updated user', async () => {
       const updateProfileBody: UpdateUserDto = {
+        projectTeam: 'abc',
         role: 'BQAE',
         clientTeam: 'abcd',
         profilePhoto: 'https://profilephoto.com',
@@ -283,6 +285,7 @@ describe('UserService', () => {
         role: 'BQAE',
         clientTeam: 'abcd',
         roles: Role.Employee,
+        projectTeam: 'abc',
       };
       jest
         .spyOn(prismaService.user, 'update')
@@ -300,6 +303,7 @@ describe('UserService', () => {
             eId: 'E0088',
             role: 'SC',
             clientTeam: 'Learning Planner',
+            projectTeam: 'abc',
             email: 'charvit@incubyte.co',
             password:
               '$2b$10$I0vM.YKpDT87ekNAmw8KSe3zdVkQlkpzUZo44.rZ1Od0SeWiqlCJ.',
@@ -316,6 +320,7 @@ describe('UserService', () => {
             eId: 'E0097',
             role: 'SC',
             clientTeam: 'Learning Planner',
+            projectTeam: 'abc',
             email: 'shreyas@incubyte.co',
             password:
               '$2b$10$K.3VzQM7VVGY6pywSVKywOozqlMfwmMADiF5dXBWWj8Fn.qxG9qQW',
@@ -334,6 +339,7 @@ describe('UserService', () => {
         eId: 'E0097',
         role: 'SC',
         clientTeam: 'Learning Planner',
+        projectTeam: 'abc',
         email: 'shreyas@incubyte.co',
         password:
           '$2b$10$K.3VzQM7VVGY6pywSVKywOozqlMfwmMADiF5dXBWWj8Fn.qxG9qQW',
@@ -349,6 +355,7 @@ describe('UserService', () => {
         eId: 'E0088',
         role: 'SC',
         clientTeam: 'Learning Planner',
+        projectTeam: 'abc',
         email: 'charvit@incubyte.co',
         password:
           '$2b$10$I0vM.YKpDT87ekNAmw8KSe3zdVkQlkpzUZo44.rZ1Od0SeWiqlCJ.',
@@ -651,6 +658,7 @@ describe('UserService', () => {
           email: 'john@incubyte.co',
           clientTeam: 'SH',
           roles: Role.Employee,
+          projectTeam: 'abc',
         },
       ];
 
@@ -668,6 +676,7 @@ describe('UserService', () => {
     });
     it('should update user', async () => {
       const updateProfileBody: UpdateUserDto = {
+        projectTeam: 'abc',
         role: 'BQAE',
         clientTeam: 'abcd',
         profilePhoto: 'https://profilephoto.com',
@@ -677,6 +686,7 @@ describe('UserService', () => {
       };
 
       const mockUpdatedUser: User = {
+        projectTeam: 'abc',
         email: userDTO.email,
         password: userDTO.password,
         id: '1',
@@ -702,6 +712,7 @@ describe('UserService', () => {
     });
     it('should delete user', async () => {
       const mockResponse: User = {
+        projectTeam: 'abc',
         email: userDTO.email,
         password: userDTO.password,
         id: '1',
@@ -729,6 +740,7 @@ describe('UserService', () => {
     it('should return all user', async () => {
       const mockResponse: User[] = [
         {
+          projectTeam: 'abc',
           email: userDTO.email,
           password: userDTO.password,
           id: '1',

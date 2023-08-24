@@ -1,9 +1,4 @@
-import {
-  fireEvent,
-  render,
-  screen,
-  waitFor,
-} from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
 import Profile from "./Profile";
 
@@ -17,6 +12,7 @@ const mockUser = {
   eId: "E0001",
   role: "BQA",
   clientTeam: "abc",
+  projectTeam: "abc",
   Role: "Employee",
 };
 const prismaCourse1 = {
@@ -229,6 +225,11 @@ describe("Profile Component", () => {
       );
       expect(profileClientTeamLabel).toBeInTheDocument();
 
+      const profileprojectTeamLabel = screen.getByTestId(
+        "profileprojectTeamLabel"
+      );
+      expect(profileprojectTeamLabel).toBeInTheDocument();
+
       const profileRoleLabel = screen.getByTestId("profileRoleLabel");
       expect(profileRoleLabel).toBeInTheDocument();
 
@@ -259,6 +260,11 @@ describe("Profile Component", () => {
         "profileClientTeamInput"
       );
       expect(profileClientTeamInput).toBeInTheDocument();
+
+      const profileprojectTeamInput = screen.getByTestId(
+        "profileprojectTeamInput"
+      );
+      expect(profileprojectTeamInput).toBeInTheDocument();
 
       const profileRoleInput = screen.getByTestId("profileRoleInput");
       expect(profileRoleInput).toBeInTheDocument();

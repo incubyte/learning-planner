@@ -9,6 +9,7 @@ export class AddUserDto {
   role: string;
 
   clientTeam: string;
+  projectTeam: string;
 
   @IsEmail()
   @IsNotEmpty()
