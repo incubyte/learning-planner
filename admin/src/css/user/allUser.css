@@ -1,18 +1,18 @@
-.UsersContainer{
-    @apply relative overflow-x-auto scrollbar-hide shadow-md sm:rounded-lg m-10
+.UsersContainer {
+  @apply relative overflow-x-auto scrollbar-hide shadow-md sm:rounded-lg m-10;
 }
-.UsersTable{
-    @apply w-full table text-center text-base border border-gray-100 bg-white rounded-b-lg rounded-lg justify-center align-middle p-5
+.UsersTable {
+  @apply w-full table text-center text-base border border-gray-100 bg-white rounded-b-lg rounded-lg justify-center align-middle p-5 tracking-[.08px];
 }
-.UsersTableHead{
-    @apply text-gray-700 bg-gray-200
+.UsersTableHead {
+  @apply text-gray-700 bg-gray-200 tracking-[.08px];
 }
-.UsersTableHeadCols{
-    @apply border border-gray-100 p-5 m-5
+.UsersTableHeadCols {
+  @apply border border-gray-100 p-5 m-5;
 }
-.UsersTableRows{
-    @apply border border-gray-100 p-2 m-2
+.UsersTableRows {
+  @apply border border-gray-100 p-2 m-2;
 }
-.UsersTableUpdateCol{
-    @apply flex justify-center p-2 m-2
+.UsersTableUpdateCol {
+  @apply flex justify-center p-2 m-2;
 }

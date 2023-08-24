@@ -178,12 +178,14 @@ const UpdateCourse = () => {
             <div className="relative w-auto my-6 mx-auto">
               <div className="CourseImageModalContainer">
                 <div className="CourseModelUploadContainer">
-                  <h3 className="text-3xl font-semibold">Upload Image</h3>
+                  <h3 className="text-3xl font-semibold tracking-[.08px]">
+                    Upload Image
+                  </h3>
                   <button
                     className="CourseModalUploadButton"
                     onClick={() => setShowModal(false)}
                   >
-                    <span className="text-black h-6 w-6 text-2xl block outline-none">
+                    <span className="text-black h-6 w-6 text-2xl block outline-none tracking-[.08px]">
                       x
                     </span>
                   </button>
@@ -202,10 +204,10 @@ const UpdateCourse = () => {
                     onChange={changeAvatar}
                   />
                   <p
-                    className="mt-1 text-sm text-gray-500 dark:text-gray-300"
+                    className="mt-1 text-sm text-gray-500 dark:text-gray-300 tracking-[.08px]"
                     id="file_input_help"
                   >
-                    SVG, PNG, JPG or GIF (MAX. 350kb).
+                    SVG, PNG or JPG(MAX. 350KB)
                   </p>
                 </div>
                 <div className="CourseModalFooter">
@@ -219,7 +221,7 @@ const UpdateCourse = () => {
                   </button>
                   <button
                     data-testid="courseImageSave"
-                    className="CourseModalSaveButton bg-emerald-500 active:bg-emerald-600"
+                    className="CourseModalSaveButton bg-[#0e3252] hover:bg-[#05243f]"
                     type="button"
                     onClick={handleImageUrl}
                   >
@@ -243,7 +245,7 @@ const UpdateCourse = () => {
       <div>
         <h1
           data-testid="updateCourseHeading"
-          className="text-center pt-10 text-3xl font-bold w-full"
+          className="text-center pt-10 text-3xl font-bold w-full tracking-[.08px]"
         >
           Update Course
         </h1>
@@ -334,7 +336,7 @@ const UpdateCourse = () => {
                   <button
                     type="button"
                     data-testid="RemoveButton"
-                    className="UpdateCourseRemoveUrlButton bg-red-500"
+                    className="UpdateCourseRemoveUrlButton bg-[#b31010ca] hover:bg-[#b31010e2]"
                     onClick={() => handleRemoveResourceUrl(index)}
                   >
                     Remove
@@ -345,7 +347,7 @@ const UpdateCourse = () => {
             <button
               type="button"
               data-testid="Add Resource Url"
-              className="UpdateCourseAddUrlButton bg-green-500"
+              className="UpdateCourseAddUrlButton bg-[#0e3252] hover:bg-[#05243f]"
               onClick={handleAddResourceUrl}
             >
               Add
@@ -368,7 +370,7 @@ const UpdateCourse = () => {
                   <button
                     type="button"
                     data-testid="RemoveTestButton"
-                    className="UpdateCourseRemoveUrlButton bg-red-500"
+                    className="UpdateCourseRemoveUrlButton bg-[#b31010ca] hover:bg-[#b31010e2]"
                     onClick={() => {
                       handleRemoveTestUrl(index);
                     }}
@@ -381,7 +383,7 @@ const UpdateCourse = () => {
             <button
               type="button"
               data-testid="Add Test Url"
-              className="UpdateCourseAddUrlButton bg-green-500"
+              className="UpdateCourseAddUrlButton bg-[#0e3252] hover:bg-[#05243f]"
               onClick={handleAddTestUrl}
             >
               Add
@@ -407,7 +409,7 @@ const UpdateCourse = () => {
           <div className="flex justify-center">
             <button
               data-testid="submitButton"
-              className="UpdateCourseSubmitButton bg-blue-500"
+              className="UpdateCourseSubmitButton bg-[#0e3252] hover:bg-[#05243f]"
               type="submit"
             >
               Update Course

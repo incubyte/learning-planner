@@ -3,15 +3,15 @@
 }
 
 .courseHeading {
-  @apply text-center pt-10 text-3xl font-bold;
+  @apply text-center pt-10 text-3xl font-bold tracking-[.08px];
 }
 
 .courseTable {
-  @apply w-full table text-center text-base bg-white rounded-b-lg rounded-lg justify-center align-middle p-5;
+  @apply w-full table text-center text-base bg-white rounded-b-lg rounded-lg justify-center align-middle p-5 tracking-[.08px];
 }
 
 .courseTableHead {
-  @apply text-gray-700  bg-gray-200;
+  @apply text-gray-700  bg-gray-200 tracking-[.08px];
 }
 
 .courseTableHeadCols {
@@ -19,7 +19,7 @@
 }
 
 .courseTableRows {
-  @apply border border-gray-100 p-5 justify-start text-base;
+  @apply border border-gray-100 p-5 justify-start text-base tracking-[.08px];
 }
 
 .courseTableUpdateCol {
@@ -27,9 +27,9 @@
 }
 
 .courseUpdateButton {
-  @apply w-[100px] m-5 p-2 pl-1 pr-1 rounded-lg bg-emerald-500 hover:bg-emerald-400 active:bg-emerald-600 text-white  font-bold;
+  @apply m-5 px-4 py-2 rounded-lg bg-[#0e3252] hover:bg-[#05243f] text-white  font-bold tracking-[.08px];
 }
 
 .courseDeleteButton {
-  @apply bg-red-600 w-[100px] m-5 p-2 pl-1 pr-1 rounded-lg text-white hover:bg-red-500 sm:w-20  font-bold;
+  @apply bg-[#b31010ca] hover:bg-[#b31010e2] m-5 px-4 py-2 rounded-lg text-white sm:w-20  font-bold tracking-[.08px];
 }

@@ -5,17 +5,17 @@
   @apply w-full border mt-2 border-gray-300 rounded-md p-2;
 }
 .AddUserTextLabel {
-  @apply font-bold text-base inline-block w-28 align-middle;
+  @apply font-bold text-base inline-block w-28 align-middle tracking-[.08px];
 }
 .AddUserSubmitButton {
-  @apply mt-7 text-white font-semibold px-4 py-2 rounded-md w-[200px];
+  @apply mt-7 text-white font-semibold px-4 py-2 rounded-md tracking-[.08px];
 }
-.FormGroup{
-  @apply mt-3
+.FormGroup {
+  @apply mt-3;
 }
-.FormContainer{
-  @apply flex justify-center
+.FormContainer {
+  @apply flex justify-center;
 }
-.AddUserHeading{
- @apply text-center pt-10 text-3xl font-bold
+.AddUserHeading {
+  @apply text-center pt-10 text-3xl font-bold tracking-[.08px];
 }

@@ -183,12 +183,14 @@ const UserDetail = () => {
             <div className="relative w-auto my-6 mx-auto">
               <div className="UserDetailsModalContainer">
                 <div className="UserDetailsModelUploadContainer">
-                  <h3 className="text-3xl font-semibold">Upload Image</h3>
+                  <h3 className="text-3xl font-semibold tracking-[.08px]">
+                    Upload Image
+                  </h3>
                   <button
                     className="UserDetailsModalUploadButton"
                     onClick={() => setShowModal(false)}
                   >
-                    <span className="text-black h-6 w-6 text-2xl block outline-none">
+                    <span className="text-black h-6 w-6 text-2xl block outline-none tracking-[.08px]">
                       x
                     </span>
                   </button>
@@ -207,10 +209,10 @@ const UserDetail = () => {
                     onChange={changeAvatar}
                   />
                   <p
-                    className="mt-1 text-sm text-gray-500 dark:text-gray-300"
+                    className="mt-1 text-sm text-gray-500 dark:text-gray-300 tracking-[.08px]"
                     id="file_input_help"
                   >
-                    SVG, PNG, JPG or GIF (MAX. 6mb).
+                    SVG, PNG or JPG(MAX. 6MB)
                   </p>
                 </div>
                 <div className="UserDetailsModalFooter">
@@ -224,7 +226,7 @@ const UserDetail = () => {
                   </button>
                   <button
                     data-testid="UserDetailImageSave"
-                    className="UserDetailsModalSaveButton bg-emerald-500 active:bg-emerald-600"
+                    className="UserDetailsModalSaveButton bg-[#0e3252] hover:bg-[#05243f]"
                     type="button"
                     onClick={handleSubmit}
                   >
@@ -417,7 +419,7 @@ const UserDetail = () => {
         <div className="mt-16 grid grid-cols-2 gap-24">
           <button
             data-testid="UserDetailUpdate"
-            className="UserDetailsModalSaveButton bg-emerald-500 hover:bg-emerald-400 active:bg-emerald-600"
+            className="UserUpdateButton bg-[#0e3252] hover:bg-[#05243f]"
             type="button"
             onClick={updateUser}
             disabled={!isUpdated}
@@ -426,7 +428,7 @@ const UserDetail = () => {
           </button>
           <button
             data-testid="UserDetailDelete"
-            className="UserDetailsModalSaveButton bg-red-600 hover:bg-red-500 active:bg-red-700"
+            className="UserDeleteButton bg-[#b31010ca] hover:bg-[#b31010e2]"
             type="button"
             onClick={deleteUser}
           >

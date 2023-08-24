@@ -170,11 +170,12 @@ const Filter = ({
             {Tags.map((tag, index) => (
               <button
                 key={index}
-                className="filterTags"
+                className={
+                  selectTagId.includes(tag.id)
+                    ? "filterTagsSelected"
+                    : "filterTags"
+                }
                 onClick={() => toggleSelect(tag.id)}
-                style={{
-                  color: selectTagId.includes(tag.id) ? "white" : "black",
-                }}
               >
                 {tag.name}
               </button>

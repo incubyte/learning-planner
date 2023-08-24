@@ -202,12 +202,14 @@ const AddCourse = () => {
             <div className="relative w-auto my-6 mx-auto">
               <div className="CourseImageModalContainer">
                 <div className="CourseModelUploadContainer">
-                  <h3 className="text-3xl font-semibold">Upload Image</h3>
+                  <h3 className="text-3xl font-semibold tracking-[.08px]">
+                    Upload Image
+                  </h3>
                   <button
                     className="CourseModalUploadButton"
                     onClick={() => setShowModal(false)}
                   >
-                    <span className="text-black h-6 w-6 text-2xl block outline-none">
+                    <span className="text-black h-6 w-6 text-2xl block outline-none tracking-[.08px]">
                       x
                     </span>
                   </button>
@@ -226,7 +228,7 @@ const AddCourse = () => {
                     onChange={changeAvatar}
                   />
                   <p
-                    className="mt-1 text-sm text-gray-500 dark:text-gray-300"
+                    className="mt-1 text-sm text-gray-500 dark:text-gray-300 tracking-[.08px]"
                     id="file_input_help"
                   >
                     SVG, PNG, JPG or GIF (MAX. 350kb).
@@ -243,7 +245,7 @@ const AddCourse = () => {
                   </button>
                   <button
                     data-testid="courseImageSave"
-                    className="CourseModalSaveButton bg-emerald-500 active:bg-emerald-600"
+                    className="CourseModalSaveButton bg-[#0e3252] hover:bg-[#05243f]"
                     type="button"
                     onClick={handleImageUrl}
                   >
@@ -263,12 +265,14 @@ const AddCourse = () => {
             <div className="relative w-auto my-6 mx-auto">
               <div className="CourseImageModalContainer">
                 <div className="CourseModelUploadContainer">
-                  <h3 className="text-3xl font-semibold">Add Tag</h3>
+                  <h3 className="text-3xl font-semibold tracking-[.08px]">
+                    Add Tag
+                  </h3>
                   <button
                     className="CourseModalUploadButton"
                     onClick={() => setShowAddTagModal(false)}
                   >
-                    <span className="text-black h-6 w-6 text-2xl block outline-none">
+                    <span className="text-black h-6 w-6 text-2xl block outline-none tracking-[.08px]">
                       x
                     </span>
                   </button>
@@ -295,7 +299,7 @@ const AddCourse = () => {
                   </button>
                   <button
                     data-testid="AddTagButton"
-                    className="CourseModalSaveButton bg-emerald-500 active:bg-emerald-600"
+                    className="CourseModalSaveButton bg-[#0e3252] hover:bg-[#05243f]"
                     type="button"
                     onClick={() => {
                       handelTagSubmit();
@@ -397,7 +401,7 @@ const AddCourse = () => {
             />
             <button
               type="button"
-              className="AddCourseAddTagButton bg-green-500"
+              className="AddCourseAddTagButton bg-[#0e3252] hover:bg-[#05243f]"
               onClick={() => setShowAddTagModal(true)}
             >
               Add
@@ -420,7 +424,7 @@ const AddCourse = () => {
                   <button
                     type="button"
                     data-testid="RemoveButton"
-                    className="AddCourseRemoveUrlButton bg-red-500"
+                    className="AddCourseRemoveUrlButton bg-[#b31010ca] hover:bg-[#b31010e2]"
                     onClick={() => handleRemoveResourceUrl(index)}
                   >
                     Remove
@@ -431,7 +435,7 @@ const AddCourse = () => {
             <button
               type="button"
               data-testid="Add Resource Url"
-              className="AddCourseAddUrlButton bg-green-500"
+              className="AddCourseAddUrlButton bg-[#0e3252] hover:bg-[#05243f]"
               onClick={handleAddResourceUrl}
             >
               Add
@@ -455,7 +459,7 @@ const AddCourse = () => {
                   <button
                     type="button"
                     data-testid="RemoveTestButton"
-                    className="AddCourseRemoveUrlButton bg-red-500"
+                    className="AddCourseRemoveUrlButton bg-[#b31010ca] hover:bg-[#b31010e2]"
                     onClick={() => handleRemoveTestUrl(index)}
                   >
                     Remove
@@ -466,7 +470,7 @@ const AddCourse = () => {
             <button
               type="button"
               data-testid="Add Test Url"
-              className="AddCourseAddUrlButton bg-green-500"
+              className="AddCourseAddUrlButton bg-[#0e3252] hover:bg-[#05243f]"
               onClick={handleAddTestUrl}
             >
               Add
@@ -492,7 +496,7 @@ const AddCourse = () => {
           <div className="flex justify-center">
             <button
               data-testid="submitButton"
-              className="AddCourseSubmitButton bg-blue-500"
+              className="AddCourseSubmitButton bg-[#0e3252] hover:bg-[#05243f]"
               type="submit"
             >
               Add Course

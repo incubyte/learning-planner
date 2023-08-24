@@ -3,15 +3,15 @@
 }
 
 .tagHeading {
-  @apply text-center pt-10 text-3xl font-bold;
+  @apply text-center pt-10 text-3xl font-bold tracking-[.08px];
 }
 
 .tagTable {
-  @apply w-full table text-center text-base bg-white rounded-b-lg rounded-lg justify-center align-middle p-5;
+  @apply w-full table text-center text-base bg-white rounded-b-lg rounded-lg justify-center align-middle p-5 tracking-[.08px];
 }
 
 .tagTableHead {
-  @apply text-gray-700 bg-gray-200;
+  @apply text-gray-700 bg-gray-200 tracking-[.08px];
 }
 
 .tagTableHeadCols {
@@ -19,7 +19,7 @@
 }
 
 .tagTableRows {
-  @apply border border-gray-100 p-5 justify-start text-base;
+  @apply border border-gray-100 p-5 justify-start text-base tracking-[.08px];
 }
 
 .tagTableUpdateCol {
@@ -38,10 +38,10 @@
   @apply flex items-start justify-between p-5 xsm:p-3 border-b border-solid border-slate-200 rounded-t;
 }
 .TagModalUploadButton {
-  @apply p-1 ml-auto border-0 text-black float-right text-3xl font-semibold outline-none;
+  @apply p-1 ml-auto border-0 text-black float-right text-3xl font-semibold outline-none tracking-[.08px];
 }
 .TagModelUploadFileLabel {
-  @apply block mb-2 text-sm font-medium text-gray-900 dark:text-white;
+  @apply block mb-2 text-sm font-medium text-gray-900 dark:text-white tracking-[.08px];
 }
 .TagModalUploadInput {
   @apply relative m-0 block w-auto xsm:w-72 min-w-0 flex-auto rounded border 
@@ -50,23 +50,23 @@
     file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit 
     file:bg-neutral-100 file:px-3 file:py-[0.32rem] file:text-neutral-700 file:transition 
     file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] 
-    hover:file:bg-neutral-200;
+    hover:file:bg-neutral-200 tracking-[.08px];
 }
 .TagModalFooter {
   @apply flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b;
 }
 .TagModalCloseButton {
-  @apply text-red-500 font-bold px-6 py-2 text-base outline-none mr-1 mb-1 transition-all duration-150;
+  @apply text-red-500 font-bold px-4 py-2 text-base outline-none mr-1 mb-1 transition-all duration-150 tracking-[.08px];
 }
 .TagModalSaveButton {
-  @apply text-white font-bold text-base px-6 py-3 rounded shadow hover:shadow-lg mr-1 mb-1 ease-linear transition-all duration-150;
+  @apply text-white font-bold text-base px-4 py-2 rounded shadow hover:shadow-lg mr-1 mb-1 ease-linear transition-all duration-150 tracking-[.08px];
 }
 .AddTagButton {
-  @apply container w-fit px-4 py-2 bg-emerald-500 hover:bg-emerald-400 active:bg-emerald-600 text-white font-bold rounded-md mx-10 mt-10 text-lg;
+  @apply container w-fit px-4 py-2 text-white font-bold rounded-md mx-10 mt-10 text-lg tracking-[.08px];
 }
 .UpdateTagButton {
-  @apply w-[100px] m-5 p-2 pl-1 pr-1 rounded-lg bg-emerald-500 hover:bg-emerald-400 active:bg-emerald-600 text-white font-bold;
+  @apply m-5 px-4 py-2 rounded-lg bg-[#0e3252] hover:bg-[#05243f] text-white font-bold tracking-[.08px];
 }
 .DeleteTagButton {
-  @apply bg-red-600 w-[100px] m-5 p-2 pl-1 pr-1 rounded-lg hover:bg-red-500 text-white font-bold;
+  @apply bg-[#b31010ca] hover:bg-[#b31010e2] m-5 px-4 py-2 rounded-lg text-white font-bold tracking-[.08px];
 }

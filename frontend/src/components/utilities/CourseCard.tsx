@@ -18,24 +18,18 @@ const CourseCard = ({ id, courseImage, courseName }: courseCardProps) => {
               className="object-fit object-center courseCardImage"
               data-testid="courseCardImage"
             />
-            <div className="courseCardCourseNameContainer">
-              <div
-                className="courseCardCourseName"
-                data-testid="courseCardName"
-              >
-                {courseName}
-              </div>
+          </div>
+          <div className="courseCardCourseNameContainer">
+            <div className="courseCardCourseName" data-testid="courseCardName">
+              {courseName}
             </div>
-            <div className="courseCardButtonContainer">
-              <Link to={"/course/" + id}>
-                <button
-                  className="buttonContainer"
-                  data-testid="courseCardButton"
-                >
-                  Explore
-                </button>
-              </Link>
-            </div>
+          </div>
+          <div className="courseCardButtonContainer">
+            <Link to={"/course/" + id}>
+              <button className="buttonCard" data-testid="courseCardButton">
+                Explore
+              </button>
+            </Link>
           </div>
         </div>
       </div>

@@ -150,7 +150,7 @@ const AddSingleUserForm = () => {
           <div className="flex justify-center">
             <button
               data-testid="submitButton"
-              className="AddUserSubmitButton bg-blue-500"
+              className="AddUserSubmitButton bg-[#0e3252] hover:bg-[#05243f]"
               type="submit"
             >
               Add User
