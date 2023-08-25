@@ -60,8 +60,6 @@ const Profile = () => {
       if (response && response.ok) {
         const responseUser = await response.json();
         setUser(responseUser);
-      } else {
-        navigator("/auth/signin");
       }
     } catch (error) {
       toast.error("An error occurred" + error, {
@@ -85,8 +83,6 @@ const Profile = () => {
         const responseCourse = await response.json();
         setActiveCourse(responseCourse.courses);
         setCompletedCourseCount(responseCourse.count);
-      } else {
-        navigator("/auth/signin");
       }
     } catch (error) {
       toast.error("An error occurred" + error, {
@@ -208,20 +204,24 @@ const Profile = () => {
               </>
             ) : (
               <>
-                <img
-                  data-testid="profileImage"
-                  className="ProfilePhoto"
-                  src={avatar ? URL.createObjectURL(blob) : user?.profilePhoto}
-                ></img>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  data-testid="profileImageButton"
-                  className="ProfileImageUpdateIcon"
-                  onClick={() => setShowModal(true)}
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M19,13a1,1,0,0,0-1,1v.38L16.52,12.9a2.79,2.79,0,0,0-3.93,0l-.7.7L9.41,11.12a2.85,2.85,0,0,0-3.93,0L4,12.6V7A1,1,0,0,1,5,6h7a1,1,0,0,0,0-2H5A3,3,0,0,0,2,7V19a3,3,0,0,0,3,3H17a3,3,0,0,0,3-3V14A1,1,0,0,0,19,13ZM5,20a1,1,0,0,1-1-1V15.43l2.9-2.9a.79.79,0,0,1,1.09,0l3.17,3.17,0,0L15.46,20Zm13-1a.89.89,0,0,1-.18.53L13.31,15l.7-.7a.77.77,0,0,1,1.1,0L18,17.21ZM22.71,4.29l-3-3a1,1,0,0,0-.33-.21,1,1,0,0,0-.76,0,1,1,0,0,0-.33.21l-3,3a1,1,0,0,0,1.42,1.42L18,4.41V10a1,1,0,0,0,2,0V4.41l1.29,1.3a1,1,0,0,0,1.42,0A1,1,0,0,0,22.71,4.29Z" />
-                </svg>
+                <div className="PhotoWithSvg">
+                  <img
+                    data-testid="profileImage"
+                    className="ProfilePhoto"
+                    src={
+                      avatar ? URL.createObjectURL(blob) : user?.profilePhoto
+                    }
+                  ></img>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    data-testid="profileImageButton"
+                    className="ProfileImageUpdateIcon"
+                    onClick={() => setShowModal(true)}
+                    viewBox="0 0 24 24"
+                  >
+                    <path d="M19,13a1,1,0,0,0-1,1v.38L16.52,12.9a2.79,2.79,0,0,0-3.93,0l-.7.7L9.41,11.12a2.85,2.85,0,0,0-3.93,0L4,12.6V7A1,1,0,0,1,5,6h7a1,1,0,0,0,0-2H5A3,3,0,0,0,2,7V19a3,3,0,0,0,3,3H17a3,3,0,0,0,3-3V14A1,1,0,0,0,19,13ZM5,20a1,1,0,0,1-1-1V15.43l2.9-2.9a.79.79,0,0,1,1.09,0l3.17,3.17,0,0L15.46,20Zm13-1a.89.89,0,0,1-.18.53L13.31,15l.7-.7a.77.77,0,0,1,1.1,0L18,17.21ZM22.71,4.29l-3-3a1,1,0,0,0-.33-.21,1,1,0,0,0-.76,0,1,1,0,0,0-.33.21l-3,3a1,1,0,0,0,1.42,1.42L18,4.41V10a1,1,0,0,0,2,0V4.41l1.29,1.3a1,1,0,0,0,1.42,0A1,1,0,0,0,22.71,4.29Z" />
+                  </svg>
+                </div>
               </>
             )}
           </div>
@@ -235,23 +235,24 @@ const Profile = () => {
                 {isLoading ? (
                   <>
                     <div className="block xsm:hidden sm:hidden md:block lg:block">
-                      <Skeleton height={40} width={176} />
+                      <Skeleton height={20} width={176} />
                     </div>
                     <div className="hidden lg:hidden md:hidden sm:block xsm:block">
-                      <Skeleton height={40} width={144} />
+                      <Skeleton height={20} width={144} />
                     </div>
                   </>
                 ) : (
                   <>
-                    <input
-                      disabled
+                    <div
                       data-testid="profileEmailInput"
-                      value={user?.email}
                       className="ProfileInput"
-                    ></input>
+                    >
+                      {user?.email}
+                    </div>
                   </>
                 )}
               </div>
+
               <div className="ProfileGridContent">
                 <label data-testid="profileEidLabel" className="ProfileLabel">
                   Employee Id
@@ -259,50 +260,49 @@ const Profile = () => {
                 {isLoading ? (
                   <>
                     <div className="block xsm:hidden sm:hidden md:block lg:block">
-                      <Skeleton height={40} width={176} />
+                      <Skeleton height={20} width={176} />
                     </div>
                     <div className="hidden lg:hidden md:hidden sm:block xsm:block">
-                      <Skeleton height={40} width={144} />
+                      <Skeleton height={20} width={144} />
                     </div>
                   </>
                 ) : (
                   <>
-                    <input
-                      disabled
-                      data-testid="profileEidInput"
-                      value={user?.eId}
-                      className="ProfileInput"
-                    ></input>
+                    <div data-testid="profileEidInput" className="ProfileInput">
+                      {user?.eId}
+                    </div>
                   </>
                 )}
               </div>
-              <div className="ProfileGridContent">
-                <label
-                  data-testid="profileClientTeamLabel"
-                  className="ProfileLabel"
-                >
-                  Client Team
-                </label>
-                {isLoading ? (
-                  <>
-                    <div className="block xsm:hidden sm:hidden md:block lg:block">
-                      <Skeleton height={40} width={176} />
-                    </div>
-                    <div className="hidden lg:hidden md:hidden sm:block xsm:block">
-                      <Skeleton height={40} width={144} />
-                    </div>
-                  </>
-                ) : (
-                  <>
-                    <input
-                      disabled
-                      data-testid="profileClientTeamInput"
-                      value={user?.clientTeam}
-                      className="ProfileInput"
-                    ></input>
-                  </>
-                )}
-              </div>
+              {user?.clientTeam && (
+                <div className="ProfileGridContent">
+                  <label
+                    data-testid="profileClientTeamLabel"
+                    className="ProfileLabel"
+                  >
+                    Client Team
+                  </label>
+                  {isLoading ? (
+                    <>
+                      <div className="block xsm:hidden sm:hidden md:block lg:block">
+                        <Skeleton height={20} width={176} />
+                      </div>
+                      <div className="hidden lg:hidden md:hidden sm:block xsm:block">
+                        <Skeleton height={20} width={144} />
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <div
+                        data-testid="profileClientTeamInput"
+                        className="ProfileInput"
+                      >
+                        {user?.clientTeam}
+                      </div>
+                    </>
+                  )}
+                </div>
+              )}
               <div className="ProfileGridContent">
                 <label data-testid="profileRoleLabel" className="ProfileLabel">
                   Role
@@ -310,20 +310,20 @@ const Profile = () => {
                 {isLoading ? (
                   <>
                     <div className="block xsm:hidden sm:hidden md:block lg:block">
-                      <Skeleton height={40} width={176} />
+                      <Skeleton height={20} width={176} />
                     </div>
                     <div className="hidden lg:hidden md:hidden sm:block xsm:block">
-                      <Skeleton height={40} width={144} />
+                      <Skeleton height={20} width={144} />
                     </div>
                   </>
                 ) : (
                   <>
-                    <input
-                      disabled
+                    <div
                       data-testid="profileRoleInput"
-                      value={user?.role}
                       className="ProfileInput"
-                    ></input>
+                    >
+                      {user?.role}
+                    </div>
                   </>
                 )}
               </div>
@@ -337,24 +337,24 @@ const Profile = () => {
                 {isLoading ? (
                   <>
                     <div className="block xsm:hidden sm:hidden md:block lg:block">
-                      <Skeleton height={40} width={176} />
+                      <Skeleton height={20} width={176} />
                     </div>
                     <div className="hidden lg:hidden md:hidden sm:block xsm:block">
-                      <Skeleton height={40} width={144} />
+                      <Skeleton height={20} width={144} />
                     </div>
                   </>
                 ) : (
                   <>
-                    <input
-                      disabled
+                    <div
                       data-testid="profileCreditInput"
-                      value={completedCourseCount * 10}
                       className="ProfileInput"
-                    ></input>
+                    >
+                      {completedCourseCount * 10}
+                    </div>
                   </>
                 )}
               </div>
-              <div className="ProfileGridContent mb-5">
+              <div className="ProfileGridContent">
                 <label
                   data-testid="profileTotalCourseLabel"
                   className="ProfileLabel"
@@ -364,20 +364,20 @@ const Profile = () => {
                 {isLoading ? (
                   <>
                     <div className="block xsm:hidden sm:hidden md:block lg:block">
-                      <Skeleton height={40} width={176} />
+                      <Skeleton height={20} width={176} />
                     </div>
                     <div className="hidden lg:hidden md:hidden sm:block xsm:block">
-                      <Skeleton height={40} width={144} />
+                      <Skeleton height={20} width={144} />
                     </div>
                   </>
                 ) : (
                   <>
-                    <input
-                      disabled
+                    <div
                       data-testid="profileTotalCourseInput"
-                      value={activeCourse.length}
                       className="ProfileInput"
-                    ></input>
+                    >
+                      {activeCourse.length}
+                    </div>
                   </>
                 )}
               </div>

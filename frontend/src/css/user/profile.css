@@ -27,42 +27,45 @@
   @apply flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b;
 }
 .ProfileModalCloseButton {
-  @apply text-[#141414] font-bold uppercase px-6 py-2 text-sm outline-none mr-1 mb-1 transition-all duration-150 tracking-[.08px];
+  @apply text-[#141414] font-bold uppercase px-5 py-2 text-sm outline-none mr-1 mb-1 transition-all duration-150 tracking-[.08px];
 }
 .ProfileModalSaveButton {
-  @apply text-white font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg mr-1 mb-1 ease-linear transition-all duration-150 tracking-[.08px] bg-[#0e3252] hover:bg-[#05243f];
+  @apply text-white font-bold uppercase text-sm px-5 py-2 rounded shadow hover:shadow-lg mr-1 mb-1 ease-linear transition-all duration-150 tracking-[.08px] bg-[#0e3252] hover:bg-[#05243f];
 }
 
 .ProfileHeader {
   @apply text-3xl font-bold py-8 grid grid-cols-1 justify-items-center content-center tracking-[.08px];
 }
 .ProfileDiv {
-  @apply grid justify-items-center content-center;
+  @apply grid justify-items-center content-center lg:px-20 mdl:px-20 md:px-10;
 }
 .ProfilePhotoDiv {
-  @apply grid grid-cols-1 justify-items-center content-center relative;
+  @apply grid grid-cols-1 justify-items-center content-center min-w-fit;
+}
+.PhotoWithSvg{
+  @apply relative
 }
 .ProfilePhoto {
   @apply rounded-full lg:h-60 lg:w-60 sm:h-48 sm:w-48 xsm:w-40 xsm:h-40 md:h-52 md:w-52 object-cover;
 }
 .ProfileImageUpdateIcon {
-  @apply h-7 w-7 absolute lg:bottom-24 md:bottom-24 bottom-3 lg:right-3 right-4 bg-white rounded-md hover:cursor-pointer hover:h-8 hover:w-8;
+  @apply h-7 w-7 absolute lg:bottom-6 md:bottom-6 bottom-3 lg:right-3 right-4 bg-white rounded-md hover:cursor-pointer hover:h-8 hover:w-8;
 }
 .ProfileContainer {
-  @apply container lg:w-8/12 mdl:w-9/12 md:w-10/12 max-w-full grid lg:grid-cols-2 md:grid-cols-2 smd:grid-cols-1 grid-cols-1 justify-items-center content-center;
+  @apply w-full flex flex-col lg:flex-row md:flex-row mdl:flex-row relative justify-evenly;
 }
 .ProfileContentContainer {
-  @apply grid grid-cols-1 p-4 md:pl-0 md:pr-0;
+  @apply self-center w-fit flex items-center justify-center bg-[#f3f4f6] rounded-lg shadow-table min-w-fit mt-10 lg:mt-0 md:mt-0;
 }
 .ProfileContentGridContainer {
-  @apply grid grid-cols-1 justify-items-center content-center gap-3;
+  @apply grid grid-cols-1 gap-3 lg:px-7 md:px-7 sm:px-5 px-2  py-4 min-w-fit;
 }
 .ProfileInput {
-  @apply text-center w-36 lg:w-44 mdl:w-44 md:w-40 smd:w-36 sm:w-40 bg-gray-100 border border-gray-300 text-gray-900 text-sm lg:text-base md:text-base smd:text-sm rounded-lg block lg:max-w-fit p-2 cursor-not-allowed tracking-[.08px];
+  @apply text-left text-gray-900 text-sm lg:text-base md:text-base smd:text-sm block cursor-default tracking-[.08px];
 }
 .ProfileLabel {
-  @apply grid justify-items-center content-center text-gray-700 text-sm lg:text-base md:text-base font-bold tracking-[.08px];
+  @apply text-left text-gray-700 text-sm lg:text-base md:text-base font-bold tracking-[.08px];
 }
 .ProfileGridContent {
-  @apply grid grid-cols-2 justify-items-center content-center;
+  @apply grid grid-cols-2 p-1 gap-2;
 }

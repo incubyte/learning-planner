@@ -1,9 +1,9 @@
 .carouselTitleName {
-  @apply text-center py-8 text-3xl font-bold tracking-[.08px];
+  @apply text-center py-3 lg:py-8 md:py-8 text-3xl font-bold tracking-[.08px];
 }
 
 .buttons {
-  @apply absolute right-0 top-5;
+  @apply lg:absolute md:absolute lg:right-0 lg:top-5 md:right-0 md:top-5 items-center;
 }
 
 .button {

@@ -1,5 +1,5 @@
 .NavbarContainer {
-  @apply bg-white;
+  @apply bg-white shadow-md mb-4;
 }
 
 .NavbarInnerContainer {

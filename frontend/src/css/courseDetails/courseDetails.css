@@ -23,7 +23,7 @@
   @apply container w-10/12 xsm:max-w-full bg-slate-300 rounded-lg mb-4;
 }
 .courseButtons {
-  @apply text-white font-bold text-base px-6 py-3 rounded shadow hover:shadow-lg mr-1 mb-1 ease-linear transition-all duration-150 bg-[#0e3252] hover:bg-[#05243f] tracking-[.08px];
+  @apply text-white font-bold text-base px-5 py-2 rounded shadow hover:shadow-lg mr-1 mb-1 ease-linear transition-all duration-150 bg-[#0e3252] hover:bg-[#05243f] tracking-[.08px];
 }
 .resourceContainer {
   @apply flex flex-col items-center gap-7 content-center;
