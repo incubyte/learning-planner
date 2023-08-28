@@ -22,7 +22,8 @@ module.exports = {
         smd: "530px",
         md: "640px",
         mdl: "900px",
-        lg: "1024px",
+        lg: "1154px",
+        mlg: "1180px",
         xl: "1280px",
       },
       keyframes: {

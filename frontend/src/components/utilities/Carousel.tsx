@@ -50,7 +50,7 @@ const Carousel = ({
               <div
                 className={
                   courses.length >= 4
-                    ? "buttons"
+                    ? "buttons mlg:hidden block"
                     : courses.length >= 3
                     ? "block buttons lg:hidden"
                     : "block buttons lg:hidden md:hidden"
@@ -75,8 +75,10 @@ const Carousel = ({
                 ref={contentRef}
                 id={contentId}
                 className={
-                  courses.length > 4
-                    ? "carouselListContent justify-start"
+                  courses.length >= 5
+                    ? "carouselListContent mlg:justify-start justify-start"
+                    : courses.length == 4
+                    ? "carouselListContent mlg:justify-center justify-start"
                     : courses.length <= 2
                     ? "carouselListContent justify-start md:justify-center lg:justify-center"
                     : "carouselListContent justify-start lg:justify-center"
