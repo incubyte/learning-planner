@@ -5,7 +5,7 @@
   @apply text-center text-3xl mb-5 font-bold tracking-[.08px];
 }
 .filterTagsList {
-  @apply flex flex-row flex-wrap justify-center gap-x-3 gap-y-2 w-full;
+  @apply flex flex-row flex-wrap justify-center gap-x-3 gap-y-2 w-full px-5;
 }
 .filterTagsSelected {
   @apply lowercase rounded-full inline-block text-[#fff] bg-[#343a40] px-[0.3em] py-[0.2em] w-[130px] text-center text-xs md:text-sm font-semibold leading-none my-1 md:my-0 md:mr-2 md:mt-2 tracking-[.08px] border-2 border-collapse border-[#343a40];
