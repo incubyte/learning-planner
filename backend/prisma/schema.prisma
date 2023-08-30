@@ -68,6 +68,7 @@ model UserCourse {
   courseId    String
   course      Course  @relation(fields: [courseId], references: [id], onDelete: Cascade)
   isCompleted Boolean
+  Assignee    String @default("self")
 }
 
 enum userRoles {
