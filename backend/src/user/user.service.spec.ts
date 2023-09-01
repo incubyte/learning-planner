@@ -74,6 +74,8 @@ describe('UserService', () => {
       const mockResponse = {
         email: userDTO.email,
         password: userDTO.password,
+        firstName:"ABC",
+        lastName:"XYZ",
         id: '1',
         createdAt: Date.prototype,
         profilePhoto: 'https://profilephoto.com',
@@ -143,18 +145,21 @@ describe('UserService', () => {
           userId: '0cecbf92-d381-40b7-b8f8-49ccae3f8263',
           courseId: '57baa1dd-5bed-4ef6-af67-e588962e3a55',
           isCompleted: true,
+          Assignee : 'self'
         },
         {
           id: 2,
           userId: '0cecbf92-d381-40b7-b8f8-49ccae3f8263',
           courseId: '7be805c9-906e-485f-86a5-0fc11cfe0e2d',
           isCompleted: true,
+          Assignee : 'self'
         },
         {
           id: 3,
           userId: '0cecbf92-d381-40b7-b8f8-49ccae3f8263',
           courseId: '1d47941f-d10f-411d-821c-32c3f27ec060',
           isCompleted: true,
+          Assignee : 'self'
         },
       ];
       const mockCourse = [prismaCourse1, prismaCourse2, prismaCourse3];
@@ -224,12 +229,14 @@ describe('UserService', () => {
           userId: '0cecbf92-d381-40b7-b8f8-49ccae3f8263',
           courseId: '57baa1dd-5bed-4ef6-af67-e588962e3a55',
           isCompleted: true,
+          Assignee : 'self'
         },
         {
           id: 2,
           userId: '0cecbf92-d381-40b7-b8f8-49ccae3f8263',
           courseId: '7be805c9-906e-485f-86a5-0fc11cfe0e2d',
           isCompleted: true,
+          Assignee : 'self'
         },
       ];
       const mockCourse = [prismaCourse1, prismaCourse2];
@@ -279,6 +286,8 @@ describe('UserService', () => {
         password: userDTO.password,
         id: '1',
         createdAt: Date.prototype,
+        firstName:"ABC",
+        lastName:"XYZ",
         profilePhoto: 'https://profilephoto.com',
         updatedAt: Date.prototype,
         eId: 'E0001',
@@ -311,6 +320,8 @@ describe('UserService', () => {
             createdAt: Date.prototype,
             updatedAt: Date.prototype,
             roles: Role.Employee,
+            firstName:"ABC",
+            lastName:"XYZ",
           },
           CompletedCourseCount: 4,
         },
@@ -329,6 +340,8 @@ describe('UserService', () => {
             createdAt: Date.prototype,
             updatedAt: Date.prototype,
             roles: Role.Employee,
+            firstName:"ABC",
+            lastName:"XYZ",
           },
           CompletedCourseCount: 2,
         },
@@ -348,6 +361,8 @@ describe('UserService', () => {
         createdAt: Date.prototype,
         updatedAt: Date.prototype,
         roles: Role.Employee,
+        firstName:"ABC",
+        lastName:"XYZ",
       };
 
       const mockUser2 = {
@@ -363,6 +378,8 @@ describe('UserService', () => {
         createdAt: Date.prototype,
         updatedAt: Date.prototype,
         roles: Role.Employee,
+        firstName:"ABC",
+        lastName:"XYZ",
       };
       const mockUsers = [mockUser2, mockUser1];
       const mockUserCourse1 = {
@@ -422,6 +439,7 @@ describe('UserService', () => {
         userId: '1',
         courseId: 'course1',
         isCompleted: false,
+        Assignee : 'self'
       };
 
       jest
@@ -450,6 +468,7 @@ describe('UserService', () => {
         userId: '1',
         courseId: 'course1',
         isCompleted: false,
+        Assignee : 'self'
       };
       jest
         .spyOn(prismaService.userCourse, 'findFirst')
@@ -467,6 +486,7 @@ describe('UserService', () => {
         userId: '1',
         courseId: 'course1',
         isCompleted: false,
+        Assignee : 'self'
       };
       expect(service.isUserEnrolledInCourse(userCourse)).toBe(true);
     });
@@ -482,12 +502,14 @@ describe('UserService', () => {
         userId: '1',
         courseId: 'course1',
         isCompleted: false,
+        Assignee : 'self'
       };
       const updatedMockUser: UserCourse = {
         id: 1,
         userId: '1',
         courseId: 'course1',
         isCompleted: true,
+        Assignee : 'self'
       };
       jest
         .spyOn(prismaService.userCourse, 'findFirst')
@@ -536,6 +558,7 @@ describe('UserService', () => {
         userId: '1',
         courseId: 'course1',
         isCompleted: true,
+        Assignee : 'self'
       };
       jest
         .spyOn(prismaService.userCourse, 'findFirst')
@@ -601,6 +624,7 @@ describe('UserService', () => {
         userId: '1',
         courseId: 'course1',
         isCompleted: false,
+        Assignee : 'self'
       };
       jest
         .spyOn(prismaService.userCourse, 'findFirst')
@@ -636,6 +660,7 @@ describe('UserService', () => {
         userId: '1',
         courseId: 'course1',
         isCompleted: true,
+        Assignee : 'self'
       };
       jest
         .spyOn(prismaService.userCourse, 'findFirst')
@@ -697,6 +722,8 @@ describe('UserService', () => {
         role: 'BQAE',
         clientTeam: 'abcd',
         roles: Role.Employee,
+        firstName:"ABC",
+        lastName:"XYZ",
       };
       jest
         .spyOn(prismaService.user, 'findFirst')
@@ -723,6 +750,8 @@ describe('UserService', () => {
         role: 'BQAE',
         clientTeam: 'abcd',
         roles: Role.Employee,
+        firstName:"ABC",
+        lastName:"XYZ",
       };
       jest
         .spyOn(prismaService.user, 'findFirst')
@@ -751,6 +780,8 @@ describe('UserService', () => {
           role: 'BQA',
           clientTeam: 'abc',
           roles: Role.Employee,
+          firstName:"ABC",
+          lastName:"XYZ",
         },
       ];
 

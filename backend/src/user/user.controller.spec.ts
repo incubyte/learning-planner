@@ -60,6 +60,8 @@ describe('UserController', () => {
         clientTeam: 'abc',
         projectTeam: 'abc',
         roles: Role.Employee,
+        firstName:"ABC",
+        lastName:"XYZ",
       };
 
       jest.spyOn(service, 'getUserById').mockResolvedValue(mockResponse);
@@ -81,6 +83,8 @@ describe('UserController', () => {
         clientTeam: 'abc',
         projectTeam: 'abc',
         roles: Role.Employee,
+        firstName:"ABC",
+        lastName:"XYZ",
       };
 
       jest.spyOn(service, 'getUserById').mockResolvedValue(mockResponse);
@@ -165,6 +169,8 @@ describe('UserController', () => {
         role: 'BQAE',
         clientTeam: 'abcd',
         roles: Role.Employee,
+        firstName:"ABC",
+        lastName:"XYZ",
       };
 
       jest.spyOn(service, 'updateProfile').mockResolvedValue(mockResponse);
@@ -195,6 +201,8 @@ describe('UserController', () => {
             createdAt: Date.prototype,
             updatedAt: Date.prototype,
             roles: Role.Employee,
+            firstName:"ABC",
+            lastName:"XYZ",
           },
           CompletedCourseCount: 4,
         },
@@ -213,6 +221,8 @@ describe('UserController', () => {
             createdAt: Date.prototype,
             updatedAt: Date.prototype,
             roles: Role.Employee,
+            firstName:"ABC",
+            lastName:"XYZ",
           },
           CompletedCourseCount: 2,
         },
@@ -239,6 +249,7 @@ describe('UserController', () => {
         userId: '1',
         courseId: 'course1',
         isCompleted: false,
+        Assignee:'self'
       };
 
       jest.spyOn(service, 'enrollCourse').mockResolvedValue(mockResponse);
@@ -261,6 +272,7 @@ describe('UserController', () => {
         userId: '1',
         courseId: 'course1',
         isCompleted: true,
+        Assignee:'self'
       };
       jest.spyOn(service, 'completeCourse').mockResolvedValue(mockResponse);
       const result = await controller.completeCourse(userDecorator, courseBody);
@@ -330,6 +342,8 @@ describe('UserController', () => {
         clientTeam: 'abcd',
         projectTeam: 'abc',
         roles: Role.Employee,
+        firstName:"ABC",
+        lastName:"XYZ",
       };
 
       jest.spyOn(service, 'updateUser').mockResolvedValueOnce(mockResponse);
@@ -351,6 +365,8 @@ describe('UserController', () => {
         role: 'BQAE',
         clientTeam: 'abcd',
         roles: Role.Employee,
+        firstName:"ABC",
+        lastName:"XYZ",
       };
       jest.spyOn(service, 'deleteUser').mockResolvedValueOnce(mockResponse);
       const result = await controller.deleteUser('1');
@@ -373,6 +389,8 @@ describe('UserController', () => {
           clientTeam: 'abc',
           projectTeam: 'abc',
           roles: Role.Employee,
+          firstName:"ABC",
+          lastName:"XYZ",
         },
       ];
 
