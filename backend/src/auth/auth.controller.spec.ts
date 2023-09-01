@@ -48,6 +48,8 @@ describe('AuthController', () => {
       clientTeam: 'abc',
       roles: Role.Employee,
       projectTeam: 'abc',
+      firstName:"ABC",
+      lastName:"XYZ",
     });
     const result = await controller.signup(user);
     expect(service.signup).toBeCalledTimes(1);

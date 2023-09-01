@@ -99,6 +99,8 @@ describe('AuthService', () => {
         role: 'BQA',
         clientTeam: 'abc',
         roles: Role.Employee,
+        firstName:"ABC",
+        lastName:"XYZ",
       });
       const result = await service.signup(userDTO);
       expect(prismaService.user.create).toBeCalledTimes(1);
@@ -136,6 +138,8 @@ describe('AuthService', () => {
         clientTeam: 'abc',
         roles: Role.Employee,
         projectTeam: 'abc',
+        firstName:"ABC",
+        lastName:"XYZ",
       };
 
       jest
@@ -167,6 +171,8 @@ describe('AuthService', () => {
         role: 'BQA',
         clientTeam: 'abc',
         roles: Role.Employee,
+        firstName:"ABC",
+        lastName:"XYZ",
       });
 
       jest
@@ -196,6 +202,8 @@ describe('AuthService', () => {
         role: 'BQA',
         clientTeam: 'abc',
         roles: Role.Employee,
+        firstName:"ABC",
+        lastName:"XYZ",
       });
 
       jest
@@ -231,6 +239,8 @@ describe('AuthService', () => {
         clientTeam: 'abc',
         roles: Role.Employee,
         projectTeam: 'abc',
+        firstName:"ABC",
+        lastName:"XYZ",
       });
 
       const mockResponse = {
@@ -263,6 +273,8 @@ describe('AuthService', () => {
         role: 'BQA',
         clientTeam: 'abc',
         roles: Role.Employee,
+        firstName:"ABC",
+        lastName:"XYZ",
       });
 
       const mockResponse = {
@@ -304,6 +316,8 @@ describe('AuthService', () => {
         role: 'BQA',
         clientTeam: 'abc',
         roles: Role.Employee,
+        firstName:"ABC",
+        lastName:"XYZ",
       };
 
       jest.spyOn(prismaService.user, 'update').mockResolvedValueOnce(mockUser);
